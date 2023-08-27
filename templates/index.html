@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+	<meta content="hiro" name="author"/>
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Top50 - Japan</title>
+    <script>
+        let tracks = {{ tracks|tojson }};
+        let index = 0;
+        let audio = new Audio(tracks[index].url);
+
+        function togglePlay() {
+            if (audio.paused) {
+                play();
+            } else {
+                pause();
+            }
+        }
+
+		function play() {
+			let artworkUrl = tracks[index].image_url;
+			if (!artworkUrl) {
+				artworkUrl = "{{ url_for('static', filename='noimage.jpg') }}"; // アートワークがない場合のデフォルト画像
+			}
+			document.getElementById('playing-artwork').src = artworkUrl; // アートワークの更新
+			document.getElementById('playing').innerHTML = "#" + (index + 1) + ": " + tracks[index].name + "<br>" + tracks[index].artist;
+			audio.play();
+			audio.onended = playNext;
+		}
+
+        function pause() {
+            audio.pause();
+        }
+
+        function playNext() {
+            index = (index + 1) % tracks.length;
+			if (tracks[index].url) {
+				audio.src = tracks[index].url;
+				play();
+			} else {
+				playNext(); // URLがNoneの場合、次の曲にスキップ
+    		}
+        }
+
+        function previous() {
+            index = (index - 1 + tracks.length) % tracks.length;
+			if (tracks[index].url) {
+				audio.src = tracks[index].url;
+				play();
+			} else {
+				previous(); // URLがNoneの場合、前の曲にスキップ
+						}
+        }
+    </script>
+</head>
+<body>
+    <h1>SNSで今一番話題の曲 (毎日更新)</h1>
+<div id="controls">
+    <div id="playing-container">
+		<img id="playing-artwork" src="{{ url_for('static', filename='noimage.jpg') }}" alt="再生中のアートワーク">
+        <div id="playing"></div>
+    </div>
+    <div id="buttons">
+        <button onclick="previous()">&#10073;&#9664;</button>
+        <button onclick="togglePlay()">&#9654;&#10074;&#10074;</button>
+        <button onclick="playNext()">&#9654;&#10073;</button>
+    </div>
+</div>
+    <ol>
+        {% for track in tracks %}
+        <li>
+            {% if track.url %}
+            {{ track.name }} - {{ track.artist }}
+            {% else %}
+            {{ track.name }} - {{ track.artist }} ❌
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ol>
+	<footer>
+		<p>© 2023 Viral 50 - Japan. Developed by hiro.Connect with me on <a href="https://twitter.com/jmusic_hiro" target="_blank">X</a></p>
+		<p>Content provided by <a href="https://www.spotify.com" target="_blank">Spotify</a></p>
+	</footer>
+</body>
+</html>
