@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
 	<meta content="hiro" name="author"/>
 	<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <title>Top50 - Japan</title>
+    <title>Viral 50 - USA</title>
     <script>
         let tracks = {{ tracks|tojson }};
         let index = 0;
@@ -56,10 +56,10 @@
     </script>
 </head>
 <body>
-    <h1>SNSで今一番話題の曲 (毎日更新)</h1>
+    <h1>Your daily update of the most viral tracks right now - USA.</h1>
 <div id="controls">
     <div id="playing-container">
-		<img id="playing-artwork" src="{{ url_for('static', filename='noimage.jpg') }}" alt="再生中のアートワーク">
+		<img id="playing-artwork" src="{{ url_for('static', filename='noimage.jpg') }}" alt="Artwork">
         <div id="playing"></div>
     </div>
     <div id="buttons">
