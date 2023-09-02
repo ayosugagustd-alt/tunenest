@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
 	<meta content="hiro" name="author"/>
 	<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <title>Viral 50 - USA</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>{{ playlist_name }}</title>
     <script>
         let tracks = {{ tracks|tojson }};
         let index = 0;
@@ -19,16 +20,23 @@
             }
         }
 
-		function play() {
-			let artworkUrl = tracks[index].image_url;
-			if (!artworkUrl) {
-				artworkUrl = "{{ url_for('static', filename='noimage.jpg') }}"; // アートワークがない場合のデフォルト画像
-			}
-			document.getElementById('playing-artwork').src = artworkUrl; // アートワークの更新
-			document.getElementById('playing').innerHTML = "#" + (index + 1) + ": " + tracks[index].name + "<br>" + tracks[index].artist;
-			audio.play();
-			audio.onended = playNext;
-		}
+function play() {
+	let artworkUrl = tracks[index].image_url;
+	if (!artworkUrl) {
+		artworkUrl = "{{ url_for('static', filename='noimage.jpg') }}"; // アートワークがない場合のデフォルト画像
+	}
+	document.getElementById('playing-artwork').src = artworkUrl; // アートワークの更新
+	let playingInfo = "#" + (index + 1) + ": " + tracks[index].name + "<br>" + tracks[index].artist;
+	
+	// YouTubeアイコンの追加
+	playingInfo += ' <a href="/youtube?track=' + encodeURIComponent(tracks[index].name) + '&artist=' + encodeURIComponent(tracks[index].artist) + '">';
+	playingInfo += '<i class="fab fa-youtube"></i></a>';
+
+	document.getElementById('playing').innerHTML = playingInfo;
+	audio.play();
+	audio.onended = playNext;
+}
+
 
         function pause() {
             audio.pause();
@@ -53,13 +61,24 @@
 				previous(); // URLがNoneの場合、前の曲にスキップ
 						}
         }
+
+		function playSpecificTrack(trackIndex) {
+			index = trackIndex;
+			if (tracks[index].url) {
+				audio.src = tracks[index].url;
+				play();
+			} else {
+				playNext(); // URLがNoneの場合、次の曲にスキップ
+			}
+		}
+
     </script>
 </head>
 <body>
-    <h1>Your daily update of the most viral tracks right now - USA.</h1>
+	<h1>{{ playlist_name }}</h1>
 <div id="controls">
     <div id="playing-container">
-		<img id="playing-artwork" src="{{ url_for('static', filename='noimage.jpg') }}" alt="Artwork">
+		<img id="playing-artwork" src="{{ url_for('static', filename='noimage.jpg') }}" alt="再生中のアートワーク">
         <div id="playing"></div>
     </div>
     <div id="buttons">
@@ -68,20 +87,25 @@
         <button onclick="playNext()">&#9654;&#10073;</button>
     </div>
 </div>
-    <ol>
-        {% for track in tracks %}
-        <li>
-            {% if track.url %}
+<ol>
+    {% for track in tracks %}
+    <li>
+        {% if track.url %}
+        <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
             {{ track.name }} - {{ track.artist }}
-            {% else %}
-            {{ track.name }} - {{ track.artist }} ❌
-            {% endif %}
-        </li>
-        {% endfor %}
-    </ol>
+        </a>
+        <!-- 追加部分: YouTubeアイコン -->
+        <a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}">
+            <i class="fab fa-youtube"></i>
+        </a>
+        {% else %}
+        {{ track.name }} - {{ track.artist }} ❌
+        {% endif %}
+    </li>
+    {% endfor %}
+</ol>
 	<footer>
-		<p>© 2023 Viral 50 - USA. Developed by hiro.Connect with me on <a href="https://twitter.com/jmusic_hiro" target="_blank">X</a></p>
-		<p>Content provided by <a href="https://www.spotify.com" target="_blank">Spotify</a></p>
+		<p>&copy;2023 Developed by hiro <a href="https://twitter.com/jmusic_hiro" target="_blank"><i class="fab fa-twitter"></i></a>Content provided by <a href="https://www.spotify.com" target="_blank">Spotify</a></p>
 	</footer>
 </body>
 </html>
