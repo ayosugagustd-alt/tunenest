@@ -41,15 +41,18 @@ def index():
 
 # YouTube動画を検索する関数
 def youtube_search(q, max_results=1, youtube_api_key=None):
-    youtube = build('youtube', 'v3', developerKey=youtube_api_key)
-    search_response = youtube.search().list(
-        q=q,
-        type='video',
-        part='id,snippet',
-        maxResults=max_results
-    ).execute()
-    videos = [search_result['id']['videoId'] for search_result in search_response.get('items', [])]
-    return videos[0] if videos else None
+    try:
+        youtube = build('youtube', 'v3', developerKey=youtube_api_key)
+        search_response = youtube.search().list(
+            q=q,
+            type='video',
+            part='id,snippet',
+            maxResults=max_results
+        ).execute()
+        videos = [search_result['id']['videoId'] for search_result in search_response.get('items', [])]
+        return videos[0] if videos else None
+    except HttpError as e:
+        print("An HTTP error occurred:", e)
 
 # YouTube検索のルート
 @app.route('/youtube')
