@@ -29,7 +29,7 @@
 			let playingInfo = "#" + (index + 1) + ": " + tracks[index].name + "<br>" + tracks[index].artist;
 
 			playingInfo += '<br><a href="/youtube?track=' + encodeURIComponent(tracks[index].name) + '&artist=' + encodeURIComponent(tracks[index].artist) + '" style="margin-top: 10px; display: inline-block;">';
-			playingInfo += '<i class="fab fa-youtube"></i><span style="font-size: smaller;"> Play on YouTube</span></a>';
+			playingInfo += '<i class="fab fa-youtube"></i><span style="font-size: 22px;"> Play on YouTube</span></a>';
 
 			document.getElementById('playing').innerHTML = playingInfo;
 			audio.play();
