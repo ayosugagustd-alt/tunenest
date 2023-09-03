@@ -20,23 +20,21 @@
             }
         }
 
-function play() {
-	let artworkUrl = tracks[index].image_url;
-	if (!artworkUrl) {
-		artworkUrl = "{{ url_for('static', filename='noimage.jpg') }}"; // アートワークがない場合のデフォルト画像
-	}
-	document.getElementById('playing-artwork').src = artworkUrl; // アートワークの更新
-	let playingInfo = "#" + (index + 1) + ": " + tracks[index].name + "<br>" + tracks[index].artist;
-	
-	// YouTubeアイコンの追加
-	playingInfo += ' <a href="/youtube?track=' + encodeURIComponent(tracks[index].name) + '&artist=' + encodeURIComponent(tracks[index].artist) + '">';
-	playingInfo += '<i class="fab fa-youtube"></i></a>';
+		function play() {
+			let artworkUrl = tracks[index].image_url;
+			if (!artworkUrl) {
+				artworkUrl = "{{ url_for('static', filename='noimage.jpg') }}"; // アートワークがない場合のデフォルト画像
+			}
+			document.getElementById('playing-artwork').src = artworkUrl; // アートワークの更新
+			let playingInfo = "#" + (index + 1) + ": " + tracks[index].name + "<br>" + tracks[index].artist;
 
-	document.getElementById('playing').innerHTML = playingInfo;
-	audio.play();
-	audio.onended = playNext;
-}
+			playingInfo += '<br><a href="/youtube?track=' + encodeURIComponent(tracks[index].name) + '&artist=' + encodeURIComponent(tracks[index].artist) + '" style="margin-top: 10px; display: inline-block;">';
+			playingInfo += '<i class="fab fa-youtube"></i><span style="font-size: smaller;"> Play on YouTube</span></a>';
 
+			document.getElementById('playing').innerHTML = playingInfo;
+			audio.play();
+			audio.onended = playNext;
+		}
 
         function pause() {
             audio.pause();
@@ -87,6 +85,7 @@ function play() {
         <button onclick="playNext()">&#9654;&#10073;</button>
     </div>
 </div>
+
 <ol>
     {% for track in tracks %}
     <li>
@@ -94,9 +93,8 @@ function play() {
         <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
             {{ track.name }} - {{ track.artist }}
         </a>
-        <!-- 追加部分: YouTubeアイコン -->
-        <a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}">
-            <i class="fab fa-youtube"></i>
+        <a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" style="margin-left: 10px;">
+            <i class="fab fa-youtube"></i><span style="font-size: smaller;"> YouTube</span>
         </a>
         {% else %}
         {{ track.name }} - {{ track.artist }} ❌
