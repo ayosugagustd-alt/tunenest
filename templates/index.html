@@ -97,7 +97,10 @@
             <i class="fab fa-youtube"></i><span style="font-size: smaller;"> YouTube</span>
         </a>
         {% else %}
-        {{ track.name }} - {{ track.artist }} ❌
+        {{ track.name }} - {{ track.artist }} (No Preview)
+        <a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" style="margin-left: 10px;">
+            <i class="fab fa-youtube"></i><span style="font-size: smaller;"> YouTube</span>
+        </a>
         {% endif %}
     </li>
     {% endfor %}
