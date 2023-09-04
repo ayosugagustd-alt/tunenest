@@ -5,7 +5,7 @@ body {
 
 h1 {
     margin-bottom: 40px;
-    font-size: 40px;
+    font-size: 60px;
     font-weight: bold;
 }
 
@@ -49,7 +49,7 @@ button:hover {
 
 #playing {
     flex-grow: 1;
-    font-size: 30px;
+    font-size: 40px;
     font-weight: bold;
 	margin-left: 14px;
 }
@@ -108,12 +108,15 @@ a:hover {
 }
 
 .custom-list-content {
-    font-size: 16px;
+    font-size: 20px;
 }
 
-/* パソコン用のスタイル */
 .play-on-youtube {
-    font-size: 22px;
+    font-size: 24px;
+}
+
+.youtube-icon-caption {
+    font-size: 14px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -123,19 +126,26 @@ a:hover {
     }
     .custom-list-number,
     .custom-list-content {
-        font-size: 14px;
+        font-size: 12px;
     }
     #playing {
         flex-grow: 1;
-        font-size: 14px;  /* サイズはお好みで調整してください */
+        font-size: 14px;
         margin-left: 10px;
     }
     .play-on-youtube {
-        font-size: 14px; /* またはお好みのサイズに */
+        font-size: 14px;
     }
 	button {
     	width: 60px;
     	height:60px;
     	font-size: 16px;
+	}
+    .youtube-icon-caption {
+        font-size: 10px;
+    }
+	h1 {
+    margin-bottom: 10px;
+    	font-size: 28px;
 	}
 }
