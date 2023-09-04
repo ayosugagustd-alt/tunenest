@@ -56,7 +56,7 @@ button:hover {
 
 footer p {
     margin: 10px 0;
-    font-size: 14px;
+    font-size: 16px;
     color: #555;
 }
 
@@ -69,7 +69,12 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
 
 .fab.fa-youtube {
     font-size: 20px;  /* アイコンのサイズを20pxに設定 */
-    color: #FF0000;  /* YouTubeの赤色 */
+    color: #FF0000;   /* YouTubeの赤色 */
+}
+
+.fab.fa-spotify {
+    font-size: 20px;  /* アイコンのサイズを20pxに設定 */
+	color: #1DB954;	  /* Spotifyの緑色 */
 }
 
 .video-container {
@@ -104,7 +109,7 @@ a:hover {
 
 .custom-list-number {
     margin-right: 10px;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .custom-list-content {
@@ -149,7 +154,7 @@ a:hover {
     	font-size: 16px;
 	}
     .youtube-icon-caption {
-        font-size: 8px;
+        font-size: 0px;
     }
 	h1 {
     margin-bottom: 10px;
