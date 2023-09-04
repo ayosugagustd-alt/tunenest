@@ -110,3 +110,14 @@ a:hover {
 .custom-list-content {
     font-size: 16px;
 }
+
+@media only screen and (max-width: 768px) {
+   img {
+        max-width: 100%;
+        height: auto;
+    }
+    .custom-list-number,
+    .custom-list-content {
+        font-size: 14px;
+    }
+}
