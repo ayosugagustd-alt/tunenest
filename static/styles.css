@@ -54,10 +54,6 @@ button:hover {
 	margin-left: 14px;
 }
 
-ol {
-    padding-left: 50px;
-}
-
 footer p {
     margin: 10px 0;
     font-size: 14px;
@@ -76,13 +72,21 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
     color: #FF0000;  /* YouTubeの赤色 */
 }
 
+/* 通常の画面サイズでのスタイル */
+ol {
+    list-style: outside decimal;
+    padding-left: 40px;  /* リスト番号とテキストの間隔を調整 */
+}
 ol li {
-    font-size: 14px; /* またはお好みのサイズ */
+    font-size: 16px;  /* 通常のフォントサイズ */
+}
+/* スマートフォン等、小さい画面でのスタイル */
+@media only screen and (max-width: 768px) {
+    ol li {
+        font-size: 14px;  /* 小さい画面ではフォントサイズを小さく */
+    }
 }
 
-ol li a {
-    font-size: inherit; /* 親要素（ここではli）のフォントサイズを継承 */
-}
 
 .video-container {
     position: relative;
