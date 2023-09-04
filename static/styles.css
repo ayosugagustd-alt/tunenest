@@ -72,22 +72,6 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
     color: #FF0000;  /* YouTubeの赤色 */
 }
 
-/* 通常の画面サイズでのスタイル */
-ol {
-    list-style: outside decimal;
-    padding-left: 40px;  /* リスト番号とテキストの間隔を調整 */
-}
-ol li {
-    font-size: 1rem;  /* 通常のフォントサイズ */
-}
-/* スマートフォン等、小さい画面でのスタイル */
-@media only screen and (max-width: 768px) {
-    ol li {
-        font-size: 0.875rem;  /* 小さい画面ではフォントサイズを小さく */
-    }
-}
-
-
 .video-container {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 aspect ratio */
@@ -113,3 +97,23 @@ a:hover {
     text-decoration: underline;
 }
 
+.custom-list-item {
+    display: flex;
+    align-items: center;
+}
+
+.custom-list-number {
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.custom-list-content {
+    font-size: 16px;
+}
+
+@media only screen and (max-width: 768px) {
+    .custom-list-number,
+    .custom-list-content {
+        font-size: 14px;
+    }
+}

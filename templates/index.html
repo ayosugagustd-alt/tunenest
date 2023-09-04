@@ -86,25 +86,25 @@
     </div>
 </div>
 
-<ol>
+<div class="custom-list">
     {% for track in tracks %}
-    <li>
-        {% if track.url %}
-        <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
-            {{ track.name }} - {{ track.artist }}
-        </a>
-        <a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" style="margin-left: 10px;">
-            <i class="fab fa-youtube"></i><span style="font-size: smaller;"> YouTube</span>
-        </a>
-        {% else %}
-        {{ track.name }} - {{ track.artist }} (No Preview)
-        <a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" style="margin-left: 10px;">
-            <i class="fab fa-youtube"></i><span style="font-size: smaller;"> YouTube</span>
-        </a>
-        {% endif %}
-    </li>
+    <div class="custom-list-item">
+        <span class="custom-list-number">{{ "{:02d}".format(loop.index) }}.</span>
+        <span class="custom-list-content">
+            {% if track.url %}
+            <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
+                {{ track.name }} - {{ track.artist }}
+            </a>
+            {% else %}
+            {{ track.name }} - {{ track.artist }} (No Preview)
+            {% endif %}
+            <a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" style="margin-left: 10px;">
+                <i class="fab fa-youtube"></i><span style="font-size: smaller;"> YouTube</span>
+            </a>
+        </span>
+    </div>
     {% endfor %}
-</ol>
+</div>
 
 <footer>
 	<p>&copy;2023 Developed by hiro. Content provided by <a href="https://www.spotify.com" target="_blank">Spotify</a> and <a href="https://www.youtube.com/" target="_blank">YouTube</a>.</p>
