@@ -120,13 +120,20 @@ a:hover {
 }
 
 @media only screen and (max-width: 768px) {
+	body {
+    	font-family: "Helvetica, Arial, Noto Sans, sans-serif";
+    	margin: 14px;
+	}
    img {
         max-width: 68%;
         height: auto;
     }
-    .custom-list-number,
     .custom-list-content {
-        font-size: 12px;
+        font-size: 14px;
+    }
+    .custom-list-number {
+		margin-right: 4px;
+        font-size: 10px;
     }
     #playing {
         flex-grow: 1;
@@ -142,10 +149,18 @@ a:hover {
     	font-size: 16px;
 	}
     .youtube-icon-caption {
-        font-size: 10px;
+        font-size: 8px;
     }
 	h1 {
     margin-bottom: 10px;
     	font-size: 28px;
+	}
+	#playing-artwork {
+    	margin-right: 4px; /* 右側の余白を調整 */
+	}
+
+	footer p {
+    	margin: 8px 0;
+    	font-size: 12px;
 	}
 }
