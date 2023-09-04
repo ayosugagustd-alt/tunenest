@@ -111,13 +111,31 @@ a:hover {
     font-size: 16px;
 }
 
+/* パソコン用のスタイル */
+.play-on-youtube {
+    font-size: 22px;
+}
+
 @media only screen and (max-width: 768px) {
    img {
-        max-width: 100%;
+        max-width: 68%;
         height: auto;
     }
     .custom-list-number,
     .custom-list-content {
         font-size: 14px;
     }
+    #playing {
+        flex-grow: 1;
+        font-size: 14px;  /* サイズはお好みで調整してください */
+        margin-left: 10px;
+    }
+    .play-on-youtube {
+        font-size: 14px; /* またはお好みのサイズに */
+    }
+	button {
+    	width: 60px;
+    	height:60px;
+    	font-size: 16px;
+	}
 }
