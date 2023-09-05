@@ -124,6 +124,11 @@ a:hover {
     font-size: 14px;
 }
 
+.icon-disabled {
+  color: lightgray;  /* または #cccccc, rgba(192, 192, 192, 0.5) など */
+  opacity: 0.3;  /* 透明度も調整可能 */
+}
+
 @media only screen and (max-width: 768px) {
 	body {
     	font-family: "Helvetica, Arial, Noto Sans, sans-serif";
@@ -153,9 +158,11 @@ a:hover {
     	height:60px;
     	font-size: 16px;
 	}
+
     .youtube-icon-caption {
-        font-size: 0px;
+        font-size: 12px;
     }
+
 	h1 {
     margin-bottom: 10px;
     	font-size: 28px;
