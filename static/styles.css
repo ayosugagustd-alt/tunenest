@@ -107,18 +107,10 @@ a:hover {
     align-items: center;
 }
 
-/*
 .custom-list-number {
     margin-right: 10px;
-    font-size: 18px;
+    font-size: 16px;
 }
-*/
-.custom-list-number {
-    display: inline-block;
-    min-width: 20px;  /* 必要な幅に調整 */
-    text-align: right;
-}
-
 
 .custom-list-content {
     font-size: 20px;
