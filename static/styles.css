@@ -107,10 +107,18 @@ a:hover {
     align-items: center;
 }
 
+/*
 .custom-list-number {
     margin-right: 10px;
     font-size: 18px;
 }
+*/
+.custom-list-number {
+    display: inline-block;
+    min-width: 20px;  /* 必要な幅に調整 */
+    text-align: right;
+}
+
 
 .custom-list-content {
     font-size: 20px;
@@ -128,6 +136,14 @@ a:hover {
 .icon-disabled {
   color: lightgray;  /* または #cccccc, rgba(192, 192, 192, 0.5) など */
   opacity: 0.3;  /* 透明度も調整可能 */
+}
+
+.track-info {
+    display: block; /* 新しい行に表示 */
+}
+
+.icon-row {
+    display: block; /* 新しい行に表示 */
 }
 
 @media only screen and (max-width: 768px) {
