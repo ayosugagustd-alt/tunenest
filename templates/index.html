@@ -88,27 +88,26 @@
 </div>
 
 <div class="custom-list">
+
     {% for track in tracks %}
     <div class="custom-list-item">
         <span class="custom-list-number">{{ "{:02d}".format(loop.index) }}.</span>
 		<span class="custom-list-content">
 			<div class="track-info">{{ track.name }} - {{ track.artist }}</div>
 			<div class="icon-row">
-        	{% if track.url %}
-        	<a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
-            	<i class="fab fa-spotify"></i><span class="youtube-icon-caption"> Spotify (Preview)</span>
-        	</a>
-        	{% else %}
-        		<i class="fab fa-spotify icon-disabled"></i><span class="youtube-icon-caption"> Spotify (No Preview)</span>
-        	{% endif %}
-        	<a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" style="margin-left: 14px;">
-            <i class="fab fa-youtube"></i><span class="youtube-icon-caption"> YouTube</span>
-        </a>
-    </div>
-</span>
-
+        		<a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" style="margin-right: 14px;">
+           		<i class="fab fa-youtube"></i><span class="youtube-icon-caption"> YouTube</span></a>
+        		{% if track.url %}
+        			<a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
+            		<i class="fab fa-spotify"></i><span class="youtube-icon-caption"> Spotify (Preview)</span></a>
+        		{% else %}
+        			<i class="fab fa-spotify icon-disabled"></i><span class="youtube-icon-caption"> Spotify (No Preview)</span>
+        		{% endif %}
+    		</div>
+		</span>
     </div>
     {% endfor %}
+
 </div>
 
 <footer>
