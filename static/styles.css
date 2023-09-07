@@ -51,6 +51,7 @@ button:hover {
     flex-grow: 1;
     font-size: 40px;
 	margin-left: 14px;
+	font-weight: bold;
 }
 
 footer p {
@@ -108,6 +109,9 @@ a:hover {
 }
 
 .custom-list-number {
+	font-family: monospace;
+
+	color: #7F7F7F;  /* 灰色 */
     margin-right: 10px;
     font-size: 16px;
 }
@@ -132,6 +136,15 @@ a:hover {
 
 .track-info {
     display: block; /* 新しい行に表示 */
+}
+
+.track-info .artist{
+	color: #7F7F7F;  /* 灰色 */
+}
+
+.track-info .track-name{
+	color: black; /* 黒色 */
+	font-weight: bold;
 }
 
 .icon-row {

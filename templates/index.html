@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="ja">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -91,9 +91,11 @@
 
     {% for track in tracks %}
     <div class="custom-list-item">
-        <span class="custom-list-number">{{ "{:02d}".format(loop.index) }}.</span>
+		<span class="custom-list-number">{{ "{: >3}".format(loop.index).replace(" ", "&nbsp;")|safe }}.</span>
 		<span class="custom-list-content">
-			<div class="track-info">{{ track.name }} - {{ track.artist }}</div>
+			<div class="track-info">
+				<span class="track-name">{{ track.name }}</span> <span class="artist">/ {{ track.artist }}</span>
+			</div>
 			<div class="icon-row">
         		<a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" style="margin-right: 14px;">
            		<i class="fab fa-youtube"></i><span class="youtube-icon-caption"> YouTube</span></a>
