@@ -105,15 +105,19 @@ a:hover {
 
 .custom-list-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+
+    flex-wrap: nowrap;  /* 要素が1行に収まるようになる */
 }
 
 .custom-list-number {
-	font-family: monospace;
+	margin-top: 3px;
 
+	font-family: monospace;
 	color: #7F7F7F;  /* 灰色 */
     margin-right: 10px;
     font-size: 16px;
+    align-self: flex-start;
 }
 
 .custom-list-content {
@@ -135,7 +139,8 @@ a:hover {
 }
 
 .track-info {
-    display: block; /* 新しい行に表示 */
+    display: flex;  /* 横並びにする */
+    align-items: center; /* 新しい行に表示 */
 }
 
 .track-info .artist{
@@ -148,13 +153,18 @@ a:hover {
 }
 
 .icon-row {
-    display: block; /* 新しい行に表示 */
+    display: flex; /* 新しい行に表示 */
+    align-items: center;
+}
+
+.separator {
+    margin: 0 10px;
 }
 
 @media only screen and (max-width: 768px) {
 	body {
     	font-family: "Helvetica, Arial, Noto Sans, sans-serif";
-    	margin: 14px;
+    	margin: 10px;
 	}
    img {
         max-width: 68%;
@@ -164,7 +174,8 @@ a:hover {
         font-size: 14px;
     }
     .custom-list-number {
-		margin-right: 4px;
+		margin-right: 5px;
+		margin-left: -5px;
         font-size: 10px;
     }
     #playing {
@@ -197,5 +208,9 @@ a:hover {
 	footer p {
     	margin: 8px 0;
     	font-size: 12px;
+	}
+
+	.separator {
+    	margin: 0 5px;
 	}
 }
