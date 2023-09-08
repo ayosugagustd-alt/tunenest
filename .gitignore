@@ -3,6 +3,8 @@ myenv/
 
 # コンパイル済みのPythonファイル
 __pycache__/
+*.pyc
+*.pyo
 
 # キャッシュファイル
 .cache

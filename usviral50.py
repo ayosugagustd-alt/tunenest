@@ -6,6 +6,17 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
+def check_api_keys():
+    spotify_client_id = os.getenv('SPOTIFY_CLIENT_ID')
+    spotify_client_secret = os.getenv('SPOTIFY_CLIENT_SECRET')
+    youtube_api_key = os.getenv('YOUTUBE_API_KEY')
+    
+    if not spotify_client_id or not spotify_client_secret:
+        raise ValueError("Spotify credentials are not set")
+        
+    if not youtube_api_key:
+        raise ValueError("YouTube API key is not set")
+
 # Flaskアプリを初期化
 app = Flask(__name__)
 
@@ -52,7 +63,7 @@ def youtube_search(q, max_results=1, youtube_api_key=None):
         videos = [search_result['id']['videoId'] for search_result in search_response.get('items', [])]
         return videos[0] if videos else None
     except HttpError as e:
-        print("An HTTP error occurred:", e)
+        return {'error': f"An HTTP error occurred: {e}"}
 
 # YouTube検索のルート
 @app.route('/youtube')
@@ -61,10 +72,13 @@ def youtube():
     artist_name = request.args.get('artist')
     youtube_api_key = os.getenv('YOUTUBE_API_KEY')
 
-    if not youtube_api_key:
-        raise ValueError("YouTube API key is not set")
 
     video_id = youtube_search(f"{track_name} {artist_name}", youtube_api_key=youtube_api_key)
+
+
+    if isinstance(video_id, dict) and 'error' in video_id:
+        return render_template('error.html', error=video_id['error'])
+
 
     if video_id:
         return render_template('youtube.html', video_id=video_id)
@@ -73,6 +87,7 @@ def youtube():
 
 # メインのエントリーポイント
 if __name__ == "__main__":
+    check_api_keys()  # APIキーのチェック
     debug_mode = False
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=debug_mode)
