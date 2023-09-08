@@ -50,8 +50,16 @@ def index():
     except Exception as e:
         return render_template('error.html', error=str(e))
 
+# キャッシュ用の辞書
+youtube_url_cache = {}
+
 # YouTube動画を検索する関数
 def youtube_search(q, max_results=1, youtube_api_key=None):
+    # キャッシュからURLを取得
+    if q in youtube_url_cache:
+        return youtube_url_cache[q]
+
+
     try:
         youtube = build('youtube', 'v3', developerKey=youtube_api_key)
         search_response = youtube.search().list(
@@ -61,7 +69,12 @@ def youtube_search(q, max_results=1, youtube_api_key=None):
             maxResults=max_results
         ).execute()
         videos = [search_result['id']['videoId'] for search_result in search_response.get('items', [])]
-        return videos[0] if videos else None
+
+        # キャッシュにURLを保存
+        video_id = videos[0] if videos else None
+        youtube_url_cache[q] = video_id
+
+        return video_id
     except HttpError as e:
         return {'error': f"An HTTP error occurred: {e}"}
 
