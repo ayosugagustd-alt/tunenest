@@ -111,13 +111,15 @@ a:hover {
 }
 
 .custom-list-number {
-	margin-top: 3px;
+	margin-top: 7px;
 
 	font-family: monospace;
 	color: #7F7F7F;  /* 灰色 */
     margin-right: 10px;
     font-size: 16px;
     align-self: flex-start;
+
+	font-weight: bold;
 }
 
 .custom-list-content {

@@ -6,6 +6,10 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
+# 定数の定義
+DEFAULT_PLAYLIST_ID = '37i9dQZEVXbINTEnbFeb8d'
+DEFAULT_PLAYLIST_NAME = 'Viral 50 - JP'
+
 def check_api_keys():
     spotify_client_id = os.getenv('SPOTIFY_CLIENT_ID')
     spotify_client_secret = os.getenv('SPOTIFY_CLIENT_SECRET')
@@ -24,8 +28,6 @@ app = Flask(__name__)
 def get_spotify_client():
     client_id = os.getenv('SPOTIFY_CLIENT_ID')
     client_secret = os.getenv('SPOTIFY_CLIENT_SECRET')
-    if not client_id or not client_secret:
-        raise ValueError("Spotify credentials are not set")
     return spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id=client_id, client_secret=client_secret))
 
 # トラック情報を取得する関数
@@ -40,8 +42,8 @@ def get_track_info(track):
 # インデックスページのルート
 @app.route('/')
 def index():
-    playlist_id = request.args.get('playlist_id', '37i9dQZEVXbINTEnbFeb8d')  # default:Viral50-JP
-    playlist_name = request.args.get('playlist_name', 'Viral 50 - JP')  # default name
+    playlist_id = request.args.get('playlist_id', DEFAULT_PLAYLIST_ID)
+    playlist_name = request.args.get('playlist_name', DEFAULT_PLAYLIST_NAME)
     try:
         sp = get_spotify_client()
         results = sp.playlist_tracks(playlist_id)
@@ -83,6 +85,7 @@ def youtube_search(q, max_results=1, youtube_api_key=None):
 def youtube():
     track_name = request.args.get('track')
     artist_name = request.args.get('artist')
+
     youtube_api_key = os.getenv('YOUTUBE_API_KEY')
 
 

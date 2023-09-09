@@ -27,7 +27,9 @@
 				artworkUrl = "{{ url_for('static', filename='noimage.jpg') }}"; // アートワークがない場合のデフォルト画像
 			}
 			document.getElementById('playing-artwork').src = artworkUrl; // アートワークの更新
-			let playingInfo = "#" + (index + 1) + ": " + "<br>" + tracks[index].name + "<br>" + tracks[index].artist;
+			let playingInfo =	'<span style="color: #7F7F7F;">#' + (index + 1) + ':</span>' + "<br>" + 
+								'<span>' + tracks[index].name + '</span>' + "<br>" + 
+								'<span style="color: #7F7F7F;">' + tracks[index].artist + '</span>';
 
 			playingInfo += '<br><a href="/youtube?track=' + encodeURIComponent(tracks[index].name) + '&artist=' + encodeURIComponent(tracks[index].artist) + '" style="margin-top: 10px; display: inline-block;">';
 			playingInfo += '<i class="fab fa-youtube"></i><span class="play-on-youtube"> YouTube</span></a>';
@@ -117,7 +119,7 @@
 	<br>Data sourced from	<a href="https://www.youtube.com/" target="_blank"><i class="fab fa-youtube"></i> YouTube</a> and
 						<a href="https://www.spotify.com" target="_blank"><i class="fab fa-spotify"></i> Spotify</a>.</p>
     <p><a href="{{ url_for('static', filename='privacy-policy-en.html') }}" target="_blank">Privacy Policy</a> | <a href="{{ url_for('static', filename='privacy-policy.html') }}" target="_blank">プライバシーポリシー</a></p>
-    <p><a href="http://www.tunenest.com/">Explore more music on TuneNest</a></p>
+    <p><a href="http://www.tunenest.com/">Back to Main Menu</a></p>
 </footer>
 
 </body>
