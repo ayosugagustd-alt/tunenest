@@ -4,7 +4,7 @@ body {
 }
 
 h1 {
-    margin-bottom: 40px;
+    margin-bottom: 0px;
     font-size: 60px;
 	font-weight: bold;
 }
@@ -163,6 +163,30 @@ a:hover {
     margin: 0 10px;
 }
 
+/* 共通のスタイルを適用 */
+.search-input {
+    margin-top: 0px;  /* 上側に余白 */
+    margin-left: 0px;  /* 左側に余白 */
+
+    height: var(--input-height);  /* 高さを一元管理 */
+    box-sizing: border-box;  /* paddingとborderを含む */
+    padding: 10px;
+    border: 2px solid gainsboro;
+    border-radius: 5px;
+    vertical-align: middle;
+	font-size: 14px;
+}
+
+.search-input {
+    font-size: 14px;
+    width: 200px;  /* 固定幅 */
+}
+
+.search-input:focus {
+    outline: none;
+    border: 2px solid gray;
+}
+
 @media only screen and (max-width: 768px) {
 	body {
     	font-family: "Helvetica, Arial, Noto Sans, sans-serif";
@@ -214,5 +238,9 @@ a:hover {
 
 	.separator {
     	margin: 0 5px;
+	}
+
+	.search-input {
+    	width: 180px;  /* 固定幅 */
 	}
 }

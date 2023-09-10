@@ -73,46 +73,68 @@
 			}
 		}
 
+		document.addEventListener('DOMContentLoaded', function() {
+			const playlistDropdown = document.getElementById('playlistDropdown');
+
+			playlistDropdown.addEventListener('change', function() {
+				const selectedPlaylistId = playlistDropdown.value;
+				const selectedPlaylistName = playlistDropdown.options[playlistDropdown.selectedIndex].text;
+				const url = `/?playlist_id=${selectedPlaylistId}&playlist_name=${encodeURIComponent(selectedPlaylistName)}`;
+				window.location.href = url;
+			});
+		});
+
     </script>
 </head>
 <body>
 	<h1>{{ playlist_name }}</h1>
-<div id="controls">
-    <div id="playing-container">
-		<img id="playing-artwork" src="{{ url_for('static', filename='noimage.jpg') }}" alt="再生中のアートワーク">
-        <div id="playing"></div>
-    </div>
-    <div id="buttons">
-        <button onclick="previous()">&#10073;&#9664;</button>
-        <button onclick="togglePlay()">&#9654;&#10074;&#10074;</button>
-        <button onclick="playNext()">&#9654;&#10073;</button>
-    </div>
-</div>
 
-<div class="custom-list">
+	<div id="playlist-controls">
+       	<select class="search-input" id="playlistDropdown">
+			<option value="" disabled selected style="display:none;">-- Select a Playlist --</option>
+           	<!-- プレイリスト -->
+           	<option value="37i9dQZEVXbINTEnbFeb8d">Viral 50 - JP</option>
+           	<option value="37i9dQZEVXbKuaTI1Z1Afx">Viral 50 - US</option>
+           	<option value="37i9dQZF1DX3diUVrKEuXr">Buzz On TV</option>
+           	<option value="37i9dQZF1DX9tPFwDMOaN1">K-Pop ON! Hits</option>
+           	<option value="37i9dQZF1DWT8aqnwgRt92">Anime Now</option>
+       	</select>
+	</div>
 
-    {% for track in tracks %}
-    <div class="custom-list-item">
-		<span class="custom-list-number">{{ "{: >3}".format(loop.index).replace(" ", "&nbsp;")|safe }}.</span>
-		<span class="custom-list-content">
-			<div class="track-info">
-				<span class="track-name">{{ track.name }}</span><span class="separator"></span><span class="artist">{{ track.artist }}</span>
-			</div>
-			<div class="icon-row">
-        		<a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" style="margin-right: 14px;">
-           		<i class="fab fa-youtube"></i><span class="youtube-icon-caption"> YouTube</span></a>
-        		{% if track.url %}
-        			<a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
-            		<i class="fab fa-spotify"></i><span class="youtube-icon-caption"> Spotify (Preview)</span></a>
-        		{% else %}
-        			<i class="fab fa-spotify icon-disabled"></i><span class="youtube-icon-caption"> Spotify (No Preview)</span>
-        		{% endif %}
-    		</div>
-		</span>
-    </div>
-    {% endfor %}
+	<div id="controls">
+    	<div id="playing-container">
+			<img id="playing-artwork" src="{{ url_for('static', filename='noimage.jpg') }}" alt="再生中のアートワーク">
+        	<div id="playing"></div>
+    	</div>
 
-</div>
+    	<div id="buttons">
+        	<button onclick="previous()">&#10073;&#9664;</button>
+        	<button onclick="togglePlay()">&#9654;&#10074;&#10074;</button>
+        	<button onclick="playNext()">&#9654;&#10073;</button>
+    	</div>
+	</div>
+
+	<div class="custom-list">
+    	{% for track in tracks %}
+    	<div class="custom-list-item">
+			<span class="custom-list-number">{{ "{: >3}".format(loop.index).replace(" ", "&nbsp;")|safe }}.</span>
+			<span class="custom-list-content">
+				<div class="track-info">
+					<span class="track-name">{{ track.name }}</span><span class="separator"></span><span class="artist">{{ track.artist }}</span></div>
+				<div class="icon-row">
+        			<a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" style="margin-right: 14px;">
+           			<i class="fab fa-youtube"></i><span class="youtube-icon-caption"> YouTube</span></a>
+        			{% if track.url %}
+        				<a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
+            			<i class="fab fa-spotify"></i><span class="youtube-icon-caption"> Spotify (Preview)</span></a>
+        			{% else %}
+        				<i class="fab fa-spotify icon-disabled"></i><span class="youtube-icon-caption"> Spotify (No Preview)</span>
+        			{% endif %}
+    			</div>
+			</span>
+    	</div>
+		{% endfor %}
+	</div>
 
 <footer>
 	<p>Developed by hiro <a href="https://twitter.com/jmusic_hiro" target="_blank"><i class="fab fa-twitter"></i></a> &copy;2023.
