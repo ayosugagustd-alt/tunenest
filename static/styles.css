@@ -17,8 +17,8 @@ button {
     width: 80px;
     height:42px;
 
-    background-color: #ddd;
-    color: white;
+    background-color: gainsboro;
+    color: black;
     padding: 5px 20px;
     border: none;
     cursor: pointer;
@@ -30,12 +30,12 @@ button {
 }
 
 button:hover {
-    background-color: #ccc;
+    background-color: silver;
 }
 
 button:active {
-    background-color: #000;
-    color: fff;
+    background-color: black;
+    color: white;
 }
 
 #controls {
@@ -88,7 +88,7 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
 }
 
 .fas.fa-volume-up {
-	color: #7F7F7F;  /* 灰色 */
+	color: grey;
 }
 
 .video-container {
@@ -128,7 +128,7 @@ a:hover {
 	margin-top: 5px;
 
 	font-family: monospace;
-	color: #7F7F7F;  /* 灰色 */
+	color: grey;
     margin-right: 10px;
     font-size: 16px;
     align-self: flex-start;
@@ -150,7 +150,7 @@ a:hover {
 }
 
 .icon-disabled {
-  color: lightgray;  /* または #cccccc, rgba(192, 192, 192, 0.5) など */
+  color: lightgray;
   opacity: 0.3;  /* 透明度も調整可能 */
 }
 
@@ -160,7 +160,7 @@ a:hover {
 }
 
 .track-info .artist{
-	color: #7F7F7F;  /* 灰色 */
+	color: grey;
 }
 
 .artist {
@@ -168,7 +168,7 @@ a:hover {
 }
 
 .track-info .track-name{
-	color: black; /* 黒色 */
+	color: black;
 	font-weight: bold;
 }
 
@@ -203,8 +203,8 @@ a:hover {
 
 /* selectタグにスタイルを適用 */
 select {
-    color: #555;  /* 希望の色に設定 */
-    background-color: #ffffff;  /* 背景色を灰色に設定 */
+    color: #555;
+    background-color: white;
 }
 
 .playing-icon {
