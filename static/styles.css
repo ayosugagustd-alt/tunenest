@@ -191,6 +191,12 @@ a:hover {
     border: 2px solid gray;
 }
 
+/* selectタグにスタイルを適用 */
+select {
+    color: #555;  /* 希望の色に設定 */
+    background-color: #ffffff;  /* 背景色を灰色に設定 */
+}
+
 @media only screen and (max-width: 768px) {
 	body {
     	font-family: "Helvetica, Arial, Noto Sans, sans-serif";
