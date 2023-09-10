@@ -80,6 +80,10 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
 	color: #1DB954;	  /* Spotifyの緑色 */
 }
 
+.fas.fa-volume-up {
+	color: #7F7F7F;  /* 灰色 */
+}
+
 .video-container {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 aspect ratio */
@@ -152,6 +156,10 @@ a:hover {
 	color: #7F7F7F;  /* 灰色 */
 }
 
+.artist {
+    margin-left: 16px;  /* 左側に16ピクセルのマージンを追加 */
+}
+
 .track-info .track-name{
 	color: black; /* 黒色 */
 	font-weight: bold;
@@ -194,6 +202,10 @@ a:hover {
 select {
     color: #555;  /* 希望の色に設定 */
     background-color: #ffffff;  /* 背景色を灰色に設定 */
+}
+
+.playing-icon {
+    margin-left: 8px;  /* 左側に8ピクセルのマージンを追加 */
 }
 
 @media only screen and (max-width: 768px) {
