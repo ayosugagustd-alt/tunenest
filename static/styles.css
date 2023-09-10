@@ -1,3 +1,7 @@
+:root {
+    --input-height: 40px;
+}
+
 body {
     font-family: "Helvetica, Arial, Noto Sans, sans-serif";
     margin: 20px;
@@ -243,6 +247,7 @@ a:hover {
 	.search-input {
     	margin-top: 0px;  /* 上側に余白 */
     	margin-left: 0px;  /* 左側に余白 */
+    	margin-bottom: 50px;  /* 左側に余白 */
     	height: var(--input-height);  /* 高さを一元管理 */
     	box-sizing: border-box;  /* paddingとborderを含む */
     	padding: 10px;
