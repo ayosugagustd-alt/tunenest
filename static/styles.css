@@ -55,6 +55,7 @@ button:active {
 #buttons {
     display: flex;
     align-items: center;
+	margin-bottom: 40px;
 }
 
 #playing {
@@ -184,7 +185,7 @@ a:hover {
 .search-input {
     margin-top: 0px;  /* 上側に余白 */
     margin-left: 0px;  /* 左側に余白 */
-    margin-bottom: 50px;  /* 左側に余白 */
+    margin-bottom: 50px;  /* 下側に余白 */
     height: var(--input-height);  /* 高さを一元管理 */
     box-sizing: border-box;  /* paddingとborderを含む */
     padding: 10px;
@@ -192,10 +193,6 @@ a:hover {
     border-radius: 5px;
     vertical-align: middle;
 	font-size: 14px;
-}
-
-.search-input {
-    font-size: 14px;
     width: 200px;  /* 固定幅 */
 }
 
@@ -269,6 +266,11 @@ select {
 
 	.search-input {
     	width: 170px;  /* 固定幅 */
+    	margin-bottom: 40px;  /* 左側に余白 */
+	}
+
+	#buttons {
+		margin-bottom: 30px;
 	}
 
 }
