@@ -72,7 +72,6 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
 }
 
 .fab.fa-youtube {
-    font-size: 20px;  /* アイコンのサイズを20pxに設定 */
     color: #FF0000;   /* YouTubeの赤色 */
 }
 
@@ -131,8 +130,8 @@ a:hover {
 }
 
 .play-on-youtube {
-    font-size: 24px;
-    font-weight: normal;
+    font-size: 26px;
+    font-weight: bold;
 }
 
 .youtube-icon-caption {

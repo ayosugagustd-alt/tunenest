@@ -32,7 +32,7 @@
 								'<span style="color: #7F7F7F;">' + tracks[index].artist + '</span>';
 
 			playingInfo += '<br><a href="/youtube?track=' + encodeURIComponent(tracks[index].name) + '&artist=' + encodeURIComponent(tracks[index].artist) + '" style="margin-top: 10px; display: inline-block;">';
-			playingInfo += '<i class="fab fa-youtube"></i><span class="play-on-youtube"> YouTube</span></a>';
+			playingInfo += '<i class="fab fa-youtube fa-lg"></i><span class="play-on-youtube"> YouTube</span></a>';
 
 			document.getElementById('playing').innerHTML = playingInfo;
 			audio.play();
