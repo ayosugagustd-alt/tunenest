@@ -114,7 +114,6 @@ a {
 
 a:hover {
     text-decoration: underline;
-	font-weight: normal; 
 }
 
 .custom-list-item {
@@ -211,6 +210,17 @@ select {
     margin-left: 8px;  /* 左側に8ピクセルのマージンを追加 */
 }
 
+.twitter-link {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.twitter-link .fab.fa-twitter.large-twitter-icon {
+    font-size: 52px;
+    color: #1DA1F2;
+}
+
+
 @media only screen and (max-width: 768px) {
 	body {
     	font-family: "Helvetica, Arial, Noto Sans, sans-serif";
@@ -237,6 +247,17 @@ select {
         font-size: 14px;
 		font-weight: bold;
     }
+	.twitter-link {
+    	font-size: 14px;
+    	font-weight: bold;
+	}
+	.twitter-link .fab.fa-twitter.large-twitter-icon {
+    	font-size: 22px;
+    	color: #1DA1F2;
+	}
+	.fab.fa-twitter {
+    	font-size: 18px;
+	}
 	button {
     	width: 60px;
     	height:32px;

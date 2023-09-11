@@ -37,6 +37,7 @@ def get_track_info(track):
         'name': track['name'],
         'artist': track['artists'][0]['name'],
         'image_url': track['album']['images'][0]['url'],
+        'spotify_link': track['external_urls']['spotify']  # Spotify楽曲リンク
     }
 
 # インデックスページのルート

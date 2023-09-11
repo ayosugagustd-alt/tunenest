@@ -38,34 +38,41 @@
 		}
 
 		function play() {
-			let artworkUrl = tracks[index].image_url;
-			if (!artworkUrl) {
-				artworkUrl = "{{ url_for('static', filename='noimage.jpg') }}"; // アートワークがない場合のデフォルト画像
-			}
-			document.getElementById('playing-artwork').src = artworkUrl; // アートワークの更新
-			let playingInfo =	'<span style="color: #7F7F7F;">#' + (index + 1) + ':</span>' + "<br>" + 
-								'<span>' + tracks[index].name + '</span>' + "<br>" + 
-								'<span style="color: #7F7F7F;">' + tracks[index].artist + '</span>';
+		    let artworkUrl = tracks[index].image_url;
+		    if (!artworkUrl) {
+		        artworkUrl = "{{ url_for('static', filename='noimage.jpg') }}"; // アートワークがない場合のデフォルト画像
+		    }
+		    document.getElementById('playing-artwork').src = artworkUrl; // アートワークの更新
+		    let playingInfo = '<span style="color: #7F7F7F;">#' + (index + 1) + ':</span>' + "<br>" + 
+		                      '<span>' + tracks[index].name + '</span>' + "<br>" + 
+		                      '<span style="color: #7F7F7F;">' + tracks[index].artist + '</span>';
+		
+		    // YouTubeへのリンクを生成
+		    playingInfo += '<br><a href="/youtube?track=' + encodeURIComponent(tracks[index].name) + '&artist=' + encodeURIComponent(tracks[index].artist) + '" class="youtube-link" target="_blank" style="margin-top: 10px; display: inline-block;">';
+		    playingInfo += '<i class="fab fa-youtube fa-lg"></i><span class="play-on-youtube"> YouTube</span></a>';
 
-			playingInfo += '<br><a href="/youtube?track=' + encodeURIComponent(tracks[index].name) + '&artist=' + encodeURIComponent(tracks[index].artist) + '" class="youtube-link" target="_blank" style="margin-top: 10px; display: inline-block;">';
-			playingInfo += '<i class="fab fa-youtube fa-lg"></i><span class="play-on-youtube"> YouTube</span></a>';
-
-			document.getElementById('playing').innerHTML = playingInfo;
-
-			// ここで新しく生成されたYouTubeリンクにイベントリスナーを設定
-			document.querySelectorAll('.youtube-link').forEach(function(link) {
-				link.addEventListener('click', function() {
-                	// 一時停止関数を呼び出す
-            		pause();
-        		});
-			});
-
-			audio.play();
-			audio.onended = playNext;
-
-			updatePlayingIcon();
+		    // Tweet用のテキストを生成
+		    let tweetText = `Now playing: ${tracks[index].name} by ${tracks[index].artist}. Check it out on Spotify! ${tracks[index].spotify_link}`; 
+		
+		    // Twitterへのリンクを生成
+		    playingInfo += '<br><a href="https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweetText) + '" class="twitter-link" target="_blank" style="margin-top: 10px; display: inline-block;">';
+		    playingInfo += '<i class="fab fa-twitter large-twitter-icon"></i><span class="tweet-now-playing"> Twitter</span></a>';
+		
+		    document.getElementById('playing').innerHTML = playingInfo;
+		
+		    // ここで新しく生成されたYouTubeリンクにイベントリスナーを設定
+		    document.querySelectorAll('.youtube-link').forEach(function(link) {
+		        link.addEventListener('click', function() {
+		            // 一時停止関数を呼び出す
+		            pause();
+		        });
+		    });
+		
+		    audio.play();
+		    audio.onended = playNext;
+		    updatePlayingIcon();
 		}
-
+		
         function pause() {
             audio.pause();
         }
@@ -144,6 +151,7 @@
 	</div>
 
 	<div id="controls">
+
     	<div id="playing-container">
 			<img id="playing-artwork" src="{{ url_for('static', filename='noimage.jpg') }}" alt="再生中のアートワーク">
         	<div id="playing"></div>
@@ -154,6 +162,7 @@
         	<button onclick="togglePlay()">&#9654;&#10074;&#10074;</button>
         	<button onclick="playNext()">&#9654;&#10073;</button>
     	</div>
+
 	</div>
 
 	<div class="custom-list">
