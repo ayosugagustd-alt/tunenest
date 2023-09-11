@@ -140,7 +140,7 @@ a:hover {
 }
 
 .play-on-youtube {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: bold;
 }
 
@@ -211,12 +211,12 @@ select {
 }
 
 .twitter-link {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: bold;
 }
 
 .twitter-link .fab.fa-twitter.large-twitter-icon {
-    font-size: 52px;
+    font-size: 56px;
     color: #1DA1F2;
 }
 
