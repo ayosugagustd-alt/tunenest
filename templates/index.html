@@ -21,21 +21,21 @@
             }
         }
 
-function updatePlayingIcon() {
-    // 既存の再生中アイコンを全て削除
-    document.querySelectorAll('.playing-icon').forEach((icon) => {
-        icon.remove();
-    });
+		function updatePlayingIcon() {
+			// 既存の再生中アイコンを全て削除
+			document.querySelectorAll('.playing-icon').forEach((icon) => {
+				icon.remove();
+			});
 
-    // 新しい再生中アイコンを追加
-    const listItem = document.getElementsByClassName('custom-list-item')[index];
-    const artistElement = listItem.querySelector('.artist'); // アーティスト名の要素を取得
-    const icon = document.createElement('i');
-    icon.className = 'fas fa-volume-up playing-icon';
+			// 新しい再生中アイコンを追加
+			const listItem = document.getElementsByClassName('custom-list-item')[index];
+			const artistElement = listItem.querySelector('.artist'); // アーティスト名の要素を取得
+			const icon = document.createElement('i');
+			icon.className = 'fas fa-volume-up playing-icon';
 
-    // アーティスト名の直後に新しいアイコンを挿入
-    artistElement.parentNode.insertBefore(icon, artistElement.nextSibling);
-}
+			// アーティスト名の直後に新しいアイコンを挿入
+			artistElement.parentNode.insertBefore(icon, artistElement.nextSibling);
+		}
 
 		function play() {
 			let artworkUrl = tracks[index].image_url;
@@ -47,7 +47,7 @@ function updatePlayingIcon() {
 								'<span>' + tracks[index].name + '</span>' + "<br>" + 
 								'<span style="color: #7F7F7F;">' + tracks[index].artist + '</span>';
 
-			playingInfo += '<br><a href="/youtube?track=' + encodeURIComponent(tracks[index].name) + '&artist=' + encodeURIComponent(tracks[index].artist) + '" style="margin-top: 10px; display: inline-block;">';
+			playingInfo += '<br><a href="/youtube?track=' + encodeURIComponent(tracks[index].name) + '&artist=' + encodeURIComponent(tracks[index].artist) + '" target="_blank" style="margin-top: 10px; display: inline-block;">';
 			playingInfo += '<i class="fab fa-youtube fa-lg"></i><span class="play-on-youtube"> YouTube</span></a>';
 
 			document.getElementById('playing').innerHTML = playingInfo;
@@ -144,7 +144,7 @@ function updatePlayingIcon() {
 				<div class="track-info">
 					<span class="track-name">{{ track.name }}</span><span class="separator"></span><span class="artist">{{ track.artist }}</span></div>
 				<div class="icon-row">
-        			<a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" style="margin-right: 14px;">
+        			<a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" target="_blank" style="margin-right: 14px;">
            			<i class="fab fa-youtube"></i><span class="youtube-icon-caption"> YouTube</span></a>
         			{% if track.url %}
         				<a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
