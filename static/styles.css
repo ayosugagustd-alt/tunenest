@@ -74,7 +74,7 @@ footer p {
 footer { text-align: left; width: 100%; padding: 20px 0; }
 
 .fab.fa-twitter {
-    font-size: 20px;  /* アイコンのサイズを24pxに設定 */
+    font-size: 20px;
     color: #1DA1F2;
 }
 
@@ -256,6 +256,9 @@ select {
     	color: #1DA1F2;
 	}
 	.fab.fa-twitter {
+    	font-size: 18px;
+	}
+	.fab.fa-youtube {
     	font-size: 18px;
 	}
 	button {
