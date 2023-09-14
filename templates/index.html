@@ -13,14 +13,6 @@
         let index = 0;
         let audio = new Audio(tracks[index].url);
 
-        function togglePlay() {
-            if (audio.paused) {
-                play();
-            } else {
-                pause();
-            }
-        }
-
 		function togglePlay() {
 			if (audio.paused) {
 				// 最初のトラックが再生可能かどうかをチェック
@@ -90,15 +82,19 @@
             audio.pause();
         }
 
-        function playNext() {
-            index = (index + 1) % tracks.length;
-			if (tracks[index].url) {
-				audio.src = tracks[index].url;
-				play();
-			} else {
-				playNext(); // URLがNoneの場合、次の曲にスキップ
+		function playNext(attempts = 0) {
+			if (attempts >= tracks.length) {
+        		console.log("All tracks are unplayable. Stopping playback.");
+        		return;
     		}
-        }
+			index = (index + 1) % tracks.length;
+			if (tracks[index].url) {
+        		audio.src = tracks[index].url;
+        		play();
+			} else {
+        		playNext(attempts + 1); // URLがNoneの場合、次の曲にスキップ
+    		}
+		}
 
         function previous() {
             index = (index - 1 + tracks.length) % tracks.length;
