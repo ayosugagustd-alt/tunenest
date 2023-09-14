@@ -52,7 +52,7 @@
 		    playingInfo += '<i class="fab fa-youtube fa-lg"></i><span class="play-on-youtube"> Watch MV</span></a>';
 
 		    // Tweet用のテキストを生成
-		    let tweetText = `Now playing: ${tracks[index].name} by ${tracks[index].artist}. Check it out on Spotify! ${tracks[index].spotify_link}`; 
+		    let tweetText = `${tracks[index].name} - ${tracks[index].artist}. ${tracks[index].spotify_link}`; 
 		
 		    // Twitterへのリンクを生成
 		    playingInfo += '<br><a href="https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweetText) + '" class="twitter-link" target="_blank" style="margin-top: 10px; display: inline-block;">';
