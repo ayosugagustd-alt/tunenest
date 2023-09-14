@@ -21,6 +21,19 @@
             }
         }
 
+		function togglePlay() {
+			if (audio.paused) {
+				// 最初のトラックが再生可能かどうかをチェック
+				if (tracks[index].url) {
+					play();
+				} else {
+					playNext();  // 再生不可能な場合は次のトラックへ
+				}
+			} else {
+				pause();
+			}
+		}
+
 		function updatePlayingIcon() {
 			// 既存の再生中アイコンを全て削除
 			document.querySelectorAll('.playing-icon').forEach((icon) => {
