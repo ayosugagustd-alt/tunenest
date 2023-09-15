@@ -137,8 +137,8 @@
             	});
         	});
     	});
-
     </script>
+
 </head>
 <body>
 	<h1>{{ playlist_name }}</h1>
@@ -183,13 +183,17 @@
 					<span class="track-name">{{ track.name }}</span><span class="separator"></span><span class="artist">{{ track.artist }}</span></div>
 				<div class="icon-row">
         			<a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" class="youtube-link" target="_blank" style="margin-right: 14px;">
-           			<i class="fab fa-youtube"></i><span class="youtube-icon-caption"> YouTube</span></a>
+           			<i class="fab fa-youtube"></i><span class="youtube-icon-caption">Watch MV</span></a>
         			{% if track.url %}
         				<a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
-            			<i class="fab fa-spotify"></i><span class="youtube-icon-caption"> Spotify (Preview)</span></a>
+            			<i class="fab fa-spotify"></i><span class="youtube-icon-caption">Preview</span></a>
         			{% else %}
-        				<i class="fab fa-spotify icon-disabled"></i><span class="youtube-icon-caption"> Spotify (No Preview)</span>
+        				<i class="fab fa-spotify icon-disabled"></i><span class="youtube-icon-caption">Preview</span>
         			{% endif %}
+
+					<!-- 「Details」ボタン -->
+					<a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank">
+					<i class="fas fa-info-circle"></i><span class="youtube-icon-caption">Details</span></a>
     			</div>
 			</span>
     	</div>

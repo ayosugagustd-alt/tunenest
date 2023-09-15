@@ -1,5 +1,13 @@
 :root {
+    --star-color: #FF9900;
+    --empty-star-color: #767676;
+
     --input-height: 40px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
 }
 
 body {
@@ -65,6 +73,13 @@ button:active {
 	font-weight: bold;
 }
 
+header p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #555;
+}
+header { text-align: right; width: 98%; padding: 0px 0; }
+
 footer p {
     margin: 10px 0;
     font-size: 16px;
@@ -80,12 +95,22 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
 
 .fab.fa-youtube {
     color: #FF0000;   /* YouTubeの赤色 */
+    margin-right: 5px;  /* 右側に5ピクセルのマージンを追加 */
 }
 
 .fab.fa-spotify {
     font-size: 20px;  /* アイコンのサイズを20pxに設定 */
 	color: #1DB954;	  /* Spotifyの緑色 */
+    margin-right: 5px;  /* 右側に5ピクセルのマージンを追加 */
 }
+
+.fas.fa-info-circle {
+    margin-right: 5px;  /* 右側に5ピクセルのマージンを追加 */
+    margin-left: 14px;  /* 右側に5ピクセルのマージンを追加 */
+    color: blue;  /* アイコンの色を青に設定 */
+}
+
+
 
 .fas.fa-volume-up {
 	color: grey;
@@ -220,6 +245,34 @@ select {
     color: #1DA1F2;
 }
 
+.star, .empty-star {
+    font-size: 20px;
+    margin-right: 0px;
+}
+.star { color: var(--star-color); }
+.empty-star { color: var(--empty-star-color); }
+
+
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #555;
+    margin: 10px 0;
+}
+.progress { height: 100%; background-color: var(--star-color); }
+
+.visual-section {
+    padding: 10px;
+    max-width: 80%;
+}
+
+#ul, ol箇条書きのマーク表示しない
+.no-bullet { list-style-type: none; }
+
+.album-artwork {
+    display: block;
+    margin: 0px;
+}
 
 @media only screen and (max-width: 768px) {
 	body {

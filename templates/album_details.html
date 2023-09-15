@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="View album details." name="description"/>
+<meta content="hiro" name="author"/>
+<link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
+<title>{{ album.name }} - Album Details</title>
+</head>
+<body>
+<header>
+<p><a href="/help_album_details" target="_blank">Help(Japanese)</a></p>
+</header>
+<div class="section-space">
+<h1>{{ album.name }}</h1>
+<img alt="Album Cover" src="{{ album.image }}"/>
+</div>
+<div class="section-space">
+<p>Release Date: {{ album.release_date }}</p>
+<p>Popularity: 
+        {% if album.get('popularity') %}
+            <span class="stars">
+                {% for _ in range(0, (album['popularity'] * 10) // 100) %}
+                    <span class="star">★</span> <!-- Full stars -->
+                {% endfor %}
+                {% for _ in range(0, 10 - (album['popularity'] * 10) // 100) %}
+                    <span class="empty-star">☆</span> <!-- Empty stars -->
+                {% endfor %}
+            </span>
+        {% else %}
+            <!-- Do not display anything if popularity does not exist -->
+        {% endif %}
+        </p>
+</div>
+<div class="section-space">
+<h2>Artists</h2>
+<ul>
+            {% for artist in album.artists %}
+            <li><a href="{{ url_for('artist_details', artist_id=artist.id) }}">{{ artist.name }}</a></li>
+            {% endfor %}
+        </ul>
+</div>
+<div class="section-space">
+<h2>Tracklist</h2>
+<ul>
+            {% for track in album.tracks %}
+            {% set minutes = (track.length / 1000 / 60)|int %}
+            {% set seconds = ((track.length / 1000) % 60)|int %}
+            <li><a href="{{ url_for('song_details', song_id=track.id) }}">{{ track.name }}</a> ({{ minutes }}:{{ "%02d"|format(seconds) }})</li>
+            {% endfor %}
+        </ul>
+</div>
+<div class="section-space">
+<p><a href="javascript:window.history.back();">Go Back</a></p>
+</div>
+<footer>
+<p>Content provided by <a href="https://www.spotify.com" target="_blank">Spotify</a></p>
+</footer>
+</body>
+</html>

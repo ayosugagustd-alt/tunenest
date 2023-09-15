@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="telephone=no" name="format-detection"/>
+<meta content="View artist details" name="description"/>
+<meta content="hiro" name="author"/>
+<link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
+<title>{{ artist['name'] }}</title>
+</head>
+<body>
+<header>
+<p><a href="/help_artist_details" target="_blank">Help(Japanese)</a></p>
+</header>
+<div class="section-space">
+<h1>{{ artist['name'] }}</h1>
+<img alt="{{ artist['name'] }}" src="{{ artist['image_url'] }}"/>
+<p>Popularity:
+        <span class="stars">
+            {% for _ in range(0, artist['popularity'] // 10) %}
+                <span class="star">★</span>
+            {% endfor %}
+            {% for _ in range(0, 10 - (artist['popularity'] // 10)) %}
+                <span class="empty-star">☆</span>
+            {% endfor %}
+        </span>
+</p>
+<p>Genres: {{ artist['genres'] | join(', ') }}</p>
+<p>Followers: {{ artist['followers'] }}</p>
+<p><a href="https://en.wikipedia.org/wiki/{{ artist['name'] | urlencode }}" target="_blank">Learn more on Wikipedia (in English)</a></p>
+</div>
+<div class="section-space">
+<h2>Top Tracks</h2>
+<ul>
+        {% for track in top_tracks %}
+            <li><a href="{{ url_for('song_details', song_id=track['id']) }}">{{ track['name'] }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="section-space">
+<h2>Latest Album</h2>
+    {% if latest_album %}
+    <p><a href="{{ url_for('album_details', artist_id=latest_album['artist_id'], album_id=latest_album['id']) }}">{{ latest_album['name'] }}</a></p>
+    {% else %}
+        <p>No information available about the latest album.</p>
+    {% endif %}
+</div>
+<div class="section-space">
+<h2><a href="{{ url_for('all_albums_and_songs_for_artist', artist_id=artist.id) }}">Album List</a></h2>
+<h2><a href="{{ url_for('all_singles_and_songs_for_artist', artist_id=artist.id) }}">Single List</a></h2>
+<h2><a href="{{ url_for('all_compilations_and_songs_for_artist', artist_id=artist.id) }}">Compilation Album List</a></h2>
+</div>
+<!-- <div class="section-space"> -->
+<!-- <a href="{{ url_for('index') }}">Back to Search</a> -->
+<!-- </div> -->
+<footer>
+<p>Content provided by <a href="https://www.spotify.com" target="_blank">Spotify</a></p>
+</footer>
+</body>
+</html>

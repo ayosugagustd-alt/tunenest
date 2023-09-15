@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
+<title>検索結果なしページの使い方</title>
+</head>
+<body>
+<h1>検索結果なしページの使い方</h1>
+<section>
+<h2>検索結果のない場合の表示</h2>
+<p>検索結果が一致しない場合、このページが表示されます。検索した内容と一致する{{ search_type }}が見つからなかった旨が示されます。</p>
+</section>
+<section>
+<h2>検索ページへのリンク</h2>
+<p>ページの下部にある「Back to Search」リンクをクリックすると、検索ページに戻ることができます。</p>
+</section>
+</body>
+</html>

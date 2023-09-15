@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
+<title>Search Results - Albums</title>
+</head>
+<body>
+<header>
+<p><a href="/help_results_multiple_albums" target="_blank">Help(Japanese)</a></p>
+</header>
+<p>Multiple albums were found.</p>
+<ul class="no-bullet">
+        {% for album in albums %}
+            <li><a href="{{ url_for('album_details', artist_id=album['artists'][0]['id'], album_id=album['id']) }}">{{ album['name'] }}</a></li>
+        {% endfor %}
+    </ul>
+<p><a href="/">Back to Search</a></p>
+</body>
+</html>

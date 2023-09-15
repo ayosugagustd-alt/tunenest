@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Page displaying compilation and track list." name="description"/>
+<meta content="hiro" name="author"/>
+<link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
+<title>Compilation Albums</title>
+</head>
+<body>
+<header>
+<p><a href="/help_compilations_and_tracks_list" target="_blank">Help(Japanese)</a></p>
+</header>
+<a href="{{ url_for('artist_details', artist_id=artist_id) }}">Back to Artist Details</a>
+<h1>Compilation Albums</h1>
+    {% if total_compilations > 0 %}
+        <p>Total Compilation Albums: {{ total_compilations }}</p>
+        {% include 'pagination.html' %}
+        <div>
+            {% for compilation in compilations_with_songs %}
+                <h2>
+<a href="{{ url_for('album_details', artist_id=compilation['artist_id'], album_id=compilation['compilation_id']) }}">{{ loop.index + (page - 1) * per_page }}. {{ compilation.name }} ({{ compilation.release_date }})</a>
+</h2>
+<table>
+                    {% for track in compilation.tracks %}
+                        <tr>
+<td><a href="{{ url_for('song_details', song_id=track['track_id']) }}">{{ track['name'] }}</a></td>
+</tr>
+                    {% endfor %}
+                </table>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No information available about compilation albums.</p>
+    {% endif %}
+    <footer>
+<p>Content provided by <a href="https://www.spotify.com" target="_blank">Spotify</a></p>
+</footer>
+</body>
+</html>
