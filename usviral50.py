@@ -353,45 +353,6 @@ def get_musixmatch_track_id(artist_name, song_name):
             return track_data[0]['track']['track_id'] # トラックIDを返す
     return None
 
-
-# no_results, artist_details, results_multiple_artists
-@app.route('/results', methods=['POST'])
-def results():
-    search_type = request.form['search_type']
-    query = request.form['query']
-
-    if search_type == 'artist':
-        artists = search_artist(query)
-        if len(artists) == 0:
-            return render_template('no_results.html', query=query, search_type="artist")
-        elif len(artists) == 1:
-            artist_id = artists[0]['id']
-            return redirect(url_for('artist_details', artist_id=artist_id))
-        else:
-            return render_template('results_multiple_artists.html', artists=artists, query=query)
-
-    elif search_type == 'album':
-        albums = search_album(query)
-        if len(albums) == 0:
-            return render_template('no_results.html', query=query, search_type="album")
-        elif len(albums) == 1:
-#            return render_template('album_details.html', album=albums)
-            return render_template('album_details.html', album=albums[0] if albums else {})
-        else:
-            return render_template('results_multiple_albums.html', albums=albums, query=query)
-
-    elif search_type == 'single':
-        singles = search_single(query)
-        if len(singles) == 0:
-            return render_template('no_results.html', query=query, search_type="song")
-        elif len(singles) == 1:
-            return render_template('song_details.html', single=singles)
-        else:
-            return render_template('results_multiple_songs.html', singles=singles, query=query)
-
-    else:
-        return "他の検索タイプの処理"
-
 # artist_details
 @app.route('/artist/<artist_id>')
 def artist_details(artist_id):
@@ -458,61 +419,15 @@ def all_compilations_and_songs_for_artist(artist_id, page=1):
                            total_compilations=total_compilations,
                            per_page=per_page)
 
-# help_index.html
-@app.route('/help_index')
-def help_index():
-    return render_template('help_index.html')
-
-# help_results_multiple_artists.html 
-@app.route('/help_results_multiple_artists')
-def help_results_multiple_artists():
-    return render_template('help_results_multiple_artists.html')
-
-# help_results_multiple_albums.html 
-@app.route('/help_results_multiple_albums')
-def help_results_multiple_albums():
-    return render_template('help_results_multiple_albums.html')
-
-# help_results_multiple_songs.html 
-@app.route('/help_results_multiple_songs')
-def help_results_multiple_songs():
-    return render_template('help_results_multiple_songs.html')
-
 # help_song_details.html 
 @app.route('/help_song_details')
 def help_song_details():
     return render_template('help_song_details.html')
 
-# help_artist_details.html 
-@app.route('/help_artist_details')
-def help_artist_details():
-    return render_template('help_artist_details.html')
-
-# help_album_details.html 
-@app.route('/help_album_details')
-def help_album_details():
-    return render_template('help_album_details.html')
-
-# help_albums_and_tracks_list.html 
-@app.route('/help_albums_and_tracks_list')
-def help_albums_and_tracks_list():
-    return render_template('help_albums_and_tracks_list.html')
-
-# help_singles_and_tracks_list.html 
-@app.route('/help_singles_and_tracks_list')
-def help_singles_and_tracks_list():
-    return render_template('help_singles_and_tracks_list.html')
-
-# help_compilations_and_tracks_list.html 
-@app.route('/help_compilations_and_tracks_list')
-def help_compilations_and_tracks_list():
-    return render_template('help_compilations_and_tracks_list.html')
-
-# help_no_results.html 
-@app.route('/help_no_results')
-def help_no_results():
-    return render_template('help_no_results.html')
-
+# help_index.html
+@app.route('/help_index')
+def help_index():
+    return render_template('help_index.html')
 
 # 楽曲詳細画面のルート
 @app.route('/song_details/<song_id>', methods=['GET'])

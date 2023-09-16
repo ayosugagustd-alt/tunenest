@@ -1,39 +1,87 @@
 <!DOCTYPE html>
-
 <html lang="ja">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
-<title>楽曲詳細の使い方</title>
-</head>
-<body>
-<h1>楽曲詳細の使い方</h1>
-<section>
-<h2>楽曲名とアルバムアートワーク</h2>
-<p>楽曲の名前とアルバムのカバーアートが表示されます。</p>
-</section>
-<section>
-<h2>Spotifyプレイヤー</h2>
-<p>Spotifyで楽曲の一部を再生することができます。</p>
-</section>
-<section>
-<h2>歌詞情報</h2>
-<p>Musixmatchで取得した楽曲の歌詞（一部）が表示されます。</p>
-</section>
-<section>
-<h2>音楽の特性</h2>
-<ul>
-<li><strong>Valence（バレンス）</strong>: 明るさや楽しさなど肯定的な感情の度合いを0~100%で表します。</li>
-<li><strong>Acousticness（アコースティック度）</strong>: 楽曲がアコースティックである確信度を0~100%で表します。</li>
-<li><strong>Danceability（ダンサビリティ）</strong>: 楽曲がダンスに適しているかを0~100%で表します。</li>
-<li><strong>Energy（エネルギー）</strong>: 楽曲の強度と活動性を0~100%で表します。</li>
-<li><strong>Instrumentalness（インストゥルメンタル度）</strong>: 楽曲にボーカルが含まれていない確率を0~100%で表します。</li>
-</ul>
-</section>
-<section>
-<h2>戻るリンク</h2>
-<p><strong>"Go back"</strong> のリンクをクリックすると、前のページに戻ることができます。</p>
-</section>
-</body>
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='f_f_event_43_s16_f_event_43_0nbg.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='f_f_event_43_s32_f_event_43_0nbg.png') }}">
+        <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename='f_f_event_43_s64_f_event_43_0nbg.png') }}">
+        <title>楽曲詳細の使い方</title>
+    </head>
+    <body>
+        <section>
+            <h2>音楽特性（日本語）</h2>
+            <ul>
+                <li>
+                    <strong>バレンス：</strong><br>
+                    曲が伝える肯定的な感情を0から100までの尺度で表します。<br>
+                    バレンスが高い曲はより肯定的な感情（例：幸せ、明るい、高揚）を感じさせ、<br>
+                    バレンスが低い曲はより否定的な感情（例：悲しい、沈んでいる、怒っている）を感じさせます。
+                </li>
+                <li>
+                    <strong>アコースティック度：</strong><br>
+                    曲がアコースティックであるかどうかの確信度を0から100までで表します。<br>
+                    100は、曲がアコースティックであるという高い確信度を表します。
+                </li>
+                <li>
+                    <strong>ダンサビリティ：</strong><br>
+                    曲がダンスに適しているかを、テンポ、リズムの安定性、ビートの強さ、全体的な規則性などの音楽的要素の組み合わせに基づいて評価します。<br>
+                    0が最も踊りにくく、100が最も踊りやすいとされます。
+                </li>
+                <li>
+                    <strong>エネルギー：</strong><br>
+                    曲の強度と活動性を0から100までの尺度で表します。<br>
+                    一般的に、エネルギッシュな曲は速く、大きな音、騒々しいと感じられます。<br>
+                    例えば、デスメタルは高いエネルギーを持ち、バッハの前奏曲は尺度上で低いスコアとなります。<br>
+                    この属性に寄与する知覚的特徴には、ダイナミックレンジ、知覚される音量、音色、発音速度、一般的なエントロピーなどがあります。
+                </li>
+                <li>
+                    <strong>インストゥルメンタル度：</strong><br>
+                    曲にボーカルが含まれていない確率を予測します。<br>
+                    「オー」と「アー」のような音は、この文脈では楽器として扱われます。<br>
+                    ラップやスポークンワードのトラックは明らかに「ボーカル」です。<br>
+                    インストゥルメンタル度の値が100に近いほど、曲にボーカルが含まれていない可能性が高くなります。<br>
+                    50以上の値は、楽器のトラックを表す意図であり、値が100に近づくにつれて確信度が高くなります。
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h2>Music Characteristics (English)</h2>
+            <ul>
+                <li>
+                    <strong>Valence:</strong><br>
+                    A measure from 0 to 100 describing the musical positiveness conveyed by a track.<br>
+                    Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric),<br>
+                    while tracks with low valence sound more negative (e.g. sad, depressed, angry).
+                </li>
+                <li>
+                    <strong>Acousticness:</strong><br>
+                    A confidence measure from 0 to 100 of whether the track is acoustic.<br>
+                    100 represents high confidence the track is acoustic.
+                </li>
+                <li>
+                    <strong>Danceability:</strong><br>
+                    Danceability describes how suitable a track is for dancing<br>
+                    based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity.<br>
+                    A value of 0 is least danceable and 100 is most danceable.
+                </li>
+                <li>
+                    <strong>Energy:</strong><br>
+                    Energy is a measure from 0 to 100 and represents a perceptual measure of intensity and activity.<br>
+                    Typically, energetic tracks feel fast, loud, and noisy.<br>
+                    For example, death metal has high energy, while a Bach prelude scores low on the scale.<br>
+                    Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.
+                </li>
+                <li>
+                    <strong>Instrumentalness:</strong><br>
+                    Predicts whether a track contains no vocals.<br>
+                    “Ooh” and “aah” sounds are treated as instrumental in this context.<br>
+                    Rap or spoken word tracks are clearly “vocal”.<br>
+                    The closer the instrumentalness value is to 100, the greater likelihood the track contains no vocal content.<br>
+                    Values above 50 are intended to represent instrumental tracks, but confidence is higher as the value approaches 100.
+                </li>
+            </ul>
+        </section>
+    </body>
 </html>
