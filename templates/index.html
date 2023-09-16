@@ -49,12 +49,10 @@
 		</div>
 
 		<div id="buttons">
-			<button onclick="previous()">&#10073;&#9664;</button>
-			<button onclick="togglePlay()">&#9654;&#10074;&#10074;</button>
-			<button onclick="playNext()">&#9654;&#10073;</button>
+			<button onclick="previous()"><i class="fas fa-step-backward"></i></button>
+			<button onclick="togglePlay()"><i class="fas fa-play"></i><i class="fas fa-pause"></i></button>
+			<button onclick="playNext()"><i class="fas fa-step-forward"></i></button>
 		</div>
-
-	</div>
 
 	<div class="custom-list">
 		{% for track in tracks %}

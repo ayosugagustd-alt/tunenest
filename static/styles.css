@@ -41,6 +41,8 @@ button {
     margin: 5px;
     border-radius: 5px;
     transition: background-color 0.3s;
+
+	white-space: nowrap;
 }
 
 button:hover {
@@ -326,10 +328,13 @@ select {
 	.fab.fa-twitter {
     	font-size: 20px;
 	}
+
 	button {
     	width: 60px;
     	height:32px;
     	font-size: 16px;
+
+		white-space: nowrap;
 	}
 
     .youtube-icon-caption {
@@ -361,5 +366,4 @@ select {
 	#buttons {
 		margin-bottom: 30px;
 	}
-
 }
