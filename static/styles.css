@@ -1,8 +1,8 @@
 :root {
     --star-color: #FF9900;
     --empty-star-color: #767676;
-
-    --input-height: 40px;
+    --font-size: 16px;
+    --input-height: 42px;
 }
 
 img {
@@ -10,8 +10,14 @@ img {
     height: auto;
 }
 
+.rotate-message { display: none; }
+
 body {
-    font-family: "Helvetica, Arial, Noto Sans, sans-serif";
+    background-color: #FFFFFF;
+    color: #000000;
+    font-size: var(--font-size);
+    font-family: Helvetica, Arial, sans-serif;
+
     margin: 20px;
 }
 
@@ -69,7 +75,7 @@ button:active {
 #playing {
     flex-grow: 1;
     font-size: 40px;
-	margin-left: 14px;
+	margin-left: 16px;
 	font-weight: bold;
 }
 
@@ -170,7 +176,7 @@ a:hover {
 }
 
 .youtube-icon-caption {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .icon-disabled {
@@ -216,7 +222,7 @@ a:hover {
     border: 2px solid gainsboro;
     border-radius: 5px;
     vertical-align: middle;
-	font-size: 14px;
+	font-size: 16px;
     width: 200px;  /* 固定幅 */
 }
 
@@ -255,7 +261,7 @@ select {
 
 .progress-bar {
     width: 100%;
-    height: 20px;
+    height: 24px;
     background-color: #555;
     margin: 10px 0;
 }
@@ -276,7 +282,7 @@ select {
 
 @media only screen and (max-width: 768px) {
 	body {
-    	font-family: "Helvetica, Arial, Noto Sans, sans-serif";
+    	font-family: Helvetica, Arial, Noto Sans, sans-serif;
     	margin: 10px;
 	}
    img {
@@ -308,11 +314,17 @@ select {
     	font-size: 22px;
     	color: #1DA1F2;
 	}
-	.fab.fa-twitter {
-    	font-size: 18px;
-	}
 	.fab.fa-youtube {
-    	font-size: 18px;
+    	font-size: 20px;
+	}
+	.fab.fa-spotify {
+    	font-size: 20px;
+	}
+	.fas.fa-info-circle {
+    	font-size: 20px;
+	}
+	.fab.fa-twitter {
+    	font-size: 20px;
 	}
 	button {
     	width: 60px;
@@ -321,7 +333,7 @@ select {
 	}
 
     .youtube-icon-caption {
-        font-size: 12px;
+        font-size: 14px;
     }
 
 	h1 {
@@ -334,7 +346,7 @@ select {
 
 	footer p {
     	margin: 8px 0;
-    	font-size: 12px;
+    	font-size: 14px;
 	}
 
 	.separator {
