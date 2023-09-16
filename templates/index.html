@@ -87,8 +87,9 @@
 	<br>Data sourced from	<a href="https://www.youtube.com/" target="_blank"><i class="fab fa-youtube"></i> YouTube</a> and
 						<a href="https://www.spotify.com" target="_blank"><i class="fab fa-spotify"></i> Spotify</a>.</p>
 	<p><a href="{{ url_for('static', filename='privacy-policy-en.html') }}" target="_blank">Privacy Policy</a> | <a href="{{ url_for('static', filename='privacy-policy.html') }}" target="_blank">プライバシーポリシー</a></p>
-	<p><a href="http://www.tunenest.com/">Back to Main Menu</a></p>
+<!--	<p><a href="https://spotitabi-c994f16cb5b2.herokuapp.com/">Go to Music Insights</a></p> -->
 </footer>
+
 	<script>
 		let tracks = {{ tracks|tojson }};
 		let index = 0;
@@ -219,5 +220,6 @@
 			});
 		});
 	</script>
+
 </body>
 </html>
