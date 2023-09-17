@@ -283,6 +283,11 @@ select {
     margin: 0px;
 }
 
+.artist-name {
+    font-size: 28px;
+    font-weight: bold;
+}
+
 @media only screen and (max-width: 768px) {
 	body {
     	font-family: Helvetica, Arial, Noto Sans, sans-serif;
@@ -371,5 +376,9 @@ select {
     .star, .empty-star, .half-star {
         font-size: 26px;
         margin-right: 0px;
+    }
+
+    .artist-name {
+        font-size: 26px;
     }
 }

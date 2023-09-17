@@ -36,7 +36,7 @@
         <h2>Artist</h2>
         <ul>
             {% for artist in song.artists %}
-                <li><a href="{{ url_for('artist_details', artist_id=artist.id) }}">{{ artist.name }}</a></li>
+                <li><a href="{{ url_for('artist_details', artist_id=artist.id) }}" class="artist-name">{{ artist.name }}</a></li>
             {% endfor %}
         </ul>
     </div> <!-- End of .section-space -->
