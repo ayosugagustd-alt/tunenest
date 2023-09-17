@@ -21,18 +21,17 @@
 <div class="section-space">
     <p>Release Date: <strong>{{ album.release_date }}</strong></p>
     <p>Popularity: <strong>{{ album.popularity }}%</strong></p>
-    {% if album.get('popularity') %}
-        <span class="stars">
-            {% for _ in range(0, (album['popularity'] * 10) // 100) %}
-                <span class="star">★</span> <!-- Full stars -->
-            {% endfor %}
-            {% for _ in range(0, 10 - (album['popularity'] * 10) // 100) %}
-                <span class="empty-star">☆</span> <!-- Empty stars -->
-            {% endfor %}
-        </span>
-    {% else %}
-        <!-- Do not display anything if popularity does not exist -->
-    {% endif %}
+    <span class="stars">
+        {% for _ in range(0, album.popularity // 10) %}
+            <span class="star"><i class="fas fa-star"></i></span>
+        {% endfor %}
+        {% if album.popularity % 10 >= 5 %}
+            <span class="half-star"><i class="fas fa-star-half-alt"></i></span>
+        {% endif %}
+        {% for _ in range(0, 9 - (album.popularity // 10) - (album.popularity % 10 >= 5)) %}
+            <span class="empty-star"><i class="far fa-star"></i></span>
+        {% endfor %}
+    </span>
 </div>
 <div class="section-space">
     <h2>Artists</h2>

@@ -253,11 +253,12 @@ select {
     color: #1DA1F2;
 }
 
-.star, .empty-star {
+.star, .empty-star, .half-star {
     font-size: 36px;
     margin-right: 0px;
 }
 .star { color: var(--star-color); }
+.half-star { color: var(--star-color); }
 .empty-star { color: var(--empty-star-color); }
 
 
@@ -367,8 +368,8 @@ select {
 		margin-bottom: 30px;
 	}
 
-    .star, .empty-star {
-        font-size: 30px;
+    .star, .empty-star, .half-star {
+        font-size: 26px;
         margin-right: 0px;
     }
 }

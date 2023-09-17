@@ -21,10 +21,13 @@
     <p>Popularity: <strong>{{ artist.popularity }}</strong>%</p>
     <span class="stars">
         {% for _ in range(0, artist.popularity // 10) %}
-            <span class="star">★</span>
+            <span class="star"><i class="fas fa-star"></i></span>
         {% endfor %}
-        {% for _ in range(0, 10 - (artist.popularity // 10)) %}
-            <span class="empty-star">☆</span>
+        {% if artist.popularity % 10 >= 5 %}
+            <span class="half-star"><i class="fas fa-star-half-alt"></i></span>
+        {% endif %}
+        {% for _ in range(0, 9 - (artist.popularity // 10) - (artist.popularity % 10 >= 5)) %}
+            <span class="empty-star"><i class="far fa-star"></i></span>
         {% endfor %}
     </span>
     <p>Genres: <strong>{{ artist['genres'] | join(', ') }}</strong></p>
