@@ -19,21 +19,20 @@
     <img alt="Album Cover" src="{{ album.image }}"/>
 </div>
 <div class="section-space">
-    <p>Release Date: {{ album.release_date }}</p>
-    <p>Popularity: 
-        {% if album.get('popularity') %}
-            <span class="stars">
-                {% for _ in range(0, (album['popularity'] * 10) // 100) %}
-                    <span class="star">★</span> <!-- Full stars -->
-                {% endfor %}
-                {% for _ in range(0, 10 - (album['popularity'] * 10) // 100) %}
-                    <span class="empty-star">☆</span> <!-- Empty stars -->
-                {% endfor %}
-            </span>
-        {% else %}
-            <!-- Do not display anything if popularity does not exist -->
-        {% endif %}
-    </p>
+    <p>Release Date: <strong>{{ album.release_date }}</strong></p>
+    <p>Popularity: <strong>{{ album.popularity }}%</strong></p>
+    {% if album.get('popularity') %}
+        <span class="stars">
+            {% for _ in range(0, (album['popularity'] * 10) // 100) %}
+                <span class="star">★</span> <!-- Full stars -->
+            {% endfor %}
+            {% for _ in range(0, 10 - (album['popularity'] * 10) // 100) %}
+                <span class="empty-star">☆</span> <!-- Empty stars -->
+            {% endfor %}
+        </span>
+    {% else %}
+        <!-- Do not display anything if popularity does not exist -->
+    {% endif %}
 </div>
 <div class="section-space">
     <h2>Artists</h2>
