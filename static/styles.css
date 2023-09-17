@@ -242,7 +242,8 @@ select {
     font-size: 24px;
 }
 .fab.fa-twitter {
-    font-size: 28px;
+    font-size: 26px;
+    margin-right: 4px;
     color: #1DA1F2;
 }
 .large-twitter-icon {
@@ -335,6 +336,7 @@ select {
 	}
 	.fab.fa-twitter {
     	font-size: 20px;
+        margin-right: 2px;
 	}
 
 	button {
