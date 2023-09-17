@@ -134,14 +134,14 @@
         
             // YouTubeへのリンクを生成
             playingInfo += '<br><a href="/youtube?track=' + encodeURIComponent(tracks[index].name) + '&artist=' + encodeURIComponent(tracks[index].artist) + '" class="youtube-link" target="_blank" style="margin-top: 10px; display: inline-block;">';
-            playingInfo += '<i class="fab fa-youtube fa-lg"></i><span class="play-on-youtube"> Watch MV</span></a>';
+            playingInfo += '<i class="fab fa-youtube .large-youtube-icon"></i><span class="play-on-youtube"> Watch MV</span></a>';
 
             // Tweet用のテキストを生成
             let tweetText = `${tracks[index].name} - ${tracks[index].artist}. ${tracks[index].spotify_link}`; 
         
             // Twitterへのリンクを生成
             playingInfo += '<br><a href="https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweetText) + '" class="twitter-link" target="_blank" style="margin-top: 10px; display: inline-block;">';
-            playingInfo += '<i class="fab fa-twitter large-twitter-icon"></i><span class="tweet-now-playing"> Share Song</span></a>';
+            playingInfo += '<i class="fab fa-twitter .large-twitter-icon"></i><span class="tweet-now-playing"> Share Song</span></a>';
         
             document.getElementById('playing').innerHTML = playingInfo;
         

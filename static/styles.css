@@ -30,7 +30,6 @@ h1 {
 button {
     width: 80px;
     height:42px;
-
     background-color: gainsboro;
     color: black;
     padding: 5px 20px;
@@ -41,7 +40,6 @@ button {
     margin: 5px;
     border-radius: 5px;
     transition: background-color 0.3s;
-
 	white-space: nowrap;
 }
 
@@ -71,7 +69,9 @@ button:active {
 #buttons {
     display: flex;
     align-items: center;
-	margin-bottom: 40px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	margin-left: 5px;
 }
 
 #playing {
@@ -97,28 +97,29 @@ footer p {
 footer { text-align: left; width: 100%; padding: 20px 0; }
 
 .fab.fa-twitter {
-    font-size: 20px;
+    font-size: 20px;  /* アイコンのサイズを20pxに設定 */
     color: #1DA1F2;
 }
 
 .fab.fa-youtube {
+    font-size: 24px;
+    margin-right: 5px;
     color: #FF0000;   /* YouTubeの赤色 */
-    margin-right: 5px;  /* 右側に5ピクセルのマージンを追加 */
 }
 
 .fab.fa-spotify {
-    font-size: 20px;  /* アイコンのサイズを20pxに設定 */
+    font-size: 24px;
+    margin-right: 5px;
+    margin-left: 14px;
 	color: #1DB954;	  /* Spotifyの緑色 */
-    margin-right: 5px;  /* 右側に5ピクセルのマージンを追加 */
 }
 
 .fas.fa-info-circle {
-    margin-right: 5px;  /* 右側に5ピクセルのマージンを追加 */
-    margin-left: 14px;  /* 右側に5ピクセルのマージンを追加 */
-    color: blue;  /* アイコンの色を青に設定 */
+    font-size: 24px;
+    margin-right: 5px;
+    margin-left: 26px;
+    color: #4169E1;  /* アイコンの色を青に設定 */
 }
-
-
 
 .fas.fa-volume-up {
 	color: grey;
@@ -174,7 +175,6 @@ a:hover {
 
 .play-on-youtube {
     font-size: 24px;
-    font-weight: bold;
 }
 
 .youtube-icon-caption {
@@ -243,13 +243,15 @@ select {
     margin-left: 8px;  /* 左側に8ピクセルのマージンを追加 */
 }
 
-.twitter-link {
+.tweet-now-playing {
     font-size: 24px;
-    font-weight: bold;
 }
-
-.twitter-link .fab.fa-twitter.large-twitter-icon {
-    font-size: 56px;
+.fab.fa-twitter {
+    font-size: 24px;
+    color: #1DA1F2;
+}
+.large-twitter-icon {
+    font-size: 50px;
     color: #1DA1F2;
 }
 
@@ -315,27 +317,29 @@ select {
     }
     .play-on-youtube {
         font-size: 14px;
-		font-weight: bold;
     }
-	.twitter-link {
-    	font-size: 14px;
-    	font-weight: bold;
-	}
-	.twitter-link .fab.fa-twitter.large-twitter-icon {
-    	font-size: 22px;
+
+	fab.fa-twitter {
+    	font-size: 20px;
     	color: #1DA1F2;
 	}
+
 	.fab.fa-youtube {
     	font-size: 20px;
+        margin-right: 3px;
 	}
 	.fab.fa-spotify {
     	font-size: 20px;
+        margin-right: 3px;
+        margin-left: 16px;
 	}
 	.fas.fa-info-circle {
     	font-size: 20px;
+        margin-right: 3px;
+        margin-left: 24px;
 	}
 	.fab.fa-twitter {
-    	font-size: 20px;
+    	font-size: 18px;
 	}
 
 	button {
@@ -372,9 +376,11 @@ select {
     	margin-bottom: 40px;  /* 左側に余白 */
 	}
 
-	#buttons {
-		margin-bottom: 30px;
-	}
+    #buttons {
+	    margin-top: 10px;
+	    margin-bottom: 10px;
+	    margin-left: 2px;
+    }
 
     .star, .empty-star, .half-star {
         font-size: 24px;
@@ -387,5 +393,9 @@ select {
 
     .visual-section,  .section-space {
         padding: 5px;
+    }
+
+    .tweet-now-playing {
+        font-size: 14px;
     }
 }
