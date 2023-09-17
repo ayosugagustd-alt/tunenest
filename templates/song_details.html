@@ -6,6 +6,7 @@
     <meta content="hiro" name="author"/>
     <meta content="Views song details." name="description"/>
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>{{ song.name }} - Track Details</title>
   </head>
   <body>
@@ -53,7 +54,7 @@
       {{ render_progress_bar("Instrumentalness", song.instrumentalness) }}
     </div> <!-- End of .visual-section -->
     <footer>
-      <p>Content provided by <a href="https://www.spotify.com" target="_blank">Spotify</a></p>
+      <p>Data sourced from <a href="https://www.spotify.com" target="_blank"><i class="fab fa-spotify"></i>Spotify</a>.</p>
     </footer>
   </body>
 </html>
