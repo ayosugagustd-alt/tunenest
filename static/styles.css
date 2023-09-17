@@ -254,8 +254,8 @@ select {
 }
 
 .star, .empty-star, .half-star {
-    font-size: 36px;
-    margin-right: 0px;
+    font-size: 32px;
+    margin-right: -3px;
 }
 .star { color: var(--star-color); }
 .half-star { color: var(--star-color); }
@@ -377,8 +377,8 @@ select {
 	}
 
     .star, .empty-star, .half-star {
-        font-size: 22px;
-        margin-right: 0px;
+        font-size: 24px;
+        margin-right: -2px;
     }
 
     .artist-name {
