@@ -7,6 +7,7 @@
 <meta content="telephone=no" name="format-detection"/>
 <meta content="View artist details" name="description"/>
 <meta content="hiro" name="author"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
 <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='f_f_event_43_s16_f_event_43_0nbg.png') }}">
 <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='f_f_event_43_s32_f_event_43_0nbg.png') }}">
@@ -14,49 +15,45 @@
 <title>{{ artist['name'] }}</title>
 </head>
 <body>
-<header>
-</header>
 <div class="section-space">
-<h1>{{ artist['name'] }}</h1>
-<img alt="{{ artist['name'] }}" src="{{ artist['image_url'] }}"/>
-<p>Popularity:
-        <span class="stars">
-            {% for _ in range(0, artist['popularity'] // 10) %}
-                <span class="star">★</span>
-            {% endfor %}
-            {% for _ in range(0, 10 - (artist['popularity'] // 10)) %}
-                <span class="empty-star">☆</span>
-            {% endfor %}
-        </span>
-</p>
-<p>Genres: {{ artist['genres'] | join(', ') }}</p>
-<p>Followers: {{ artist['followers'] }}</p>
-<p><a href="https://en.wikipedia.org/wiki/{{ artist['name'] | urlencode }}" target="_blank">Learn more on Wikipedia (in English)</a></p>
+    <h1>{{ artist['name'] }}</h1>
+    <img alt="{{ artist['name'] }}" src="{{ artist['image_url'] }}"/>
+    <p>Popularity: <strong>{{ artist.popularity }}</strong>%</p>
+    <span class="stars">
+        {% for _ in range(0, artist.popularity // 10) %}
+            <span class="star">★</span>
+        {% endfor %}
+        {% for _ in range(0, 10 - (artist.popularity // 10)) %}
+            <span class="empty-star">☆</span>
+        {% endfor %}
+    </span>
+    <p>Genres: <strong>{{ artist['genres'] | join(', ') }}</strong></p>
+    <p>Followers: <strong>{{ artist['followers'] }}</strong></p>
+    <p><a href="https://en.wikipedia.org/wiki/{{ artist['name'] | urlencode }}" target="_blank">Learn more on Wikipedia (in English)</a></p>
 </div>
 <div class="section-space">
-<h2>Top Tracks</h2>
-<ul>
+    <h2>Top Tracks</h2>
+    <ul>
         {% for track in top_tracks %}
             <li><a href="{{ url_for('song_details', song_id=track['id']) }}">{{ track['name'] }}</a></li>
         {% endfor %}
     </ul>
 </div>
 <div class="section-space">
-<h2>Latest Album</h2>
+    <h2>Latest Album</h2>
     {% if latest_album %}
-    <p><a href="{{ url_for('album_details', artist_id=latest_album['artist_id'], album_id=latest_album['id']) }}">{{ latest_album['name'] }}</a></p>
+        <p><a href="{{ url_for('album_details', artist_id=latest_album['artist_id'], album_id=latest_album['id']) }}">{{ latest_album['name'] }}</a></p>
     {% else %}
         <p>No information available about the latest album.</p>
     {% endif %}
 </div>
 <div class="section-space">
-<h2><a href="{{ url_for('all_albums_and_songs_for_artist', artist_id=artist.id) }}">Album List</a></h2>
-<h2><a href="{{ url_for('all_singles_and_songs_for_artist', artist_id=artist.id) }}">Single List</a></h2>
-<h2><a href="{{ url_for('all_compilations_and_songs_for_artist', artist_id=artist.id) }}">Compilation Album List</a></h2>
+    <h2><a href="{{ url_for('all_albums_and_songs_for_artist', artist_id=artist.id) }}">Album List</a></h2>
+    <h2><a href="{{ url_for('all_singles_and_songs_for_artist', artist_id=artist.id) }}">Single List</a></h2>
+    <h2><a href="{{ url_for('all_compilations_and_songs_for_artist', artist_id=artist.id) }}">Compilation Album List</a></h2>
 </div>
-
 <footer>
-<p>Content provided by <a href="https://www.spotify.com" target="_blank">Spotify</a></p>
+    <p>Data sourced from <a href="https://www.spotify.com" target="_blank"><i class="fab fa-spotify"></i>Spotify</a>.</p>
 </footer>
 </body>
 </html>

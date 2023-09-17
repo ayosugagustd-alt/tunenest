@@ -7,6 +7,9 @@
     <meta content="Views song details." name="description"/>
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='f_f_event_43_s16_f_event_43_0nbg.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='f_f_event_43_s32_f_event_43_0nbg.png') }}">
+    <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename='f_f_event_43_s64_f_event_43_0nbg.png') }}">
     <title>{{ song.name }} - Track Details</title>
   </head>
   <body>
@@ -39,6 +42,13 @@
     </div> <!-- End of .section-space -->
     <div>
       <!-- code for song properties -->
+      <p>Popularity: <strong>{{ song.popularity }}</strong>%</p>
+      <p>{% for i in range(0, (song.popularity // 10)) %}
+            <span class="star">★</span>
+        {% endfor %}
+        {% for i in range(0, 10 - (song.popularity // 10)) %}
+            <span class="empty-star">☆</span>
+        {% endfor %}</p>
       <p>Tempo: <strong>{{ song.tempo|float|round(1) }}</strong> BPM</p>
       <p>Time Signature: <strong>{{ song.time_signature }}</strong> beats per measure</p>
       <p>Duration: <strong>{{ (song.duration // 60)|int }}:{{ "%02d"|format(song.duration % 60) }} ({{ song.duration|float|round(1) }} seconds)</strong></p>
