@@ -2,222 +2,222 @@
 
 <html lang="en">
 <head>
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZ8PJFVHVW"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-		gtag('config', 'G-FZ8PJFVHVW');
-	</script>
-	<meta charset="UTF-8">
-	<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-	<meta name="description" content="TuneNest primarily features Spotify preview playback and YouTube video streaming, while also allowing you to search for your favorite artists, albums, and songs.">
-	<meta name="author" content="hiro">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-	<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-	<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='f_f_event_43_s16_f_event_43_0nbg.png') }}">
-	<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='f_f_event_43_s32_f_event_43_0nbg.png') }}">
-	<link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename='f_f_event_43_s64_f_event_43_0nbg.png') }}">
-	<title>{{ playlist_name or 'TuneNest: Discover Music' }}</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZ8PJFVHVW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-FZ8PJFVHVW');
+    </script>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="description" content="TuneNest primarily features Spotify preview playback and YouTube video streaming, while also allowing you to search for your favorite artists, albums, and songs.">
+    <meta name="author" content="hiro">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='f_f_event_43_s16_f_event_43_0nbg.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='f_f_event_43_s32_f_event_43_0nbg.png') }}">
+    <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename='f_f_event_43_s64_f_event_43_0nbg.png') }}">
+    <title>{{ playlist_name or 'TuneNest: Discover Music' }}</title>
 </head>
 
 <body>
-	<h1>{{ playlist_name }}</h1>
+    <h1>{{ playlist_name }}</h1>
 
-	<div id="playlist-controls">
-	   	<select class="search-input" id="playlistDropdown">
-			<option value="" disabled selected style="display:none;">-- Select a Playlist --</option>
-		   	<!-- プレイリスト -->
-			<option value="37i9dQZEVXbINTEnbFeb8d">Viral 50 - JP</option>
-			<option value="37i9dQZF1DX9vYRBO9gjDe">Japan 急上昇チャート</option>
-			<option value="37i9dQZF1DXdurasRmJgpJ">令和ポップス</option>
-			<option value="37i9dQZF1DXdcuhTbpro3s">1億超えヒット</option>
-			<option value="37i9dQZF1DXafb0IuPwJyF">Tokyo Super Hits!</option>
-			<option value="37i9dQZF1DX3diUVrKEuXr">Buzz On TV</option>
-			<option value="37i9dQZF1DX9tPFwDMOaN1">K-Pop ON! Hits</option>
-			<option value="37i9dQZF1DWT8aqnwgRt92">Anime Now</option>
-			<option value="37i9dQZEVXbKuaTI1Z1Afx">Viral 50 - US</option>
-	   	</select>
-	</div>
+    <div id="playlist-controls">
+           <select class="search-input" id="playlistDropdown">
+            <option value="" disabled selected style="display:none;">-- Select a Playlist --</option>
+               <!-- プレイリスト -->
+            <option value="37i9dQZEVXbINTEnbFeb8d">Viral 50 - JP</option>
+            <option value="37i9dQZF1DX9vYRBO9gjDe">Japan 急上昇チャート</option>
+            <option value="37i9dQZF1DXdurasRmJgpJ">令和ポップス</option>
+            <option value="37i9dQZF1DXdcuhTbpro3s">1億超えヒット</option>
+            <option value="37i9dQZF1DXafb0IuPwJyF">Tokyo Super Hits!</option>
+            <option value="37i9dQZF1DX3diUVrKEuXr">Buzz On TV</option>
+            <option value="37i9dQZF1DX9tPFwDMOaN1">K-Pop ON! Hits</option>
+            <option value="37i9dQZF1DWT8aqnwgRt92">Anime Now</option>
+            <option value="37i9dQZEVXbKuaTI1Z1Afx">Viral 50 - US</option>
+           </select>
+    </div>
 
-	<div id="controls">
+    <div id="controls">
 
-		<div id="playing-container">
-			<img id="playing-artwork" src="{{ url_for('static', filename='noimage.jpg') }}" alt="再生中のアートワーク">
-			<div id="playing"></div>
-		</div>
+        <div id="playing-container">
+            <img id="playing-artwork" src="{{ url_for('static', filename='noimage.jpg') }}" alt="再生中のアートワーク">
+            <div id="playing"></div>
+        </div>
 
-		<div id="buttons">
-			<button onclick="previous()"><i class="fas fa-step-backward"></i></button>
-			<button onclick="togglePlay()"><i class="fas fa-play"></i><i class="fas fa-pause"></i></button>
-			<button onclick="playNext()"><i class="fas fa-step-forward"></i></button>
-		</div>
+        <div id="buttons">
+            <button onclick="previous()"><i class="fas fa-step-backward"></i></button>
+            <button onclick="togglePlay()"><i class="fas fa-play"></i><i class="fas fa-pause"></i></button>
+            <button onclick="playNext()"><i class="fas fa-step-forward"></i></button>
+        </div>
 
-	<div class="custom-list">
-		{% for track in tracks %}
-		<div class="custom-list-item">
-			<span class="custom-list-number">{{ "{: >3}".format(loop.index).replace(" ", "&nbsp;")|safe }}.</span>
-			<span class="custom-list-content">
-				<div class="track-info">
-					<span class="track-name">{{ track.name }}</span><span class="separator"></span><span class="artist">{{ track.artist }}</span></div>
-				<div class="icon-row">
-					<a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" class="youtube-link" target="_blank" style="margin-right: 14px;">
-		   			<i class="fab fa-youtube"></i><span class="youtube-icon-caption">Watch MV</span></a>
-					{% if track.url %}
-						<a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
-						<i class="fab fa-spotify"></i><span class="youtube-icon-caption">Preview</span></a>
-					{% else %}
-						<i class="fab fa-spotify icon-disabled"></i><span class="youtube-icon-caption">Preview</span>
-					{% endif %}
+    <div class="custom-list">
+        {% for track in tracks %}
+        <div class="custom-list-item">
+            <span class="custom-list-number">{{ "{: >3}".format(loop.index).replace(" ", "&nbsp;")|safe }}.</span>
+            <span class="custom-list-content">
+                <div class="track-info">
+                    <span class="track-name">{{ track.name }}</span><span class="separator"></span><span class="artist">{{ track.artist }}</span></div>
+                <div class="icon-row">
+                    <a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" class="youtube-link" target="_blank" style="margin-right: 14px;">
+                       <i class="fab fa-youtube"></i><span class="youtube-icon-caption">Watch MV</span></a>
+                    {% if track.url %}
+                        <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
+                        <i class="fab fa-spotify"></i><span class="youtube-icon-caption">Preview</span></a>
+                    {% else %}
+                        <i class="fab fa-spotify icon-disabled"></i><span class="youtube-icon-caption">Preview</span>
+                    {% endif %}
 
-					<!-- 「Details」ボタン -->
-					<a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank">
-					<i class="fas fa-info-circle"></i><span class="youtube-icon-caption">Details</span></a>
-				</div>
-			</span>
-		</div>
-		{% endfor %}
-	</div>
+                    <!-- 「Details」ボタン -->
+                    <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank">
+                    <i class="fas fa-info-circle"></i><span class="youtube-icon-caption">Info</span></a>
+                </div>
+            </span>
+        </div>
+        {% endfor %}
+    </div>
 
 <footer>
-	<p>Developed by hiro <a href="https://twitter.com/jmusic_hiro" target="_blank"><i class="fab fa-twitter"></i></a> &copy;2023.
-	<br>Data sourced from	<a href="https://www.youtube.com/" target="_blank"><i class="fab fa-youtube"></i> YouTube</a> and
-						<a href="https://www.spotify.com" target="_blank"><i class="fab fa-spotify"></i> Spotify</a>.</p>
-	<p><a href="{{ url_for('static', filename='privacy-policy-en.html') }}" target="_blank">Privacy Policy</a> | <a href="{{ url_for('static', filename='privacy-policy.html') }}" target="_blank">プライバシーポリシー</a></p>
-<!--	<p><a href="https://spotitabi-c994f16cb5b2.herokuapp.com/">Go to Music Insights</a></p> -->
+    <p>Developed by hiro <a href="https://twitter.com/jmusic_hiro" target="_blank"><i class="fab fa-twitter"></i></a> &copy;2023.
+    <br>Data sourced from    <a href="https://www.youtube.com/" target="_blank"><i class="fab fa-youtube"></i> YouTube</a> and
+                        <a href="https://www.spotify.com" target="_blank"><i class="fab fa-spotify"></i> Spotify</a>.</p>
+    <p><a href="{{ url_for('static', filename='privacy-policy-en.html') }}" target="_blank">Privacy Policy</a> | <a href="{{ url_for('static', filename='privacy-policy.html') }}" target="_blank">プライバシーポリシー</a></p>
+<!--    <p><a href="https://spotitabi-c994f16cb5b2.herokuapp.com/">Go to Music Insights</a></p> -->
 </footer>
 
-	<script>
-		let tracks = {{ tracks|tojson }};
-		let index = 0;
-		let audio = new Audio(tracks[index].url);
+    <script>
+        let tracks = {{ tracks|tojson }};
+        let index = 0;
+        let audio = new Audio(tracks[index].url);
 
-		function togglePlay() {
-			if (audio.paused) {
-				// 最初のトラックが再生可能かどうかをチェック
-				if (tracks[index].url) {
-					play();
-				} else {
-					playNext();  // 再生不可能な場合は次のトラックへ
-				}
-			} else {
-				pause();
-			}
-		}
+        function togglePlay() {
+            if (audio.paused) {
+                // 最初のトラックが再生可能かどうかをチェック
+                if (tracks[index].url) {
+                    play();
+                } else {
+                    playNext();  // 再生不可能な場合は次のトラックへ
+                }
+            } else {
+                pause();
+            }
+        }
 
-		function updatePlayingIcon() {
-			// 既存の再生中アイコンを全て削除
-			document.querySelectorAll('.playing-icon').forEach((icon) => {
-				icon.remove();
-			});
+        function updatePlayingIcon() {
+            // 既存の再生中アイコンを全て削除
+            document.querySelectorAll('.playing-icon').forEach((icon) => {
+                icon.remove();
+            });
 
-			// 新しい再生中アイコンを追加
-			const listItem = document.getElementsByClassName('custom-list-item')[index];
-			const artistElement = listItem.querySelector('.artist'); // アーティスト名の要素を取得
-			const icon = document.createElement('i');
-			icon.className = 'fas fa-volume-up playing-icon';
+            // 新しい再生中アイコンを追加
+            const listItem = document.getElementsByClassName('custom-list-item')[index];
+            const artistElement = listItem.querySelector('.artist'); // アーティスト名の要素を取得
+            const icon = document.createElement('i');
+            icon.className = 'fas fa-volume-up playing-icon';
 
-			// アーティスト名の直後に新しいアイコンを挿入
-			artistElement.parentNode.insertBefore(icon, artistElement.nextSibling);
-		}
+            // アーティスト名の直後に新しいアイコンを挿入
+            artistElement.parentNode.insertBefore(icon, artistElement.nextSibling);
+        }
 
-		function play() {
-			let artworkUrl = tracks[index].image_url;
-			if (!artworkUrl) {
-				artworkUrl = "{{ url_for('static', filename='noimage.jpg') }}"; // アートワークがない場合のデフォルト画像
-			}
-			document.getElementById('playing-artwork').src = artworkUrl; // アートワークの更新
-			let playingInfo = '<span style="color: #7F7F7F;">#' + (index + 1) + ':</span>' + "<br>" + 
-							  '<span>' + tracks[index].name + '</span>' + "<br>" + 
-							  '<span style="color: #7F7F7F;">' + tracks[index].artist + '</span>';
-		
-			// YouTubeへのリンクを生成
-			playingInfo += '<br><a href="/youtube?track=' + encodeURIComponent(tracks[index].name) + '&artist=' + encodeURIComponent(tracks[index].artist) + '" class="youtube-link" target="_blank" style="margin-top: 10px; display: inline-block;">';
-			playingInfo += '<i class="fab fa-youtube fa-lg"></i><span class="play-on-youtube"> Watch MV</span></a>';
+        function play() {
+            let artworkUrl = tracks[index].image_url;
+            if (!artworkUrl) {
+                artworkUrl = "{{ url_for('static', filename='noimage.jpg') }}"; // アートワークがない場合のデフォルト画像
+            }
+            document.getElementById('playing-artwork').src = artworkUrl; // アートワークの更新
+            let playingInfo = '<span style="color: #7F7F7F;">#' + (index + 1) + ':</span>' + "<br>" + 
+                              '<span>' + tracks[index].name + '</span>' + "<br>" + 
+                              '<span style="color: #7F7F7F;">' + tracks[index].artist + '</span>';
+        
+            // YouTubeへのリンクを生成
+            playingInfo += '<br><a href="/youtube?track=' + encodeURIComponent(tracks[index].name) + '&artist=' + encodeURIComponent(tracks[index].artist) + '" class="youtube-link" target="_blank" style="margin-top: 10px; display: inline-block;">';
+            playingInfo += '<i class="fab fa-youtube fa-lg"></i><span class="play-on-youtube"> Watch MV</span></a>';
 
-			// Tweet用のテキストを生成
-			let tweetText = `${tracks[index].name} - ${tracks[index].artist}. ${tracks[index].spotify_link}`; 
-		
-			// Twitterへのリンクを生成
-			playingInfo += '<br><a href="https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweetText) + '" class="twitter-link" target="_blank" style="margin-top: 10px; display: inline-block;">';
-			playingInfo += '<i class="fab fa-twitter large-twitter-icon"></i><span class="tweet-now-playing"> Share Song</span></a>';
-		
-			document.getElementById('playing').innerHTML = playingInfo;
-		
-			// ここで新しく生成されたYouTubeリンクにイベントリスナーを設定
-			document.querySelectorAll('.youtube-link').forEach(function(link) {
-				link.addEventListener('click', function() {
-					// 一時停止関数を呼び出す
-					pause();
-				});
-			});
-		
-			audio.play();
-			audio.onended = playNext;
-			updatePlayingIcon();
-		}
-		
-		function pause() {
-			audio.pause();
-		}
+            // Tweet用のテキストを生成
+            let tweetText = `${tracks[index].name} - ${tracks[index].artist}. ${tracks[index].spotify_link}`; 
+        
+            // Twitterへのリンクを生成
+            playingInfo += '<br><a href="https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweetText) + '" class="twitter-link" target="_blank" style="margin-top: 10px; display: inline-block;">';
+            playingInfo += '<i class="fab fa-twitter large-twitter-icon"></i><span class="tweet-now-playing"> Share Song</span></a>';
+        
+            document.getElementById('playing').innerHTML = playingInfo;
+        
+            // ここで新しく生成されたYouTubeリンクにイベントリスナーを設定
+            document.querySelectorAll('.youtube-link').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    // 一時停止関数を呼び出す
+                    pause();
+                });
+            });
+        
+            audio.play();
+            audio.onended = playNext;
+            updatePlayingIcon();
+        }
+        
+        function pause() {
+            audio.pause();
+        }
 
-		function playNext(attempts = 0) {
-			if (attempts >= tracks.length) {
-				console.log("All tracks are unplayable. Stopping playback.");
-				return;
-			}
-			index = (index + 1) % tracks.length;
-			if (tracks[index].url) {
-				audio.src = tracks[index].url;
-				play();
-			} else {
-				playNext(attempts + 1); // URLがNoneの場合、次の曲にスキップ
-			}
-		}
+        function playNext(attempts = 0) {
+            if (attempts >= tracks.length) {
+                console.log("All tracks are unplayable. Stopping playback.");
+                return;
+            }
+            index = (index + 1) % tracks.length;
+            if (tracks[index].url) {
+                audio.src = tracks[index].url;
+                play();
+            } else {
+                playNext(attempts + 1); // URLがNoneの場合、次の曲にスキップ
+            }
+        }
 
-		function previous() {
-			index = (index - 1 + tracks.length) % tracks.length;
-			if (tracks[index].url) {
-				audio.src = tracks[index].url;
-				play();
-			} else {
-				previous(); // URLがNoneの場合、前の曲にスキップ
-						}
-		}
+        function previous() {
+            index = (index - 1 + tracks.length) % tracks.length;
+            if (tracks[index].url) {
+                audio.src = tracks[index].url;
+                play();
+            } else {
+                previous(); // URLがNoneの場合、前の曲にスキップ
+                        }
+        }
 
-		function playSpecificTrack(trackIndex) {
-			index = trackIndex;
-			if (tracks[index].url) {
-				audio.src = tracks[index].url;
-				play();
-			} else {
-				playNext(); // URLがNoneの場合、次の曲にスキップ
-			}
-		}
+        function playSpecificTrack(trackIndex) {
+            index = trackIndex;
+            if (tracks[index].url) {
+                audio.src = tracks[index].url;
+                play();
+            } else {
+                playNext(); // URLがNoneの場合、次の曲にスキップ
+            }
+        }
 
-		document.addEventListener('DOMContentLoaded', function() {
-			const playlistDropdown = document.getElementById('playlistDropdown');
+        document.addEventListener('DOMContentLoaded', function() {
+            const playlistDropdown = document.getElementById('playlistDropdown');
 
-			playlistDropdown.addEventListener('change', function() {
-				const selectedPlaylistId = playlistDropdown.value;
-				const selectedPlaylistName = playlistDropdown.options[playlistDropdown.selectedIndex].text;
-				const url = `/?playlist_id=${selectedPlaylistId}&playlist_name=${encodeURIComponent(selectedPlaylistName)}`;
-				window.location.href = url;
-			});
-		});
+            playlistDropdown.addEventListener('change', function() {
+                const selectedPlaylistId = playlistDropdown.value;
+                const selectedPlaylistName = playlistDropdown.options[playlistDropdown.selectedIndex].text;
+                const url = `/?playlist_id=${selectedPlaylistId}&playlist_name=${encodeURIComponent(selectedPlaylistName)}`;
+                window.location.href = url;
+            });
+        });
 
-		// 新しいYouTubeリンクのクリックイベント処理
-		document.addEventListener("DOMContentLoaded", function() {
-			// すべてのYouTubeリンクに対してイベントリスナーを追加
-			document.querySelectorAll('.youtube-link').forEach(function(link) {
-				link.addEventListener('click', function() {
-				// 一時停止関数を呼び出す
-				pause();
-				});
-			});
-		});
-	</script>
+        // 新しいYouTubeリンクのクリックイベント処理
+        document.addEventListener("DOMContentLoaded", function() {
+            // すべてのYouTubeリンクに対してイベントリスナーを追加
+            document.querySelectorAll('.youtube-link').forEach(function(link) {
+                link.addEventListener('click', function() {
+                // 一時停止関数を呼び出す
+                pause();
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>
