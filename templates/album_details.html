@@ -28,7 +28,7 @@
         {% if album.popularity % 10 >= 5 %}
             <span class="half-star"><i class="fas fa-star-half-alt"></i></span>
         {% endif %}
-        {% for _ in range(0, 9 - (album.popularity // 10) - (album.popularity % 10 >= 5)) %}
+        {% for _ in range(0, 10 - (album.popularity // 10) - (album.popularity % 10 >= 5)) %}
             <span class="empty-star"><i class="far fa-star"></i></span>
         {% endfor %}
     </span>
