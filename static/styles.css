@@ -254,7 +254,7 @@ select {
 }
 
 .star, .empty-star {
-    font-size: 32px;
+    font-size: 36px;
     margin-right: 0px;
 }
 .star { color: var(--star-color); }
@@ -366,4 +366,9 @@ select {
 	#buttons {
 		margin-bottom: 30px;
 	}
+
+    .star, .empty-star {
+        font-size: 30px;
+        margin-right: 0px;
+    }
 }
