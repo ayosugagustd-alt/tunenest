@@ -340,8 +340,14 @@ select {
 		white-space: nowrap;
 	}
 
-    /* Watch MV, Info */
+    /* Watch MV, Preview, Info Caption */
     .icon-caption {
+        font-size: 14px;
+        margin-right: 28px;
+        margin-left: 3px;
+    }
+    /* Disabled Caption(No Preview) */
+    .icon-disabled-caption {
         font-size: 14px;
         margin-right: 28px;
         margin-left: 3px;
