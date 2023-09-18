@@ -63,7 +63,7 @@ button:active {
 }
 
 #playing-artwork {
-    margin-right: 10px; /* 右側の余白を調整 */
+    margin-right: 4px; /* 右側の余白を調整 */
 }
 
 #buttons {
@@ -74,10 +74,11 @@ button:active {
 	margin-left: 5px;
 }
 
+/* アートワーク右の表示欄 */
 #playing {
     flex-grow: 1;
     font-size: 40px;
-	margin-left: 16px;
+	margin-left: 10px;
 	font-weight: bold;
 }
 
@@ -98,21 +99,14 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
 
 .fab.fa-youtube {
     font-size: 24px;
-    margin-right: 5px;
     color: #FF0000;   /* YouTubeの赤色 */
 }
-
 .fab.fa-spotify {
     font-size: 24px;
-    margin-right: 5px;
-    margin-left: 14px;
 	color: #1DB954;	  /* Spotifyの緑色 */
 }
-
 .fas.fa-info-circle {
     font-size: 24px;
-    margin-right: 5px;
-    margin-left: 28px;
     color: #4169E1;  /* アイコンの色を青に設定 */
 }
 
@@ -146,6 +140,7 @@ a:hover {
 }
 
 .custom-list-item {
+    margin-top: 14px;
     display: flex;
     align-items: flex-start;
 
@@ -170,10 +165,22 @@ a:hover {
 
 .play-on-youtube {
     font-size: 24px;
+    margin-left: 0px;
 }
 
-.youtube-icon-caption {
+/* Watch MV, Preview, Info Caption */
+.icon-caption {
     font-size: 16px;
+    margin-right: 32px;
+    margin-left: 4px;
+}
+/* Disabled Caption(No Preview) */
+.icon-disabled-caption {
+    font-size: 16px;
+    margin-right: 32px;
+    margin-left: 4px;
+
+    color: #A9A9A9;
 }
 
 .icon-disabled {
@@ -234,8 +241,9 @@ select {
     background-color: white;
 }
 
+/* スピーカーアイコン */
 .playing-icon {
-    margin-left: 8px;  /* 左側に8ピクセルのマージンを追加 */
+    margin-left: 8px;  /* 左側にマージン */
 }
 
 .tweet-now-playing {
@@ -243,11 +251,6 @@ select {
 }
 .fab.fa-twitter {
     font-size: 26px;
-    margin-right: 4px;
-    color: #1DA1F2;
-}
-.large-twitter-icon {
-    font-size: 50px;
     color: #1DA1F2;
 }
 
@@ -306,37 +309,27 @@ select {
 		margin-left: -5px;
         font-size: 10px;
     }
+    /* アートワーク右の表示欄 */
     #playing {
         flex-grow: 1;
         font-size: 16px;
-        margin-left: 10px;
+        margin-left: 4px;
     }
     .play-on-youtube {
         font-size: 14px;
     }
 
-	fab.fa-twitter {
+	.fab.fa-twitter {
     	font-size: 20px;
-    	color: #1DA1F2;
 	}
-
 	.fab.fa-youtube {
     	font-size: 20px;
-        margin-right: 3px;
 	}
 	.fab.fa-spotify {
     	font-size: 20px;
-        margin-right: 3px;
-        margin-left: 16px;
 	}
 	.fas.fa-info-circle {
     	font-size: 20px;
-        margin-right: 3px;
-        margin-left: 28px;
-	}
-	.fab.fa-twitter {
-    	font-size: 22px;
-        margin-right: 2px;
 	}
 
 	button {
@@ -347,16 +340,16 @@ select {
 		white-space: nowrap;
 	}
 
-    .youtube-icon-caption {
+    /* Watch MV, Info */
+    .icon-caption {
         font-size: 14px;
+        margin-right: 28px;
+        margin-left: 3px;
     }
 
 	h1 {
-    margin-bottom: 10px;
+        margin-bottom: 10px;
     	font-size: 28px;
-	}
-	#playing-artwork {
-    	margin-right: 4px; /* 右側の余白を調整 */
 	}
 
 	footer p {
@@ -365,7 +358,7 @@ select {
 	}
 
 	.separator {
-    	margin: 0 5px;
+    	margin: 0px 5px;
 	}
 
 	.search-input {

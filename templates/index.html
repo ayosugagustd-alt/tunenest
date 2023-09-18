@@ -62,18 +62,18 @@
                 <div class="track-info">
                     <span class="track-name">{{ track.name }}</span><span class="separator"></span><span class="artist">{{ track.artist }}</span></div>
                 <div class="icon-row">
-                    <a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" class="youtube-link" target="_blank" style="margin-right: 14px;">
-                       <i class="fab fa-youtube"></i><span class="youtube-icon-caption">Watch MV</span></a>
+                    <a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" class="youtube-link" target="_blank">
+                       <i class="fab fa-youtube"></i><span class="icon-caption">Watch</span></a>
                     {% if track.url %}
                         <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
-                        <i class="fab fa-spotify"></i><span class="youtube-icon-caption">Preview</span></a>
+                        <i class="fab fa-spotify"></i><span class="icon-caption">Preview</span></a>
                     {% else %}
-                        <i class="fab fa-spotify icon-disabled"></i><span class="youtube-icon-caption">Preview</span>
+                        <i class="fab fa-spotify icon-disabled"></i><span class="icon-disabled-caption">Preview</span>
                     {% endif %}
 
-                    <!-- 「Details」ボタン -->
+                    <!-- Info -->
                     <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank">
-                    <i class="fas fa-info-circle"></i><span class="youtube-icon-caption">Info</span></a>
+                    <i class="fas fa-info-circle"></i><span class="icon-caption">Info</span></a>
                 </div>
             </span>
         </div>
@@ -134,14 +134,14 @@
         
             // YouTubeへのリンクを生成
             playingInfo += '<br><a href="/youtube?track=' + encodeURIComponent(tracks[index].name) + '&artist=' + encodeURIComponent(tracks[index].artist) + '" class="youtube-link" target="_blank" style="margin-top: 10px; display: inline-block;">';
-            playingInfo += '<i class="fab fa-youtube fa-lg"></i><span class="play-on-youtube"> Watch MV</span></a>';
+            playingInfo += '<i class="fab fa-youtube fa-lg"></i><span class="play-on-youtube"> Watch</span></a>';
 
             // Tweet用のテキストを生成
             let tweetText = `${tracks[index].name} - ${tracks[index].artist}. ${tracks[index].spotify_link}`; 
         
             // Twitterへのリンクを生成
             playingInfo += '<br><a href="https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweetText) + '" class="twitter-link" target="_blank" style="margin-top: 10px; display: inline-block;">';
-            playingInfo += '<i class="fab fa-twitter .large-twitter-icon"></i><span class="tweet-now-playing"> Share</span></a>';
+            playingInfo += '<i class="fab fa-twitter"></i><span class="tweet-now-playing"> Share</span></a>';
         
             document.getElementById('playing').innerHTML = playingInfo;
         
