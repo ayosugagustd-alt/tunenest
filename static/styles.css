@@ -16,7 +16,7 @@ body {
     background-color: #FFFFFF;
     color: #000000;
     font-size: var(--font-size);
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: 'Poppins', Helvetica, Arial, sans-serif;
 
     margin: 20px;
 }
