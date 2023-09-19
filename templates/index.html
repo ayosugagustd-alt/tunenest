@@ -224,6 +224,19 @@
                 pause();
                 });
             });
+
+            const COMMON_MESSAGE_BODY = '<p>Hit play or select a track to start enjoying music!</p>';
+
+            let message;
+            if (sessionStorage.getItem('visited') === null) {
+                message = '<span>Welcome to TuneNest!</span><br>' + COMMON_MESSAGE_BODY;
+                sessionStorage.setItem('visited', 'true');
+            } else {
+                message = '<span>New Playlist Selected</span><br>' + COMMON_MESSAGE_BODY;
+            }
+
+            document.getElementById('playing').innerHTML = message;
+
         });
     </script>
 
