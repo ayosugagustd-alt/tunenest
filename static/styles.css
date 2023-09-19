@@ -80,7 +80,6 @@ button:active {
     flex-grow: 1;
     font-size: 40px;
 	margin-left: 10px;
-	font-weight: bold;
 }
 
 header p {
@@ -156,8 +155,6 @@ a:hover {
     margin-right: 10px;
     font-size: 16px;
     align-self: flex-start;
-
-	font-weight: bold;
 }
 
 .custom-list-content {
@@ -293,7 +290,6 @@ select {
 
 .artist-name {
     font-size: 28px;
-    font-weight: bold;
 }
 
 @media only screen and (max-width: 768px) {
