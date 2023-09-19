@@ -56,6 +56,7 @@ button:active {
     text-align: left;
 }
 
+/* アートワークのマージンなど */
 #playing-container {
     display: flex;
     align-items: center;
@@ -165,7 +166,6 @@ a:hover {
 
 .play-on-youtube {
     font-size: 24px;
-    margin-left: 0px;
 }
 
 /* Watch MV, Preview, Info Caption */
@@ -246,9 +246,13 @@ select {
     margin-left: 8px;  /* 左側にマージン */
 }
 
-.tweet-now-playing {
+.tweet-now-playing, .info-now-playing {
     font-size: 24px;
 }
+.info-now-playing {
+    margin-left: 4px
+}
+
 .fab.fa-twitter {
     font-size: 26px;
     color: #1DA1F2;
@@ -391,7 +395,7 @@ select {
         padding: 5px;
     }
 
-    .tweet-now-playing {
+    .tweet-now-playing, .info-now-playing {
         font-size: 14px;
     }
 }
