@@ -370,6 +370,7 @@ select {
 	.search-input {
     	width: 170px;  /* 固定幅 */
     	margin-bottom: 40px;  /* 左側に余白 */
+	    font-size: 14px;
 	}
 
     #buttons {
