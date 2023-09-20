@@ -10,8 +10,8 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 # 定数の定義
-DEFAULT_PLAYLIST_ID = '37i9dQZEVXbINTEnbFeb8d'
-DEFAULT_PLAYLIST_NAME = 'Viral 50 - JP'
+DEFAULT_PLAYLIST_ID = '37i9dQZEVXbKuaTI1Z1Afx'
+DEFAULT_PLAYLIST_NAME = 'Viral 50 - US'
 
 def check_api_keys():
     spotify_client_id = os.getenv('SPOTIFY_CLIENT_ID')
