@@ -226,14 +226,7 @@
             });
 
             const COMMON_MESSAGE_BODY = "<p>Hit Play or click 'Preview' to start music!</p>";
-
-            let message;
-            if (sessionStorage.getItem('visited') === null) {
-                message = '<span>Welcome to <strong>TuneNest</strong>!</span><br>' + COMMON_MESSAGE_BODY;
-                sessionStorage.setItem('visited', 'true');
-            } else {
-                message = '<span>New Playlist Selected.</span><br>' + COMMON_MESSAGE_BODY;
-            }
+            const message = '<span>Welcome to <strong>TuneNest</strong>!</span><br>' + COMMON_MESSAGE_BODY;
 
             document.getElementById('playing').innerHTML = message;
 
