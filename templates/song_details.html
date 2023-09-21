@@ -27,7 +27,7 @@
     <div class="section-space">
         <h1>{{ song.name }}</h1>
         <div class="album-artwork">
-            <img alt="Album Artwork" src="{{ song.album_artwork_url }}"/>
+            <img alt="Album Artwork" src="{{ song.album_artwork_url or url_for('static', filename='noimage.jpg') }}"/>
         </div>
         <iframe allow="encrypted-media" allowtransparency="true" frameborder="0" height="80" src="https://open.spotify.com/embed/track/{{ song_id }}" width="300"></iframe>
         <p class="lyrics">{{ song.lyrics|safe }}</p>

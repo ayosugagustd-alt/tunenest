@@ -17,7 +17,7 @@
 <body>
 <div class="section-space">
     <h1>{{ album.name }}</h1>
-    <img alt="Album Cover" src="{{ album.image }}"/>
+    <img alt="Album Cover" src="{{ album.image or url_for('static', filename='noimage.jpg') }}"/>
 </div>
 <div class="section-space">
     <p>Release Date: <strong>{{ album.release_date }}</strong></p>
