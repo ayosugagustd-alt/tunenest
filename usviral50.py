@@ -86,7 +86,7 @@ def index():
         playlist_id = request.args.get('playlist_id', DEFAULT_PLAYLIST_ID)
         playlist_name = request.args.get('playlist_name', DEFAULT_PLAYLIST_NAME)
 
-        collage_filename = generate_collage_filename(playlist_id)
+        collage_filename = generate_collage_or_fetch_from_cache(playlist_id)
         if collage_filename is None:
             raise ValueError("collage_filename is None")
 
@@ -457,8 +457,29 @@ def static_from_root():
     return send_from_directory(app.static_folder, request.path[1:])
 
 # プレイリストIDに基づいてコラージュ画像のファイル名を生成する関数
-def generate_collage_filename(playlist_id):
-    return f"{playlist_id}_collage.jpg"
+#jdef generate_collage_filename(playlist_id):
+#    return f"{playlist_id}_collage.jpg"
+#
+#jimport os
+
+from flask import url_for
+import os
+
+def generate_collage_or_fetch_from_cache(playlist_id):
+    collage_filename = f"{playlist_id}_collage.jpg"
+    collage_filepath = os.path.join("static", collage_filename)
+    
+    # キャッシュされた画像が存在するか確認
+    if os.path.exists(collage_filepath):
+        print(f"Cache hit: {collage_filename} exists.")
+        return url_for('static', filename=collage_filename)
+    
+    # 画像がキャッシュされていない場合、新しく生成
+    # （この部分は現在の状況では不要）
+    # generate_collage(playlist_id)
+    print("Cache miss: Generating new collage.")
+    return url_for('static', filename=collage_filename)
+
 
 # メインのエントリーポイント
 if __name__ == "__main__":
