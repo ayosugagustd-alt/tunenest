@@ -4,6 +4,7 @@ from flask import render_template
 from flask import request
 from flask import redirect
 from flask import url_for
+from flask import send_from_directory
 
 import os
 import unicodedata
@@ -439,6 +440,9 @@ def song_details(song_id):
     song = get_song_details(song_id)
     return render_template('song_details.html', song=song, song_id=song_id)
 
+@app.route('/robots.txt')
+def static_from_root():
+    return send_from_directory(app.static_folder, request.path[1:])
 
 # メインのエントリーポイント
 if __name__ == "__main__":
