@@ -463,6 +463,6 @@ def generate_collage_filename(playlist_id):
 # メインのエントリーポイント
 if __name__ == "__main__":
     check_api_keys()  # APIキーのチェック
-    debug_mode = True
+    debug_mode = False
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=debug_mode)
