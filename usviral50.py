@@ -85,11 +85,17 @@ def youtube_search(q, max_results=1, youtube_api_key=None):
 def index():
     playlist_id = request.args.get('playlist_id', DEFAULT_PLAYLIST_ID)
     playlist_name = request.args.get('playlist_name', DEFAULT_PLAYLIST_NAME)
+    collage_filename = generate_collage_filename(playlist_id)  # 追加
+
     try:
         sp = get_spotify_client()
         results = sp.playlist_tracks(playlist_id)
         tracks = [get_track_info(item['track']) for item in results['items']]
-        return render_template('index.html', tracks=tracks, playlist_name=playlist_name)
+        return render_template('index.html', 
+                                tracks=tracks, 
+                                playlist_name=playlist_name,
+                                collage_filename=collage_filename)
+
     except Exception as e:
         return render_template('error.html', error=str(e))
 
@@ -443,6 +449,10 @@ def song_details(song_id):
 @app.route('/robots.txt')
 def static_from_root():
     return send_from_directory(app.static_folder, request.path[1:])
+
+# プレイリストIDに基づいてコラージュ画像のファイル名を生成する関数
+def generate_collage_filename(playlist_id):
+    return f"{playlist_id}_collage.jpg"
 
 # メインのエントリーポイント
 if __name__ == "__main__":
