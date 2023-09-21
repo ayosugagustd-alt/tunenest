@@ -163,6 +163,10 @@ a:hover {
 
 .play-on-youtube {
     font-size: 24px;
+
+    display: inline-block;
+    margin-bottom: 10px;
+    margin-left: 10px;
 }
 
 /* Watch MV, Preview, Info Caption */
@@ -245,9 +249,9 @@ select {
 
 .tweet-now-playing, .info-now-playing {
     font-size: 24px;
-}
-.info-now-playing {
-    margin-left: 4px
+    display: inline-block;
+    margin-bottom: 10px;
+    margin-left: 10px;
 }
 
 .fab.fa-twitter {
@@ -394,5 +398,10 @@ select {
 
     .tweet-now-playing, .info-now-playing {
         font-size: 14px;
+    }
+
+    .tweet-now-playing, .info-now-playing, .play-on-youtube {
+        margin-bottom: 8px;
+        margin-left: 5px;
     }
 }
