@@ -18,7 +18,7 @@
 <body>
 <div class="section-space">
     <h1>{{ artist['name'] }}</h1>
-    <img alt="{{ artist['name'] }}" src="{{ artist['image_url'] }}"/>
+    <img alt="{{ artist['name'] }}" src="{{ artist['image_url'] or url_for('static', filename='noimage.jpg') }}"/>
     <p>Popularity: <strong>{{ artist.popularity }}</strong>%</p>
     <span class="stars">
         {% for _ in range(0, artist.popularity // 10) %}
