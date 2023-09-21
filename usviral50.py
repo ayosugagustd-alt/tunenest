@@ -48,7 +48,6 @@ def get_track_info(track):
         'image_url': track['album']['images'][0]['url'],
         'spotify_link': track['external_urls']['spotify']
     }
-#   print(f"Track Info: {track_info}")
     return track_info
 
 # キャッシュ用の辞書
@@ -83,21 +82,28 @@ def youtube_search(q, max_results=1, youtube_api_key=None):
 # インデックスページのルート
 @app.route('/')
 def index():
-    playlist_id = request.args.get('playlist_id', DEFAULT_PLAYLIST_ID)
-    playlist_name = request.args.get('playlist_name', DEFAULT_PLAYLIST_NAME)
-    collage_filename = generate_collage_filename(playlist_id)  # 追加
-
     try:
+        playlist_id = request.args.get('playlist_id', DEFAULT_PLAYLIST_ID)
+        playlist_name = request.args.get('playlist_name', DEFAULT_PLAYLIST_NAME)
+
+        collage_filename = generate_collage_filename(playlist_id)
+        if collage_filename is None:
+            raise ValueError("collage_filename is None")
+
         sp = get_spotify_client()
         results = sp.playlist_tracks(playlist_id)
+        if results is None or results['items'] is None:
+            raise ValueError("Spotify API returned None")
+
         tracks = [get_track_info(item['track']) for item in results['items']]
+
         return render_template('index.html', 
                                 tracks=tracks, 
                                 playlist_name=playlist_name,
                                 collage_filename=collage_filename)
-
     except Exception as e:
         return render_template('error.html', error=str(e))
+
 
 # YouTube検索のルート
 @app.route('/youtube')
@@ -457,6 +463,6 @@ def generate_collage_filename(playlist_id):
 # メインのエントリーポイント
 if __name__ == "__main__":
     check_api_keys()  # APIキーのチェック
-    debug_mode = False
+    debug_mode = True
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=debug_mode)
