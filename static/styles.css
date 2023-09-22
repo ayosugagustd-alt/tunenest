@@ -89,14 +89,6 @@ header p {
 }
 header { text-align: right; width: 98%; padding: 0px 0; }
 
-footer p {
-    margin: 10px 0;
-    font-size: 16px;
-    color: #555;
-}
-
-footer { text-align: left; width: 100%; padding: 20px 0; }
-
 .fab.fa-youtube {
     font-size: 24px;
     color: #FF0000;   /* YouTubeの赤色 */
@@ -294,6 +286,29 @@ select {
 
 .artist-name {
     font-size: 28px;
+}
+
+footer p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #555;
+}
+footer { text-align: left; width: 100%; padding: 20px 0; }
+
+.footer-main span,
+.footer-sub span,
+.footer-main a,
+.footer-legal a,
+.footer-sub a {
+    font-size: 0.8em;
+    display: inline-block;
+    vertical-align: middle;
+    color: #555;
+}
+
+.footer-copyright {
+    font-size: 0.8em;
+    color: #555;
 }
 
 @media only screen and (max-width: 768px) {
