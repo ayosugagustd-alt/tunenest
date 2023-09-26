@@ -456,15 +456,6 @@ def song_details(song_id):
 def static_from_root():
     return send_from_directory(app.static_folder, request.path[1:])
 
-# プレイリストIDに基づいてコラージュ画像のファイル名を生成する関数
-#jdef generate_collage_filename(playlist_id):
-#    return f"{playlist_id}_collage.jpg"
-#
-#jimport os
-
-from flask import url_for
-import os
-
 def generate_collage_or_fetch_from_cache(playlist_id):
     collage_filename = f"{playlist_id}_collage.jpg"
     collage_filepath = os.path.join("static", collage_filename)
@@ -485,5 +476,5 @@ def generate_collage_or_fetch_from_cache(playlist_id):
 if __name__ == "__main__":
     check_api_keys()  # APIキーのチェック
     debug_mode = False
-    port = int(os.environ.get('PORT', 5000))
+    port = int(os.environ.get('PORT', 8080))
     app.run(host='0.0.0.0', port=port, debug=debug_mode)
