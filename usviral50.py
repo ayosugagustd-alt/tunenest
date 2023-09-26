@@ -16,29 +16,31 @@ import requests
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
+
 # 定数の定義
 DEFAULT_PLAYLIST_ID = '37i9dQZF1DXdY5tVYFPWb2'
 DEFAULT_PLAYLIST_NAME = 'City Pop'
-
-def check_api_keys():
-    spotify_client_id = os.getenv('SPOTIFY_CLIENT_ID')
-    spotify_client_secret = os.getenv('SPOTIFY_CLIENT_SECRET')
-    youtube_api_key = os.getenv('YOUTUBE_API_KEY')
-    
-    if not spotify_client_id or not spotify_client_secret:
-        raise ValueError("Spotify credentials are not set")
-        
-    if not youtube_api_key:
-        raise ValueError("YouTube API key is not set")
+ 
 
 # Flaskアプリを初期化
 app = Flask(__name__)
 
+# 環境変数を一度だけ読み取る
+SPOTIFY_CLIENT_ID = os.getenv('SPOTIFY_CLIENT_ID')
+SPOTIFY_CLIENT_SECRET = os.getenv('SPOTIFY_CLIENT_SECRET')
+YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY')
+
+# APIキーをチェック
+def check_api_keys():
+    if not SPOTIFY_CLIENT_ID or not SPOTIFY_CLIENT_SECRET:
+        raise ValueError("Spotifyの認証情報が設定されていません。")
+
+    if not YOUTUBE_API_KEY:
+        raise ValueError("YouTube APIのキーが設定されていません。")
+
 # Spotifyクライアントを取得する関数
 def get_spotify_client():
-    client_id = os.getenv('SPOTIFY_CLIENT_ID')
-    client_secret = os.getenv('SPOTIFY_CLIENT_SECRET')
-    return spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id=client_id, client_secret=client_secret))
+    return spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET))
 
 # トラック情報を取得する関数
 def get_track_info(track):
@@ -113,11 +115,7 @@ def youtube():
     track_name = request.args.get('track')
     artist_name = request.args.get('artist')
 
-    youtube_api_key = os.getenv('YOUTUBE_API_KEY')
-
-
-    video_id = youtube_search(f"{track_name} {artist_name}", youtube_api_key=youtube_api_key)
-
+    video_id = youtube_search(f"{track_name} {artist_name}", youtube_api_key=YOUTUBE_API_KEY)
 
     if isinstance(video_id, dict) and 'error' in video_id:
         return render_template('error.html', error=video_id['error'])
