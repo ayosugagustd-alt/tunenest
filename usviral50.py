@@ -1,18 +1,20 @@
-# 必要なライブラリをインポート
-from flask import Flask
-from flask import render_template
-from flask import request
-from flask import redirect
-from flask import url_for
-from flask import send_from_directory
-
+# 標準ライブラリ
 import os
 import unicodedata
-import spotipy
-import requests
-from spotipy.oauth2 import SpotifyClientCredentials
+
+# サードパーティライブラリ
+from flask import Flask
+from flask import redirect
+from flask import render_template
+from flask import request
+from flask import send_from_directory
+from flask import url_for
+
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+import requests
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
 
 # 定数の定義
 DEFAULT_PLAYLIST_ID = '37i9dQZF1DXdY5tVYFPWb2'
