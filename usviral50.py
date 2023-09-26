@@ -16,19 +16,20 @@ import requests
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
-
 # 定数の定義
 DEFAULT_PLAYLIST_ID = '37i9dQZF1DXdY5tVYFPWb2'
 DEFAULT_PLAYLIST_NAME = 'City Pop'
- 
-
-# Flaskアプリを初期化
-app = Flask(__name__)
 
 # 環境変数を一度だけ読み取る
 SPOTIFY_CLIENT_ID = os.getenv('SPOTIFY_CLIENT_ID')
 SPOTIFY_CLIENT_SECRET = os.getenv('SPOTIFY_CLIENT_SECRET')
 YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY')
+MUSIXMATCH_API_KEY = os.getenv('MUSIXMATCH_API_KEY')
+ 
+
+# Flaskアプリを初期化
+app = Flask(__name__)
+
 
 # APIキーをチェック
 def check_api_keys():
@@ -38,9 +39,11 @@ def check_api_keys():
     if not YOUTUBE_API_KEY:
         raise ValueError("YouTube APIのキーが設定されていません。")
 
+
 # Spotifyクライアントを取得する関数
 def get_spotify_client():
     return spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET))
+
 
 # トラック情報を取得する関数
 def get_track_info(track):
@@ -53,6 +56,7 @@ def get_track_info(track):
         'spotify_link': track['external_urls']['spotify']
     }
     return track_info
+
 
 # キャッシュ用の辞書
 youtube_url_cache = {}
@@ -92,12 +96,12 @@ def index():
 
         collage_filename = generate_collage_or_fetch_from_cache(playlist_id)
         if collage_filename is None:
-            raise ValueError("collage_filename is None")
+            raise ValueError("コラージュ画像が生成されていません。")
 
         sp = get_spotify_client()
         results = sp.playlist_tracks(playlist_id)
         if results is None or results['items'] is None:
-            raise ValueError("Spotify API returned None")
+            raise ValueError("Spotify APIが正常な値を返しませんでした。")
 
         tracks = [get_track_info(item['track']) for item in results['items']]
 
@@ -118,20 +122,13 @@ def youtube():
     video_id = youtube_search(f"{track_name} {artist_name}", youtube_api_key=YOUTUBE_API_KEY)
 
     if isinstance(video_id, dict) and 'error' in video_id:
-        return render_template('error.html', error=video_id['error'])
-
+        return render_template('error.html', error=f"エラーが発生しました。：{video_id['error']}")
 
     if video_id:
         return render_template('youtube.html', video_id=video_id)
     else:
-        return "No video found", 404
+        return "動画が見つかりません。", 404
 
-#アルバム名でSpotifyを検索
-def search_album(album_name):
-    sp = get_spotify_client()
-    album_name = unicodedata.normalize('NFKC', album_name)
-    results = sp.search(q=album_name, type='album')
-    return results['albums']['items']
 
 # アーティストの詳細情報を取得
 def get_artist_details(artist_id):
@@ -167,7 +164,6 @@ def get_album_details(album_id):
 
     # 収録曲リストを作成
     tracks = [{'name': track['name'], 'length': track['duration_ms'], 'id': track['id']} for track in album['tracks']['items']]
-
 
     details = {
         'name': album['name'],  # アルバム名
@@ -228,23 +224,11 @@ def get_song_details(song_id):
         'lyrics': clean_lyrics, # 歌詞情報を追加
     }
 
-# count_total_albums()
-def count_total_albums(artist_id):
-    sp = get_spotify_client() # Spotifyクライアントの取得
-    total_albums = sp.artist_albums(artist_id, album_type='album')['total']
-    return total_albums
-
-# count_total_singles()
-def count_total_singles(artist_id):
+# 総リリース数をカウントする関数
+def count_total_releases(artist_id, album_type):
     sp = get_spotify_client()
-    total_singles = sp.artist_albums(artist_id, album_type='single')['total']
-    return total_singles
-
-# count_total_compilations()
-def count_total_compilations(artist_id):
-    sp = get_spotify_client()
-    total_compilations = sp.artist_albums(artist_id, album_type='compilation')['total']
-    return total_compilations
+    total_releases = sp.artist_albums(artist_id, album_type=album_type)['total']
+    return total_releases
 
 # get_artist_albums_with_songs()
 def get_artist_albums_with_songs(artist_id, page, per_page=10):
@@ -337,16 +321,10 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
 
     return result
 
-# musixmatchの認証情報を設定
-def get_musixmatch_api_key():
-    api_key = os.environ.get('MUSIXMATCH_API_KEY')
-    return api_key
-
 # musixmatchのtrack_idから歌詞を取得
 def get_lyrics(track_id):
-    api_key = get_musixmatch_api_key() # 環境変数からAPIキーを取得
     base_url = "https://api.musixmatch.com/ws/1.1/"
-    endpoint = f"{base_url}track.lyrics.get?track_id={track_id}&apikey={api_key}"
+    endpoint = f"{base_url}track.lyrics.get?track_id={track_id}&apikey={MUSIXMATCH_API_KEY}"
 
     response = requests.get(endpoint)
     if response.status_code == 200:
@@ -356,9 +334,8 @@ def get_lyrics(track_id):
 
 #アーティスト名と楽曲名からmusixmatchのtrack_idを取得
 def get_musixmatch_track_id(artist_name, song_name):
-    api_key = get_musixmatch_api_key() # 環境変数からAPIキーを取得
     base_url = "https://api.musixmatch.com/ws/1.1/"
-    query = f"track.search?q_track={song_name}&q_artist={artist_name}&apikey={api_key}"
+    query = f"track.search?q_track={song_name}&q_artist={artist_name}&apikey={MUSIXMATCH_API_KEY}"
     endpoint = base_url + query
 
     response = requests.get(endpoint)
@@ -393,7 +370,7 @@ def all_albums_and_songs_for_artist(artist_id, page=1):
     albums_with_songs = get_artist_albums_with_songs(artist_id, page, per_page)
 
     # 総アルバム数を取得して、総ページ数を計算
-    total_albums = count_total_albums(artist_id)
+    total_albums = count_total_releases(artist_id, 'album')
     total_pages = (total_albums + per_page - 1) // per_page
 
     return render_template('albums_and_tracks_list.html', 
@@ -410,7 +387,7 @@ def all_albums_and_songs_for_artist(artist_id, page=1):
 def all_singles_and_songs_for_artist(artist_id, page=1):
     per_page = 10
     singles_with_songs = get_artist_singles_with_songs(artist_id, page, per_page)
-    total_singles = count_total_singles(artist_id)
+    total_singles = count_total_releases(artist_id, 'single')
     total_pages = (total_singles + per_page - 1) // per_page
     return render_template('singles_and_tracks_list.html',
                            singles_with_songs=singles_with_songs,
@@ -426,7 +403,7 @@ def all_singles_and_songs_for_artist(artist_id, page=1):
 def all_compilations_and_songs_for_artist(artist_id, page=1):
     per_page = 10
     compilations_with_songs = get_artist_compilations_with_songs(artist_id, page, per_page)
-    total_compilations = count_total_compilations(artist_id)
+    total_compilations= count_total_releases(artist_id, 'compilation')
     total_pages = (total_compilations + per_page - 1) // per_page
     return render_template('compilations_and_tracks_list.html',
                            compilations_with_songs=compilations_with_songs,
