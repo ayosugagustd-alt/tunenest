@@ -225,9 +225,9 @@ def get_song_details(song_id):
     }
 
 # 総リリース数をカウントする関数
-def count_total_releases(artist_id, album_type):
+def count_total_releases(artist_id, release_type):
     sp = get_spotify_client()
-    total_releases = sp.artist_albums(artist_id, album_type=album_type)['total']
+    total_releases = sp.artist_albums(artist_id, album_type=release_type)['total']
     return total_releases
 
 # get_artist_albums_with_songs()
@@ -347,7 +347,7 @@ def get_musixmatch_track_id(artist_name, song_name):
             return track_data[0]['track']['track_id'] # トラックIDを返す
     return None
 
-# artist_details
+# アーティスト詳細ページ 
 @app.route('/artist/<artist_id>')
 def artist_details(artist_id):
     # アーティストの詳細情報、トップトラック、最新のアルバム情報を取得
@@ -355,14 +355,14 @@ def artist_details(artist_id):
     # 取得した情報を使ってテンプレートをレンダリングして返す
     return render_template('artist_details.html', artist=artist_details, top_tracks=top_tracks_details, latest_album=latest_album_details)
 
-# album_details
+# アルバム詳細ページ 
 @app.route('/artist/<artist_id>/albums/<album_id>')
 def album_details(artist_id, album_id):
     # アルバム詳細の取得ロジック
     album = get_album_details(album_id)
     return render_template('album_details.html', album=album)
 
-# albums_and_tracks_list
+# 全アルバム表示ページ 
 @app.route('/artist/<artist_id>/all_albums_and_songs', methods=['GET'])
 @app.route('/artist/<artist_id>/all_albums_and_songs/page/<int:page>', methods=['GET'])
 def all_albums_and_songs_for_artist(artist_id, page=1):
@@ -381,7 +381,7 @@ def all_albums_and_songs_for_artist(artist_id, page=1):
                            total_albums=total_albums,
                            per_page=per_page) # per_page変数を追加
 
-# singles_and_tracks_list
+# 全シングル表示ページ 
 @app.route('/artist/<artist_id>/all_singles_and_songs', methods=['GET'])
 @app.route('/artist/<artist_id>/all_singles_and_songs/page/<int:page>', methods=['GET'])
 def all_singles_and_songs_for_artist(artist_id, page=1):
@@ -397,7 +397,7 @@ def all_singles_and_songs_for_artist(artist_id, page=1):
                            total_singles=total_singles,
                            per_page=per_page)
 
-# compilations_and_tracks_list
+# 全コンピ表示ページ 
 @app.route('/artist/<artist_id>/all_compilations_and_songs', methods=['GET'])
 @app.route('/artist/<artist_id>/all_compilations_and_songs/page/<int:page>', methods=['GET'])
 def all_compilations_and_songs_for_artist(artist_id, page=1):
@@ -413,15 +413,10 @@ def all_compilations_and_songs_for_artist(artist_id, page=1):
                            total_compilations=total_compilations,
                            per_page=per_page)
 
-# help_song_details.html 
+# 楽曲詳細ヘルプページ 
 @app.route('/help_song_details')
 def help_song_details():
     return render_template('help_song_details.html')
-
-# help_index.html
-@app.route('/help_index')
-def help_index():
-    return render_template('help_index.html')
 
 # 楽曲詳細画面のルート
 @app.route('/song_details/<song_id>', methods=['GET'])
@@ -439,13 +434,8 @@ def generate_collage_or_fetch_from_cache(playlist_id):
     
     # キャッシュされた画像が存在するか確認
     if os.path.exists(collage_filepath):
-        print(f"Cache hit: {collage_filename} exists.")
         return url_for('static', filename=collage_filename)
     
-    # 画像がキャッシュされていない場合、新しく生成
-    # （この部分は現在の状況では不要）
-    # generate_collage(playlist_id)
-    print("Cache miss: Generating new collage.")
     return url_for('static', filename=collage_filename)
 
 
