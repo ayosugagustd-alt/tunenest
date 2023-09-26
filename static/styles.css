@@ -387,7 +387,7 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
 	}
 
 	.search-input {
-    	width: 170px;  /* 固定幅 */
+    	width: 210px;  /* 固定幅 */
     	margin-bottom: 40px;  /* 左側に余白 */
 	    font-size: 14px;
 	}
