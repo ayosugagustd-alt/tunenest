@@ -20,35 +20,35 @@ from spotipy.oauth2 import SpotifyClientCredentials
 DEFAULT_PLAYLIST_ID = '37i9dQZF1DXdY5tVYFPWb2'
 DEFAULT_PLAYLIST_NAME = 'City Pop'
 
-# 環境変数を一度だけ読み取る
-SPOTIFY_CLIENT_ID = os.getenv('SPOTIFY_CLIENT_ID')
-SPOTIFY_CLIENT_SECRET = os.getenv('SPOTIFY_CLIENT_SECRET')
-YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY')
-MUSIXMATCH_API_KEY = os.getenv('MUSIXMATCH_API_KEY')
- 
+# 環境変数を一度だけ読み取る（存在しない場合はNone）
+SPOTIFY_CLIENT_ID = os.getenv('SPOTIFY_CLIENT_ID', None)
+SPOTIFY_CLIENT_SECRET = os.getenv('SPOTIFY_CLIENT_SECRET', None)
+YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY', None)
+MUSIXMATCH_API_KEY = os.getenv('MUSIXMATCH_API_KEY', None)
+
 
 # Flaskアプリを初期化
 app = Flask(__name__)
 
-
 # APIキーをチェック
 def check_api_keys():
     if not SPOTIFY_CLIENT_ID or not SPOTIFY_CLIENT_SECRET:
-        raise ValueError("Spotifyの認証情報が設定されていません。")
+        raise ValueError("Spotifyの認証情報が設定されていません。環境変数で設定してください。")
 
     if not YOUTUBE_API_KEY:
-        raise ValueError("YouTube APIのキーが設定されていません。")
-
+        raise ValueError("YouTube APIのキーが設定されていません。環境変数で設定してください。")
 
 # Spotifyクライアントを取得する関数
+# 戻り値: 認証済みのSpotifyクライアントオブジェクト
 def get_spotify_client():
     return spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET))
 
-
 # トラック情報を取得する関数
+# 引数: track (Spotify APIから取得したトラックの辞書)
+# 戻り値: トラック情報を含む辞書
 def get_track_info(track):
     track_info = {
-        'id': track['id'],  # 楽曲IDを追加
+        'id': track['id'],
         'url': track['preview_url'],
         'name': track['name'],
         'artist': track['artists'][0]['name'],
@@ -57,11 +57,16 @@ def get_track_info(track):
     }
     return track_info
 
-
-# キャッシュ用の辞書
+# キャッシュ用の辞書（検索クエリをキー、動画IDを値とする）
 youtube_url_cache = {}
 
 # YouTube動画を検索する関数
+# 引数:
+#   - q: 検索クエリ（例："Beatles Let it be"）
+#   - max_results: 返す最大結果数（デフォルトは1）
+#   - youtube_api_key: YouTube APIキー（デフォルトはNone）
+# 戻り値:
+#   - 動画のIDまたはエラーメッセージを含む辞書
 def youtube_search(q, max_results=1, youtube_api_key=None):
     # キャッシュからURLを取得
     if q in youtube_url_cache:
@@ -78,7 +83,7 @@ def youtube_search(q, max_results=1, youtube_api_key=None):
         ).execute()
         videos = [search_result['id']['videoId'] for search_result in search_response.get('items', [])]
 
-        # キャッシュにURLを保存
+        # キャッシュにURLを保存（次回の高速化のため）
         video_id = videos[0] if videos else None
         youtube_url_cache[q] = video_id
 
@@ -86,49 +91,70 @@ def youtube_search(q, max_results=1, youtube_api_key=None):
     except HttpError as e:
         return {'error': f"An HTTP error occurred: {e}"}
 
+# robots.txtファイルを返すルート。
+# このrobots.txtには、トップページのみをクロールさせる設定があります。
+# Flaskのstaticフォルダからファイルを送信します。
+@app.route('/robots.txt')
+def static_from_root():
+    return send_from_directory(app.static_folder, request.path[1:])
 
-# インデックスページのルート
+# コラージュ画像のファイルパスを取得する関数
+# 引数: playlist_id (プレイリストのID)
+# 戻り値: コラージュ画像のファイルパス
+def get_collage_filepath(playlist_id):
+    collage_filename = f"{playlist_id}_collage.jpg"
+    return url_for('static', filename=collage_filename)
+
+# インデックスページのルーティング処理
 @app.route('/')
 def index():
     try:
+        # クエリパラメータからプレイリストのIDと名前を取得
         playlist_id = request.args.get('playlist_id', DEFAULT_PLAYLIST_ID)
         playlist_name = request.args.get('playlist_name', DEFAULT_PLAYLIST_NAME)
 
-        collage_filename = generate_collage_or_fetch_from_cache(playlist_id)
+        # コラージュ画像のパスを取得
+        collage_filename = get_collage_filepath(playlist_id)
         if collage_filename is None:
             raise ValueError("コラージュ画像が生成されていません。")
 
+        # Spotifyクライアントを取得してプレイリストのトラックを取得
         sp = get_spotify_client()
         results = sp.playlist_tracks(playlist_id)
         if results is None or results['items'] is None:
             raise ValueError("Spotify APIが正常な値を返しませんでした。")
 
+        # トラック情報を整形
         tracks = [get_track_info(item['track']) for item in results['items']]
 
+        # HTMLテンプレートをレンダリング
         return render_template('index.html', 
                                 tracks=tracks, 
                                 playlist_name=playlist_name,
                                 collage_filename=collage_filename)
     except Exception as e:
+        # エラーページを表示
         return render_template('error.html', error=str(e))
 
-
-# YouTube検索のルート
+# YouTube検索のルーティング処理
 @app.route('/youtube')
 def youtube():
+    # クエリパラメータからトラック名とアーティスト名を取得
     track_name = request.args.get('track')
     artist_name = request.args.get('artist')
 
+    # YouTubeで動画を検索
     video_id = youtube_search(f"{track_name} {artist_name}", youtube_api_key=YOUTUBE_API_KEY)
 
+    # エラーがあればエラーページを表示
     if isinstance(video_id, dict) and 'error' in video_id:
         return render_template('error.html', error=f"エラーが発生しました。：{video_id['error']}")
 
+    # 動画IDが存在すれば結果を表示
     if video_id:
         return render_template('youtube.html', video_id=video_id)
     else:
         return "動画が見つかりません。", 404
-
 
 # アーティストの詳細情報を取得
 def get_artist_details(artist_id):
@@ -177,7 +203,6 @@ def get_album_details(album_id):
 
     # 詳細情報を整理して返却
     return details
-
 
 # 曲のIDを受け取り、その曲の詳細情報とオーディオ特性を返す
 def get_song_details(song_id):
@@ -289,7 +314,6 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
         result.append(single_info)
 
     return result
-
 
 # get_artist_compilations_with_songs()
 def get_artist_compilations_with_songs(artist_id, page, per_page=10):
@@ -418,25 +442,11 @@ def all_compilations_and_songs_for_artist(artist_id, page=1):
 def help_song_details():
     return render_template('help_song_details.html')
 
-# 楽曲詳細画面のルート
+# 楽曲詳細ページ
 @app.route('/song_details/<song_id>', methods=['GET'])
 def song_details(song_id):
     song = get_song_details(song_id)
     return render_template('song_details.html', song=song, song_id=song_id)
-
-@app.route('/robots.txt')
-def static_from_root():
-    return send_from_directory(app.static_folder, request.path[1:])
-
-def generate_collage_or_fetch_from_cache(playlist_id):
-    collage_filename = f"{playlist_id}_collage.jpg"
-    collage_filepath = os.path.join("static", collage_filename)
-    
-    # キャッシュされた画像が存在するか確認
-    if os.path.exists(collage_filepath):
-        return url_for('static', filename=collage_filename)
-    
-    return url_for('static', filename=collage_filename)
 
 
 # メインのエントリーポイント
