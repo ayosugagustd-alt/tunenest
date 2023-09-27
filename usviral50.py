@@ -156,11 +156,13 @@ def youtube():
     else:
         return "動画が見つかりません。", 404
 
-# アーティストの詳細情報を取得
+# アーティストの詳細情報とトップ曲、最新のアルバムを取得
+# 引数: artist_id (SpotifyのアーティストID)
+# 戻り値: アーティストの詳細、トップ曲のリスト、最新のアルバムの詳細を含む辞書
 def get_artist_details(artist_id):
     sp = get_spotify_client()
 
-    # アーティストの詳細情報を取得
+    # アーティストの基本情報を取得
     artist = sp.artist(artist_id)
     artist_details = {
         'id': artist['id'],
@@ -182,21 +184,27 @@ def get_artist_details(artist_id):
 
     return artist_details, top_tracks_details, latest_album_details
 
-
 # アルバムIDを使用してアルバムの詳細情報を取得
+# 引数: album_id (SpotifyのアルバムID)
+# 戻り値: アルバムの詳細情報を含む辞書
 def get_album_details(album_id):
-    sp = get_spotify_client()  # Spotifyクライアントの取得
-    album = sp.album(album_id)  # アルバムIDを使用してアルバム情報を取得
+    # Spotifyクライアントの取得
+    sp = get_spotify_client()
+
+    # アルバムIDを使用してアルバム情報を取得
+    album = sp.album(album_id)
 
     # 収録曲リストを作成
     tracks = [{'name': track['name'], 'length': track['duration_ms'], 'id': track['id']} for track in album['tracks']['items']]
 
+    # アルバムの詳細情報を辞書で整理
     details = {
         'name': album['name'],  # アルバム名
         'release_date': album['release_date'],  # リリース日
         'image': album['images'][0]['url'],  # ジャケット画像のURL
-        'genres': album['genres'],  # ジャンル
-        'artists': [{'name': artist['name'], 'id': artist['id']} for artist in album['artists']],  # アーティスト情報
+        'genres': album['genres'],  # ジャンル（通常、アルバムにジャンルは含まれていない）
+        'artists': [{'name': artist['name'], 
+        'id': artist['id']} for artist in album['artists']],  # 参加アーティスト
         'tracks': tracks,  # 収録曲リスト
         'popularity': album['popularity']  # 人気度
     }
@@ -205,6 +213,8 @@ def get_album_details(album_id):
     return details
 
 # 曲のIDを受け取り、その曲の詳細情報とオーディオ特性を返す
+# 引数: song_id (Spotifyの曲ID)
+# 戻り値: 曲の詳細情報とオーディオ特性を含む辞書
 def get_song_details(song_id):
     sp = get_spotify_client() # Spotifyクライアントの取得
     song = sp.track(song_id)  # 曲の基本情報を取得
@@ -223,6 +233,7 @@ def get_song_details(song_id):
     # track_idから歌詞を取得
     lyrics = get_lyrics(musixmatch_track_id)
 
+    # 歌詞が存在する場合は整形
     if 'lyrics' in lyrics['message']['body']:
         lyrics_body = lyrics['message']['body']['lyrics']['lyrics_body']
         clean_lyrics = lyrics_body.split('\n*******')[0]
@@ -230,7 +241,7 @@ def get_song_details(song_id):
     else:
         clean_lyrics = 'Lyrics not found.'
 
-    # 必要な情報を整理
+    # 必要な情報を整理して返却
     return {
         'acousticness': features['acousticness'] * 100,
         'danceability': features['danceability'] * 100,
@@ -244,18 +255,22 @@ def get_song_details(song_id):
         'tempo': features['tempo'],
         'time_signature': features['time_signature'],
         'valence': features['valence'] * 100,
-        'album_artwork_url': album_artwork_url, # アートワークURLを追加
-		'artists': artists,
-        'lyrics': clean_lyrics, # 歌詞情報を追加
+        'album_artwork_url': album_artwork_url, # アートワークURL
+		'artists': artists, # アーティスト情報
+        'lyrics': clean_lyrics, # 歌詞情報
     }
 
 # 総リリース数をカウントする関数
+# 引数: artist_id (SpotifyのアーティストID), release_type (リリースの種類)
+# 戻り値: 総リリース数
 def count_total_releases(artist_id, release_type):
     sp = get_spotify_client()
     total_releases = sp.artist_albums(artist_id, album_type=release_type)['total']
     return total_releases
 
-# get_artist_albums_with_songs()
+# アーティストのアルバムとその楽曲をページ単位で取得する関数
+# 引数: artist_id (SpotifyのアーティストID), page (ページ番号), per_page (1ページあたりのアルバム数)
+# 戻り値: アーティストのアルバムと楽曲情報を含む辞書のリスト
 def get_artist_albums_with_songs(artist_id, page, per_page=10):
     sp = get_spotify_client()
     offset = (page - 1) * per_page
@@ -270,8 +285,8 @@ def get_artist_albums_with_songs(artist_id, page, per_page=10):
             'name': album['name'],
             'release_date': album['release_date'],
             'tracks': [],
-            'album_id': album['id'],         # アルバムIDの追加
-            'artist_id': artist_id           # アーティストIDの追加
+            'album_id': album['id'],         # アルバムID
+            'artist_id': artist_id           # アーティストID
         }
 
         # 各アルバムに含まれる楽曲を取得
@@ -285,8 +300,11 @@ def get_artist_albums_with_songs(artist_id, page, per_page=10):
 
     return result
 
-# get_artist_singles_with_songs()
+# アーティストのシングルとその楽曲情報を取得
+# 引数: artist_id (SpotifyのアーティストID), page (ページ番号), per_page (1ページあたりのアイテム数)
+# 戻り値: シングル情報とその楽曲を含むリスト
 def get_artist_singles_with_songs(artist_id, page, per_page=10):
+    # Spotifyクライアントの取得
     sp = get_spotify_client()
     offset = (page - 1) * per_page
     limit = per_page
@@ -295,6 +313,7 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
     singles = sp.artist_albums(artist_id, album_type='single', offset=offset, limit=limit)['items']
     result = []
 
+    # シングル情報を取得
     for single in singles:
         single_info = {
             'name': single['name'],
@@ -304,7 +323,7 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
             'artist_id': artist_id     # アーティストIDの追加
         }
 
-        # 各シングルに含まれる楽曲を取得
+        # シングルに含まれる楽曲を取得
         single_tracks = sp.album_tracks(single['id'])['items']
         for track in single_tracks:
             track_name = track['name']
@@ -316,8 +335,15 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
     return result
 
 # get_artist_compilations_with_songs()
+# アーティストのコンピレーションアルバムとその楽曲を取得
+# 引数: artist_id (SpotifyのアーティストID), page (ページ番号), 
+# per_page (1ページ当たりのアイテム数)
+# 戻り値: コンピレーションアルバムとその楽曲情報を含むリスト
 def get_artist_compilations_with_songs(artist_id, page, per_page=10):
+    # Spotifyクライアントを取得
     sp = get_spotify_client()
+
+    # ページングのためのオフセットとリミットを計算
     offset = (page - 1) * per_page
     limit = per_page
 
@@ -325,13 +351,14 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
     compilations = sp.artist_albums(artist_id, album_type='compilation', offset=offset, limit=limit)['items']
     result = []
 
+    # 各コンピレーションアルバムの詳細情報を取得
     for compilation in compilations:
         compilation_info = {
-            'name': compilation['name'],
-            'release_date': compilation['release_date'],
-            'tracks': [],
-            'compilation_id': compilation['id'], # コンピレーションIDの追加
-            'artist_id': artist_id               # アーティストIDの追加
+            'name': compilation['name'],    # アルバム名
+            'release_date': compilation['release_date'],    #リリース日
+            'tracks': [],   # 収録曲リスト
+            'compilation_id': compilation['id'], #  コンピレーションID
+            'artist_id': artist_id  # アーティストID
         }
 
         # 各コンピレーションアルバムに含まれる楽曲を取得
@@ -346,30 +373,36 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
     return result
 
 # musixmatchのtrack_idから歌詞を取得
+# 引数: track_id (Musixmatchの楽曲ID)
+# 戻り値: 歌詞情報を含むJSONデータ、またはエラー時にはNone
 def get_lyrics(track_id):
     base_url = "https://api.musixmatch.com/ws/1.1/"
     endpoint = f"{base_url}track.lyrics.get?track_id={track_id}&apikey={MUSIXMATCH_API_KEY}"
 
+    # 歌詞情報を取得するAPIリクエストを送信
     response = requests.get(endpoint)
     if response.status_code == 200:
         return response.json() # 歌詞情報をJSONとして返す
     else:
-        return None # エラー処理
+        return None # 200以外の場合はエラーとしてNoneを返す 
 
-#アーティスト名と楽曲名からmusixmatchのtrack_idを取得
+# アーティスト名と楽曲名からmusixmatchのtrack_idを取得
+# 引数: artist_name (アーティスト名), song_name (楽曲名)
+# 戻り値: musixmatchのトラックID、またはエラー時にはNone
 def get_musixmatch_track_id(artist_name, song_name):
     base_url = "https://api.musixmatch.com/ws/1.1/"
     query = f"track.search?q_track={song_name}&q_artist={artist_name}&apikey={MUSIXMATCH_API_KEY}"
     endpoint = base_url + query
 
+    # musixmatch APIにリクエストを送信
     response = requests.get(endpoint)
 
     if response.status_code == 200:
         track_data = response.json()['message']['body']['track_list']
 
         if track_data:
-            return track_data[0]['track']['track_id'] # トラックIDを返す
-    return None
+            return track_data[0]['track']['track_id'] # 最初のトラックIDを返す
+    return None     # エラーまたは該当なしの場合はNoneを返す
 
 # アーティスト詳細ページ 
 @app.route('/artist/<artist_id>')
@@ -386,33 +419,40 @@ def album_details(artist_id, album_id):
     album = get_album_details(album_id)
     return render_template('album_details.html', album=album)
 
-# 全アルバム表示ページ 
+# 全アルバム表示ページのルーティング処理
+# アーティストIDとページ番号（オプション）を引数として受け取る
 @app.route('/artist/<artist_id>/all_albums_and_songs', methods=['GET'])
 @app.route('/artist/<artist_id>/all_albums_and_songs/page/<int:page>', methods=['GET'])
 def all_albums_and_songs_for_artist(artist_id, page=1):
-    per_page = 10
+    per_page = 10 # 1ページあたりのアルバム数
     albums_with_songs = get_artist_albums_with_songs(artist_id, page, per_page)
 
     # 総アルバム数を取得して、総ページ数を計算
     total_albums = count_total_releases(artist_id, 'album')
     total_pages = (total_albums + per_page - 1) // per_page
 
+    # レンダリングされたHTMLテンプレートを返す
     return render_template('albums_and_tracks_list.html', 
                            albums_with_songs=albums_with_songs, 
                            artist_id=artist_id, 
                            page=page, 
                            total_pages=total_pages,
                            total_albums=total_albums,
-                           per_page=per_page) # per_page変数を追加
+                           per_page=per_page) # 1ページあたりのアルバム数 
 
-# 全シングル表示ページ 
+# 全シングル表示ページのルート
+# アーティストIDとページ番号（オプション）を引数として受け取る
 @app.route('/artist/<artist_id>/all_singles_and_songs', methods=['GET'])
 @app.route('/artist/<artist_id>/all_singles_and_songs/page/<int:page>', methods=['GET'])
 def all_singles_and_songs_for_artist(artist_id, page=1):
-    per_page = 10
+    per_page = 10   # 1ページあたりのシングル数
     singles_with_songs = get_artist_singles_with_songs(artist_id, page, per_page)
+
+    # 総シングル数を取得し、総ページ数を計算
     total_singles = count_total_releases(artist_id, 'single')
     total_pages = (total_singles + per_page - 1) // per_page
+
+    # レンダリングされたHTMLテンプレートを返す
     return render_template('singles_and_tracks_list.html',
                            singles_with_songs=singles_with_songs,
                            artist_id=artist_id,
@@ -421,14 +461,19 @@ def all_singles_and_songs_for_artist(artist_id, page=1):
                            total_singles=total_singles,
                            per_page=per_page)
 
-# 全コンピ表示ページ 
+# 全コンピレーションアルバム表示ページのルーティング処理
+# アーティストIDとページ番号（オプション）を引数として受け取る
 @app.route('/artist/<artist_id>/all_compilations_and_songs', methods=['GET'])
 @app.route('/artist/<artist_id>/all_compilations_and_songs/page/<int:page>', methods=['GET'])
 def all_compilations_and_songs_for_artist(artist_id, page=1):
-    per_page = 10
+    per_page = 10   # 1ページあたりのコンピレーション数
     compilations_with_songs = get_artist_compilations_with_songs(artist_id, page, per_page)
+    
+    # 総コンピレーション数を取得し、総ページ数を計算
     total_compilations= count_total_releases(artist_id, 'compilation')
     total_pages = (total_compilations + per_page - 1) // per_page
+
+    # レンダリングされたHTMLテンプレートを返す
     return render_template('compilations_and_tracks_list.html',
                            compilations_with_songs=compilations_with_songs,
                            artist_id=artist_id,
@@ -437,12 +482,16 @@ def all_compilations_and_songs_for_artist(artist_id, page=1):
                            total_compilations=total_compilations,
                            per_page=per_page)
 
-# 楽曲詳細ヘルプページ 
+# 楽曲詳細ヘルプページのルート
+# help_song_details.htmlテンプレートをレンダリングして返す
 @app.route('/help_song_details')
 def help_song_details():
     return render_template('help_song_details.html')
 
-# 楽曲詳細ページ
+# 楽曲詳細ページのルート
+# 引数: song_id (Spotifyの楽曲ID)
+# get_song_details関数で楽曲の詳細を取得し、
+# song_details.htmlテンプレートをレンダリングして返す
 @app.route('/song_details/<song_id>', methods=['GET'])
 def song_details(song_id):
     song = get_song_details(song_id)
@@ -450,8 +499,9 @@ def song_details(song_id):
 
 
 # メインのエントリーポイント
+# スクリプトが直接実行された場合に以下のコードが実行される
 if __name__ == "__main__":
-    check_api_keys()  # APIキーのチェック
-    debug_mode = False
-    port = int(os.environ.get('PORT', 8080))
-    app.run(host='0.0.0.0', port=port, debug=debug_mode)
+    check_api_keys()  # APIキーの存在をチェック
+    debug_mode = False # デバッグモードの設定
+    port = int(os.environ.get('PORT', 8080)) # 環境変数からポート番号を取得、デフォルトは8080
+    app.run(host='0.0.0.0', port=port, debug=debug_mode) # Webアプリを起動
