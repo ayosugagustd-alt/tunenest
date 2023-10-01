@@ -1,7 +1,6 @@
 # 標準ライブラリ
 import os
 import unicodedata
-
 # サードパーティライブラリ
 from flask import Flask
 from flask import redirect
