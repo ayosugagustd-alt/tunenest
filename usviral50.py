@@ -400,6 +400,7 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
 # musixmatchのtrack_idから歌詞を取得
 # 引数: track_id (Musixmatchの楽曲ID)
 # 戻り値: 歌詞情報を含むJSONデータ、またはエラー時にはNone
+'''
 def get_lyrics(track_id):
     base_url = "https://api.musixmatch.com/ws/1.1/"
     endpoint = f"{base_url}track.lyrics.get?track_id={track_id}&apikey={MUSIXMATCH_API_KEY}"
@@ -410,6 +411,7 @@ def get_lyrics(track_id):
         return response.json() # 歌詞情報をJSONとして返す
     else:
         return None # 200以外の場合はエラーとしてNoneを返す 
+'''
 
 # アーティスト名と楽曲名からmusixmatchのtrack_idを取得
 # 引数: artist_name (アーティスト名), song_name (楽曲名)
