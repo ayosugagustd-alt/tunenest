@@ -118,7 +118,8 @@ def static_from_root():
 # 引数: playlist_id (プレイリストのID)
 # 戻り値: コラージュ画像のファイルパス
 def get_collage_filepath(playlist_id):
-    collage_filename = f"{playlist_id}_collage.jpg"
+#    collage_filename = f"{playlist_id}_collage.jpg"
+    collage_filename = f"TuneNest.png"
     return url_for('static', filename=collage_filename)
 
 # インデックスページのルーティング処理
