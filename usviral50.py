@@ -14,6 +14,7 @@ from googleapiclient.errors import HttpError
 import requests
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
+from spotipy import Spotify
 
 # 定数の定義
 DEFAULT_PLAYLIST_ID = '37i9dQZF1DXdY5tVYFPWb2'
@@ -38,7 +39,16 @@ def check_api_keys():
         raise ValueError("YouTube APIのキーが設定されていません。環境変数で設定してください。")
 
 def get_spotify_client():
-    return spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET))
+    return Spotify(client_credentials_manager=SpotifyClientCredentials(client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET))
+
+'''
+# spotifyの認証情報を設定
+def get_spotify_client():
+    client_id = os.environ.get('SPOTIFY_CLIENT_ID')
+    client_secret = os.environ.get('SPOTIFY_CLIENT_SECRET')
+    client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
+    return Spotify(client_credentials_manager=client_credentials_manager)
+'''
 
 
 # トラック情報を取得する関数
