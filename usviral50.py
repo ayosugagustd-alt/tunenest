@@ -37,22 +37,6 @@ def check_api_keys():
     if not YOUTUBE_API_KEY:
         raise ValueError("YouTube APIのキーが設定されていません。環境変数で設定してください。")
 
-# Spotifyクライアントを取得する関数
-# 戻り値: 認証済みのSpotifyクライアントオブジェクト
-class SpotifyClientSingleton:
-    _instance = None
-
-    @staticmethod
-    def get_instance():
-        if SpotifyClientSingleton._instance is None:
-            SpotifyClientSingleton._instance = spotipy.Spotify(
-                client_credentials_manager=SpotifyClientCredentials(
-                    client_id=SPOTIFY_CLIENT_ID,
-                    client_secret=SPOTIFY_CLIENT_SECRET
-                )
-            )
-        return SpotifyClientSingleton._instance
-
 def get_spotify_client():
     return spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET))
 
@@ -135,7 +119,6 @@ def index():
 
         # Spotifyクライアントを取得してプレイリストのトラックを取得
         sp = get_spotify_client()
-#        sp = SpotifyClientSingleton.get_instance()
 
         results = sp.playlist_tracks(playlist_id)
         if results is None or results['items'] is None:
@@ -178,7 +161,6 @@ def youtube():
 # 戻り値: アーティストの詳細、トップ曲のリスト、最新のアルバムの詳細を含む辞書
 def get_artist_details(artist_id):
     sp = get_spotify_client()
-#    sp = SpotifyClientSingleton.get_instance()
 
     # アーティストの基本情報を取得
     artist = sp.artist(artist_id)
@@ -208,7 +190,6 @@ def get_artist_details(artist_id):
 def get_album_details(album_id):
     # Spotifyクライアントの取得
     sp = get_spotify_client()
-#    sp = SpotifyClientSingleton.get_instance()
 
     # アルバムIDを使用してアルバム情報を取得
     album = sp.album(album_id)
@@ -236,7 +217,6 @@ def get_album_details(album_id):
 # 戻り値: 曲の詳細情報とオーディオ特性を含む辞書
 def get_song_details(song_id):
     sp = get_spotify_client() # Spotifyクライアントの取得
-#    sp = SpotifyClientSingleton.get_instance()
     song = sp.track(song_id)  # 曲の基本情報を取得
 
     features = sp.audio_features([song_id])[0]  # 曲のオーディオ特性を取得
@@ -285,7 +265,6 @@ def get_song_details(song_id):
 # 戻り値: 総リリース数
 def count_total_releases(artist_id, release_type):
     sp = get_spotify_client()
-#    sp = SpotifyClientSingleton.get_instance()
     total_releases = sp.artist_albums(artist_id, album_type=release_type)['total']
     return total_releases
 
@@ -294,7 +273,6 @@ def count_total_releases(artist_id, release_type):
 # 戻り値: アーティストのアルバムと楽曲情報を含む辞書のリスト
 def get_artist_albums_with_songs(artist_id, page, per_page=10):
     sp = get_spotify_client()
-#    sp = SpotifyClientSingleton.get_instance()
     offset = (page - 1) * per_page
     limit = per_page
 
@@ -328,7 +306,6 @@ def get_artist_albums_with_songs(artist_id, page, per_page=10):
 def get_artist_singles_with_songs(artist_id, page, per_page=10):
     # Spotifyクライアントの取得
     sp = get_spotify_client()
-#    sp = SpotifyClientSingleton.get_instance()
     offset = (page - 1) * per_page
     limit = per_page
 
@@ -365,7 +342,6 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
 def get_artist_compilations_with_songs(artist_id, page, per_page=10):
     # Spotifyクライアントを取得
     sp = get_spotify_client()
-#    sp = SpotifyClientSingleton.get_instance()
 
     # ページングのためのオフセットとリミットを計算
     offset = (page - 1) * per_page
