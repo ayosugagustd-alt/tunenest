@@ -1,6 +1,7 @@
 # 標準ライブラリ
 import os
 import unicodedata
+
 # サードパーティライブラリ
 from flask import Flask
 from flask import redirect
@@ -39,16 +40,8 @@ def check_api_keys():
         raise ValueError("YouTube APIのキーが設定されていません。環境変数で設定してください。")
 
 def get_spotify_client():
-    return Spotify(client_credentials_manager=SpotifyClientCredentials(client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET))
-
-'''
-# spotifyの認証情報を設定
-def get_spotify_client():
-    client_id = os.environ.get('SPOTIFY_CLIENT_ID')
-    client_secret = os.environ.get('SPOTIFY_CLIENT_SECRET')
-    client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
-    return Spotify(client_credentials_manager=client_credentials_manager)
-'''
+    return Spotify(client_credentials_manager=SpotifyClientCredentials(client_id=SPOTIFY_CLIENT_ID, 
+                    client_secret=SPOTIFY_CLIENT_SECRET))
 
 
 # トラック情報を取得する関数
@@ -80,7 +73,6 @@ def youtube_search(q, max_results=1, youtube_api_key=None):
     if q in youtube_url_cache:
         return youtube_url_cache[q]
 
-
     try:
         youtube = build('youtube', 'v3', developerKey=youtube_api_key)
         search_response = youtube.search().list(
@@ -106,14 +98,6 @@ def youtube_search(q, max_results=1, youtube_api_key=None):
 def static_from_root():
     return send_from_directory(app.static_folder, request.path[1:])
 
-# コラージュ画像のファイルパスを取得する関数
-# 引数: playlist_id (プレイリストのID)
-# 戻り値: コラージュ画像のファイルパス
-def get_collage_filepath(playlist_id):
-#    collage_filename = f"{playlist_id}_collage.jpg"
-    collage_filename = f"TuneNest.png"
-    return url_for('static', filename=collage_filename)
-
 # インデックスページのルーティング処理
 @app.route('/')
 def index():
@@ -122,10 +106,8 @@ def index():
         playlist_id = request.args.get('playlist_id', DEFAULT_PLAYLIST_ID)
         playlist_name = request.args.get('playlist_name', DEFAULT_PLAYLIST_NAME)
 
-        # コラージュ画像のパスを取得
-        collage_filename = get_collage_filepath(playlist_id)
-        if collage_filename is None:
-            raise ValueError("コラージュ画像が生成されていません。")
+        # logo画像のパスを取得
+        collage_filename = url_for('static', filename="TuneNest.png")
 
         # Spotifyクライアントを取得してプレイリストのトラックを取得
         sp = get_spotify_client()
