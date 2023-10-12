@@ -30,6 +30,16 @@ YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY', None)
 # Flaskアプリを初期化
 app = Flask(__name__)
 
+from flask import Flask, request, abort
+
+app = Flask(__name__)
+
+@app.route('/some_route', methods=['GET'])
+def some_route():
+    if request.remote_addr == '188.165.215.206':
+        abort(403)  # Forbidden
+    return 'Hello, World!'
+
 # APIキーをチェック
 def check_api_keys():
     if not SPOTIFY_CLIENT_ID or not SPOTIFY_CLIENT_SECRET:
