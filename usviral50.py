@@ -12,6 +12,7 @@ from flask import url_for
 from flask import abort
 
 from flask_limiter import Limiter
+from flask_cors import CORS
 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
@@ -28,9 +29,12 @@ DEFAULT_PLAYLIST_NAME = 'City Pop'
 SPOTIFY_CLIENT_ID = os.getenv('SPOTIFY_CLIENT_ID', None)
 SPOTIFY_CLIENT_SECRET = os.getenv('SPOTIFY_CLIENT_SECRET', None)
 YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY', None)
-
+MUSIXMATCH_API_KEY = os.environ.get('MUSIXMATCH_API_KEY')
 
 app = Flask(__name__)
+
+# CORS設定をここで追加
+CORS(app, resources={r"/api/*": {"origins": ["https://usviral50-1e6f56755430.herokuapp.com", "http://www.tunenest.com"]}})
 
 def get_remote_address():
     return request.remote_addr
@@ -230,6 +234,19 @@ def get_song_details(song_id):
 	# アーティスト名を取得（複数の場合あり）
     artists = [{'name': artist['name'], 'id': artist['id']} for artist in song['artists']]
 
+    # アーティスト名と楽曲名からmusixmatchのtrack_idを取得
+    musixmatch_track_id = get_musixmatch_track_id(song['artists'][0]['name'], song['name'])
+    
+    # track_idから歌詞を取得
+    lyrics = get_lyrics(musixmatch_track_id)
+
+    if 'lyrics' in lyrics['message']['body']:
+        lyrics_body = lyrics['message']['body']['lyrics']['lyrics_body']
+        clean_lyrics = lyrics_body.split('\n*******')[0]
+        clean_lyrics = clean_lyrics.replace('\n', '<br>')
+    else:
+        clean_lyrics = 'Lyrics not found.'
+
     # 必要な情報を整理して返却
     return {
         'acousticness': features['acousticness'] * 100,
@@ -246,6 +263,7 @@ def get_song_details(song_id):
         'valence': features['valence'] * 100,
         'album_artwork_url': album_artwork_url, # アートワークURL
 		'artists': artists, # アーティスト情報
+        'lyrics': clean_lyrics, # 歌詞情報を追加
     }
 
 # 総リリース数をカウントする関数
@@ -360,12 +378,34 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
 
     return result
 
+# musixmatchのtrack_idから歌詞を取得
+def get_lyrics(track_id):
+    api_key = MUSIXMATCH_API_KEY # 環境変数からAPIキーを取得
+    base_url = "https://api.musixmatch.com/ws/1.1/"
+    endpoint = f"{base_url}track.lyrics.get?track_id={track_id}&apikey={api_key}"
     # 歌詞情報を取得するAPIリクエストを送信
     response = requests.get(endpoint)
     if response.status_code == 200:
         return response.json() # 歌詞情報をJSONとして返す
     else:
         return None # 200以外の場合はエラーとしてNoneを返す 
+
+#アーティスト名と楽曲名からmusixmatchのtrack_idを取得
+def get_musixmatch_track_id(artist_name, song_name):
+    api_key = MUSIXMATCH_API_KEY # 環境変数からAPIキーを取得
+    base_url = "https://api.musixmatch.com/ws/1.1/"
+    query = f"track.search?q_track={song_name}&q_artist={artist_name}&apikey={api_key}"
+    endpoint = base_url + query
+
+    response = requests.get(endpoint)
+
+    if response.status_code == 200:
+        track_data = response.json()['message']['body']['track_list']
+
+        if track_data:
+            return track_data[0]['track']['track_id'] # トラックIDを返す
+    return None
+
 
 # アーティスト詳細ページ 
 @app.route('/artist/<artist_id>')
