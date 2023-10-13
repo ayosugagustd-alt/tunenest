@@ -228,9 +228,6 @@ def get_song_details(song_id):
 	# アーティスト名を取得（複数の場合あり）
     artists = [{'name': artist['name'], 'id': artist['id']} for artist in song['artists']]
 
-    # アーティスト名と楽曲名からmusixmatchのtrack_idを取得
-#    musixmatch_track_id = get_musixmatch_track_id(song['artists'][0]['name'], song['name'])
-    
     # 必要な情報を整理して返却
     return {
         'acousticness': features['acousticness'] * 100,
