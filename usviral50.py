@@ -33,6 +33,13 @@ MUSIXMATCH_API_KEY = os.environ.get('MUSIXMATCH_API_KEY')
 
 app = Flask(__name__)
 
+BANNED_IPS = ["84.46.255.141"]  # ここにブロックしたいIPアドレスを追加
+
+@app.before_request
+def block_banned_ips():
+    if request.remote_addr in BANNED_IPS:
+        abort(403)  # Forbidden
+
 # CORS設定をここで追加
 CORS(app, resources={r"/api/*": {"origins": ["https://usviral50-1e6f56755430.herokuapp.com", "http://www.tunenest.com"]}})
 
