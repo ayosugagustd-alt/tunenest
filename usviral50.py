@@ -11,9 +11,6 @@ from flask import send_from_directory
 from flask import url_for
 from flask import abort
 
-from flask_limiter import Limiter
-from flask_cors import CORS
-
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import requests
@@ -33,48 +30,13 @@ MUSIXMATCH_API_KEY = os.environ.get('MUSIXMATCH_API_KEY')
 
 app = Flask(__name__)
 
-BANNED_IPS = ["84.46.255.141"]  # ここにブロックしたいIPアドレスを追加
-
 @app.before_request
 def limit_access():
-    print(f"Remote Address: {request.remote_addr}")  # デバッグ用
-    print(f"CF-IPCountry: {request.headers.get('CF-IPCountry')}")  # デバッグ用
-    
-    # IPアドレスでのブロック
-    if request.remote_addr in BANNED_IPS:
-        abort(403)
-
     # CloudflareのCF-IPCountryヘッダーを用いた国コードでのブロック
     allowed_countries = ['JP', 'US', 'SE']  # 日本, アメリカ, スウェーデン
     visitor_country = request.headers.get('CF-IPCountry')
     if visitor_country and visitor_country not in allowed_countries:
         abort(403)
-
-'''
-BANNED_IPS = ["84.46.255.141"]  # ここにブロックしたいIPアドレスを追加
-
-def get_remote_address():
-    return request.remote_addr
-
-@app.before_request
-def limit_access():
-    # IPアドレスでのブロック
-    if request.remote_addr in BANNED_IPS:
-        abort(403)
-
-    # CloudflareのCF-IPCountryヘッダーを用いた国コードでのブロック
-    allowed_countries = ['JP', 'US', 'SE']  # 日本, アメリカ, スウェーデン
-    visitor_country = request.headers.get('CF-IPCountry')
-    if visitor_country not in allowed_countries:
-        abort(403)
-
-limiter = Limiter(key_func=get_remote_address, app=app)
-
-@app.route("/limited")
-@limiter.limit("10 per minute")
-def limited_route():
-    return "This route is limited!"
-'''
 
 # APIキーをチェック
 def check_api_keys():
