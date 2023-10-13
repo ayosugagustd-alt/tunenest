@@ -9,6 +9,10 @@ from flask import render_template
 from flask import request
 from flask import send_from_directory
 from flask import url_for
+from flask import abort
+
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
@@ -27,28 +31,19 @@ SPOTIFY_CLIENT_SECRET = os.getenv('SPOTIFY_CLIENT_SECRET', None)
 YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY', None)
 
 
-# Flaskアプリを初期化
 app = Flask(__name__)
 
-from flask import Flask, request, abort
+limiter = Limiter(
+    app,
+    key_func=get_remote_address,
+    default_limits=["200 per day", "50 per hour"]
+)
 
-app = Flask(__name__)
-
-@app.route('/some_route', methods=['GET'])
+blocked_ips = ['188.165.215.206', '217.182.175.120', '149.202.65.183']
+@app.route("/some_route", methods=['GET'])
+@limiter.limit("5 per minute")  # このルートは1分間に5回までしかアクセスできない
 def some_route():
-    if request.remote_addr == '188.165.215.206':
-        abort(403)  # Forbidden
-    return 'Hello, World!'
-
-@app.route('/some_route', methods=['GET'])
-def some_route():
-    if request.remote_addr == '217.182.175.120':
-        abort(403)  # Forbidden
-    return 'Hello, World!'
-
-@app.route('/some_route', methods=['GET'])
-def some_route():
-    if request.remote_addr == '149.202.65.183':
+    if request.remote_addr in blocked_ips:
         abort(403)  # Forbidden
     return 'Hello, World!'
 
