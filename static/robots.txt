@@ -1,3 +1,18 @@
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: Yandex
+Disallow: /
+
+User-agent: baiduspider
+Disallow: /
+
 User-agent: *
 Disallow: /
-Allow: /$
+Allow: /index.html
