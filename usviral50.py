@@ -35,16 +35,20 @@ app = Flask(__name__)
 
 BANNED_IPS = ["84.46.255.141"]  # ここにブロックしたいIPアドレスを追加
 
-@app.before_request
-def block_banned_ips():
-    if request.remote_addr in BANNED_IPS:
-        abort(403)  # Forbidden
-
-# CORS設定をここで追加
-CORS(app, resources={r"/api/*": {"origins": ["https://usviral50-1e6f56755430.herokuapp.com", "http://www.tunenest.com"]}})
-
 def get_remote_address():
     return request.remote_addr
+
+@app.before_request
+def limit_access():
+    # IPアドレスでのブロック
+    if request.remote_addr in BANNED_IPS:
+        abort(403)
+
+    # CloudflareのCF-IPCountryヘッダーを用いた国コードでのブロック
+    allowed_countries = ['JP', 'US', 'SE']  # 日本, アメリカ, スウェーデン
+    visitor_country = request.headers.get('CF-IPCountry')
+    if visitor_country not in allowed_countries:
+        abort(403)
 
 limiter = Limiter(key_func=get_remote_address, app=app)
 
