@@ -38,7 +38,7 @@ def get_remote_address():
 limiter = Limiter(key_func=get_remote_address, app=app)
 
 @app.route("/limited")
-@limiter.limit("5 per minute")
+@limiter.limit("10 per minute")
 def limited_route():
     return "This route is limited!"
 
