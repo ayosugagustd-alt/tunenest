@@ -2,3 +2,4 @@ Flask==2.3.3
 google-api-python-client==2.97.0
 requests==2.31.0
 spotipy==2.23.0
+flask_limiter==3.5.0  
