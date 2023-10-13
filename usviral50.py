@@ -40,6 +40,18 @@ def some_route():
         abort(403)  # Forbidden
     return 'Hello, World!'
 
+@app.route('/some_route', methods=['GET'])
+def some_route():
+    if request.remote_addr == '217.182.175.120':
+        abort(403)  # Forbidden
+    return 'Hello, World!'
+
+@app.route('/some_route', methods=['GET'])
+def some_route():
+    if request.remote_addr == '149.202.65.183':
+        abort(403)  # Forbidden
+    return 'Hello, World!'
+
 # APIキーをチェック
 def check_api_keys():
     if not SPOTIFY_CLIENT_ID or not SPOTIFY_CLIENT_SECRET:
