@@ -12,7 +12,6 @@ from flask import url_for
 from flask import abort
 
 from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
@@ -33,19 +32,16 @@ YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY', None)
 
 app = Flask(__name__)
 
-limiter = Limiter(
-    app=app,
-    key_func=get_remote_address,
-    default_limits=["200 per day", "50 per hour"]
-)
+def get_remote_address():
+    return request.remote_addr
 
-blocked_ips = ['188.165.215.206', '217.182.175.120', '149.202.65.183']
-@app.route("/some_route", methods=['GET'])
-@limiter.limit("5 per minute")  # このルートは1分間に5回までしかアクセスできない
-def some_route():
-    if request.remote_addr in blocked_ips:
-        abort(403)  # Forbidden
-    return 'Hello, World!'
+limiter = Limiter(key_func=get_remote_address, app=app)
+
+@app.route("/limited")
+@limiter.limit("5 per minute")
+def limited_route():
+    return "This route is limited!"
+
 
 # APIキーをチェック
 def check_api_keys():
@@ -58,7 +54,6 @@ def check_api_keys():
 def get_spotify_client():
     return Spotify(client_credentials_manager=SpotifyClientCredentials(client_id=SPOTIFY_CLIENT_ID, 
                     client_secret=SPOTIFY_CLIENT_SECRET))
-
 
 # トラック情報を取得する関数
 # 引数: track (Spotify APIから取得したトラックの辞書)
