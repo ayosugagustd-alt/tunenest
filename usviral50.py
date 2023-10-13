@@ -34,7 +34,7 @@ YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY', None)
 app = Flask(__name__)
 
 limiter = Limiter(
-    app,
+    app=app,
     key_func=get_remote_address,
     default_limits=["200 per day", "50 per hour"]
 )
