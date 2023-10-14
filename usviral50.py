@@ -19,8 +19,8 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from spotipy import Spotify
 
 # 定数の定義
-DEFAULT_PLAYLIST_ID = '37i9dQZF1DXdY5tVYFPWb2'
-DEFAULT_PLAYLIST_NAME = 'City Pop'
+DEFAULT_PLAYLIST_ID = '37i9dQZF1DX4CovPIZya4z'
+DEFAULT_PLAYLIST_NAME = 'Tokyo City Pop'
 
 # 環境変数を一度だけ読み取る（存在しない場合はNone）
 SPOTIFY_CLIENT_ID = os.getenv('SPOTIFY_CLIENT_ID', None)
