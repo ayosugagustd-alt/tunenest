@@ -115,9 +115,16 @@ def index():
         # logo画像のパスを取得
         collage_filename = url_for('static', filename="TuneNest.png")
 
-        # Spotifyクライアントを取得してプレイリストのトラックを取得
+        # Spotifyクライアントを取得
         sp = get_spotify_client()
 
+        # 追加(2023/10/15)
+        # プレイリストの詳細情報を取得
+        playlist_details = sp.playlist(playlist_id)
+        # プレイリストのdescriptionを取得
+        playlist_description = playlist_details.get('description', 'No description')
+
+        # プレイリストのトラックを取得
         results = sp.playlist_tracks(playlist_id)
         if results is None or results['items'] is None:
             raise ValueError("Spotify APIが正常な値を返しませんでした。")
@@ -127,9 +134,10 @@ def index():
 
         # HTMLテンプレートをレンダリング
         return render_template('index.html', 
-                                tracks=tracks, 
+                                tracks=tracks,
                                 playlist_name=playlist_name,
-                                collage_filename=collage_filename)
+                                collage_filename=collage_filename,
+                                playlist_description=playlist_description)
     except Exception as e:
         # エラーページを表示
         return render_template('error.html', error=str(e))
