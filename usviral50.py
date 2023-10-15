@@ -112,8 +112,8 @@ def index():
         playlist_id = request.args.get('playlist_id', DEFAULT_PLAYLIST_ID)
         playlist_name = request.args.get('playlist_name', DEFAULT_PLAYLIST_NAME)
 
-        # logo画像のパスを取得
-        collage_filename = url_for('static', filename="TuneNest.png")
+        # logo画像のパスを取得(削除 2023/10/15。プレイリスト画像に変更)
+#        collage_filename = url_for('static', filename="TuneNest.png")
 
         # Spotifyクライアントを取得
         sp = get_spotify_client()
@@ -123,6 +123,10 @@ def index():
         playlist_details = sp.playlist(playlist_id)
         # プレイリストのdescriptionを取得
         playlist_description = playlist_details.get('description', 'No description')
+
+        # 新規 
+        # プレイリストのカバー画像URLを取得（存在しない場合はデフォルト画像のURL）
+        collage_filename = playlist_details['images'][0]['url'] if playlist_details['images'] else url_for('static', filename="TuneNest.png")
 
         # プレイリストのトラックを取得
         results = sp.playlist_tracks(playlist_id)
