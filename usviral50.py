@@ -125,7 +125,7 @@ def index():
         playlist_description = playlist_details.get('description', 'No description')
 
         # 新規 
-        # プレイリストのカバー画像URLを取得（存在しない場合はデフォルト画像のURL）
+        # プレイリストのカバー画像URLを取得（存在しない場合はlogo画像）
         collage_filename = playlist_details['images'][0]['url'] if playlist_details['images'] else url_for('static', filename="TuneNest.png")
 
         # プレイリストのトラックを取得
