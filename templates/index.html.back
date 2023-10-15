@@ -139,19 +139,9 @@
         function play() {
             let artworkUrl = tracks[index].image_url;
             if (!artworkUrl) {
-                artworkUrl = "{{ url_for('static', filename='noimage.jpg') }}";
+                artworkUrl = "{{ url_for('static', filename='noimage.jpg') }}"; // アートワークがない場合のデフォルト画像
             }
-            // アートワークの更新
-            document.getElementById('playing-artwork').src = artworkUrl;
-
-            // アニメーションの適用
-            let artworkElement = document.getElementById('playing-artwork');
-            artworkElement.style.animation = 'none';  // 既存のアニメーションをリセット
-
-            setTimeout(() => {
-                artworkElement.style.animation = 'bounce 0.5s ease';
-            }, 0);
-
+            document.getElementById('playing-artwork').src = artworkUrl; // アートワークの更新
             let playingInfo = '<span style="color: #7F7F7F;">#' + (index + 1) + ':</span>' + "<br>" + 
                               '<span>' + tracks[index].name + '</span>' + "<br>" + 
                               '<span style="color: #7F7F7F;">' + tracks[index].artist + '</span>' + "<br>";
