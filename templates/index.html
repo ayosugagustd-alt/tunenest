@@ -26,6 +26,7 @@
 <body>
     <h1>{{ playlist_name }}</h1>
     <h3>{{ playlist_description|safe }}</h3>
+    <p><a href="{{ playlist_url }}" target="_blank">Listen to the full playlist on  <i class="fab fa-spotify"></i><span class="icon-caption">Spotify</span></a></p>
 
     <div id="playlist-controls">
         <select class="search-input" id="playlistDropdown">
@@ -36,10 +37,10 @@
             <option value="37i9dQZF1DX3diUVrKEuXr">TREND: Buzz On TV</option>
             <option value="37i9dQZF1DXdTxsEGukhp4">TREND: Buzz Tracker</option>
             <option value="50yOd8j0Vgohfh9JZhRqc7">TREND: TikTok Top Songs Japan</option>
-            <option value="37i9dQZF1DX9vYRBO9gjDe">CHART: Spotify Japan 急上昇チャート</option>
+            <option value="37i9dQZF1DX9vYRBO9gjDe">CHART: Velocity Chart</option>
             <option value="37i9dQZEVXbINTEnbFeb8d">CHART: Viral 50 JAPAN</option>
             <option value="37i9dQZEVXbKXQ4mDTEBXq">CHART: Top 50 JAPAN</option>
-            <option value="37i9dQZF1DXafb0IuPwJyF">CHART: Tokyo Super Hits!</option>
+            <option value="37i9dQZF1DXafb0IuPwJyF">CHART: TOKYO SUPER HITS</option>
             <option value="37i9dQZEVXbKqiTGXuCOsB">CHART: Top Songs Japan</option>
             <option value="37i9dQZF1DX3UWlNiixH0j">GENRE: Edge!</option>
             <option value="37i9dQZF1DWXQXM7agvwjO">GENRE: .ORG</option>
@@ -237,7 +238,7 @@
                 });
             });
 
-            const COMMON_MESSAGE_BODY = "<p>Click the play button.</p>";
+            const COMMON_MESSAGE_BODY = "<p>Click the play button for a preview.</p>";
             const message = '<span>Welcome to <strong>TuneNest</strong>!</span>' + COMMON_MESSAGE_BODY;
 
             document.getElementById('playing').innerHTML = message;

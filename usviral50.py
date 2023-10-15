@@ -124,7 +124,10 @@ def index():
         # プレイリストのdescriptionを取得
         playlist_description = playlist_details.get('description', 'No description')
 
-        # 新規 
+        # プレイリストのURL（フルパス）を取得(2023/10/15) 
+        playlist_url = playlist_details.get('external_urls', {}).get('spotify', '#')
+
+        # 新規(2023/10/15) 
         # プレイリストのカバー画像URLを取得（存在しない場合はlogo画像）
         collage_filename = playlist_details['images'][0]['url'] if playlist_details['images'] else url_for('static', filename="TuneNest.png")
 
@@ -141,7 +144,8 @@ def index():
                                 tracks=tracks,
                                 playlist_name=playlist_name,
                                 collage_filename=collage_filename,
-                                playlist_description=playlist_description)
+                                playlist_description=playlist_description,
+                                playlist_url=playlist_url)
     except Exception as e:
         # エラーページを表示
         return render_template('error.html', error=str(e))
