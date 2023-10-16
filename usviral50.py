@@ -33,7 +33,7 @@ app = Flask(__name__)
 @app.before_request
 def limit_access():
     # CloudflareのCF-IPCountryヘッダーを用いた国コードでのブロック
-    allowed_countries = ['JP', 'US', 'SE']  # 日本, アメリカ, スウェーデン
+    allowed_countries = ['JP', 'US', 'SE', 'LU']
     visitor_country = request.headers.get('CF-IPCountry')
     if visitor_country and visitor_country not in allowed_countries:
         abort(403)
