@@ -71,14 +71,14 @@
                 <div class="track-info">
                     <span class="track-name">{{ track.name }}</span><span class="separator"></span><span class="artist">{{ track.artist }}</span></div>
                 <div class="icon-row">
-                    <a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" class="youtube-link" target="_blank">
-                       <i class="fab fa-youtube"></i><span class="icon-caption">Watch</span></a>
                     {% if track.url %}
                         <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
                         <i class="fab fa-spotify"></i><span class="icon-caption">Preview</span></a>
                     {% else %}
                         <i class="fab fa-spotify icon-disabled"></i><span class="icon-disabled-caption">Preview</span>
                     {% endif %}
+                    <a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" class="youtube-link" target="_blank">
+                       <i class="fab fa-youtube"></i><span class="icon-caption">Watch</span></a>
 
                     <!-- Info -->
                     <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank">
@@ -92,8 +92,8 @@
 <footer>
     <div class="footer-sub">
         <span>Data sourced from </span>
-        <a href="https://www.youtube.com/" target="_blank" title="YouTube"><i class="fab fa-youtube"></i> YouTube</a> 
         <a href="https://www.spotify.com" target="_blank" title="Spotify"><i class="fab fa-spotify"></i> Spotify</a>
+        <a href="https://www.youtube.com/" target="_blank" title="YouTube"><i class="fab fa-youtube"></i> YouTube</a> 
     </div>
     <div class="footer-legal">
         <a href="{{ url_for('static', filename='privacy-policy-en.html') }}" target="_blank" title="Terms of Service and Privacy Policy"></i>Terms of Service and Privacy Policy</a><br>
@@ -155,6 +155,11 @@
             let playingInfo = '<span style="color: #7F7F7F;">#' + (index + 1) + ':</span>' + "<br>" + 
                               '<span>' + tracks[index].name + '</span>' + "<br>" + 
                               '<span style="color: #7F7F7F;">' + tracks[index].artist + '</span>' + "<br>";
+
+            // Spotifyへのリンクを生成
+            let spotifyLink = `https://open.spotify.com/track/${tracks[index].id}`;
+            playingInfo += `<br><a href="${spotifyLink}" class="spotify-link" target="_blank" style="margin-top: 8px; display: inline-block;">`;
+            playingInfo += '<i class="fab fa-spotify"></i><span class="info-now-playing">Full Version</span></a>';
         
             // YouTubeへのリンクを生成
             playingInfo += '<br><a href="/youtube?track=' + encodeURIComponent(tracks[index].name) + '&artist=' + encodeURIComponent(tracks[index].artist) + '" class="youtube-link" target="_blank" style="margin-top: 8px; display: inline-block;">';
@@ -173,7 +178,6 @@
             playingInfo += '<br><a href="https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweetText) + '" class="twitter-link" target="_blank" style="margin-top: 8px; display: inline-block;">';
             playingInfo += '<i class="fab fa-twitter"></i><span class="tweet-now-playing">Share</span></a>';
 
-        
             // 最後に全てのリンクと情報をHTMLに反映
             document.getElementById('playing').innerHTML = playingInfo;
 
