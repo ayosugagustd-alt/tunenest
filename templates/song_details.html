@@ -26,6 +26,13 @@
     </header>
     <div class="section-space">
         <h1>{{ song.name }}</h1>
+        <!-- 2023/10/18 -->
+        {% if song.amazon_asin %}
+            <a href="https://www.amazon.co.jp/dp/{{ song.amazon_asin }}/?tag=withmybgm-22" target="_blank">
+                <i class="fab fa-amazon"></i> Shop on Amazon
+            </a>
+        {% endif %}
+        <!-- 2023/10/18 -->
         <div class="album-artwork">
             <img alt="Album Artwork" src="{{ song.album_artwork_url or url_for('static', filename='noimage.jpg') }}"/>
         </div>

@@ -18,6 +18,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from spotipy import Spotify
 
+from amazon_paapi import AmazonApi # 2023/10/18
 # 定数の定義
 DEFAULT_PLAYLIST_ID = '37i9dQZF1DWX9u2doQ8Q2L'
 DEFAULT_PLAYLIST_NAME = 'TREND: Tokyo Rising'
@@ -29,6 +30,7 @@ YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY', None)
 MUSIXMATCH_API_KEY = os.environ.get('MUSIXMATCH_API_KEY')
 
 app = Flask(__name__)
+amazon = AmazonApi('AKIAI6T6HSWIF555MUJA', 'IYHZT6G66I+XC1g6LrJmRRfFsreuVfUbDfhPzXlI', 'withmybgm-22', 'JP') # 2023/10/18
 
 @app.before_request
 def limit_access():
@@ -54,6 +56,9 @@ def get_spotify_client():
 # 引数: track (Spotify APIから取得したトラックの辞書)
 # 戻り値: トラック情報を含む辞書
 def get_track_info(track):
+    # 2023/10/18
+    if track is None:
+        return None  # または適切なデフォルト値
     track_info = {
         'id': track['id'],
         'url': track['preview_url'],
@@ -137,11 +142,14 @@ def index():
             raise ValueError("Spotify APIが正常な値を返しませんでした。")
 
         # トラック情報を整形
-        tracks = [get_track_info(item['track']) for item in results['items']]
+        # 2023/10/18
+        all_tracks_info = [get_track_info(item['track']) for item in results['items']]
+        valid_tracks_info = [track for track in all_tracks_info if track is not None]
+        # 2023/10/18
 
         # HTMLテンプレートをレンダリング
         return render_template('index.html', 
-                                tracks=tracks,
+                                tracks=valid_tracks_info,  # 2023/10/18 
                                 playlist_name=playlist_name,
                                 collage_filename=collage_filename,
                                 playlist_description=playlist_description,
@@ -506,7 +514,26 @@ def help_song_details():
 def song_details(song_id):
     song = get_song_details(song_id)
     return render_template('song_details.html', song=song, song_id=song_id)
+'''
+@app.route('/song_details/<song_id>', methods=['GET'])
+def song_details(song_id):
+    try:
+        song = get_song_details(song_id)  # 既存の関数でSpotifyから曲情報を取得
 
+        # Amazon APIを叩く
+        keywords = f"{song['name']} {song['artists'][0]['name']}"
+        search_result = amazon.search_items(keywords=keywords)
+        if search_result and search_result.items:
+            first_item = search_result.items[0]
+            song['amazon_asin'] = first_item.asin
+        else:
+            song['amazon_asin'] = None
+
+        return render_template('song_details.html', song=song, song_id=song_id)
+
+    except Exception as e:
+        return render_template('error.html', error=str(e))
+'''
 
 # メインのエントリーポイント
 # スクリプトが直接実行された場合に以下のコードが実行される
