@@ -32,21 +32,9 @@
         <select class="search-input" id="playlistDropdown">
             <option value="" disabled selected style="display:none;">-- SELECT a PLAYLIST --</option>
             <!-- プレイリスト -->
-            <option value="37i9dQZF1DWX9u2doQ8Q2L">TREND: Tokyo Rising</option>
-            <option value="37i9dQZF1DWZZbpkxU5t9L">TREND: Weekly Buzz Tokyo</option>
-            <option value="37i9dQZF1DX3diUVrKEuXr">TREND: Buzz On TV</option>
-            <option value="37i9dQZF1DXdTxsEGukhp4">TREND: Buzz Tracker</option>
-            <option value="50yOd8j0Vgohfh9JZhRqc7">TREND: TikTok Top Songs Japan</option>
-            <option value="37i9dQZF1DX9vYRBO9gjDe">CHART: Velocity Chart</option>
-            <option value="37i9dQZEVXbINTEnbFeb8d">CHART: Viral 50 JAPAN</option>
-            <option value="37i9dQZEVXbKXQ4mDTEBXq">CHART: Top 50 JAPAN</option>
-            <option value="37i9dQZF1DXafb0IuPwJyF">CHART: TOKYO SUPER HITS</option>
-            <option value="37i9dQZEVXbKqiTGXuCOsB">CHART: Top Songs Japan</option>
-            <option value="37i9dQZF1DX3UWlNiixH0j">GENRE: Edge!</option>
-            <option value="37i9dQZF1DWXQXM7agvwjO">GENRE: .ORG</option>
-            <option value="37i9dQZF1DXdY5tVYFPWb2">GENRE: City Pop</option>
-            <option value="37i9dQZF1DWV8IND7NkP2W">GENRE: Road Trip To Tokyo</option>
-            <option value="37i9dQZF1DWWGewPG5S5oE">GENRE: Modern Jazz Japan</option>
+            {% for id, name in playlists.items() %}
+                <option value="{{ id }}">{{ name }}</option>
+            {% endfor %}
         </select>
     </div>
 

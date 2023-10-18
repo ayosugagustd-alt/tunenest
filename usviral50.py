@@ -1,6 +1,7 @@
 # 標準ライブラリ
 import os
 import unicodedata
+import json
 
 # サードパーティライブラリ
 from flask import Flask
@@ -19,9 +20,6 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from spotipy import Spotify
 
 from amazon_paapi import AmazonApi # 2023/10/18
-# 定数の定義
-DEFAULT_PLAYLIST_ID = '37i9dQZF1DWX9u2doQ8Q2L'
-DEFAULT_PLAYLIST_NAME = 'TREND: Tokyo Rising'
 
 # 環境変数を一度だけ読み取る（存在しない場合はNone）
 SPOTIFY_CLIENT_ID = os.getenv('SPOTIFY_CLIENT_ID', None)
@@ -30,6 +28,13 @@ YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY', None)
 MUSIXMATCH_API_KEY = os.environ.get('MUSIXMATCH_API_KEY')
 
 app = Flask(__name__)
+
+# プレイリストIDと名前の辞書を開く
+with open('config/playlists.json', 'r') as f:
+    # playlistsはインデックスページのルーティング処理で参照する
+    playlists = json.load(f)
+
+# amazonの認証
 amazon = AmazonApi('AKIAI6T6HSWIF555MUJA', 'IYHZT6G66I+XC1g6LrJmRRfFsreuVfUbDfhPzXlI', 'withmybgm-22', 'JP') # 2023/10/18
 
 @app.before_request
@@ -113,26 +118,30 @@ def static_from_root():
 @app.route('/')
 def index():
     try:
-        # クエリパラメータからプレイリストのIDと名前を取得
-        playlist_id = request.args.get('playlist_id', DEFAULT_PLAYLIST_ID)
-        playlist_name = request.args.get('playlist_name', DEFAULT_PLAYLIST_NAME)
+        # プレイリストIDと名前の辞書の先頭を取得
+        keys_list = list(playlists.keys())
+        default_playlist_id = keys_list[0]
 
-        # logo画像のパスを取得(削除 2023/10/15。プレイリスト画像に変更)
-#        collage_filename = url_for('static', filename="TuneNest.png")
+        # クエリパラメータからプレイリストIDと名前を取得
+        # 初期表示時はプレイリストIDとの名前の辞書の先頭を使う
+        playlist_id = request.args.get('playlist_id', default_playlist_id)
 
         # Spotifyクライアントを取得
         sp = get_spotify_client()
 
-        # 追加(2023/10/15)
         # プレイリストの詳細情報を取得
         playlist_details = sp.playlist(playlist_id)
+
         # プレイリストのdescriptionを取得
         playlist_description = playlist_details.get('description', 'No description')
 
-        # プレイリストのURL（フルパス）を取得(2023/10/15) 
+        # プレイリストのURLを取得
         playlist_url = playlist_details.get('external_urls', {}).get('spotify', '#')
 
-        # 新規(2023/10/15) 
+        # プレイリスト名を取得
+        default_playlist_name  = playlist_details.get('name', 'No playlist name') 
+        playlist_name = request.args.get('playlist_name', default_playlist_name)
+
         # プレイリストのカバー画像URLを取得（存在しない場合はlogo画像）
         collage_filename = playlist_details['images'][0]['url'] if playlist_details['images'] else url_for('static', filename="TuneNest.png")
 
@@ -148,9 +157,10 @@ def index():
         # 2023/10/18
 
         # HTMLテンプレートをレンダリング
-        return render_template('index.html', 
-                                tracks=valid_tracks_info,  # 2023/10/18 
+        return render_template('index.html',
                                 playlist_name=playlist_name,
+                                playlists=playlists,
+                                tracks=valid_tracks_info,
                                 collage_filename=collage_filename,
                                 playlist_description=playlist_description,
                                 playlist_url=playlist_url)
