@@ -147,8 +147,13 @@ def index():
         # プレイリストの詳細情報を取得
         playlist_details = sp.playlist(playlist_id)
 
-        # プレイリストのdescriptionを取得
-        playlist_description = playlist_details.get("description", "No description")
+        # クエリパラメータからプレイリスト説明を取得
+        custom_description = request.args.get('description')
+        if custom_description:
+            playlist_description = custom_description
+        else:
+            # プレイリストのdescriptionを取得
+            playlist_description = playlist_details.get("description", "No description")
 
         # プレイリストのURLを取得
         playlist_url = playlist_details.get("external_urls", {}).get("spotify", "#")
@@ -161,12 +166,20 @@ def index():
         # 通常クエリパラメータを与えられることはありません
         playlist_name = request.args.get("playlist_name", actual_playlist_name)
 
-        # プレイリストのカバー画像URLを取得（存在しない場合はlogo画像）
-        collage_filename = (
-            playlist_details["images"][0]["url"]
-            if playlist_details["images"]
-            else url_for("static", filename="TuneNest.png")
-        )
+        # クエリパラメータからカバー画像のURLを取得
+        custom_artwork_img = request.args.get('artwork_img')
+
+        # カスタムのカバー画像が指定されている場合はそれを使用。
+        # そうでない場合は、プレイリストから取得またはデフォルト画像を使用。
+        if custom_artwork_img:
+            collage_filename = url_for("static", filename=custom_artwork_img)
+        else:
+            # プレイリストのカバー画像URLを取得（存在しない場合はlogo画像）
+            collage_filename = (
+                playlist_details["images"][0]["url"]
+                if playlist_details["images"]
+                else url_for("static", filename="TuneNest.png")
+            )
 
         # プレイリストのトラックを取得
         results = sp.playlist_tracks(playlist_id)
