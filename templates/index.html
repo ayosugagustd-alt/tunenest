@@ -224,8 +224,7 @@
             const playlistDropdown = document.getElementById('playlistDropdown');
             playlistDropdown.addEventListener('change', function() {
                 const selectedPlaylistId = playlistDropdown.value;
-                const selectedPlaylistName = playlistDropdown.options[playlistDropdown.selectedIndex].text;
-                const url = `/?playlist_id=${selectedPlaylistId}&playlist_name=${encodeURIComponent(selectedPlaylistName)}`;
+                const url = `/?playlist_id=${selectedPlaylistId}`;
                 window.location.href = url;
             });
         });

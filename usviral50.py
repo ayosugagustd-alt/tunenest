@@ -138,8 +138,7 @@ def index():
         keys_list = list(playlists.keys())
         default_playlist_id = keys_list[0]
 
-        # クエリパラメータからプレイリストIDと名前を取得
-        # 初期表示時はプレイリストIDとの名前の辞書の先頭を使う
+        # クエリパラメータか辞書からIDを取得
         playlist_id = request.args.get("playlist_id", default_playlist_id)
 
         # Spotifyクライアントを取得
@@ -154,8 +153,13 @@ def index():
         # プレイリストのURLを取得
         playlist_url = playlist_details.get("external_urls", {}).get("spotify", "#")
 
-        # プレイリスト名を取得
-        playlist_name = playlist_details.get("name", "No playlist name")
+        # 現実のプレイリスト名を取得
+        actual_playlist_name = playlist_details.get("name", "No playlist name")
+
+        # クエリパラメータか現実のプレイリスト名を取得
+        # ドロップリストではプレイリスト名を渡していないので
+        # 通常クエリパラメータを与えられることはありません
+        playlist_name = request.args.get("playlist_name", actual_playlist_name)
 
         # プレイリストのカバー画像URLを取得（存在しない場合はlogo画像）
         collage_filename = (
