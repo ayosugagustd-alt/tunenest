@@ -55,7 +55,8 @@ def get_spotify_client():
     return Spotify(
         client_credentials_manager=SpotifyClientCredentials(
             client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET
-        )
+        ),
+        language="ja",  # この行を追加
     )
 
 
@@ -531,7 +532,8 @@ def album_details(artist_id, album_id):
         keywords = f"{album['name']} {album['artists'][0]['name']}"
         affiliate_code = "withmybgm-22"
         amazon_search_url = (
-            f"https://www.amazon.co.jp/s?k={quote_plus(keywords)}&i=digital-music&tag={affiliate_code}"
+            f"https://www.amazon.co.jp/s?k={quote_plus(keywords)}"
+            f"&i=digital-music&tag={affiliate_code}"
         )
 
         return render_template(
@@ -650,7 +652,8 @@ def song_details(song_id):
         keywords = f"{song['name']} {song['artists'][0]['name']}"
         affiliate_code = "withmybgm-22"
         amazon_search_url = (
-            f"https://www.amazon.co.jp/s?k={quote_plus(keywords)}&i=digital-music&tag={affiliate_code}"
+            f"https://www.amazon.co.jp/s?k={quote_plus(keywords)}"
+            f"&i=digital-music&tag={affiliate_code}"
         )
 
         return render_template(
