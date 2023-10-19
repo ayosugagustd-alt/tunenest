@@ -89,17 +89,26 @@ header p {
 }
 header { text-align: right; width: 98%; padding: 0px 0; }
 
+
+.fab.fa-twitter {
+    font-size: 24px;
+    color: #1DA1F2;
+}
 .fab.fa-youtube {
     font-size: 24px;
-    color: #FF0000;   /* YouTubeの赤色 */
+    color: #FF0000;
 }
 .fab.fa-spotify {
     font-size: 24px;
-	color: #1DB954;	  /* Spotifyの緑色 */
+	color: #1DB954;
 }
 .fas.fa-info-circle {
     font-size: 24px;
-    color: #4169E1;  /* アイコンの色を青に設定 */
+    color: #4169E1;
+}
+.fab.fa-amazon {
+    font-size: 24px;
+    color: #FF9900; 
 }
 
 .fas.fa-volume-up {
@@ -151,14 +160,6 @@ a:hover {
 
 .custom-list-content {
     font-size: 20px;
-}
-
-.play-on-youtube {
-    font-size: 24px;
-
-    display: inline-block;
-    margin-bottom: 10px;
-    margin-left: 10px;
 }
 
 /* Watch MV, Preview, Info Caption */
@@ -241,16 +242,12 @@ select {
     margin-left: 8px;  /* 左側にマージン */
 }
 
-.tweet-now-playing, .info-now-playing {
+.info-now-playing {
     font-size: 24px;
-    display: inline-block;
     margin-bottom: 10px;
     margin-left: 10px;
-}
 
-.fab.fa-twitter {
-    font-size: 26px;
-    color: #1DA1F2;
+    display: inline-block;
 }
 
 .star, .empty-star, .half-star {
@@ -342,9 +339,6 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
         font-size: 16px;
         margin-left: 4px;
     }
-    .play-on-youtube {
-        font-size: 14px;
-    }
 
 	.fab.fa-twitter {
     	font-size: 20px;
@@ -356,6 +350,9 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
     	font-size: 20px;
 	}
 	.fas.fa-info-circle {
+    	font-size: 20px;
+	}
+	.fab.fa-amazon {
     	font-size: 20px;
 	}
 
@@ -419,11 +416,8 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
         padding: 5px;
     }
 
-    .tweet-now-playing, .info-now-playing {
+    .info-now-playing {
         font-size: 14px;
-    }
-
-    .tweet-now-playing, .info-now-playing, .play-on-youtube {
         margin-bottom: 8px;
         margin-left: 5px;
     }

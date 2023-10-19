@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="ja">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -17,7 +17,10 @@
 <body>
 <div class="section-space">
     <h1>{{ album.name }}</h1>
-    <img alt="Album Cover" src="{{ album.image or url_for('static', filename='noimage.jpg') }}"/>
+    <a href="{{ amazon_search_url }}" target="_blank" title="Amazon"><i class="fab fa-amazon"></i>Search on Amazon</a>
+        <div class="album-artwork">
+            <img alt="Album Artwork" src="{{ album.image or url_for('static', filename='noimage.jpg') }}"/>
+        </div>
 </div>
 <div class="section-space">
     <p>Release Date: <strong>{{ album.release_date }}</strong></p>
@@ -38,7 +41,7 @@
     <h2>Artists</h2>
     <ul>
         {% for artist in album.artists %}
-        <li><a href="{{ url_for('artist_details', artist_id=artist.id) }}">{{ artist.name }}</a></li>
+        <li><a href="{{ url_for('artist_details', artist_id=artist.id) }}" class="artist-name">{{ artist.name }}</a></li>
         {% endfor %}
     </ul>
 </div>

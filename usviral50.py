@@ -17,7 +17,7 @@ from googleapiclient.errors import HttpError
 from spotipy.oauth2 import SpotifyClientCredentials
 from spotipy import Spotify
 
-from amazon_paapi import AmazonApi
+from urllib.parse import quote_plus
 
 # 環境変数を一度だけ読み取る（存在しない場合はNone）
 SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID", None)
@@ -31,14 +31,6 @@ app = Flask(__name__)
 with open("config/playlists.json", "r") as f:
     # playlistsはインデックスページのルーティング処理で参照する
     playlists = json.load(f)
-
-# amazonの認証
-amazon = AmazonApi(
-    "AKIAI6T6HSWIF555MUJA",
-    "IYHZT6G66I+XC1g6LrJmRRfFsreuVfUbDfhPzXlI",
-    "withmybgm-22",
-    "JP",
-)  # 2023/10/18
 
 
 @app.before_request
@@ -145,10 +137,10 @@ def index():
         sp = get_spotify_client()
 
         # プレイリストの詳細情報を取得
-        playlist_details = sp.playlist(playlist_id)
+        playlist_details = sp.playlist(playlist_id, market="JP")
 
         # クエリパラメータからプレイリスト説明を取得
-        custom_description = request.args.get('description')
+        custom_description = request.args.get("description")
         if custom_description:
             playlist_description = custom_description
         else:
@@ -167,7 +159,7 @@ def index():
         playlist_name = request.args.get("playlist_name", actual_playlist_name)
 
         # クエリパラメータからカバー画像のURLを取得
-        custom_artwork_img = request.args.get('artwork_img')
+        custom_artwork_img = request.args.get("artwork_img")
 
         # カスタムのカバー画像が指定されている場合はそれを使用。
         # そうでない場合は、プレイリストから取得またはデフォルト画像を使用。
@@ -182,12 +174,12 @@ def index():
             )
 
         # プレイリストのトラックを取得
-        results = sp.playlist_tracks(playlist_id)
+        results = sp.playlist_tracks(playlist_id, market="JP")
         if results is None or results["items"] is None:
             raise ValueError("Spotify APIが正常な値を返しませんでした。")
 
         # トラック情報を整形
-        # 2023/10/18
+        # 2023/10/18(抜け番対応)
         all_tracks_info = [get_track_info(item["track"]) for item in results["items"]]
         valid_tracks_info = [track for track in all_tracks_info if track is not None]
         # 2023/10/18
@@ -248,7 +240,7 @@ def get_artist_details(artist_id):
     }
 
     # アーティストのトップ曲を取得
-    top_tracks = sp.artist_top_tracks(artist_id)["tracks"]
+    top_tracks = sp.artist_top_tracks(artist_id, country="JP")["tracks"]
     top_tracks_details = [
         {"name": track["name"], "id": track["id"]} for track in top_tracks
     ]
@@ -273,7 +265,7 @@ def get_album_details(album_id):
     sp = get_spotify_client()
 
     # アルバムIDを使用してアルバム情報を取得
-    album = sp.album(album_id)
+    album = sp.album(album_id, market="JP")
 
     # 収録曲リストを作成
     tracks = [
@@ -303,7 +295,7 @@ def get_album_details(album_id):
 # 戻り値: 曲の詳細情報とオーディオ特性を含む辞書
 def get_song_details(song_id):
     sp = get_spotify_client()  # Spotifyクライアントの取得
-    song = sp.track(song_id)  # 曲の基本情報を取得
+    song = sp.track(song_id, market="JP")  # 曲の基本情報を取得
 
     features = sp.audio_features([song_id])[0]  # 曲のオーディオ特性を取得
 
@@ -383,7 +375,7 @@ def get_artist_albums_with_songs(artist_id, page, per_page=10):
         }
 
         # 各アルバムに含まれる楽曲を取得
-        album_tracks = sp.album_tracks(album["id"])["items"]
+        album_tracks = sp.album_tracks(album["id"], market="JP")["items"]
         for track in album_tracks:
             track_name = track["name"]
             track_id = track["id"]
@@ -420,7 +412,7 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
         }
 
         # シングルに含まれる楽曲を取得
-        single_tracks = sp.album_tracks(single["id"])["items"]
+        single_tracks = sp.album_tracks(single["id"], market="JP")["items"]
         for track in single_tracks:
             track_name = track["name"]
             track_id = track["id"]
@@ -461,7 +453,7 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
         }
 
         # 各コンピレーションアルバムに含まれる楽曲を取得
-        compilation_tracks = sp.album_tracks(compilation["id"])["items"]
+        compilation_tracks = sp.album_tracks(compilation["id"], market="JP")["items"]
         for track in compilation_tracks:
             track_name = track["name"]
             track_id = track["id"]
@@ -521,11 +513,35 @@ def artist_details(artist_id):
 
 
 # アルバム詳細ページ
+"""
 @app.route("/artist/<artist_id>/albums/<album_id>")
 def album_details(artist_id, album_id):
     # アルバム詳細の取得ロジック
     album = get_album_details(album_id)
     return render_template("album_details.html", album=album)
+"""
+
+
+@app.route("/artist/<artist_id>/albums/<album_id>")
+def album_details(artist_id, album_id):
+    try:
+        album = get_album_details(album_id)  # 既存の関数でSpotifyからアルバム情報を取得
+
+        # アルバム名とアーティスト名に基づいてAmazon検索URLを作成
+        keywords = f"{album['name']} {album['artists'][0]['name']}"
+        affiliate_code = "withmybgm-22"
+        amazon_search_url = (
+            f"https://www.amazon.co.jp/s?k={quote_plus(keywords)}&tag={affiliate_code}"
+        )
+
+        return render_template(
+            "album_details.html",
+            album=album,
+            amazon_search_url=amazon_search_url,  # Amazon検索URLをテンプレートに渡す
+        )
+
+    except Exception as e:
+        return render_template("error.html", error=str(e))
 
 
 # 全アルバム表示ページのルーティング処理
@@ -615,6 +631,7 @@ def help_song_details():
 # 引数: song_id (Spotifyの楽曲ID)
 # get_song_details関数で楽曲の詳細を取得し、
 # song_details.htmlテンプレートをレンダリングして返す
+"""
 @app.route("/song_details/<song_id>", methods=["GET"])
 def song_details(song_id):
     song = get_song_details(song_id)
@@ -622,25 +639,30 @@ def song_details(song_id):
 
 
 """
-@app.route('/song_details/<song_id>', methods=['GET'])
+
+
+@app.route("/song_details/<song_id>", methods=["GET"])
 def song_details(song_id):
     try:
         song = get_song_details(song_id)  # 既存の関数でSpotifyから曲情報を取得
 
-        # Amazon APIを叩く
+        # 楽曲名とアーティスト名に基づいてAmazon検索URLを作成
         keywords = f"{song['name']} {song['artists'][0]['name']}"
-        search_result = amazon.search_items(keywords=keywords)
-        if search_result and search_result.items:
-            first_item = search_result.items[0]
-            song['amazon_asin'] = first_item.asin
-        else:
-            song['amazon_asin'] = None
+        affiliate_code = "withmybgm-22"
+        amazon_search_url = (
+            f"https://www.amazon.co.jp/s?k={quote_plus(keywords)}&tag={affiliate_code}"
+        )
 
-        return render_template('song_details.html', song=song, song_id=song_id)
+        return render_template(
+            "song_details.html",
+            song=song,
+            song_id=song_id,
+            amazon_search_url=amazon_search_url,
+        )
 
     except Exception as e:
-        return render_template('error.html', error=str(e))
-"""
+        return render_template("error.html", error=str(e))
+
 
 # メインのエントリーポイント
 # スクリプトが直接実行された場合に以下のコードが実行される
