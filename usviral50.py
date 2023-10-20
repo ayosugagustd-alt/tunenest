@@ -633,16 +633,6 @@ def help_song_details():
 # 引数: song_id (Spotifyの楽曲ID)
 # get_song_details関数で楽曲の詳細を取得し、
 # song_details.htmlテンプレートをレンダリングして返す
-"""
-@app.route("/song_details/<song_id>", methods=["GET"])
-def song_details(song_id):
-    song = get_song_details(song_id)
-    return render_template("song_details.html", song=song, song_id=song_id)
-
-
-"""
-
-
 @app.route("/song_details/<song_id>", methods=["GET"])
 def song_details(song_id):
     try:
