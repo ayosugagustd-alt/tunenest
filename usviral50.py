@@ -64,18 +64,21 @@ def get_spotify_client():
 # 引数: track (Spotify APIから取得したトラックの辞書)
 # 戻り値: トラック情報を含む辞書
 def get_track_info(track):
-    # 2023/10/18
-    if track is None:
-        return None  # または適切なデフォルト値
-    track_info = {
-        "id": track["id"],
-        "url": track["preview_url"],
-        "name": track["name"],
-        "artist": track["artists"][0]["name"],
-        "image_url": track["album"]["images"][0]["url"],
-        "spotify_link": track["external_urls"]["spotify"],
-    }
-    return track_info
+    try:
+        image_url = track["album"]["images"][0]["url"] if track["album"]["images"] else url_for("static", filename="TuneNest.png")
+        spotify_link = track["external_urls"]["spotify"]
+        artist_name = track["artists"][0]["name"]
+        track_info = {
+            "id": track["id"],
+            "url": track["preview_url"],
+            "name": track["name"],
+            "artist": artist_name,
+            "image_url": image_url,
+            "spotify_link": spotify_link
+        }
+        return track_info
+    except KeyError:
+        return None  # 不良データを無視
 
 
 # キャッシュ用の辞書（検索クエリをキー、動画IDを値とする）
