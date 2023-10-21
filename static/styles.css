@@ -214,7 +214,7 @@ a:hover {
     font-family: 'Consolas', 'Monaco', 'Lucida Console', 'Courier New', monospace;
     margin-top: 0px;  /* 上側に余白 */
     margin-left: 0px;  /* 左側に余白 */
-    margin-bottom: 50px;  /* 下側に余白 */
+    margin-bottom: 10px;  /* 下側に余白 */
     height: var(--input-height);  /* 高さを一元管理 */
     box-sizing: border-box;  /* paddingとborderを含む */
     padding: 10px;
@@ -222,7 +222,7 @@ a:hover {
     border-radius: 5px;
     vertical-align: middle;
 	font-size: 16px;
-    width: 280px;  /* 固定幅 */
+    width: 286px;  /* 固定幅 */
     height: 50px;  /* 固定幅 */
 }
 

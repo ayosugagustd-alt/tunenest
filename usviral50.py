@@ -10,6 +10,7 @@ from flask import render_template
 from flask import request
 from flask import send_from_directory
 from flask import url_for
+from flask import jsonify
 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
@@ -658,6 +659,25 @@ def song_details(song_id):
 
     except Exception as e:
         return render_template("error.html", error=str(e))
+
+# キーワードでプレイリストを検索する新しいルート
+@app.route('/search_playlist', methods=['GET'])
+def search_playlist():
+    keyword = request.args.get('keyword')
+    if not keyword:
+        return jsonify({'error': 'No keyword provided'}), 400
+
+    sp = get_spotify_client()
+
+    # Spotify APIでキーワードでプレイリストを検索
+    results = sp.search(q=f'{keyword}', type='playlist', market='JP', limit=1)
+    if not results or not results.get('playlists') or not results['playlists'].get('items'):
+        return jsonify({'error': 'No playlists found'}), 404
+
+    playlist = results['playlists']['items'][0]
+    playlist_id = playlist['id']
+
+    return jsonify({'playlist_id': playlist_id})
 
 
 # メインのエントリーポイント

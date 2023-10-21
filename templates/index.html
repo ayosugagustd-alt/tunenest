@@ -31,13 +31,17 @@
     <div id="playlist-controls">
         <select class="search-input" id="playlistDropdown">
             <option value="" disabled selected style="display:none;">-- SELECT a PLAYLIST --</option>
+            <option value="search">ARTIST : Search by Artist</option>
             <!-- プレイリスト -->
             {% for id, name in playlists.items() %}
                 <option value="{{ id }}">{{ name }}</option>
             {% endfor %}
         </select>
+        <div id="searchBox" style="display:none;">
+            <input type="text" class="search-input" id="keyword" placeholder="Enter keyword">
+            <button id="searchButton"><i class="fas fa-search"></i></button>
+        </div>
     </div>
-
     <div id="controls">
 
         <div id="playing-container">
@@ -231,12 +235,46 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             const playlistDropdown = document.getElementById('playlistDropdown');
+            const searchBox = document.getElementById('searchBox');
+            const searchButton = document.getElementById('searchButton');
+            const keywordInput = document.getElementById('keyword');
+
             playlistDropdown.addEventListener('change', function() {
                 const selectedPlaylistId = playlistDropdown.value;
-                const url = `/?playlist_id=${selectedPlaylistId}`;
-                window.location.href = url;
+                if (selectedPlaylistId === 'search') {
+                    searchBox.style.display = 'block';
+                } else {
+                    searchBox.style.display = 'none';
+                    const url = `/?playlist_id=${selectedPlaylistId}`;
+                    window.location.href = url;
+                }
+            });
+
+            // 新しく追加: キーワードで検索する処理
+            searchButton.addEventListener('click', async function() {
+                const keyword = keywordInput.value;
+                if (keyword) {
+                    try {
+                        const response = await fetch(`/search_playlist?keyword=${keyword}`);
+                        if (response.ok) {
+                            const data = await response.json();
+                            const playlist_id = data.playlist_id;
+                            const url = `/?playlist_id=${playlist_id}`;
+                            window.location.href = url;
+                        } else {
+                            console.error('Search failed');
+                        }
+                    } catch (error) {
+                        console.error('There was a problem with the fetch operation:', error);
+                    }
+                }
             });
         });
+
+        function searchPlaylist() {
+            const keyword = document.getElementById('keyword').value;
+            // ここでバックエンドと通信
+        }
 
         // 新しいYouTubeリンクのクリックイベント処理
         document.addEventListener("DOMContentLoaded", function() {
