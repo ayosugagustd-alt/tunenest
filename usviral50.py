@@ -20,6 +20,9 @@ from spotipy import Spotify
 
 from urllib.parse import quote_plus
 
+from collections import defaultdict
+
+
 # 環境変数を一度だけ読み取る（存在しない場合はNone）
 SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID", None)
 SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET", None)
@@ -201,11 +204,18 @@ def index():
         valid_tracks_info = [track for track in all_tracks_info if track is not None]
         # 2023/10/18
 
+        # カテゴリごとにプレイリストを整理
+        playlists_grouped = defaultdict(list)
+        for id, name in playlists.items():
+            category, temp_playlist_name  = name.split(" : ", 1)
+            playlists_grouped[category].append((id, temp_playlist_name))
+
         # HTMLテンプレートをレンダリング
         return render_template(
             "index.html",
             playlist_name=playlist_name,
             playlists=playlists,
+            playlists_grouped=playlists_grouped,  # 追加
             tracks=valid_tracks_info,
             collage_filename=collage_filename,
             playlist_description=playlist_description,

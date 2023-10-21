@@ -31,14 +31,18 @@
     <div id="playlist-controls">
         <select class="search-input" id="playlistDropdown">
             <option value="" disabled selected style="display:none;">-- SELECT a PLAYLIST --</option>
-            <option value="search">ARTIST : Search by Artist</option>
-            <!-- プレイリスト -->
-            {% for id, name in playlists.items() %}
-                <option value="{{ id }}">{{ name }}</option>
+            <option value="search" class="special-option">ARTIST</option>
+            <!-- カテゴリごとのグループ -->
+            {% for category, items in playlists_grouped.items() %}
+                <optgroup label="{{ category }}">
+                    {% for id, name in items %}
+                        <option value="{{ id }}" class="search-input">{{ name }}</option>
+                    {% endfor %}
+                </optgroup>
             {% endfor %}
         </select>
         <div id="searchBox" style="display:none;">
-            <input type="text" class="search-input" id="keyword" placeholder="Enter keyword">
+            <input type="text" class="search-input" id="keyword" placeholder="Enter Artist Name...">
             <button id="searchButton"><i class="fas fa-search"></i></button>
         </div>
     </div>

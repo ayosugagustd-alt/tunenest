@@ -222,7 +222,7 @@ a:hover {
     border-radius: 5px;
     vertical-align: middle;
 	font-size: 16px;
-    width: 286px;  /* 固定幅 */
+    width: 268px;  /* 固定幅 */
     height: 50px;  /* 固定幅 */
 }
 
@@ -314,6 +314,10 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
   0% { transform: scale(1); }
   50% { transform: scale(1.1); }
   100% { transform: scale(1); }
+}
+
+.special-option {
+    font-weight: bold;
 }
 
 @media only screen and (max-width: 768px) {
