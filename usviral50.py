@@ -66,7 +66,11 @@ def get_spotify_client():
 # 戻り値: トラック情報を含む辞書
 def get_track_info(track):
     try:
-        image_url = track["album"]["images"][0]["url"] if track["album"]["images"] else url_for("static", filename="TuneNest.png")
+        image_url = (
+            track["album"]["images"][0]["url"]
+            if track["album"]["images"]
+            else url_for("static", filename="TuneNest.png")
+        )
         spotify_link = track["external_urls"]["spotify"]
         artist_name = track["artists"][0]["name"]
         track_info = {
@@ -75,7 +79,7 @@ def get_track_info(track):
             "name": track["name"],
             "artist": artist_name,
             "image_url": image_url,
-            "spotify_link": spotify_link
+            "spotify_link": spotify_link,
         }
         return track_info
     except KeyError:
@@ -660,24 +664,29 @@ def song_details(song_id):
     except Exception as e:
         return render_template("error.html", error=str(e))
 
+
 # キーワードでプレイリストを検索する新しいルート
-@app.route('/search_playlist', methods=['GET'])
+@app.route("/search_playlist", methods=["GET"])
 def search_playlist():
-    keyword = request.args.get('keyword')
+    keyword = request.args.get("keyword")
     if not keyword:
-        return jsonify({'error': 'No keyword provided'}), 400
+        return jsonify({"error": "No keyword provided"}), 400
 
     sp = get_spotify_client()
 
     # Spotify APIでキーワードでプレイリストを検索
-    results = sp.search(q=f'{keyword}', type='playlist', market='JP', limit=1)
-    if not results or not results.get('playlists') or not results['playlists'].get('items'):
-        return jsonify({'error': 'No playlists found'}), 404
+    results = sp.search(q=f"{keyword}", type="playlist", market="JP", limit=1)
+    if (
+        not results
+        or not results.get("playlists")
+        or not results["playlists"].get("items")
+    ):
+        return jsonify({"error": "No playlists found"}), 404
 
-    playlist = results['playlists']['items'][0]
-    playlist_id = playlist['id']
+    playlist = results["playlists"]["items"][0]
+    playlist_id = playlist["id"]
 
-    return jsonify({'playlist_id': playlist_id})
+    return jsonify({"playlist_id": playlist_id})
 
 
 # メインのエントリーポイント
