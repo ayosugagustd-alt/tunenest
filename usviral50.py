@@ -29,9 +29,14 @@ MUSIXMATCH_API_KEY = os.environ.get("MUSIXMATCH_API_KEY")
 app = Flask(__name__)
 
 # プレイリストIDと名前の辞書を開く
-with open("config/playlists.json", "r") as f:
-    # playlistsはインデックスページのルーティング処理で参照する
-    playlists = json.load(f)
+try:
+    with open("config/playlists.json", "r") as f:
+        # playlistsはインデックスページのルーティング処理で参照する
+        playlists = json.load(f)
+except FileNotFoundError:
+    print("playlists.jsonが見つかりません。")
+except json.JSONDecodeError:
+    print("playlists.jsonの形式が不正です。")
 
 
 @app.before_request
@@ -50,6 +55,9 @@ def check_api_keys():
 
     if not YOUTUBE_API_KEY:
         raise ValueError("YouTube APIのキーが設定されていません。環境変数で設定してください。")
+        
+    if not MUSIXMATCH_API_KEY:
+        raise ValueError("musixmatch APIのキーが設定されていません。環境変数で設定してください。")
 
 
 def get_spotify_client():
