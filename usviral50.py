@@ -540,15 +540,6 @@ def artist_details(artist_id):
 
 
 # アルバム詳細ページ
-"""
-@app.route("/artist/<artist_id>/albums/<album_id>")
-def album_details(artist_id, album_id):
-    # アルバム詳細の取得ロジック
-    album = get_album_details(album_id)
-    return render_template("album_details.html", album=album)
-"""
-
-
 @app.route("/artist/<artist_id>/albums/<album_id>")
 def album_details(artist_id, album_id):
     try:
