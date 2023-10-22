@@ -31,12 +31,12 @@
     <div id="playlist-controls">
         <select class="search-input" id="playlistDropdown">
             <option value="" disabled selected style="display:none;">-- SELECT a PLAYLIST --</option>
-            <option value="search" class="special-option">ARTIST</option>
+            <option value="search" class="special-option">★ SEARCH by ARTIST</option>
             <!-- カテゴリごとのグループ -->
             {% for category, items in playlists_grouped.items() %}
                 <optgroup label="{{ category }}">
                     {% for id, name in items %}
-                        <option value="{{ id }}" class="search-input">{{ name }}</option>
+                        <option value="{{ id }}">{{ name }}</option>
                     {% endfor %}
                 </optgroup>
             {% endfor %}

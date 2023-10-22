@@ -211,7 +211,6 @@ a:hover {
 
 /* 共通のスタイルを適用 */
 .search-input {
-    font-family: 'Consolas', 'Monaco', 'Lucida Console', 'Courier New', monospace;
     margin-top: 0px;  /* 上側に余白 */
     margin-left: 0px;  /* 左側に余白 */
     margin-bottom: 10px;  /* 下側に余白 */
