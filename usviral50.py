@@ -58,7 +58,7 @@ def check_api_keys():
 
     if not YOUTUBE_API_KEY:
         raise ValueError("YouTube APIのキーが設定されていません。環境変数で設定してください。")
-        
+
     if not MUSIXMATCH_API_KEY:
         raise ValueError("musixmatch APIのキーが設定されていません。環境変数で設定してください。")
 
@@ -194,20 +194,42 @@ def index():
             )
 
         # プレイリストのトラックを取得
-        results = sp.playlist_tracks(playlist_id, market="JP")
-        if results is None or results["items"] is None:
-            raise ValueError("Spotify APIが正常な値を返しませんでした。")
+
+        MAX_TRACKS = 200  # 最大取得曲数を定義
+
+        offset = 0
+        limit = 100  # 1回のAPI呼び出しで取得できる最大トラック数
+        all_tracks = []  # 全トラックを格納するリスト
+
+        while True:
+            results = sp.playlist_tracks(
+                playlist_id, market="JP", offset=offset, limit=limit
+            )
+            if results is None or results["items"] is None:
+                raise ValueError("Spotify APIが正常な値を返しませんでした。")
+
+            all_tracks.extend(results["items"])
+
+            # 上限に達した場合、ループを抜ける
+            if len(all_tracks) >= MAX_TRACKS:
+                all_tracks = all_tracks[:MAX_TRACKS]
+                break
+
+            # 全てのトラックを取得した場合、ループを抜ける
+            if len(results["items"]) < limit:
+                break
+
+            offset += limit
 
         # トラック情報を整形
         # 2023/10/18(抜け番対応)
-        all_tracks_info = [get_track_info(item["track"]) for item in results["items"]]
+        all_tracks_info = [get_track_info(item["track"]) for item in all_tracks]
         valid_tracks_info = [track for track in all_tracks_info if track is not None]
-        # 2023/10/18
 
         # カテゴリごとにプレイリストを整理
         playlists_grouped = defaultdict(list)
         for id, name in playlists.items():
-            category, temp_playlist_name  = name.split(" : ", 1)
+            category, temp_playlist_name = name.split(" : ", 1)
             playlists_grouped[category].append((id, temp_playlist_name))
 
         # HTMLテンプレートをレンダリング
