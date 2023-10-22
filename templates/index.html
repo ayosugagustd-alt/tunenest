@@ -101,7 +101,18 @@
     <script>
         let tracks = {{ tracks|tojson }};
         let index = 0;
-        let audio = new Audio(tracks[index].url);
+        let audio;
+
+        // 最初に有効なURLを見つける
+        for (; index < tracks.length; index++) {
+            if (tracks[index].url) {
+                audio = new Audio(tracks[index].url);
+                break;
+            }
+        }
+        if (!audio) {
+            console.log("No playable tracks in the playlist.");
+        }
 
         function togglePlay() {
             if (audio.paused) {
