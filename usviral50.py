@@ -236,7 +236,6 @@ def index():
         return render_template(
             "index.html",
             playlist_name=playlist_name,
-            playlists=playlists,
             playlists_grouped=playlists_grouped,  # 追加
             tracks=valid_tracks_info,
             collage_filename=collage_filename,
