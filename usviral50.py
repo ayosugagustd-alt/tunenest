@@ -203,7 +203,6 @@ def index():
 
         exceeds_max_tracks = False  # 200曲以上かどうかのフラグ
 
-
         while True:
             results = sp.playlist_tracks(
                 playlist_id, market="JP", offset=offset, limit=limit
@@ -216,7 +215,6 @@ def index():
             # 上限に達した場合、ループを抜ける
             if len(all_tracks) >= MAX_TRACKS:
                 all_tracks = all_tracks[:MAX_TRACKS]
-                exceeds_max_tracks = True  # 200曲以上のフラグをTrueに
                 break
 
             # 全てのトラックを取得した場合、ループを抜ける
@@ -229,6 +227,9 @@ def index():
         # 2023/10/18(抜け番対応)
         all_tracks_info = [get_track_info(item["track"]) for item in all_tracks]
         valid_tracks_info = [track for track in all_tracks_info if track is not None]
+
+        # 200曲以上かどうかを再判定
+        exceeds_max_tracks = len(valid_tracks_info) >= MAX_TRACKS
 
         # カテゴリごとにプレイリストを整理
         playlists_grouped = defaultdict(list)
@@ -245,7 +246,7 @@ def index():
             collage_filename=collage_filename,
             playlist_description=playlist_description,
             playlist_url=playlist_url,
-            exceeds_max_tracks=exceeds_max_tracks
+            exceeds_max_tracks=exceeds_max_tracks,
         )
     except Exception as e:
         # エラーページを表示
