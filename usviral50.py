@@ -33,7 +33,7 @@ app = Flask(__name__)
 
 # プレイリストIDと名前の辞書を開く
 try:
-    with open("config/playlists.json", "r") as f:
+    with open("config/playlists.json", "r", encoding='utf-8') as f:
         # playlistsはインデックスページのルーティング処理で参照する
         playlists = json.load(f)
 except FileNotFoundError:
@@ -234,8 +234,13 @@ def index():
         # カテゴリごとにプレイリストを整理
         playlists_grouped = defaultdict(list)
         for id, name in playlists.items():
-            category, temp_playlist_name = name.split(" : ", 1)
-            playlists_grouped[category].append((id, temp_playlist_name))
+            try:
+                category, temp_playlist_name = name.split(" : ", 1)
+                playlists_grouped[category].append((id, temp_playlist_name))
+            except ValueError as e:
+                error = f"Error occurred with playlist ID: {id}, name: '{name}'. Error message: {str(e)}"
+                return render_template("error.html", error=error)
+
 
         # HTMLテンプレートをレンダリング
         return render_template(
