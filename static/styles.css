@@ -110,9 +110,12 @@ header { text-align: right; width: 98%; padding: 0px 0; }
     font-size: 24px;
     color: #FF9900; 
 }
-
 .fas.fa-volume-up {
 	color: grey;
+}
+.fas.fa-exclamation-triangle {
+    font-size: 24px;
+    color: #DAA520;  /* 黄土色 */
 }
 
 .video-container {
