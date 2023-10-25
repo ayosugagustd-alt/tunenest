@@ -48,18 +48,6 @@ def limit_access():
     allowed_countries = [
         "US",
         "JP",
-        "DE",
-        "IN",
-        "GB",
-        "BR",
-        "IT",
-        "CA",
-        "KR",
-        "AU",
-        "ES",
-        "MX",
-        "ZA",
-        "TW",
         "SE",
         "LU",
     ]
