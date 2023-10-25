@@ -20,7 +20,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='f_f_event_43_s16_f_event_43_0nbg.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='f_f_event_43_s32_f_event_43_0nbg.png') }}">
     <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename='f_f_event_43_s64_f_event_43_0nbg.png') }}">
-    <title>{{ playlist_name or 'TuneNest: Discover Music' }}</title>
+    <title>{{ playlist_name or 'TuneNest: Discover Music' }} - Spotify Playlist Preview</title>
 </head>
 
 <body>
@@ -52,7 +52,7 @@
     <div id="controls">
 
         <div id="playing-container">
-            <img id="playing-artwork" src="{{ collage_filename }}" alt="Collage">
+            <img id="playing-artwork" src="{{ collage_filename }}" alt="Spotify Playlist Artwork" loading="lazy">
             <div id="playing"></div>
         </div>
 
