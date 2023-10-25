@@ -52,6 +52,14 @@ def limit_access():
         abort(403)
 '''
 
+@app.before_request
+def limit_access():
+    # CloudflareのCF-IPCountryヘッダーを用いた国コードでのブロック
+    blocked_countries = ["FR"]
+    visitor_country = request.headers.get("CF-IPCountry")
+    if visitor_country and visitor_country in blocked_countries:
+        abort(403)
+
 
 # APIキーをチェック
 def check_api_keys():
