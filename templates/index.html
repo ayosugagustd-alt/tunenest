@@ -25,11 +25,11 @@
 
 <body>
     <h1>{{ playlist_name }}</h1>
-    <h3>{{ playlist_description|safe }}</h3>
+    <h2>{{ playlist_description|safe }}</h2>
     {% if exceeds_max_tracks %}
         <p><i class="fas fa-exclamation-triangle"></i>This playlist contains more than 200 tracks, but only the first 200 are displayed.</p>
     {% endif %}
-    <p><a href="{{ playlist_url }}" target="_blank">Play this playlist on <i class="fab fa-spotify"></i><span class="icon-caption">Spotify.</span></a></p>
+    <h3><a href="{{ playlist_url }}" target="_blank">Play this playlist on <i class="fab fa-spotify"></i><span class="icon-caption">Spotify.</span></a></h3>
 
     <div id="playlist-controls">
         <select class="search-input" id="playlistDropdown">
