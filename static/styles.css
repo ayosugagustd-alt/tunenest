@@ -89,27 +89,32 @@ header p {
 }
 header { text-align: right; width: 98%; padding: 0px 0; }
 
-
-.fab.fa-twitter {
-    font-size: 24px;
-    color: #1DA1F2;
-}
-.fab.fa-youtube {
-    font-size: 24px;
-    color: #FF0000;
-}
 .fab.fa-spotify {
+    margin-right: 10px;
     font-size: 24px;
 	color: #1DB954;
 }
+.fab.fa-youtube {
+    margin-right: 7px;
+    font-size: 24px;
+    color: #FF0000;
+}
 .fas.fa-info-circle {
+    margin-right: 10px;
     font-size: 24px;
     color: #4169E1;
 }
+.fab.fa-twitter {
+    margin-right: 8px;
+    font-size: 24px;
+    color: #1DA1F2;
+}
 .fab.fa-amazon {
+    margin-right: 10px;
     font-size: 24px;
     color: #FF9900; 
 }
+
 .fas.fa-volume-up {
 	color: grey;
 }
@@ -154,7 +159,7 @@ a:hover {
 .custom-list-number {
 	color: grey;
     font-size: 20px;
-    margin-right: 12px;  /* または任意の大きさ */
+    margin-right: 12px;
 }
 
 .custom-list-content {
@@ -243,8 +248,6 @@ select {
 .info-now-playing {
     font-size: 24px;
     margin-bottom: 10px;
-    margin-left: 10px;
-
     display: inline-block;
 }
 
@@ -315,7 +318,7 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
     }
     .custom-list-number {
         font-size: 14px;
-        margin-right: 6px;  /* または任意の大きさ */
+        margin-right: 6px;
     }
     /* アートワーク右の表示欄 */
     #playing {
@@ -324,19 +327,24 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
         margin-left: 4px;
     }
 
-	.fab.fa-twitter {
+	.fab.fa-spotify {
+        margin-right: 5px;
     	font-size: 20px;
 	}
 	.fab.fa-youtube {
-    	font-size: 20px;
-	}
-	.fab.fa-spotify {
+        margin-right: 2px;
     	font-size: 20px;
 	}
 	.fas.fa-info-circle {
+        margin-right: 5px;
+    	font-size: 20px;
+	}
+	.fab.fa-twitter {
+        margin-right: 3px;
     	font-size: 20px;
 	}
 	.fab.fa-amazon {
+        margin-right: 5px;
     	font-size: 20px;
 	}
 
