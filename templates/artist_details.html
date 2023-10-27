@@ -33,7 +33,7 @@
     </span>
     <p>Genres: <strong>{{ artist['genres'] | join(', ') }}</strong></p>
     <p>Followers: <strong>{{ artist['followers'] }}</strong></p>
-    <p><a href="https://jp.wikipedia.org/wiki/{{ artist['name'] | urlencode }}" target="_blank">Learn more on Wikipedia (in Japanese)</a></p>
+    <p><a href="https://jp.wikipedia.org/wiki/{{ artist['name'] | urlencode }}" target="_blank" rel="noopener">Learn more on Wikipedia (in Japanese)</a></p>
 </div>
 <div class="section-space">
     <h2>Top Tracks</h2>
@@ -57,7 +57,7 @@
     <h2><a href="{{ url_for('all_compilations_and_songs_for_artist', artist_id=artist.id) }}">Compilation Album List</a></h2>
 </div>
 <footer>
-    <p>Data sourced from <a href="https://www.spotify.com" target="_blank"><i class="fab fa-spotify"></i>Spotify</a>.</p>
+    <p>Data sourced from <a href="https://www.spotify.com" target="_blank" rel="noopener"><i class="fab fa-spotify"></i>Spotify</a>.</p>
 </footer>
 </body>
 </html>

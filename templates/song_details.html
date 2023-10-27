@@ -22,11 +22,11 @@
         </div>
     {% endmacro %}
     <header>
-        <p><a href="/help_song_details" target="_blank">Help</a></p>
+        <p><a href="/help_song_details" target="_blank" rel="noopener">Help</a></p>
     </header>
     <div class="section-space">
         <h1>{{ song.name }}</h1>
-        <a href="{{ amazon_search_url }}" target="_blank" title="Amazon"><i class="fab fa-amazon"></i>Search on Amazon</a>
+        <a href="{{ amazon_search_url }}" target="_blank" rel="noopener" title="Amazon"><i class="fab fa-amazon"></i>Search on Amazon</a>
         <div class="album-artwork">
             <img alt="Album Artwork" src="{{ song.album_artwork_url or url_for('static', filename='noimage.jpg') }}" loading="lazy"/>
         </div>
@@ -70,8 +70,8 @@
         {{ render_progress_bar("Instrumentalness", song.instrumentalness) }}
     </div> <!-- End of .visual-section -->
     <footer>
-        <p>Data sourced from <a href="https://www.spotify.com" target="_blank"><i class="fab fa-spotify"></i>Spotify</a>.</p>
-        <p>Lyrics provided by <a href="https://www.musixmatch.com" target="_blank">musixmatch</a>.</p>
+        <p>Data sourced from <a href="https://www.spotify.com" target="_blank" rel="noopener"><i class="fab fa-spotify"></i>Spotify</a>.</p>
+        <p>Lyrics provided by <a href="https://www.musixmatch.com" target="_blank" rel="noopener">musixmatch</a>.</p>
     </footer>
 </body>
 </html>
