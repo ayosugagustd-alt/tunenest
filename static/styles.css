@@ -90,27 +90,27 @@ header p {
 header { text-align: right; width: 98%; padding: 0px 0; }
 
 .fab.fa-spotify {
-    margin-right: 10px;
+    margin-right: 8px;
     font-size: 24px;
 	color: #1DB954;
 }
 .fab.fa-youtube {
-    margin-right: 7px;
+    margin-right: 5px;
     font-size: 24px;
     color: #FF0000;
 }
 .fas.fa-info-circle {
-    margin-right: 10px;
+    margin-right: 8px;
     font-size: 24px;
     color: #4169E1;
 }
 .fab.fa-twitter {
-    margin-right: 8px;
+    margin-right: 6px;
     font-size: 24px;
     color: #1DA1F2;
 }
 .fab.fa-amazon {
-    margin-right: 10px;
+    margin-right: 8px;
     font-size: 24px;
     color: #FF9900; 
 }
