@@ -328,7 +328,7 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
     }
 
 	.fab.fa-spotify {
-        margin-right: 5px;
+        margin-right: 6px;
     	font-size: 20px;
 	}
 	.fab.fa-youtube {
@@ -336,7 +336,7 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
     	font-size: 20px;
 	}
 	.fas.fa-info-circle {
-        margin-right: 5px;
+        margin-right: 6px;
     	font-size: 20px;
 	}
 	.fab.fa-twitter {
@@ -344,7 +344,7 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
     	font-size: 20px;
 	}
 	.fab.fa-amazon {
-        margin-right: 5px;
+        margin-right: 6px;
     	font-size: 20px;
 	}
 
