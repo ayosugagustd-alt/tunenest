@@ -292,22 +292,6 @@ footer p {
 }
 footer { text-align: left; width: 100%; padding: 20px 0; }
 
-.footer-main span,
-.footer-sub span,
-.footer-main a,
-.footer-legal a,
-.footer-sub a {
-    font-size: 1.0em;
-    display: inline-block;
-    vertical-align: middle;
-    color: #555;
-}
-
-.footer-copyright {
-    font-size: 0.8em;
-    color: #555;
-}
-
 @keyframes bounce {
   0% { transform: scale(1); }
   50% { transform: scale(1.1); }
@@ -414,13 +398,5 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
         font-size: 14px;
         margin-bottom: 8px;
         margin-left: 5px;
-    }
-
-    .footer-main span,
-    .footer-sub span,
-    .footer-main a,
-    .footer-legal a,
-    .footer-sub a {
-        font-size: 0.8em;
     }
 }
