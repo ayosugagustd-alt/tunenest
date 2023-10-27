@@ -17,7 +17,7 @@
 <body>
 <div class="section-space">
     <h1>{{ album.name }}</h1>
-    <a href="{{ amazon_search_url }}" target="_blank" rel="noopener" title="Amazon"><i class="fab fa-amazon"></i>Search on Amazon</a>
+    <a href="{{ amazon_search_url }}" target="_blank" rel="noopener"><i class="fab fa-amazon"></i>Search on Amazon</a>
         <div class="album-artwork">
             <img alt="Album Artwork" src="{{ album.image or url_for('static', filename='noimage.jpg') }}" loading="lazy"/>
         </div>
