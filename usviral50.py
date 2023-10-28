@@ -244,8 +244,8 @@ def index():
         all_tracks_info = [get_track_info(item["track"]) for item in all_tracks]
         valid_tracks_info = [track for track in all_tracks_info if track is not None]
 
-        # 200曲以上かどうかを再判定
-        exceeds_max_tracks = len(valid_tracks_info) >= MAX_TRACKS
+        # 201曲以上かどうかを再判定
+        exceeds_max_tracks = len(valid_tracks_info) > MAX_TRACKS
 
         # カテゴリごとにプレイリストを整理
         playlists_grouped = defaultdict(list)
