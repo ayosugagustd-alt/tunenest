@@ -2,6 +2,7 @@
 import json
 import os
 import time
+import logging
 
 # サードパーティライブラリ
 import requests
@@ -422,7 +423,8 @@ def get_song_details(song_id):
 # 曲のIDを受け取り、その曲の詳細情報とオーディオ特性を返す
 # (タイムアウト対応版)
 # 引数: song_id (Spotifyの曲ID)
-# 戻り値: 曲の詳細情報とオーディオ特性を含む辞書。最大リトライ回数を超えた場合はNone。
+# 戻り値: 曲の詳細情報とオーディオ特性を含む辞書。
+# 最大リトライ回数を超えた場合はエラーをスローする。
 def get_song_details_with_retry(song_id, max_retries=3, delay=5):
     retries = 0
     while retries <= max_retries:
@@ -474,12 +476,12 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
                 "lyrics": clean_lyrics,
             }
         except Exception as e:  # タイムアウトやその他の例外をキャッチ
-            print(f"An error occurred: {e}. Retrying...")
+            logging.error(f"An error occurred: {e}. Retrying...")
             retries += 1
             time.sleep(delay)  # delay秒待ってからリトライ
 
-    print("Max retries reached. Exiting.")
-    return None  # 最大リトライ回数を超えた場合はNoneを返す
+    raise Exception("Max retries reached")  # 最大を超えたら例外をスロー
+
 
 
 # 総リリース数をカウントする関数
@@ -766,13 +768,8 @@ def help_song_details():
 @app.route("/song_details/<song_id>", methods=["GET"])
 def song_details(song_id):
     try:
-        song = get_song_details_with_retry(song_id)  # 既存の関数でSpotifyから曲情報を取得
+        song = get_song_details_with_retry(song_id)  # Spotifyから曲情報を取得
 
-        if song is None:
-            return render_template(
-                "error.html",
-                error="Failed to retrieve song details after multiple retries.",
-            )
         # 楽曲名とアーティスト名に基づいてAmazon検索URLを作成
         keywords = f"{song['name']} {song['artists'][0]['name']}"
         affiliate_code = "withmybgm-22"
@@ -822,4 +819,5 @@ if __name__ == "__main__":
     check_api_keys()  # APIキーの存在をチェック
     debug_mode = False  # デバッグモードの設定
     port = int(os.environ.get("PORT", 8080))  # 環境変数からポート番号取得
+    logging.basicConfig(level=logging.INFO)
     app.run(host="0.0.0.0", port=port, debug=debug_mode)  # Webアプリを起動
