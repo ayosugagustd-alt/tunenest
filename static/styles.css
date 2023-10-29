@@ -171,13 +171,11 @@ a:hover {
 .icon-caption {
     font-size: 16px;
     margin-right: 32px;
-    margin-left: 4px;
 }
 /* Disabled Caption(No Preview) */
 .icon-disabled-caption {
     font-size: 16px;
     margin-right: 32px;
-    margin-left: 4px;
 
     color: #A9A9A9;
 }
@@ -249,6 +247,7 @@ select {
 .info-now-playing {
     font-size: 24px;
     margin-bottom: 10px;
+    margin-left: 10px;
     display: inline-block;
 }
 
@@ -361,13 +360,11 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
     .icon-caption {
         font-size: 14px;
         margin-right: 28px;
-        margin-left: 3px;
     }
     /* Disabled Caption(No Preview) */
     .icon-disabled-caption {
         font-size: 14px;
         margin-right: 28px;
-        margin-left: 3px;
     }
 
 	h1 {
