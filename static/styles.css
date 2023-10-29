@@ -251,6 +251,10 @@ select {
     display: inline-block;
 }
 
+.info-now-playing:hover {
+    text-decoration: underline;
+}
+
 .star, .empty-star, .half-star {
     font-size: 32px;
     margin-right: -3px;
