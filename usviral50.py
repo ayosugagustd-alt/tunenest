@@ -26,9 +26,9 @@ from collections import defaultdict
 
 
 # 環境変数を一度だけ読み取る（存在しない場合はNone）
-SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID", None)
-SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET", None)
-YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY", None)
+SPOTIFY_CLIENT_ID = os.environ.get("SPOTIFY_CLIENT_ID", None)
+SPOTIFY_CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET", None)
+YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
 MUSIXMATCH_API_KEY = os.environ.get("MUSIXMATCH_API_KEY")
 
 app = Flask(__name__)
@@ -481,7 +481,6 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
             time.sleep(delay)  # delay秒待ってからリトライ
 
     raise Exception("Max retries reached")  # 最大を超えたら例外をスロー
-
 
 
 # 総リリース数をカウントする関数
