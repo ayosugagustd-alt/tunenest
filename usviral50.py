@@ -1,47 +1,54 @@
 # 標準ライブラリ
-import json
-import os
-import time
-import logging
+import json  # JSON形式データのエンコード/デコード
+import logging  # ロギング機能
+import os  # OSレベルの機能を扱う
+import time  # 時間に関する機能
+from urllib.parse import quote_plus  # URLエンコーディング
+from collections import defaultdict  # デフォルト値を持つ辞書
 
-# サードパーティライブラリ
-import requests
-from flask import abort
-from flask import Flask
-from flask import render_template
-from flask import request
-from flask import send_from_directory
-from flask import url_for
-from flask import jsonify
+# サードパーティのHTTP関連ライブラリ
+import requests  # HTTPリクエスト
 
-from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
+# Flask関連ライブラリ
+from flask import Flask  # Flask本体
+from flask import abort  # HTTPエラー処理
+from flask import jsonify  # JSONレスポンス生成
+from flask import render_template  # HTMLテンプレートレンダリング
+from flask import request  # HTTPリクエストオブジェクト
+from flask import send_from_directory  # ファイル送信
+from flask import url_for  # URL生成
 
-from spotipy.oauth2 import SpotifyClientCredentials
-from spotipy import Spotify
+# Google APIクライアント
+from googleapiclient.discovery import build  # APIサービスビルド
+from googleapiclient.errors import HttpError  # Google APIのHTTPエラー
 
-from urllib.parse import quote_plus
+# Spotify APIクライアント
+from spotipy.oauth2 import SpotifyClientCredentials  # Spotify OAuth2認証
+from spotipy import Spotify  # Spotify API本体
 
-from collections import defaultdict
 
+# 環境変数を一度だけ読み取る。これらの変数はAPI認証に使用される。
+# 存在しない場合はNoneを設定。
+SPOTIFY_CLIENT_ID = os.environ.get("SPOTIFY_CLIENT_ID", None)  # Spotify API
+SPOTIFY_CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET", None)  # Spotify API
+YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)  # YouTube APIのキー
+MUSIXMATCH_API_KEY = os.environ.get("MUSIXMATCH_API_KEY", None)  # Musixmatch APIのキー
 
-# 環境変数を一度だけ読み取る（存在しない場合はNone）
-SPOTIFY_CLIENT_ID = os.environ.get("SPOTIFY_CLIENT_ID", None)
-SPOTIFY_CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET", None)
-YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
-MUSIXMATCH_API_KEY = os.environ.get("MUSIXMATCH_API_KEY")
 
 app = Flask(__name__)
 
-# プレイリストIDと名前の辞書を開く
+# playlists変数の初期化
+playlists = None
+
 try:
+    # プレイリストIDと名前の辞書を開く
     with open("config/playlists.json", "r", encoding="utf-8") as f:
         # playlistsはインデックスページのルーティング処理で参照する
         playlists = json.load(f)
 except FileNotFoundError:
-    print("playlists.jsonが見つかりません。")
+    logging.warning("playlists.jsonが見つかりません。")
 except json.JSONDecodeError:
-    print("playlists.jsonの形式が不正です。")
+    logging.warning("playlists.jsonの形式が不正です。")
 
 
 @app.before_request
