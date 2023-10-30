@@ -80,12 +80,14 @@ def check_api_keys():
         raise ValueError("musixmatch APIのキーが設定されていません。環境変数で設定してください。")
 
 
+# Spotify API Clientを生成して返す。言語設定は日本語にする。
 def get_spotify_client():
     return Spotify(
         client_credentials_manager=SpotifyClientCredentials(
-            client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET
+            client_id=SPOTIFY_CLIENT_ID, 
+            client_secret=SPOTIFY_CLIENT_SECRET
         ),
-        language="ja",  # この行を追加
+        language="ja",  # 言語設定を日本語にする
     )
 
 
