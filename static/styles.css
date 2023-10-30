@@ -116,8 +116,17 @@ header { text-align: right; width: 98%; padding: 0px 0; }
 }
 
 .fas.fa-volume-up {
-	color: grey;
+    animation: fadeInOut 2s infinite;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    font-size: 20px;
+	color: #333333;
 }
+@keyframes fadeInOut {
+    0% {opacity: 1;}
+    50% {opacity: 0.5;}
+    100% {opacity: 1;}
+}
+
 .fas.fa-exclamation-triangle {
     font-size: 24px;
     color: #DAA520;  /* 黄土色 */
@@ -356,6 +365,14 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
         margin-right: 5px;
     	font-size: 20px;
 	}
+
+    .fas.fa-volume-up {
+        font-size: 16px;
+    }
+
+    .fas.fa-exclamation-triangle {
+        font-size: 20px;
+    }
 
 	button {
     	width: 60px;
