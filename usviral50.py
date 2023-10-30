@@ -113,6 +113,7 @@ def get_track_info(track):
         }
         return track_info
     except KeyError:
+        logging.warning(f"不良データを検出: {e}")
         return None  # 不良データを無視
 
 
@@ -150,6 +151,7 @@ def youtube_search(q, max_results=1, youtube_api_key=None):
 
         return video_id
     except HttpError as e:
+        logging.warning(f"YouTube APIでエラーが発生しました: {e}")
         return {"error": f"An HTTP error occurred: {e}"}
 
 
