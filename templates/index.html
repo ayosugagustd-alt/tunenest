@@ -62,7 +62,6 @@
             <button onclick="playNext()"><i class="fas fa-step-forward"></i></button>
         </div>
 
-    <div class="custom-list">
         {% for track in tracks %}
         <div class="custom-list-item">
             <span class="custom-list-number">{{ "{: >3}".format(loop.index).replace(" ", "&nbsp;")|safe }}.</span>
@@ -76,7 +75,7 @@
                     {% else %}
                         <i class="fab fa-spotify icon-disabled"></i><span class="icon-disabled-caption">Preview</span>
                     {% endif %}
-                    <a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" target="_blank" rel="noopener">
+                    <a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" target="_blank" rel="noopener" class="youtube-link">
                        <i class="fab fa-youtube"></i><span class="icon-caption">Watch</span></a>
 
                     <!-- Info -->
@@ -86,13 +85,12 @@
             </span>
         </div>
         {% endfor %}
-    </div>
 
 <footer>
     <p>Data sourced from <a href="https://www.spotify.com/" target="_blank" rel="noopener"><i class="fab fa-spotify"></i>Spotify</a> and <a href="https://www.youtube.com/" target="_blank" rel="noopener"><i class="fab fa-youtube"></i>YouTube</p></a>
     <p><a href="{{ url_for('static', filename='privacy-policy-en.html') }}" target="_blank" rel="noopener"></i>Terms of Service and Privacy Policy</a></p>
     <p><a href="{{ url_for('static', filename='privacy-policy.html') }}" target="_blank" rel="noopener"></i>利用規約とプライバシーポリシー</a></p>
-    <p>&copy; 2023 hiro. All rights reserved. Follow me on <a href="https://twitter.com/jmusic_hiro" target="_blank" rel="noopener" title="hiro's X" class="social-link"><i class="fab fa-twitter"></i></a></p>
+    <p>&copy; 2023 hiro. All rights reserved. Follow me on <a href="https://twitter.com/jmusic_hiro" target="_blank" rel="noopener" title="hiro's X"><i class="fab fa-twitter"></i></a></p>
 </footer>
 
     <script>
@@ -169,7 +167,7 @@
             playingInfo += '<br><a href="/youtube?track=' + 
                                 encodeURIComponent(tracks[index].name) + 
                                 '&artist=' + encodeURIComponent(tracks[index].artist) + 
-                                '" target="_blank" rel="noopener" style="margin-top: 8px; display: inline-block;">';
+                                '" target="_blank" rel="noopener" class="youtube-link" style="margin-top: 8px; display: inline-block;">';
             playingInfo += '<i class="fab fa-youtube"></i><span class="info-now-playing">Watch</span></a>';
 
             // Infoへのリンクを生成
@@ -195,14 +193,12 @@
             document.getElementById('playing').innerHTML = playingInfo;
 
             // ここで新しく生成されたYouTubeリンクにイベントリスナーを設定
-/*
-            document.querySelectorAll('.new-youtube-link').forEach(function(link) {
+            document.querySelectorAll('.youtube-link').forEach(function(link) {
                 link.addEventListener('click', function() {
                     // 一時停止関数を呼び出す
                     pause();
                 });
             });
-*/
         
             audio.play();
             audio.onended = playNext;
@@ -286,7 +282,6 @@
         });
 
         // 新しいYouTubeリンクのクリックイベント処理
-/*
         document.addEventListener("DOMContentLoaded", function() {
             // すべてのYouTubeリンクに対してイベントリスナーを追加
             document.querySelectorAll('.youtube-link').forEach(function(link) {
@@ -295,15 +290,12 @@
                 pause();
                 });
             });
-*/
 
             const COMMON_MESSAGE_BODY = "<p>Click the Play Button.</p>";
             const message = '<span>Welcome to <strong>TuneNest</strong> !</span>' + COMMON_MESSAGE_BODY;
 
             document.getElementById('playing').innerHTML = message;
-/*
         });
-*/
     </script>
 
 </body>
