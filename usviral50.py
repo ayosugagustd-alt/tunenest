@@ -54,26 +54,18 @@ except json.JSONDecodeError:
 @app.before_request
 def limit_access():
     # CloudflareのCF-IPCountryヘッダーを用いた国コードでのブロック
-    allowed_countries = [
-        "US",
-        "JP",
-        "SE",
-        "LU",
-    ]
+    allowed_countries = ["US", "JP", "SE", "LU"]
     visitor_country = request.headers.get("CF-IPCountry")
-    if visitor_country and visitor_country not in allowed_countries:
-        abort(403)
 
-
-"""
-@app.before_request
-def limit_access():
-    # CloudflareのCF-IPCountryヘッダーを用いた国コードでのブロック
-    blocked_countries = ["FR"]
-    visitor_country = request.headers.get("CF-IPCountry")
-    if visitor_country and visitor_country in blocked_countries:
-        abort(403)
-"""
+    if visitor_country:
+        if visitor_country not in allowed_countries:
+            logging.warning(f"ブロックされた国からのアクセス試行: {visitor_country}")
+            abort(
+                403,
+                description="Access forbidden: you do not have permission to access this page.",
+            )
+    else:
+        logging.warning("CF-IPCountry header not found.")
 
 
 # APIキーをチェック
