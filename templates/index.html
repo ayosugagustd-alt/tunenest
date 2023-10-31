@@ -122,7 +122,7 @@
             }
         }
 
-        function updatePlayingIcon() {
+        function updatePlayingIcon(isPlaying) {
             // 既存の再生中アイコンを全て削除
             document.querySelectorAll('.playing-icon').forEach((icon) => {
                 icon.remove();
@@ -130,9 +130,16 @@
 
             // 新しい再生中アイコンを追加
             const listItem = document.getElementsByClassName('custom-list-item')[index];
-            const artistElement = listItem.querySelector('.artist'); // アーティスト名の要素を取得
+            // アーティスト名の要素を取得
+            const artistElement = listItem.querySelector('.artist');
             const icon = document.createElement('i');
             icon.className = 'fas fa-volume-up playing-icon';
+
+            if (isPlaying) {
+                icon.className = 'fas fa-volume-up playing-icon';
+            } else {
+                icon.className = 'fas fa-volume-up playing-icon no-blink';
+            }
 
             // アーティスト名の直後に新しいアイコンを挿入
             artistElement.parentNode.insertBefore(icon, artistElement.nextSibling);
@@ -202,11 +209,12 @@
         
             audio.play();
             audio.onended = playNext;
-            updatePlayingIcon();
+            updatePlayingIcon(true);
         }
 
         function pause() {
             audio.pause();
+            updatePlayingIcon(false);  // 点滅を停止
         }
 
         function playNext(attempts = 0) {
