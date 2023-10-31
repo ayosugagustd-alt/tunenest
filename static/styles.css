@@ -374,6 +374,9 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
     .fas.fa-volume-up {
         font-size: 16px;
     }
+    .fas.fa-volume-up.no-blink {
+        font-size: 16px;
+    }
 
     .fas.fa-exclamation-triangle {
         font-size: 20px;
