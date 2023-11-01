@@ -330,6 +330,9 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
 
 
 @media only screen and (max-width: 768px) {
+    #volumeSlider {
+        display: none;
+    }
 	body {
     	margin: 10px;
 	}
