@@ -60,6 +60,8 @@
             <button onclick="previous()"><i class="fas fa-step-backward"></i></button>
             <button onclick="togglePlay()"><i class="fas fa-play"></i><i class="fas fa-pause"></i></button>
             <button onclick="playNext()"><i class="fas fa-step-forward"></i></button>
+            <!-- ボリュームコントロール用のスライダー -->
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
         </div>
 
         {% for track in tracks %}
@@ -256,6 +258,14 @@
             const searchBox = document.getElementById('searchBox');
             const searchButton = document.getElementById('searchButton');
             const keywordInput = document.getElementById('keyword');
+            // ボリュームスライダーの要素を取得
+            const volumeSlider = document.getElementById("volumeSlider");
+
+            // スライダーの値が変更されたときに音量を調整
+            volumeSlider.addEventListener("input", function() {
+                audio.volume = volumeSlider.value;
+            });
+
 
             playlistDropdown.addEventListener('change', function() {
                 const selectedPlaylistId = playlistDropdown.value;
