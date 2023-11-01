@@ -121,15 +121,15 @@ header { text-align: right; width: 98%; padding: 0px 0; }
     font-size: 20px;
 	color: #333333;
 }
-.fas.fa-volume-up.no-blink {
-    animation: none;
-    font-size: 20px;
-	color: #333333;
-}
 @keyframes fadeInOut {
     0% {opacity: 1;}
     50% {opacity: 0.5;}
     100% {opacity: 1;}
+}
+.fas.fa-volume-up.no-blink {
+    animation: none;
+    font-size: 20px;
+	color: DarkGray;
 }
 
 .fas.fa-exclamation-triangle {
