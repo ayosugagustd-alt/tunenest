@@ -51,7 +51,6 @@ except json.JSONDecodeError:
     logging.warning("playlists.jsonの形式が不正です。")
 
 
-'''
 @app.before_request
 def limit_access():
     # CloudflareのCF-IPCountryヘッダーを用いた国コードでのブロック
@@ -67,7 +66,6 @@ def limit_access():
             )
     else:
         logging.warning("CF-IPCountry header not found.")
-'''
 
 
 # APIキーをチェック
