@@ -328,6 +328,9 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
     font-weight: bold;
 }
 
+.fas.fa-pause {
+    display: none;
+}
 
 @media only screen and (max-width: 768px) {
     #volumeSlider {

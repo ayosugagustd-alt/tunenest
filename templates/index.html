@@ -145,6 +145,18 @@
 
             // アーティスト名の直後に新しいアイコンを挿入
             artistElement.parentNode.insertBefore(icon, artistElement.nextSibling);
+
+            // 再生ボタンと一時停止ボタンのアイコンの表示を切り替える部分を追加
+            const playIcon = document.querySelector('.fa-play');
+            const pauseIcon = document.querySelector('.fa-pause');
+
+            if (isPlaying) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline-block';
+            } else {
+                playIcon.style.display = 'inline-block';
+                pauseIcon.style.display = 'none';
+            }
         }
 
         function play() {
