@@ -2,12 +2,12 @@
     --star-color: #FF9900;
     --empty-star-color: #767676;
     --font-size: 16px;
-    --input-height: 42px;
 }
 
 img {
     max-width: 100%;
     height: auto;
+    padding-top: 5px;
 }
 
 .rotate-message { display: none; }
@@ -28,17 +28,17 @@ h1 {
 }
 
 button {
-    width: 60px;            /* ボタンの幅 */
-    height: 60px;           /* ボタンの高さを幅と同じにして円形に */
+    width: 50px;            /* ボタンの幅 */
+    height: 50px;           /* ボタンの高さを幅と同じにして円形に */
     background-color: #F5F5F5;
     color: black;
     padding: 0;             /* paddingを調整 */
     border: none;
     cursor: pointer;
     text-align: center;
-    font-size: 30px;
+    font-size: 25px;
     margin: 5px;
-    border-radius: 30px;    /* 半径を幅の半分に設定 */
+    border-radius: 25px;    /* 半径を幅の半分に設定 */
     transition: background-color 0.3s;
     white-space: nowrap;
     display: flex;          /* テキストを中央に配置 */
@@ -239,8 +239,8 @@ a:hover {
 .search-input {
     margin-top: 0px;  /* 上側に余白 */
     margin-left: 0px;  /* 左側に余白 */
-    margin-bottom: 10px;  /* 下側に余白 */
-    height: var(--input-height);  /* 高さを一元管理 */
+    margin-bottom: 0px;  /* 下側に余白 */
+    margin-right: 10px; /* 右のボタンとの間隔 */
     box-sizing: border-box;  /* paddingとborderを含む */
     padding: 10px;
     border: 2px solid gainsboro;
@@ -409,6 +409,15 @@ input[type='range']:active::-moz-range-thumb {
   background: #A9A9A9;
 }
 
+#searchBox {
+    display: flex; /* Flexboxを有効化 */
+    align-items: center; /* アイテムを中央に揃える */
+}
+
+#searchButton {
+    flex-shrink: 0; /* ボタンのサイズが縮小しないようにする */
+}
+
 @media only screen and (max-width: 768px) {
     #volumeSlider {
         display: none;
@@ -465,13 +474,6 @@ input[type='range']:active::-moz-range-thumb {
     .fas.fa-exclamation-triangle {
         font-size: 20px;
     }
-
-	button {
-    	width: 40px;
-    	height:40px;
-    	font-size: 20px;
-        border-radius: 20px;    /* 半径を幅の半分に設定 */
-	}
 
     /* Watch MV, Preview, Info Caption */
     .icon-caption {
