@@ -30,7 +30,7 @@ h1 {
 button {
     width: 80px;
     height:42px;
-    background-color: gainsboro;
+    background-color: silver;
     color: black;
     padding: 5px 20px;
     border: none;
@@ -44,7 +44,7 @@ button {
 }
 
 button:hover {
-    background-color: silver;
+    background-color: gainsboro;
 }
 
 button:active {
@@ -446,4 +446,11 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
         margin-bottom: 8px;
         margin-left: 5px;
     }
+}
+
+@media (hover: none), (pointer: coarse) {
+  button:hover, button:active {
+    background-color: silver;
+    color: black;
+  }
 }
