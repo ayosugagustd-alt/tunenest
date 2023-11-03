@@ -336,6 +336,79 @@ footer { text-align: left; width: 100%; padding: 20px 0; }
     display: none;
 }
 
+/* スライダーのコンテナ */
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* ラベルとスライダーの間隔 */
+}
+
+.slider-container {
+  padding-left: 20px; /* ここで左側にパディングを追加 */
+}
+
+/* ラベルのスタイリング */
+.volume-control label {
+  font-size: 16px;
+  color: black;
+}
+
+/* スライダーのトラック */
+input[type='range'] {
+  -webkit-appearance: none; /* デフォルトのスタイルを無効にする */
+  width: 200px;
+  margin: 7.5px 0;
+  height: 8px; /* スライダーのトラックの高さ */
+  border-radius: 4px;
+  background: #F5F5F5; /* トラックの背景色 */
+  outline: none; /* アウトラインを消す */
+}
+
+/* スライダーのサム（つまみ） */
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 24px; /* サムの高さ */
+  width: 24px; /* サムの幅 */
+  border-radius: 12px; /* サムを円形に */
+  background: #E0E0E0; /* サムの背景色 */
+  cursor: pointer;
+  transition: background-color 0.3s; /* 背景色の変化にトランジションを適用 */
+}
+
+/* サムがホバーされた時 */
+input[type='range']:hover::-webkit-slider-thumb {
+  background: #C0C0C0;
+}
+
+/* サムがアクティブ（ドラッグされている時） */
+input[type='range']:active::-webkit-slider-thumb {
+  background: #A9A9A9; /* アクティブ時のサムの色 */
+}
+
+/* Firefox用のスタイリング */
+input[type='range']::-moz-range-track {
+  background: #F5F5F5;
+  height: 8px;
+  border-radius: 4px;
+  outline: none;
+}
+
+input[type='range']::-moz-range-thumb {
+  height: 24px;
+  width: 24px;
+  border-radius: 12px;
+  background: #E0E0E0;
+  border: none;
+}
+
+input[type='range']:hover::-moz-range-thumb {
+  background: #C0C0C0;
+}
+
+input[type='range']:active::-moz-range-thumb {
+  background: #A9A9A9;
+}
+
 @media only screen and (max-width: 768px) {
     #volumeSlider {
         display: none;

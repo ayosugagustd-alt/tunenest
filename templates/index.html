@@ -61,7 +61,9 @@
             <button onclick="togglePlay()"><i class="fas fa-play"></i><i class="fas fa-pause"></i></button>
             <button onclick="playNext()"><i class="fas fa-step-forward"></i></button>
             <!-- ボリュームコントロール用のスライダー -->
-            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+            <div class="slider-container">
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+            </div>
         </div>
 
         {% for track in tracks %}
