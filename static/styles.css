@@ -439,7 +439,7 @@ input[type='range']:active::-moz-range-thumb {
     /* アートワーク右の表示欄 */
     #playing {
         flex-grow: 1;
-        font-size: 16px;
+        font-size: 14px;
         margin-left: 4px;
     }
 
