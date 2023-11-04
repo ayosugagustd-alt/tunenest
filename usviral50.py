@@ -30,9 +30,9 @@ from spotipy import Spotify  # Spotify API本体
 # 環境変数を一度だけ読み取る。これらの変数はAPI認証に使用される。
 # 存在しない場合はNoneを設定。
 SPOTIFY_CLIENT_ID = os.environ.get("SPOTIFY_CLIENT_ID", None)  # Spotify API
-SPOTIFY_CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET", None)  # Spotify API
-YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)  # YouTube APIのキー
-MUSIXMATCH_API_KEY = os.environ.get("MUSIXMATCH_API_KEY", None)  # Musixmatch APIのキー
+SPOTIFY_CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET", None)
+YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)  # YouTube API
+MUSIXMATCH_API_KEY = os.environ.get("MUSIXMATCH_API_KEY", None)  # Musixmatch
 
 
 app = Flask(__name__)
@@ -84,8 +84,7 @@ def check_api_keys():
 def get_spotify_client():
     return Spotify(
         client_credentials_manager=SpotifyClientCredentials(
-            client_id=SPOTIFY_CLIENT_ID, 
-            client_secret=SPOTIFY_CLIENT_SECRET
+            client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET
         ),
         language="ja",  # 言語設定を日本語にする
     )
@@ -112,7 +111,7 @@ def get_track_info(track):
             "spotify_link": spotify_link,
         }
         return track_info
-    except KeyError:
+    except KeyError as e:
         logging.warning(f"不良データを検出: {e}")
         return None  # 不良データを無視
 
