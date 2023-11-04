@@ -370,60 +370,6 @@ def get_album_details(album_id):
 
 
 # 曲のIDを受け取り、その曲の詳細情報とオーディオ特性を返す
-# 引数: song_id (Spotifyの曲ID)
-# 戻り値: 曲の詳細情報とオーディオ特性を含む辞書
-"""
-def get_song_details(song_id):
-    sp = get_spotify_client()  # Spotifyクライアントの取得
-    song = sp.track(song_id, market="JP")  # 曲の基本情報を取得
-
-    features = sp.audio_features([song_id])[0]  # 曲のオーディオ特性を取得
-
-    # アルバムのアートワークURLを取得
-    album_artwork_url = song["album"]["images"][0]["url"]
-
-    # アーティスト名を取得（複数の場合あり）
-    artists = [
-        {"name": artist["name"], "id": artist["id"]} for artist in song["artists"]
-    ]
-
-    # アーティスト名と楽曲名からmusixmatchのtrack_idを取得
-    musixmatch_track_id = get_musixmatch_track_id(
-        song["artists"][0]["name"], song["name"]
-    )
-
-    # track_idから歌詞を取得
-    lyrics = get_lyrics(musixmatch_track_id)
-
-    if "lyrics" in lyrics["message"]["body"]:
-        lyrics_body = lyrics["message"]["body"]["lyrics"]["lyrics_body"]
-        clean_lyrics = lyrics_body.split("\n*******")[0]
-        clean_lyrics = clean_lyrics.replace("\n", "<br>")
-    else:
-        clean_lyrics = "Lyrics not found."
-
-    # 必要な情報を整理して返却
-    return {
-        "acousticness": features["acousticness"] * 100,
-        "danceability": features["danceability"] * 100,
-        "duration": song["duration_ms"] / 1000,  # 秒単位に変換
-        "energy": features["energy"] * 100,
-        "instrumentalness": features["instrumentalness"] * 100,
-        "key": features["key"],
-        "mode": features["mode"],
-        "name": song["name"],
-        "popularity": song["popularity"],
-        "tempo": features["tempo"],
-        "time_signature": features["time_signature"],
-        "valence": features["valence"] * 100,
-        "album_artwork_url": album_artwork_url,  # アートワークURL
-        "artists": artists,  # アーティスト情報
-        "lyrics": clean_lyrics,  # 歌詞情報を追加
-    }
-"""
-
-
-# 曲のIDを受け取り、その曲の詳細情報とオーディオ特性を返す
 # (タイムアウト対応版)
 # 引数: song_id (Spotifyの曲ID)
 # 戻り値: 曲の詳細情報とオーディオ特性を含む辞書。
