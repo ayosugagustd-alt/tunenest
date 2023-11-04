@@ -11,7 +11,6 @@ import requests  # HTTPリクエスト
 
 # Flask関連ライブラリ
 from flask import Flask  # Flask本体
-from flask import abort  # HTTPエラー処理
 from flask import jsonify  # JSONレスポンス生成
 from flask import render_template  # HTMLテンプレートレンダリング
 from flask import request  # HTTPリクエストオブジェクト
@@ -27,6 +26,8 @@ from spotipy.oauth2 import SpotifyClientCredentials  # Spotify OAuth2認証
 from spotipy import Spotify  # Spotify API本体
 
 from threading import Lock
+from functools import lru_cache
+
 
 # 環境変数を一度だけ読み取る。これらの変数はAPI認証に使用される。
 # 存在しない場合はNoneを設定。
@@ -56,7 +57,7 @@ except json.JSONDecodeError:
     logging.warning("playlists.jsonの形式が不正です。")
 
 
-'''
+"""
 @app.before_request
 def limit_access():
     # CloudflareのCF-IPCountryヘッダーを用いた国コードでのブロック
@@ -72,7 +73,8 @@ def limit_access():
             )
     else:
         logging.warning("CF-IPCountry header not found.")
-'''
+"""
+
 
 # APIキーをチェック
 def check_api_keys():
@@ -86,7 +88,7 @@ def check_api_keys():
         raise ValueError("musixmatch APIのキーが設定されていません。環境変数で設定してください。")
 
 
-'''
+"""
 # Spotify API Clientを生成して返す。言語設定は日本語にする。
 def get_spotify_client():
     return Spotify(
@@ -95,7 +97,8 @@ def get_spotify_client():
         ),
         language="ja",  # 言語設定を日本語にする
     )
-'''
+"""
+
 
 def get_spotify_client():
     global spotify_client
@@ -108,6 +111,7 @@ def get_spotify_client():
                 language="ja",
             )
         return spotify_client
+
 
 # トラック情報を取得する関数
 # 引数: track (Spotify APIから取得したトラックの辞書)
@@ -644,16 +648,26 @@ def album_details(artist_id, album_id):
         return render_template("error.html", error=str(e))
 
 
+@lru_cache(maxsize=32)
+def cached_count_total_releases(artist_id, release_type):
+    return count_total_releases(artist_id, release_type)
+
+
 # 全アルバム表示ページのルーティング処理
 # アーティストIDとページ番号（オプション）を引数として受け取る
+@lru_cache(maxsize=128)
+def cached_get_artist_albums_with_songs(artist_id, page, per_page=10):
+    return get_artist_albums_with_songs(artist_id, page, per_page)
+
+
 @app.route("/artist/<artist_id>/all_albums_and_songs", methods=["GET"])
 @app.route("/artist/<artist_id>/all_albums_and_songs/page/<int:page>", methods=["GET"])
 def all_albums_and_songs_for_artist(artist_id, page=1):
     per_page = 10  # 1ページあたりのアルバム数
-    albums_with_songs = get_artist_albums_with_songs(artist_id, page, per_page)
+    albums_with_songs = cached_get_artist_albums_with_songs(artist_id, page, per_page)
 
     # 総アルバム数を取得して、総ページ数を計算
-    total_albums = count_total_releases(artist_id, "album")
+    total_albums = cached_count_total_releases(artist_id, "album")
     total_pages = (total_albums + per_page - 1) // per_page
 
     # レンダリングされたHTMLテンプレートを返す
@@ -670,14 +684,19 @@ def all_albums_and_songs_for_artist(artist_id, page=1):
 
 # 全シングル表示ページのルート
 # アーティストIDとページ番号（オプション）を引数として受け取る
+@lru_cache(maxsize=32)  # キャッシュのサイズを32に設定します。必要に応じて調整してください。
+def cached_get_artist_singles_with_songs(artist_id, page, per_page):
+    return get_artist_singles_with_songs(artist_id, page, per_page)
+
+
 @app.route("/artist/<artist_id>/all_singles_and_songs", methods=["GET"])
 @app.route("/artist/<artist_id>/all_singles_and_songs/page/<int:page>", methods=["GET"])
 def all_singles_and_songs_for_artist(artist_id, page=1):
     per_page = 10  # 1ページあたりのシングル数
-    singles_with_songs = get_artist_singles_with_songs(artist_id, page, per_page)
+    singles_with_songs = cached_get_artist_singles_with_songs(artist_id, page, per_page)
 
     # 総シングル数を取得し、総ページ数を計算
-    total_singles = count_total_releases(artist_id, "single")
+    total_singles = cached_count_total_releases(artist_id, "single")
     total_pages = (total_singles + per_page - 1) // per_page
 
     # レンダリングされたHTMLテンプレートを返す
@@ -694,18 +713,23 @@ def all_singles_and_songs_for_artist(artist_id, page=1):
 
 # 全コンピレーションアルバム表示ページのルーティング処理
 # アーティストIDとページ番号（オプション）を引数として受け取る
+@lru_cache(maxsize=32)
+def cached_get_artist_compilations_with_songs(artist_id, page, per_page=10):
+    return get_artist_compilations_with_songs(artist_id, page, per_page)
+
+
 @app.route("/artist/<artist_id>/all_compilations_and_songs", methods=["GET"])
 @app.route(
     "/artist/<artist_id>/all_compilations_and_songs/page/<int:page>", methods=["GET"]
 )
 def all_compilations_and_songs_for_artist(artist_id, page=1):
     per_page = 10  # 1ページあたりのコンピレーション数
-    compilations_with_songs = get_artist_compilations_with_songs(
+    compilations_with_songs = cached_get_artist_compilations_with_songs(
         artist_id, page, per_page
     )
 
     # 総コンピレーション数を取得し、総ページ数を計算
-    total_compilations = count_total_releases(artist_id, "compilation")
+    total_compilations = cached_count_total_releases(artist_id, "compilation")
     total_pages = (total_compilations + per_page - 1) // per_page
 
     # レンダリングされたHTMLテンプレートを返す
