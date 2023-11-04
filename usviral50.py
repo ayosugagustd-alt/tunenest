@@ -26,6 +26,7 @@ from googleapiclient.errors import HttpError  # Google APIのHTTPエラー
 from spotipy.oauth2 import SpotifyClientCredentials  # Spotify OAuth2認証
 from spotipy import Spotify  # Spotify API本体
 
+from threading import Lock
 
 # 環境変数を一度だけ読み取る。これらの変数はAPI認証に使用される。
 # 存在しない場合はNoneを設定。
@@ -36,6 +37,10 @@ MUSIXMATCH_API_KEY = os.environ.get("MUSIXMATCH_API_KEY", None)  # Musixmatch
 
 
 app = Flask(__name__)
+
+# グローバル変数とロックを初期化
+spotify_client = None
+client_lock = Lock()
 
 # playlists変数の初期化
 playlists = None
@@ -81,6 +86,7 @@ def check_api_keys():
         raise ValueError("musixmatch APIのキーが設定されていません。環境変数で設定してください。")
 
 
+'''
 # Spotify API Clientを生成して返す。言語設定は日本語にする。
 def get_spotify_client():
     return Spotify(
@@ -89,7 +95,19 @@ def get_spotify_client():
         ),
         language="ja",  # 言語設定を日本語にする
     )
+'''
 
+def get_spotify_client():
+    global spotify_client
+    with client_lock:
+        if not spotify_client:
+            spotify_client = Spotify(
+                client_credentials_manager=SpotifyClientCredentials(
+                    client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET
+                ),
+                language="ja",
+            )
+        return spotify_client
 
 # トラック情報を取得する関数
 # 引数: track (Spotify APIから取得したトラックの辞書)
