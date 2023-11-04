@@ -133,7 +133,7 @@ header { text-align: right; width: 98%; padding: 0px 0; }
 .fas.fa-volume-up.no-blink {
     animation: none;
     font-size: 20px;
-	color: DarkGray;
+	color: #F5F5F5;
 }
 
 .fas.fa-exclamation-triangle {
