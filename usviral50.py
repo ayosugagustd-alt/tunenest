@@ -57,25 +57,6 @@ except json.JSONDecodeError:
     logging.warning("playlists.jsonの形式が不正です。")
 
 
-"""
-@app.before_request
-def limit_access():
-    # CloudflareのCF-IPCountryヘッダーを用いた国コードでのブロック
-    allowed_countries = ["US", "JP", "SE", "LU"]
-    visitor_country = request.headers.get("CF-IPCountry")
-
-    if visitor_country:
-        if visitor_country not in allowed_countries:
-            logging.warning(f"ブロックされた国からのアクセス試行: {visitor_country}")
-            abort(
-                403,
-                description="Access forbidden: you do not have permission to access this page.",
-            )
-    else:
-        logging.warning("CF-IPCountry header not found.")
-"""
-
-
 # APIキーをチェック
 def check_api_keys():
     if not SPOTIFY_CLIENT_ID or not SPOTIFY_CLIENT_SECRET:
@@ -88,18 +69,7 @@ def check_api_keys():
         raise ValueError("musixmatch APIのキーが設定されていません。環境変数で設定してください。")
 
 
-"""
 # Spotify API Clientを生成して返す。言語設定は日本語にする。
-def get_spotify_client():
-    return Spotify(
-        client_credentials_manager=SpotifyClientCredentials(
-            client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET
-        ),
-        language="ja",  # 言語設定を日本語にする
-    )
-"""
-
-
 def get_spotify_client():
     global spotify_client
     with client_lock:
@@ -108,7 +78,7 @@ def get_spotify_client():
                 client_credentials_manager=SpotifyClientCredentials(
                     client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET
                 ),
-                language="ja",
+                language="ja",  # 言語設定を日本語にする
             )
         return spotify_client
 
@@ -237,7 +207,6 @@ def index():
             )
 
         # プレイリストのトラックを取得
-
         MAX_TRACKS = 200  # 最大取得曲数を定義
 
         offset = 0
@@ -326,12 +295,12 @@ def youtube():
 # アーティストの詳細情報とトップ曲、最新のアルバムを取得
 # 引数: artist_id (SpotifyのアーティストID)
 # 戻り値: アーティストの詳細、トップ曲のリスト、最新のアルバムの詳細を含む辞書
-def get_artist_details(artist_id):
-    sp = get_spotify_client()
-
-    # アーティストの基本情報を取得
+# キャッシュを適用
+@lru_cache(maxsize=128)  # キャッシュのサイズを適宜設定
+def get_cached_artist_details(artist_id, sp):
+    # 既に取得したSpotifyクライアントを使用する
     artist = sp.artist(artist_id)
-    artist_details = {
+    return {
         "id": artist["id"],
         "name": artist["name"],
         "image_url": artist["images"][0]["url"] if artist["images"] else None,
@@ -339,6 +308,14 @@ def get_artist_details(artist_id):
         "genres": artist["genres"],
         "followers": artist["followers"]["total"],
     }
+
+
+def get_artist_details(artist_id):
+    # Spotifyクライアントを取得
+    sp = get_spotify_client()
+
+    # キャッシュされたアーティストの基本情報を取得
+    artist_details = get_cached_artist_details(artist_id, sp)
 
     # アーティストのトップ曲を取得
     top_tracks = sp.artist_top_tracks(artist_id, country="JP")["tracks"]
