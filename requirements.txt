@@ -1,5 +1,4 @@
-Flask==2.3.3
-google-api-python-client==2.97.0
+Flask==3.0.0
+google-api-python-client==2.106.0
 requests==2.31.0
 spotipy==2.23.0
-python-amazon-paapi==5.0.1
