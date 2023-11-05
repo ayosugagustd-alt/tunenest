@@ -16,8 +16,8 @@
 <title>{{ artist['name'] }}</title>
 </head>
 <body>
-<div class="section-space">
-    <h1>{{ artist['name'] }}</h1>
+<h1>{{ artist['name'] }}</h1>
+  <div class="section-space">
     <img alt="{{ artist['name'] }}" src="{{ artist['image_url'] or url_for('static', filename='noimage.jpg') }}" loading="lazy"/>
     <p>Popularity: <strong>{{ artist.popularity }}</strong>%</p>
     <span class="stars">
@@ -34,7 +34,7 @@
     <p>Genres: <strong>{{ artist['genres'] | join(', ') }}</strong></p>
     <p>Followers: <strong>{{ artist['followers'] }}</strong></p>
     <p><a href="https://jp.wikipedia.org/wiki/{{ artist['name'] | urlencode }}" target="_blank" rel="noopener">Learn more on Wikipedia (in Japanese)</a></p>
-</div>
+  </div>
 <div class="section-space">
     <h2>Top Tracks</h2>
     <ul>

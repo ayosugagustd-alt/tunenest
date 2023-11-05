@@ -20,11 +20,8 @@
             <div class="progress {{ bar_class }}" style="width:{{ value }}%"></div>
         </div>
     {% endmacro %}
-    <header>
-        <p><a href="/help_song_details" target="_blank" rel="noopener">Help</a></p>
-    </header>
+    <h1>{{ song.name }}</h1>
     <div class="section-space">
-        <h1>{{ song.name }}</h1>
         <a href="{{ amazon_search_url }}" target="_blank" rel="noopener"><i class="fab fa-amazon"></i>Search on Amazon</a>
         <div class="album-artwork">
             <img alt="Album Artwork" src="{{ song.album_artwork_url or url_for('static', filename='noimage.jpg') }}" loading="lazy"/>
@@ -61,6 +58,7 @@
         <p>Mode: <strong>{{ "Major" if song.mode == 1 else "Minor" }}</strong></p>
     </div> <!-- End of div -->
     <div class="visual-section">
+        <p><a href="/help_song_details" target="_blank" rel="noopener">Music Characteristics:</a></p>
         <!-- code for visual properties -->
         {{ render_progress_bar("Valence", song.valence, "progress-valence") }}
         {{ render_progress_bar("Acousticness", song.acousticness, "progress-acousticness") }}
