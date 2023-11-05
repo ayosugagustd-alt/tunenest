@@ -373,30 +373,40 @@ def get_album_details(album_id):
 # 引数: song_id (Spotifyの曲ID)
 # 戻り値: 曲の詳細情報とオーディオ特性を含む辞書。
 # 最大リトライ回数を超えた場合はエラーをスローする。
+@lru_cache(maxsize=128)
+def get_cached_track(song_id, sp):
+    return sp.track(song_id, market="JP")
+
+
+@lru_cache(maxsize=128)
+def get_cached_audio_features(song_id, sp):
+    return sp.audio_features([song_id])[0]
+
+
 def get_song_details_with_retry(song_id, max_retries=3, delay=5):
     retries = 0
     while retries <= max_retries:
         try:
             sp = get_spotify_client()  # Spotifyクライアントの取得
-            song = sp.track(song_id, market="JP")  # 曲の基本情報を取得
-            features = sp.audio_features([song_id])[0]  # 曲のオーディオ特性を取得
+            song_details = get_cached_track(song_id, sp)  # 曲の基本情報を取得
+            audio_features = get_cached_audio_features(song_id, sp)  # 曲のオーディオ特性を取得
 
             # アルバムのアートワークURLを取得
-            album_artwork_url = song["album"]["images"][0]["url"]
+            album_artwork_url = song_details["album"]["images"][0]["url"]
 
             # アーティスト名を取得（複数の場合あり）
             artists = [
                 {"name": artist["name"], "id": artist["id"]}
-                for artist in song["artists"]
+                for artist in song_details["artists"]
             ]
 
             # アーティスト名と楽曲名からmusixmatchのtrack_idを取得
-            musixmatch_track_id = get_musixmatch_track_id(
-                song["artists"][0]["name"], song["name"]
+            musixmatch_track_id = get_cached_musixmatch_track_id(
+                song_details["artists"][0]["name"], song_details["name"]
             )
 
             # track_idから歌詞を取得
-            lyrics = get_lyrics(musixmatch_track_id)
+            lyrics = get_cached_lyrics(musixmatch_track_id)
 
             if "lyrics" in lyrics["message"]["body"]:
                 lyrics_body = lyrics["message"]["body"]["lyrics"]["lyrics_body"]
@@ -407,18 +417,18 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
 
             # 成功した場合、曲の詳細情報を返す
             return {
-                "acousticness": features["acousticness"] * 100,
-                "danceability": features["danceability"] * 100,
-                "duration": song["duration_ms"] / 1000,
-                "energy": features["energy"] * 100,
-                "instrumentalness": features["instrumentalness"] * 100,
-                "key": features["key"],
-                "mode": features["mode"],
-                "name": song["name"],
-                "popularity": song["popularity"],
-                "tempo": features["tempo"],
-                "time_signature": features["time_signature"],
-                "valence": features["valence"] * 100,
+                "acousticness": audio_features["acousticness"] * 100,
+                "danceability": audio_features["danceability"] * 100,
+                "duration": song_details["duration_ms"] / 1000,
+                "energy": audio_features["energy"] * 100,
+                "instrumentalness": audio_features["instrumentalness"] * 100,
+                "key": audio_features["key"],
+                "mode": audio_features["mode"],
+                "name": song_details["name"],
+                "popularity": song_details["popularity"],
+                "tempo": audio_features["tempo"],
+                "time_signature": audio_features["time_signature"],
+                "valence": audio_features["valence"] * 100,
                 "album_artwork_url": album_artwork_url,
                 "artists": artists,
                 "lyrics": clean_lyrics,
@@ -556,7 +566,8 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
 
 
 # musixmatchのtrack_idから歌詞を取得
-def get_lyrics(track_id):
+@lru_cache(maxsize=128)
+def get_cached_lyrics(track_id):
     api_key = MUSIXMATCH_API_KEY  # 環境変数からAPIキーを取得
     base_url = "https://api.musixmatch.com/ws/1.1/"
     endpoint = f"{base_url}track.lyrics.get?track_id={track_id}&apikey={api_key}"
@@ -569,7 +580,8 @@ def get_lyrics(track_id):
 
 
 # アーティスト名と楽曲名からmusixmatchのtrack_idを取得
-def get_musixmatch_track_id(artist_name, song_name):
+@lru_cache(maxsize=128)
+def get_cached_musixmatch_track_id(artist_name, song_name):
     api_key = MUSIXMATCH_API_KEY  # 環境変数からAPIキーを取得
     base_url = "https://api.musixmatch.com/ws/1.1/"
     query = f"track.search?q_track={song_name}&q_artist={artist_name}&apikey={api_key}"
