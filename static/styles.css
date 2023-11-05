@@ -2,6 +2,11 @@
     --star-color: #FF9900;
     --empty-star-color: #767676;
     --font-size: 16px;
+    --valence-color: #ffd54f; /* Valence黄色 */
+    --acousticness-color: #228b22; /* Acousticness深緑色 */
+    --danceability-color: #ff69b4; /* Danceability桃色 */
+    --energy-color: #e74c3c; /* Energy赤色 */
+    --instrumentalness-color: #b3e0f2; /* Instrumentalnessオフホワイト */
 }
 
 img {
@@ -290,10 +295,16 @@ select {
 .progress-bar {
     width: 100%;
     height: 24px;
-    background-color: #555;
+    background-color: #000000;
     margin: 10px 0;
 }
 .progress { height: 100%; background-color: var(--star-color); }
+
+.progress-valence { background-color: var(--valence-color); }
+.progress-acousticness { background-color: var(--acousticness-color); }
+.progress-danceability { background-color: var(--danceability-color); }
+.progress-energy { background-color: var(--energy-color); }
+.progress-instrumentalness { background-color: var(--instrumentalness-color); }
 
 .visual-section {
     padding: 10px;

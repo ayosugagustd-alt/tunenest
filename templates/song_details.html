@@ -14,11 +14,10 @@
     <title>{{ song.name }} - Track Details</title>
 </head>
 <body>
-    <!-- macro content -->
-    {% macro render_progress_bar(property, value) %}
+    {% macro render_progress_bar(property, value, bar_class="") %}
         <p>{{ property }}: <strong>{{ value|float|round(1) }}</strong>%</p>
         <div class="progress-bar">
-            <div class="progress" style="width:{{ value }}%"></div>
+            <div class="progress {{ bar_class }}" style="width:{{ value }}%"></div>
         </div>
     {% endmacro %}
     <header>
@@ -63,11 +62,11 @@
     </div> <!-- End of div -->
     <div class="visual-section">
         <!-- code for visual properties -->
-        {{ render_progress_bar("Valence", song.valence) }}
-        {{ render_progress_bar("Acousticness", song.acousticness) }}
-        {{ render_progress_bar("Danceability", song.danceability) }}
-        {{ render_progress_bar("Energy", song.energy) }}
-        {{ render_progress_bar("Instrumentalness", song.instrumentalness) }}
+        {{ render_progress_bar("Valence", song.valence, "progress-valence") }}
+        {{ render_progress_bar("Acousticness", song.acousticness, "progress-acousticness") }}
+        {{ render_progress_bar("Danceability", song.danceability, "progress-danceability") }}
+        {{ render_progress_bar("Energy", song.energy, "progress-energy") }}
+        {{ render_progress_bar("Instrumentalness", song.instrumentalness, "progress-instrumentalness") }}
     </div> <!-- End of .visual-section -->
     <footer>
         <p>Data sourced from <a href="https://www.spotify.com" target="_blank" rel="noopener"><i class="fab fa-spotify"></i> Spotify</a>.</p>
