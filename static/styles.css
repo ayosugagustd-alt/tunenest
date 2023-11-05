@@ -443,7 +443,6 @@ input[type='range']:active::-moz-range-thumb {
         font-size: 14px;
         margin-left: 4px;
     }
-
 	.fab.fa-spotify {
         margin-right: 5px;
     	font-size: 20px;
@@ -486,44 +485,40 @@ input[type='range']:active::-moz-range-thumb {
         font-size: 14px;
         margin-right: 28px;
     }
-
 	h1 {
         margin-bottom: 10px;
     	font-size: 32px;
 	}
-
 	footer p {
     	margin: 8px 0;
     	font-size: 14px;
 	}
-
 	.separator {
     	margin: 0px 5px;
 	}
-
     #buttons {
 	    margin-top: 10px;
 	    margin-bottom: 10px;
 	    margin-left: 2px;
     }
-
     .star, .empty-star, .half-star {
         font-size: 24px;
         margin-right: -2px;
     }
-
     .artist-name {
         font-size: 26px;
     }
-
     .visual-section,  .section-space {
         padding: 5px;
     }
-
     .info-now-playing {
         font-size: 14px;
         margin-bottom: 8px;
         margin-left: 5px;
+    }
+    input[type='range'] {
+        width: 100%; /* モバイルデバイスではスライダーの幅を画面幅に合わせる */
+        max-width: 150px; /* 最大幅は150ピクセルに制限 */
     }
 }
 
