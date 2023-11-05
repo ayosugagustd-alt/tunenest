@@ -418,12 +418,11 @@ input[type='range']:active::-moz-range-thumb {
     flex-shrink: 0; /* ボタンのサイズが縮小しないようにする */
 }
 
+#volumeSlider {
+    display: none;
+}
+
 @media only screen and (max-width: 768px) {
-/*
-    #volumeSlider {
-        display: none;
-    }
-*/
 	body {
     	margin: 10px;
 	}
