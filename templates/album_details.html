@@ -15,8 +15,8 @@
 <title>{{ album.name }} - Album Details</title>
 </head>
 <body>
-<div class="section-space">
-    <h1>{{ album.name }}</h1>
+<h1>{{ album.name }}</h1>
+  <div class="section-space">
     <a href="{{ amazon_search_url }}" target="_blank" rel="noopener"><i class="fab fa-amazon"></i>Search on Amazon</a>
         <div class="album-artwork">
             <img alt="Album Artwork" src="{{ album.image or url_for('static', filename='noimage.jpg') }}" loading="lazy"/>
@@ -36,7 +36,7 @@
             <span class="empty-star"><i class="far fa-star"></i></span>
         {% endfor %}
     </span>
-</div>
+  </div>
 <div class="section-space">
     <h2>Artists</h2>
     <ul>
