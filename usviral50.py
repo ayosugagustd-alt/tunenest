@@ -148,11 +148,10 @@ def youtube_search(q, max_results=1, youtube_api_key=None):
 
 
 # robots.txtファイルを返すルート。
-# このrobots.txtには、トップページのみをクロールさせる設定があります。
 # Flaskのstaticフォルダからファイルを送信します。
 @app.route("/robots.txt")
 def static_from_root():
-    return send_from_directory(app.static_folder, request.path[1:])
+    return send_from_directory(app.static_folder, "robots.txt")
 
 
 # インデックスページのルーティング処理
