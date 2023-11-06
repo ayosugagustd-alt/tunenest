@@ -284,7 +284,7 @@ select {
 }
 
 .star, .empty-star, .half-star {
-    font-size: 32px;
+    font-size: 26px;
     margin-right: -3px;
 }
 .star { color: var(--star-color); }
@@ -517,7 +517,7 @@ input[type='range']:active::-moz-range-thumb {
 	    margin-left: 2px;
     }
     .star, .empty-star, .half-star {
-        font-size: 24px;
+        font-size: 20px;
         margin-right: -2px;
     }
     .artist-name {
