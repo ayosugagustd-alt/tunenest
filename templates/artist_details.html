@@ -34,7 +34,7 @@
     </span>
     <p><strong>Genres</strong>: {{ artist['genres'] | join(', ') }}</p>
     <p><strong>Followers</strong>: {{ artist['followers'] }}</p>
-    <p><a href="https://jp.wikipedia.org/wiki/{{ artist['name'] | urlencode }}" target="_blank" rel="noopener"><strong>Wikipedia</strong> (in Japanese)</a></p>
+    <p><a href="https://jp.wikipedia.org/wiki/{{ artist['name'] | urlencode }}" target="_blank" rel="noopener"><strong>Wikipedia</strong> </a>(in Japanese)</p>
   </div>
 <div class="section-space">
     <h2>Top Tracks</h2>
@@ -46,11 +46,13 @@
 </div>
 <div class="section-space">
     <h2>Latest Album</h2>
-    {% if latest_album %}
-        <p><a href="{{ url_for('album_details', artist_id=latest_album['artist_id'], album_id=latest_album['id']) }}" class="artist-name">『{{ latest_album['name'] }}』</a></p>
-    {% else %}
-        <p>No information available about the latest album.</p>
-    {% endif %}
+    <ul>
+        {% if latest_album %}
+            <li><a href="{{ url_for('album_details', artist_id=latest_album['artist_id'], album_id=latest_album['id']) }}">{{ latest_album['name'] }}</a></li>
+        {% else %}
+            <p>No information available about the latest album.</p>
+        {% endif %}
+    </ul>
 </div>
 <div class="section-space">
     <h2><a href="{{ url_for('all_albums_and_songs_for_artist', artist_id=artist.id) }}">Album List</a></h2>
