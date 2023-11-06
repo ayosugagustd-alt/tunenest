@@ -1,5 +1,4 @@
-# 以下のUser-agentは、特定の悪意あるもしくは
-# 負荷をかけるクローラーをブロックする設定です。
+# 特定のクローラーをブロックする設定
 User-agent: MJ12bot
 Disallow: /
 
@@ -15,10 +14,6 @@ Disallow: /
 User-agent: baiduspider
 Disallow: /
 
-# 一般的なクローラーに対する設定。
-# /config/ や /static/ フォルダはクロールを禁止し、
-# /index.html のみを許可します。
+# 一般的なクローラーに対する設定
 User-agent: *
 Disallow: /config/
-Disallow: /static/
-Allow: /index.html
