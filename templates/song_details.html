@@ -58,7 +58,7 @@
         <p><strong>Mode</strong>: {{ "Major" if song.mode == 1 else "Minor" }}</p>
     </div> <!-- End of div -->
     <div class="visual-section">
-        <h2>Characteristics <span class="help-link"><a href="/help_song_details" target="_blank" rel="noopener">(What is this?)</a></span></h2>
+        <h2>Music Characteristics <span class="help-link"><a href="/help_song_details" target="_blank" rel="noopener">(What is this?)</a></span></h2>
         <!-- code for visual properties -->
         {{ render_progress_bar("Valence", song.valence, "progress-valence") }}
         {{ render_progress_bar("Acousticness", song.acousticness, "progress-acousticness") }}
