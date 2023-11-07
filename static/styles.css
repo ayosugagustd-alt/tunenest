@@ -516,9 +516,6 @@ input[type='range']:active::-moz-range-thumb {
         font-size: 18px;
         margin-right: -2px;
     }
-    .artist-name {
-        font-size: 26px;
-    }
     .visual-section,  .section-space {
         padding: 5px;
     }
