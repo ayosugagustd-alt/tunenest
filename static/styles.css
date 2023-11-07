@@ -284,7 +284,7 @@ select {
 }
 
 .star, .empty-star, .half-star {
-    font-size: 26px;
+    font-size: 20px;
     margin-right: -3px;
 }
 .star { color: var(--star-color); }
@@ -320,10 +320,6 @@ select {
 .album-artwork {
     display: block;
     margin: 0px;
-}
-
-.artist-name {
-    font-size: 28px;
 }
 
 footer p {
@@ -517,7 +513,7 @@ input[type='range']:active::-moz-range-thumb {
 	    margin-left: 2px;
     }
     .star, .empty-star, .half-star {
-        font-size: 20px;
+        font-size: 18px;
         margin-right: -2px;
     }
     .artist-name {
