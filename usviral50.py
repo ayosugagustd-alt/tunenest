@@ -152,6 +152,34 @@ def youtube_search(q, max_results=1, youtube_api_key=None):
         return {"error": f"An HTTP error occurred: {e}"}
 
 
+def get_market_from_language():
+    # セッションに市場がすでに保存されているかをチェック
+    if 'market' in session:
+        return session['market']
+
+    # ユーザーの言語設定を取得
+    user_language = request.accept_languages.best_match([
+        'en', 'ja', 'pt-BR', 'de', 'es', 'sv', 'fr', 'lb'
+    ], default='en')
+
+    # 言語に基づいて市場を決定
+    language_to_market = {
+        'en': 'US',  # 英語は米国市場を指定
+        'ja': 'JP',  # 日本語は日本市場を指定
+        'pt-BR': 'BR',  # ブラジルポルトガル語はブラジル市場を指定
+        'de': 'DE',  # ドイツ語はドイツ市場を指定
+        'es': 'ES',  # スペイン語はスペイン市場を指定
+        'sv': 'SE',  # スウェーデン語はスウェーデン市場を指定
+        'fr': 'FR',  # フランス語はフランス市場を指定
+        'lb': 'LU'   # ルクセンブルク語はルクセンブルク市場を指定
+    }
+
+    # ユーザーの言語に対応する市場をセッションに保存し、返す
+    market = language_to_market.get(user_language, 'US')
+    session['market'] = market
+    return market
+
+
 # robots.txtファイルを返すルート。
 # Flaskのstaticフォルダからファイルを送信します。
 @app.route("/robots.txt")
@@ -173,8 +201,11 @@ def index():
         # Spotifyクライアントを取得
         sp = get_spotify_client()
 
+        # マーケットを判別
+        market = get_market_from_language()
+
         # プレイリストの詳細情報を取得
-        playlist_details = sp.playlist(playlist_id)
+        playlist_details = sp.playlist(playlist_id, market=market)
 
         # クエリパラメータからプレイリスト説明を取得
         custom_description = request.args.get("description")
@@ -221,7 +252,7 @@ def index():
 
         while True:
             results = sp.playlist_tracks(
-                playlist_id, offset=offset, limit=limit
+                playlist_id, offset=offset, limit=limit, market=market
             )
             if results is None or results["items"] is None:
                 raise ValueError("Spotify APIが正常な値を返しませんでした。")
@@ -331,7 +362,8 @@ def get_artist_details(artist_id):
     artist_details = get_cached_artist_details(artist_id, sp)
 
     # アーティストのトップ曲を取得
-    top_tracks = sp.artist_top_tracks(artist_id)["tracks"]
+    country = get_market_from_language()
+    top_tracks = sp.artist_top_tracks(artist_id, country=country)["tracks"]
     top_tracks_details = [
         {"name": track["name"], "id": track["id"]} for track in top_tracks
     ]
@@ -355,8 +387,11 @@ def get_album_details(album_id):
     # Spotifyクライアントの取得
     sp = get_spotify_client()
 
+    # マーケットを判別
+    market = get_market_from_language()
+
     # アルバムIDを使用してアルバム情報を取得
-    album = sp.album(album_id)
+    album = sp.album(album_id, market=market)
 
     # 収録曲リストを作成
     tracks = [
@@ -459,7 +494,11 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
 # 戻り値: 総リリース数
 def count_total_releases(artist_id, release_type):
     sp = get_spotify_client()
-    total_releases = sp.artist_albums(artist_id, album_type=release_type)["total"]
+
+    # マーケットを判別
+    market = get_market_from_language()
+
+    total_releases = sp.artist_albums(artist_id, album_type=release_type, market=market)["total"]
     return total_releases
 
 
@@ -471,9 +510,12 @@ def get_artist_albums_with_songs(artist_id, page, per_page=10):
     offset = (page - 1) * per_page
     limit = per_page
 
+    # マーケットを判別
+    market = get_market_from_language()
+
     # アーティストのアルバムをページ単位で取得
     albums = sp.artist_albums(
-        artist_id, album_type="album", offset=offset, limit=limit
+        artist_id, album_type="album", market=market, offset=offset, limit=limit
     )["items"]
     result = []
 
@@ -487,7 +529,7 @@ def get_artist_albums_with_songs(artist_id, page, per_page=10):
         }
 
         # 各アルバムに含まれる楽曲を取得
-        album_tracks = sp.album_tracks(album["id"])["items"]
+        album_tracks = sp.album_tracks(album["id"], market=market)["items"]
         for track in album_tracks:
             track_name = track["name"]
             track_id = track["id"]
@@ -507,9 +549,12 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
     offset = (page - 1) * per_page
     limit = per_page
 
+    # market判別
+    market = get_market_from_language()
+
     # アーティストのシングルをページ単位で取得
     singles = sp.artist_albums(
-        artist_id, album_type="single", offset=offset, limit=limit
+        artist_id, album_type="single", market=market, offset=offset, limit=limit
     )["items"]
     result = []
 
@@ -524,7 +569,7 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
         }
 
         # シングルに含まれる楽曲を取得
-        single_tracks = sp.album_tracks(single["id"])["items"]
+        single_tracks = sp.album_tracks(single["id"], market=market)["items"]
         for track in single_tracks:
             track_name = track["name"]
             track_id = track["id"]
@@ -548,9 +593,12 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
     offset = (page - 1) * per_page
     limit = per_page
 
+    # market判別
+    market = get_market_from_language()
+
     # アーティストのコンピレーションアルバムをページ単位で取得
     compilations = sp.artist_albums(
-        artist_id, album_type="compilation", offset=offset, limit=limit
+        artist_id, album_type="compilation", market=market, offset=offset, limit=limit
     )["items"]
     result = []
 
@@ -565,7 +613,7 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
         }
 
         # 各コンピレーションアルバムに含まれる楽曲を取得
-        compilation_tracks = sp.album_tracks(compilation["id"])["items"]
+        compilation_tracks = sp.album_tracks(compilation["id"], market=market)["items"]
         for track in compilation_tracks:
             track_name = track["name"]
             track_id = track["id"]
@@ -845,7 +893,9 @@ def search_playlist():
     sp = get_spotify_client()
 
     # Spotify APIでキーワードでプレイリストを検索
-    results = sp.search(q=f"{keyword}", type="playlist", limit=1)
+    market = get_market_from_language()
+#    results = sp.search(q=f"{keyword}", type="playlist", limit=1, market=market)
+    results = sp.search(q=keyword, type="playlist", limit=1, market=market)
     if (
         not results
         or not results.get("playlists")
