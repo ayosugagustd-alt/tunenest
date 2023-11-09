@@ -76,14 +76,14 @@ def get_spotify_client():
         if not spotify_client:
             # ブラウザの言語設定を取得
             user_language = request.accept_languages.best_match(
-                ['en', 'ja', 'pt-BR', 'de', 'es', 'sv', 'fr', 'lb'], 
-                default='en'  # ここにデフォルトの言語コードを指定
+                ["en", "ja", "pt-BR", "de", "es", "sv", "fr", "lb"],
+                default="en",  # ここにデフォルトの言語コードを指定
             )
             spotify_client = Spotify(
                 client_credentials_manager=SpotifyClientCredentials(
                     client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET
                 ),
-                language=user_language  # 動的に言語設定
+                language=user_language,  # 動的に言語設定
             )
         return spotify_client
 
@@ -152,32 +152,27 @@ def youtube_search(q, max_results=1, youtube_api_key=None):
         return {"error": f"An HTTP error occurred: {e}"}
 
 
+# ユーザーの言語設定からマーケットの判別
 def get_market_from_language():
-    # セッションに市場がすでに保存されているかをチェック
-    if 'market' in session:
-        return session['market']
-
     # ユーザーの言語設定を取得
-    user_language = request.accept_languages.best_match([
-        'en', 'ja', 'pt-BR', 'de', 'es', 'sv', 'fr', 'lb'
-    ], default='en')
+    user_language = request.accept_languages.best_match(
+        ["en", "ja", "pt-BR", "de", "es", "sv", "fr", "lb"], default="en"
+    )
 
     # 言語に基づいて市場を決定
     language_to_market = {
-        'en': 'US',  # 英語は米国市場を指定
-        'ja': 'JP',  # 日本語は日本市場を指定
-        'pt-BR': 'BR',  # ブラジルポルトガル語はブラジル市場を指定
-        'de': 'DE',  # ドイツ語はドイツ市場を指定
-        'es': 'ES',  # スペイン語はスペイン市場を指定
-        'sv': 'SE',  # スウェーデン語はスウェーデン市場を指定
-        'fr': 'FR',  # フランス語はフランス市場を指定
-        'lb': 'LU'   # ルクセンブルク語はルクセンブルク市場を指定
+        "en": "US",  # 英語は米国市場を指定
+        "ja": "JP",  # 日本語は日本市場を指定
+        "pt-BR": "BR",  # ブラジルポルトガル語はブラジル市場を指定
+        "de": "DE",  # ドイツ語はドイツ市場を指定
+        "es": "ES",  # スペイン語はスペイン市場を指定
+        "sv": "SE",  # スウェーデン語はスウェーデン市場を指定
+        "fr": "FR",  # フランス語はフランス市場を指定
+        "lb": "LU",  # ルクセンブルク語はルクセンブルク市場を指定
     }
 
     # ユーザーの言語に対応する市場をセッションに保存し、返す
-    market = language_to_market.get(user_language, 'US')
-    session['market'] = market
-    return market
+    return language_to_market.get(user_language, "US")
 
 
 # robots.txtファイルを返すルート。
@@ -289,9 +284,9 @@ def index():
                 return render_template("error.html", error=error)
 
         # ユーザー言語の判定
-        user_language = request.accept_languages.best_match([
-            'en', 'ja', 'pt-BR', 'de', 'es', 'sv', 'fr', 'lb'
-        ], default='en')
+        user_language = request.accept_languages.best_match(
+            ["en", "ja", "pt-BR", "de", "es", "sv", "fr", "lb"], default="en"
+        )
 
         amazon_domain = get_amazon_domain(user_language)
 
@@ -327,7 +322,9 @@ def youtube():
 
     # エラーがあればエラーページを表示
     if isinstance(video_id, dict) and "error" in video_id:
-        return render_template("error.html", error=f"An error occurred: {video_id['error']}")
+        return render_template(
+            "error.html", error=f"An error occurred: {video_id['error']}"
+        )
 
     # 動画IDが存在すれば結果を表示
     if video_id:
@@ -498,7 +495,9 @@ def count_total_releases(artist_id, release_type):
     # マーケットを判別
     market = get_market_from_language()
 
-    total_releases = sp.artist_albums(artist_id, album_type=release_type, market=market)["total"]
+    total_releases = sp.artist_albums(
+        artist_id, album_type=release_type, market=market
+    )["total"]
     return total_releases
 
 
@@ -667,9 +666,9 @@ def artist_details(artist_id):
     )
 
     # ユーザー言語の判定
-    user_language = request.accept_languages.best_match([
-        'en', 'ja', 'pt-BR', 'de', 'es', 'sv', 'fr', 'lb'
-    ], default='en')
+    user_language = request.accept_languages.best_match(
+        ["en", "ja", "pt-BR", "de", "es", "sv", "fr", "lb"], default="en"
+    )
 
     # 取得した情報を使ってテンプレートをレンダリングして返す
     return render_template(
@@ -684,16 +683,16 @@ def artist_details(artist_id):
 # Amazonのドメインを作成
 def get_amazon_domain(user_language):
     domain_mappings = {
-        'en': 'amazon.com',  # デフォルト
-        'ja': 'amazon.co.jp',
-        'pt-BR': 'amazon.com.br',
-        'de': 'amazon.de',
-        'es': 'amazon.es',
-        'sv': 'amazon.se',
-        'fr': 'amazon.fr',
-        'lb': 'amazon.lu'
+        "en": "amazon.com",  # デフォルト
+        "ja": "amazon.co.jp",
+        "pt-BR": "amazon.com.br",
+        "de": "amazon.de",
+        "es": "amazon.es",
+        "sv": "amazon.se",
+        "fr": "amazon.fr",
+        "lb": "amazon.lu",
     }
-    return domain_mappings.get(user_language, 'amazon.com')
+    return domain_mappings.get(user_language, "amazon.com")
 
 
 # アルバム詳細ページ
@@ -703,9 +702,9 @@ def album_details(artist_id, album_id):
         album = get_album_details(album_id)  # 既存の関数でSpotifyからアルバム情報を取得
 
         # ユーザーの言語設定を取得
-        user_language = request.accept_languages.best_match([
-            'en', 'ja', 'pt-BR', 'de', 'es', 'sv', 'fr', 'lb'
-        ], default='en')
+        user_language = request.accept_languages.best_match(
+            ["en", "ja", "pt-BR", "de", "es", "sv", "fr", "lb"], default="en"
+        )
         amazon_domain = get_amazon_domain(user_language)
 
         # アルバム名とアーティスト名に基づいてAmazon検索URLを作成
@@ -750,9 +749,9 @@ def all_albums_and_songs_for_artist(artist_id, page=1):
     total_pages = (total_albums + per_page - 1) // per_page
 
     # ユーザー言語の判定
-    user_language = request.accept_languages.best_match([
-        'en', 'ja', 'pt-BR', 'de', 'es', 'sv', 'fr', 'lb'
-    ], default='en')
+    user_language = request.accept_languages.best_match(
+        ["en", "ja", "pt-BR", "de", "es", "sv", "fr", "lb"], default="en"
+    )
 
     # レンダリングされたHTMLテンプレートを返す
     return render_template(
@@ -764,7 +763,7 @@ def all_albums_and_songs_for_artist(artist_id, page=1):
         total_albums=total_albums,
         per_page=per_page,
         user_language=user_language,
-    ) 
+    )
 
 
 # 全シングル表示ページのルート
@@ -785,9 +784,9 @@ def all_singles_and_songs_for_artist(artist_id, page=1):
     total_pages = (total_singles + per_page - 1) // per_page
 
     # ユーザー言語の判定
-    user_language = request.accept_languages.best_match([
-        'en', 'ja', 'pt-BR', 'de', 'es', 'sv', 'fr', 'lb'
-    ], default='en')
+    user_language = request.accept_languages.best_match(
+        ["en", "ja", "pt-BR", "de", "es", "sv", "fr", "lb"], default="en"
+    )
 
     # レンダリングされたHTMLテンプレートを返す
     return render_template(
@@ -824,9 +823,9 @@ def all_compilations_and_songs_for_artist(artist_id, page=1):
     total_pages = (total_compilations + per_page - 1) // per_page
 
     # ユーザー言語の判定
-    user_language = request.accept_languages.best_match([
-        'en', 'ja', 'pt-BR', 'de', 'es', 'sv', 'fr', 'lb'
-    ], default='en')
+    user_language = request.accept_languages.best_match(
+        ["en", "ja", "pt-BR", "de", "es", "sv", "fr", "lb"], default="en"
+    )
 
     # レンダリングされたHTMLテンプレートを返す
     return render_template(
@@ -858,9 +857,9 @@ def song_details(song_id):
         song = get_song_details_with_retry(song_id)  # Spotifyから曲情報を取得
 
         # ユーザーの言語設定を取得
-        user_language = request.accept_languages.best_match([
-            'en', 'ja', 'pt-BR', 'de', 'es', 'sv', 'fr', 'lb'
-        ], default='en')
+        user_language = request.accept_languages.best_match(
+            ["en", "ja", "pt-BR", "de", "es", "sv", "fr", "lb"], default="en"
+        )
         amazon_domain = get_amazon_domain(user_language)
 
         # 楽曲名とアーティスト名に基づいてAmazon検索URLを作成
@@ -894,7 +893,7 @@ def search_playlist():
 
     # Spotify APIでキーワードでプレイリストを検索
     market = get_market_from_language()
-#    results = sp.search(q=f"{keyword}", type="playlist", limit=1, market=market)
+    #    results = sp.search(q=f"{keyword}", type="playlist", limit=1, market=market)
     results = sp.search(q=keyword, type="playlist", limit=1, market=market)
     if (
         not results
