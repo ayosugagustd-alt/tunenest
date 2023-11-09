@@ -492,11 +492,8 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
 def count_total_releases(artist_id, release_type):
     sp = get_spotify_client()
 
-    # マーケットを判別
-    market = get_market_from_language()
-
     total_releases = sp.artist_albums(
-        artist_id, album_type=release_type, market=market
+        artist_id, album_type=release_type
     )["total"]
     return total_releases
 
@@ -509,14 +506,14 @@ def get_artist_albums_with_songs(artist_id, page, per_page=10):
     offset = (page - 1) * per_page
     limit = per_page
 
-    # マーケットを判別
-    market = get_market_from_language()
-
     # アーティストのアルバムをページ単位で取得
     albums = sp.artist_albums(
-        artist_id, album_type="album", market=market, offset=offset, limit=limit
+        artist_id, album_type="album", offset=offset, limit=limit
     )["items"]
     result = []
+
+    # マーケットを判別
+    market = get_market_from_language()
 
     for album in albums:
         album_info = {
@@ -548,14 +545,14 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
     offset = (page - 1) * per_page
     limit = per_page
 
-    # market判別
-    market = get_market_from_language()
-
     # アーティストのシングルをページ単位で取得
     singles = sp.artist_albums(
-        artist_id, album_type="single", market=market, offset=offset, limit=limit
+        artist_id, album_type="single", offset=offset, limit=limit
     )["items"]
     result = []
+
+    # マーケットを判別
+    market = get_market_from_language()
 
     # シングル情報を取得
     for single in singles:
@@ -592,14 +589,14 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
     offset = (page - 1) * per_page
     limit = per_page
 
-    # market判別
-    market = get_market_from_language()
-
     # アーティストのコンピレーションアルバムをページ単位で取得
     compilations = sp.artist_albums(
-        artist_id, album_type="compilation", market=market, offset=offset, limit=limit
+        artist_id, album_type="compilation", offset=offset, limit=limit
     )["items"]
     result = []
+
+    # マーケットを判別
+    market = get_market_from_language()
 
     # 各コンピレーションアルバムの詳細情報を取得
     for compilation in compilations:
@@ -891,9 +888,11 @@ def search_playlist():
 
     sp = get_spotify_client()
 
-    # Spotify APIでキーワードでプレイリストを検索
+    # マーケットを判別
     market = get_market_from_language()
-    #    results = sp.search(q=f"{keyword}", type="playlist", limit=1, market=market)
+
+    # Spotify APIでキーワードでプレイリストを検索
+    # results = sp.search(q=f"{keyword}", type="playlist", limit=1, market=market)
     results = sp.search(q=keyword, type="playlist", limit=1, market=market)
     if (
         not results
