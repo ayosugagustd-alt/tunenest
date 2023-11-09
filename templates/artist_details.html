@@ -35,7 +35,7 @@
     </span>
     <p><strong>Genres</strong>: {{ artist['genres'] | join(', ') }}</p>
     <p><strong>Followers</strong>: {{ artist['followers'] }}</p>
-    <p><a href="https://{{ market }}.wikipedia.org/wiki/{{ artist['name'] | urlencode }}" target="_blank" rel="noopener">
+    <p><a href="https://{{ market }}.wikipedia.org/w/index.php?search={{ artist['name'] | urlencode }}" target="_blank" rel="noopener">
         <i class="fab fa-wikipedia-w"></i><strong> Wikipedia</strong> </a></p>
   </div>
 <div class="section-space">
