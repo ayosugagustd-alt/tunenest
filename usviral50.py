@@ -253,7 +253,8 @@ def index():
             all_tracks.extend(results["items"])
 
             # 上限に達した場合、ループを抜ける
-            if len(all_tracks) >= MAX_TRACKS:
+            if len(all_tracks) > MAX_TRACKS:
+                exceeds_max_tracks = True
                 all_tracks = all_tracks[:MAX_TRACKS]
                 break
 
@@ -274,9 +275,6 @@ def index():
 
         # 有効なトラック情報のみをフィルタリング
         valid_tracks_info = [track for track in all_tracks_info if track]
-
-        # 201曲以上かどうかを再判定
-        exceeds_max_tracks = len(valid_tracks_info) > MAX_TRACKS
 
         # カテゴリごとにプレイリストを整理
         playlists_grouped = defaultdict(list)
