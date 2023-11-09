@@ -69,16 +69,21 @@ def check_api_keys():
         raise ValueError("musixmatch APIのキーが設定されていません。環境変数で設定してください。")
 
 
-# Spotify API Clientを生成して返す。言語設定は日本語にする。
+# Spotify API Clientを生成して返す。言語設定はしない。
 def get_spotify_client():
     global spotify_client
     with client_lock:
         if not spotify_client:
+            # ブラウザの言語設定を取得
+            user_language = request.accept_languages.best_match(
+                ['en', 'ja', 'pt-BR', 'de', 'es', 'sv', 'fr', 'lb'], 
+                default='en'  # ここにデフォルトの言語コードを指定
+            )
             spotify_client = Spotify(
                 client_credentials_manager=SpotifyClientCredentials(
                     client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET
                 ),
-                language="ja",  # 言語設定を日本語にする
+                language=user_language  # 動的に言語設定
             )
         return spotify_client
 
@@ -169,7 +174,7 @@ def index():
         sp = get_spotify_client()
 
         # プレイリストの詳細情報を取得
-        playlist_details = sp.playlist(playlist_id, market="JP")
+        playlist_details = sp.playlist(playlist_id)
 
         # クエリパラメータからプレイリスト説明を取得
         custom_description = request.args.get("description")
@@ -216,7 +221,7 @@ def index():
 
         while True:
             results = sp.playlist_tracks(
-                playlist_id, market="JP", offset=offset, limit=limit
+                playlist_id, offset=offset, limit=limit
             )
             if results is None or results["items"] is None:
                 raise ValueError("Spotify APIが正常な値を返しませんでした。")
@@ -252,6 +257,13 @@ def index():
                 error = f"Error occurred with playlist ID: {id}, name: '{name}'. Error message: {str(e)}"
                 return render_template("error.html", error=error)
 
+        # ユーザー言語の判定
+        user_language = request.accept_languages.best_match([
+            'en', 'ja', 'pt-BR', 'de', 'es', 'sv', 'fr', 'lb'
+        ], default='en')
+
+        amazon_domain = get_amazon_domain(user_language)
+
         # HTMLテンプレートをレンダリング
         return render_template(
             "index.html",
@@ -262,6 +274,8 @@ def index():
             playlist_description=playlist_description,
             playlist_url=playlist_url,
             exceeds_max_tracks=exceeds_max_tracks,
+            user_language=user_language,  # ユーザー言語の追加
+            amazon_domain=amazon_domain,  # amazonドメインの追加
         )
     except Exception as e:
         # エラーページを表示
@@ -282,7 +296,7 @@ def youtube():
 
     # エラーがあればエラーページを表示
     if isinstance(video_id, dict) and "error" in video_id:
-        return render_template("error.html", error=f"エラーが発生しました。：{video_id['error']}")
+        return render_template("error.html", error=f"An error occurred: {video_id['error']}")
 
     # 動画IDが存在すれば結果を表示
     if video_id:
@@ -317,7 +331,7 @@ def get_artist_details(artist_id):
     artist_details = get_cached_artist_details(artist_id, sp)
 
     # アーティストのトップ曲を取得
-    top_tracks = sp.artist_top_tracks(artist_id, country="JP")["tracks"]
+    top_tracks = sp.artist_top_tracks(artist_id)["tracks"]
     top_tracks_details = [
         {"name": track["name"], "id": track["id"]} for track in top_tracks
     ]
@@ -342,7 +356,7 @@ def get_album_details(album_id):
     sp = get_spotify_client()
 
     # アルバムIDを使用してアルバム情報を取得
-    album = sp.album(album_id, market="JP")
+    album = sp.album(album_id)
 
     # 収録曲リストを作成
     tracks = [
@@ -374,7 +388,7 @@ def get_album_details(album_id):
 # 最大リトライ回数を超えた場合はエラーをスローする。
 @lru_cache(maxsize=128)
 def get_cached_track(song_id, sp):
-    return sp.track(song_id, market="JP")
+    return sp.track(song_id)
 
 
 @lru_cache(maxsize=128)
@@ -473,7 +487,7 @@ def get_artist_albums_with_songs(artist_id, page, per_page=10):
         }
 
         # 各アルバムに含まれる楽曲を取得
-        album_tracks = sp.album_tracks(album["id"], market="JP")["items"]
+        album_tracks = sp.album_tracks(album["id"])["items"]
         for track in album_tracks:
             track_name = track["name"]
             track_id = track["id"]
@@ -510,7 +524,7 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
         }
 
         # シングルに含まれる楽曲を取得
-        single_tracks = sp.album_tracks(single["id"], market="JP")["items"]
+        single_tracks = sp.album_tracks(single["id"])["items"]
         for track in single_tracks:
             track_name = track["name"]
             track_id = track["id"]
@@ -551,7 +565,7 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
         }
 
         # 各コンピレーションアルバムに含まれる楽曲を取得
-        compilation_tracks = sp.album_tracks(compilation["id"], market="JP")["items"]
+        compilation_tracks = sp.album_tracks(compilation["id"])["items"]
         for track in compilation_tracks:
             track_name = track["name"]
             track_id = track["id"]
@@ -603,13 +617,35 @@ def artist_details(artist_id):
     artist_details, top_tracks_details, latest_album_details = get_artist_details(
         artist_id
     )
+
+    # ユーザー言語の判定
+    user_language = request.accept_languages.best_match([
+        'en', 'ja', 'pt-BR', 'de', 'es', 'sv', 'fr', 'lb'
+    ], default='en')
+
     # 取得した情報を使ってテンプレートをレンダリングして返す
     return render_template(
         "artist_details.html",
         artist=artist_details,
         top_tracks=top_tracks_details,
         latest_album=latest_album_details,
+        user_language=user_language,  # ユーザー言語の追加
     )
+
+
+# Amazonのドメインを作成
+def get_amazon_domain(user_language):
+    domain_mappings = {
+        'en': 'amazon.com',  # デフォルト
+        'ja': 'amazon.co.jp',
+        'pt-BR': 'amazon.com.br',
+        'de': 'amazon.de',
+        'es': 'amazon.es',
+        'sv': 'amazon.se',
+        'fr': 'amazon.fr',
+        'lb': 'amazon.lu'
+    }
+    return domain_mappings.get(user_language, 'amazon.com')
 
 
 # アルバム詳細ページ
@@ -618,11 +654,17 @@ def album_details(artist_id, album_id):
     try:
         album = get_album_details(album_id)  # 既存の関数でSpotifyからアルバム情報を取得
 
+        # ユーザーの言語設定を取得
+        user_language = request.accept_languages.best_match([
+            'en', 'ja', 'pt-BR', 'de', 'es', 'sv', 'fr', 'lb'
+        ], default='en')
+        amazon_domain = get_amazon_domain(user_language)
+
         # アルバム名とアーティスト名に基づいてAmazon検索URLを作成
         keywords = f"{album['name']} {album['artists'][0]['name']}"
         affiliate_code = "withmybgm-22"
         amazon_search_url = (
-            f"https://www.amazon.co.jp/s?k={quote_plus(keywords)}"
+            f"https://{amazon_domain}/s?k={quote_plus(keywords)}"
             f"&i=digital-music&tag={affiliate_code}"
         )
 
@@ -630,6 +672,7 @@ def album_details(artist_id, album_id):
             "album_details.html",
             album=album,
             amazon_search_url=amazon_search_url,  # Amazon検索URLをテンプレートに渡す
+            user_language=user_language,
         )
 
     except Exception as e:
@@ -658,6 +701,11 @@ def all_albums_and_songs_for_artist(artist_id, page=1):
     total_albums = cached_count_total_releases(artist_id, "album")
     total_pages = (total_albums + per_page - 1) // per_page
 
+    # ユーザー言語の判定
+    user_language = request.accept_languages.best_match([
+        'en', 'ja', 'pt-BR', 'de', 'es', 'sv', 'fr', 'lb'
+    ], default='en')
+
     # レンダリングされたHTMLテンプレートを返す
     return render_template(
         "albums_and_tracks_list.html",
@@ -667,7 +715,8 @@ def all_albums_and_songs_for_artist(artist_id, page=1):
         total_pages=total_pages,
         total_albums=total_albums,
         per_page=per_page,
-    )  # 1ページあたりのアルバム数
+        user_language=user_language,
+    ) 
 
 
 # 全シングル表示ページのルート
@@ -687,6 +736,11 @@ def all_singles_and_songs_for_artist(artist_id, page=1):
     total_singles = cached_count_total_releases(artist_id, "single")
     total_pages = (total_singles + per_page - 1) // per_page
 
+    # ユーザー言語の判定
+    user_language = request.accept_languages.best_match([
+        'en', 'ja', 'pt-BR', 'de', 'es', 'sv', 'fr', 'lb'
+    ], default='en')
+
     # レンダリングされたHTMLテンプレートを返す
     return render_template(
         "singles_and_tracks_list.html",
@@ -696,6 +750,7 @@ def all_singles_and_songs_for_artist(artist_id, page=1):
         total_pages=total_pages,
         total_singles=total_singles,
         per_page=per_page,
+        user_language=user_language,
     )
 
 
@@ -720,6 +775,11 @@ def all_compilations_and_songs_for_artist(artist_id, page=1):
     total_compilations = cached_count_total_releases(artist_id, "compilation")
     total_pages = (total_compilations + per_page - 1) // per_page
 
+    # ユーザー言語の判定
+    user_language = request.accept_languages.best_match([
+        'en', 'ja', 'pt-BR', 'de', 'es', 'sv', 'fr', 'lb'
+    ], default='en')
+
     # レンダリングされたHTMLテンプレートを返す
     return render_template(
         "compilations_and_tracks_list.html",
@@ -729,6 +789,7 @@ def all_compilations_and_songs_for_artist(artist_id, page=1):
         total_pages=total_pages,
         total_compilations=total_compilations,
         per_page=per_page,
+        user_language=user_language,
     )
 
 
@@ -748,11 +809,17 @@ def song_details(song_id):
     try:
         song = get_song_details_with_retry(song_id)  # Spotifyから曲情報を取得
 
+        # ユーザーの言語設定を取得
+        user_language = request.accept_languages.best_match([
+            'en', 'ja', 'pt-BR', 'de', 'es', 'sv', 'fr', 'lb'
+        ], default='en')
+        amazon_domain = get_amazon_domain(user_language)
+
         # 楽曲名とアーティスト名に基づいてAmazon検索URLを作成
         keywords = f"{song['name']} {song['artists'][0]['name']}"
         affiliate_code = "withmybgm-22"
         amazon_search_url = (
-            f"https://www.amazon.co.jp/s?k={quote_plus(keywords)}"
+            f"https://{amazon_domain}/s?k={quote_plus(keywords)}"
             f"&i=digital-music&tag={affiliate_code}"
         )
 
@@ -761,6 +828,7 @@ def song_details(song_id):
             song=song,
             song_id=song_id,
             amazon_search_url=amazon_search_url,
+            user_language=user_language,
         )
 
     except Exception as e:
@@ -777,7 +845,7 @@ def search_playlist():
     sp = get_spotify_client()
 
     # Spotify APIでキーワードでプレイリストを検索
-    results = sp.search(q=f"{keyword}", type="playlist", market="JP", limit=1)
+    results = sp.search(q=f"{keyword}", type="playlist", limit=1)
     if (
         not results
         or not results.get("playlists")
