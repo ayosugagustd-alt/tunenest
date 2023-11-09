@@ -667,6 +667,9 @@ def artist_details(artist_id):
         ["en", "ja", "pt-BR", "de", "es", "sv", "fr", "lb"], default="en"
     )
 
+    # マーケットを判別
+    market = get_market_from_language()
+
     # 取得した情報を使ってテンプレートをレンダリングして返す
     return render_template(
         "artist_details.html",
@@ -674,6 +677,7 @@ def artist_details(artist_id):
         top_tracks=top_tracks_details,
         latest_album=latest_album_details,
         user_language=user_language,  # ユーザー言語の追加
+        market=market,  # wikiのマーケット追加
     )
 
 
