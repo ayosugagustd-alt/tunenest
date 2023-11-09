@@ -224,16 +224,14 @@ def index():
         # クエリパラメータからカバー画像のURLを取得
         custom_artwork_img = request.args.get("artwork_img")
 
-        # カスタムのカバー画像が指定されている場合はそれを使用。
-        # そうでない場合は、プレイリストから取得またはデフォルト画像を使用。
+        # プレイリストのカバー画像URLを安全に取得
+        collage_filename = url_for("static", filename="TuneNest.png")  # デフォルト値
         if custom_artwork_img:
             collage_filename = url_for("static", filename=custom_artwork_img)
-        else:
-            # プレイリストのカバー画像URLを取得（存在しない場合はlogo画像）
-            collage_filename = (
-                playlist_details["images"][0]["url"]
-                if playlist_details["images"]
-                else url_for("static", filename="TuneNest.png")
+        elif playlist_details.get("images") and playlist_details["images"]:
+            # プレイリストのimagesが存在し、空のリストでないことを確認
+            collage_filename = playlist_details["images"][0].get(
+                "url", collage_filename
             )
 
         # プレイリストのトラックを取得
@@ -265,10 +263,17 @@ def index():
 
             offset += limit
 
-        # トラック情報を整形
-        # 2023/10/18(抜け番対応)
-        all_tracks_info = [get_track_info(item["track"]) for item in all_tracks]
-        valid_tracks_info = [track for track in all_tracks_info if track is not None]
+        # トラック情報を整形（抜け番対応とNoneチェック）
+        all_tracks_info = []
+        for item in all_tracks:
+            track = item.get("track")  # itemから"track"キーの値を安全に取得
+            if track is not None:  # trackがNoneでないことを確認
+                track_info = get_track_info(track)
+                if track_info is not None:  # get_track_infoの結果がNoneでないことを確認
+                    all_tracks_info.append(track_info)
+
+        # 有効なトラック情報のみをフィルタリング
+        valid_tracks_info = [track for track in all_tracks_info if track]
 
         # 201曲以上かどうかを再判定
         exceeds_max_tracks = len(valid_tracks_info) > MAX_TRACKS
@@ -492,9 +497,7 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
 def count_total_releases(artist_id, release_type):
     sp = get_spotify_client()
 
-    total_releases = sp.artist_albums(
-        artist_id, album_type=release_type
-    )["total"]
+    total_releases = sp.artist_albums(artist_id, album_type=release_type)["total"]
     return total_releases
 
 
