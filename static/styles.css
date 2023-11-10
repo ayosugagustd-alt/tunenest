@@ -512,7 +512,7 @@ input[type='range']:active::-moz-range-thumb {
 	    margin-left: 2px;
     }
     .star, .empty-star, .half-star {
-        font-size: 20px;
+        font-size: 22px;
         margin-right: -2px;
     }
     .visual-section,  .section-space {
