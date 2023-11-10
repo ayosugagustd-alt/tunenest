@@ -439,7 +439,6 @@ input[type='range']:active::-moz-range-thumb {
 	}
    img {
         max-width: 68%;
-        height: auto;
     }
     .custom-list-content {
         font-size: 14px;
