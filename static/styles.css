@@ -284,7 +284,7 @@ select {
 }
 
 .star, .empty-star, .half-star {
-    font-size: 20px;
+    font-size: 24px;
     margin-right: -3px;
 }
 .star { color: var(--star-color); }
@@ -512,7 +512,7 @@ input[type='range']:active::-moz-range-thumb {
 	    margin-left: 2px;
     }
     .star, .empty-star, .half-star {
-        font-size: 18px;
+        font-size: 20px;
         margin-right: -2px;
     }
     .visual-section,  .section-space {

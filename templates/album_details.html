@@ -25,13 +25,6 @@
 </div>
 <div class="section-space">
     <h2>Basic Information</h2>
-    <p><strong>Artists</strong>:
-    <ul>
-        {% for artist in album.artists %}
-        <li><a href="{{ url_for('artist_details', artist_id=artist.id) }}">{{ artist.name }}</a></li>
-        {% endfor %}
-    </ul>
-    <p><strong>Release Date</strong>: {{ album.release_date }}</p>
     <p><strong>Popularity</strong>: {{ album.popularity }}%</p>
     <span class="stars">
         {% for _ in range(0, album.popularity // 10) %}
@@ -44,6 +37,13 @@
             <span class="empty-star"><i class="far fa-star"></i></span>
         {% endfor %}
     </span>
+    <p><strong>Artists</strong>:
+    <ul>
+        {% for artist in album.artists %}
+        <li><a href="{{ url_for('artist_details', artist_id=artist.id) }}">{{ artist.name }}</a></li>
+        {% endfor %}
+    </ul>
+    <p><strong>Release Date</strong>: {{ album.release_date }}</p>
   </div>
 <div class="section-space">
     <h2>Tracklist</h2>
