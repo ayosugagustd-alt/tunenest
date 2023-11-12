@@ -22,6 +22,36 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='f_f_event_43_s32_f_event_43_0nbg.png') }}">
     <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename='f_f_event_43_s64_f_event_43_0nbg.png') }}">
     <title>{{ playlist_name or 'Explore Music' }} on TuneNest: Preview Spotify Playlists</title>
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "MusicPlaylist",
+        "name": "{{ playlist_name or 'Explore Music' }}",
+        "description": "{{ playlist_description or 'Explore a variety of music tracks on TuneNest.' }}",
+        "numTracks": "{{ tracks|length }}",
+        "track": {
+            "@type": "ItemList",
+            "itemListElement": [
+                {% for track in tracks %}
+                {
+                    "@type": "ListItem",
+                    "position": {{ loop.index }},
+                    "item": {
+                        "@type": "MusicRecording",
+                        "name": "{{ track.name }}",
+                        "byArtist": {
+                            "@type": "MusicGroup",
+                            "name": "{{ track.artist }}"
+                        },
+                        "image": "{{ track.image_url or url_for('static', filename='noimage.jpg') }}"
+                    }
+                }
+                {% if not loop.last %},{% endif %}
+                {% endfor %}
+            ]
+        }
+    }
+    </script>
 </head>
 
 <body>
