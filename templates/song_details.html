@@ -29,6 +29,11 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta content="hiro" name="author"/>
     <meta content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }} - Find song details, lyrics, popularity and more on TuneNest." name="description"/>
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }}">
+    <meta name="twitter:description" content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }} - Find song details, lyrics, popularity and more on TuneNest.">
+    <meta name="twitter:image" content="{{ song.album_artwork_url or url_for('static', filename='noimage.jpg') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
@@ -52,7 +57,7 @@
         <iframe title="Spotify player" allow="encrypted-media" allowtransparency="true" frameborder="0" height="80" src="https://open.spotify.com/embed/track/{{ song_id }}" width="300"></iframe>
 
         <!-- Twitter Share Link -->
-        <a href="https://twitter.com/intent/tweet?text={{ song.name | urlencode }} - {{ song.artists | map(attribute='name') | join(', ') | urlencode }}. https://open.spotify.com/track/{{ song_id | urlencode }} %23NowPlaying"
+        <a href="https://twitter.com/intent/tweet?text={{ song.name | urlencode }} - {{ song.artists | map(attribute='name') | join(', ') | urlencode }} https://open.spotify.com/track/{{ song_id | urlencode }} %23NowPlaying"
             target="_blank" rel="noopener">
             <i class="fab fa-twitter"></i>Share on Twitter
         </a>
