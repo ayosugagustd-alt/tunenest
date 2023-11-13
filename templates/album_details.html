@@ -19,7 +19,7 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{ album.name }} by {{ artist_names }}">
     <meta name="twitter:description" content="Discover more about '{{ album.name }}' Find tracklist, popularity, and release date.">
-    <meta name="twitter:image" content="{{ album.image or url_for('static', filename='default_album_image.jpg') }}">
+    <meta name="twitter:image" content="{{ album.image or url_for('static', filename='TuneNest.png') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
@@ -32,7 +32,7 @@
   <div class="section-space">
     <a href="{{ amazon_search_url }}" target="_blank" rel="noopener"><i class="fab fa-amazon"></i>Search on Amazon</a>
         <div class="album-artwork">
-            <img alt="Album Artwork" src="{{ album.image or url_for('static', filename='noimage.jpg') }}" loading="lazy"/>
+            <img alt="Album Artwork" src="{{ album.image or url_for('static', filename='TuneNest.png') }}" loading="lazy"/>
         </div>
 </div>
 <div class="section-space">

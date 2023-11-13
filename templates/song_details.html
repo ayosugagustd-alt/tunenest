@@ -32,8 +32,8 @@
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }}">
-    <meta name="twitter:description" content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }} - Find song details, lyrics, popularity and more on TuneNest.">
-    <meta name="twitter:image" content="{{ song.album_artwork_url or url_for('static', filename='noimage.jpg') }}">
+    <meta name="twitter:description" content="Immerse in '{{ song.name }}' by {{ song.artists | map(attribute='name') | join(', ') }} - Discover lyrics, popularity, and insights on TuneNest.">
+    <meta name="twitter:image" content="{{ song.album_artwork_url or url_for('static', filename='TuneNest.png') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
@@ -52,7 +52,7 @@
     <div class="section-space">
         <a href="{{ amazon_search_url }}" target="_blank" rel="noopener"><i class="fab fa-amazon"></i>Search on Amazon</a>
         <div class="album-artwork">
-            <img alt="Album Artwork" src="{{ song.album_artwork_url or url_for('static', filename='noimage.jpg') }}" loading="lazy"/>
+            <img alt="Album Artwork" src="{{ song.album_artwork_url or url_for('static', filename='TuneNest.png') }}" loading="lazy"/>
         </div>
         <iframe class="spotify-player" title="Spotify player" allow="encrypted-media" allowtransparency="true" frameborder="0" height="80" src="https://open.spotify.com/embed/track/{{ song_id }}" width="300"></iframe>
 
