@@ -233,7 +233,7 @@
             playingInfo += '<i class="fas fa-info-circle"></i><span class="info-now-playing">Info</span></a>';
 
             // Tweet用のテキストを生成
-            let tweetText = `${tracks[index].name} - ${tracks[index].artist}. ${tracks[index].spotify_link}`; 
+            let tweetText = `${tracks[index].name} - ${tracks[index].artist}. ${tracks[index].spotify_link} #NowPlaying`; 
         
             // Twitterへのリンクを生成
             playingInfo += '<br><a href="https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweetText) + '" target="_blank" rel="noopener" style="margin-top: 4px; display: inline-block;">';
