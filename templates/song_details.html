@@ -52,9 +52,7 @@
         <iframe title="Spotify player" allow="encrypted-media" allowtransparency="true" frameborder="0" height="80" src="https://open.spotify.com/embed/track/{{ song_id }}" width="300"></iframe>
 
         <!-- Twitter Share Link -->
-        <a href="https://twitter.com/intent/tweet?text={{ song.name | urlencode }} -
-            {{ song.artists | map(attribute='name') | join(', ') | urlencode }}.
-            https://open.spotify.com/track/{{ song_id | urlencode }} %23NowPlaying"
+        <a href="https://twitter.com/intent/tweet?text={{ song.name | urlencode }} - {{ song.artists | map(attribute='name') | join(', ') | urlencode }}. https://open.spotify.com/track/{{ song_id | urlencode }} %23NowPlaying"
             target="_blank" rel="noopener">
             <i class="fab fa-twitter"></i>Share on Twitter
         </a>
