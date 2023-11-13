@@ -717,11 +717,15 @@ def album_details(artist_id, album_id):
             f"&i=digital-music&tag={affiliate_code}"
         )
 
+        # アーティスト名を結合してからテンプレートに渡す準備
+        artist_names = ", ".join([artist['name'] for artist in album['artists']])
+
         return render_template(
             "album_details.html",
             album=album,
             amazon_search_url=amazon_search_url,  # Amazon検索URLをテンプレートに渡す
             user_language=user_language,
+            artist_names=artist_names,
         )
 
     except Exception as e:

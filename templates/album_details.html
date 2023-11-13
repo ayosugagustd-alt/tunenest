@@ -10,14 +10,14 @@
         gtag('js', new Date());
         gtag('config', 'G-FZ8PJFVHVW');
     </script>
-    <title>{{ album.name }} - Detailed Album Information</title>
+    <title>{{ album.name }} by {{ artist_names }} - Detailed Album Information</title>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta content="View album details." name="description"/>
     <meta content="hiro" name="author"/>
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="{{ album.name }}">
+    <meta name="twitter:title" content="{{ album.name }} by {{ artist_names }}">
     <meta name="twitter:description" content="Discover more about '{{ album.name }}' Find tracklist, popularity, and release date.">
     <meta name="twitter:image" content="{{ album.image or url_for('static', filename='default_album_image.jpg') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
