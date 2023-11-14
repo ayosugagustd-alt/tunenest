@@ -309,7 +309,7 @@ select {
 
 .visual-section {
     padding: 10px;
-    max-width: 80%;
+    max-width: 570px; /* 最大高さを設定 */
 }
 .section-space {
     padding: 10px;
@@ -518,6 +518,7 @@ input[type='range']:active::-moz-range-thumb {
     }
     .visual-section,  .section-space {
         padding: 5px;
+        max-width: 80%;
     }
     .info-now-playing {
         font-size: 14px;
