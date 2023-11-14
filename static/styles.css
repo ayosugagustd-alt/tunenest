@@ -441,6 +441,9 @@ input[type='range']:active::-moz-range-thumb {
    img {
         max-width: 68%;
     }
+    .big-artwork img {
+        max-width: 90%;
+    }
     .custom-list-content {
         font-size: 14px;
     }
@@ -531,7 +534,7 @@ input[type='range']:active::-moz-range-thumb {
     }
     /* Spotifyプレイヤーのサイズ調整 */
     .spotify-player {
-        width: 68%; /* プレイヤーの幅を画面幅に合わせる */
+        width: 76%; /* プレイヤーの幅を画面幅に合わせる */
     }
 }
 
