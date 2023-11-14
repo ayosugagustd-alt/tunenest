@@ -32,7 +32,7 @@
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }}">
-    <meta name="twitter:description" content="Immerse in '{{ song.name }}' by {{ song.artists | map(attribute='name') | join(', ') }} - Discover lyrics, popularity, and insights on TuneNest.">
+    <meta name="twitter:description" content="Dive into the world of '{{ song.name }}' - Explore its lyrics, popularity, and unique insights on TuneNest.">
     <meta name="twitter:image" content="{{ song.album_artwork_url or url_for('static', filename='TuneNest.png') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
