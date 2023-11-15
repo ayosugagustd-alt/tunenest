@@ -189,7 +189,6 @@ def get_market_from_language():
     user_language = get_user_language(request)
 
     # 言語に基づいて市場を決定
-    # 言語に基づいて市場を決定
     language_to_market = {
         "en": "US",
         "en-US": "US",
@@ -726,6 +725,7 @@ def artist_details(artist_id):
         user_language=user_language,  # ユーザー言語の追加
         market=market,  # wikiのマーケット追加
     )
+
 
 def get_amazon_domain(user_language):
     # Amazonのドメインを作成
