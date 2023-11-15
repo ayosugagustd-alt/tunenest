@@ -727,6 +727,7 @@ def artist_details(artist_id):
         market=market,  # wikiのマーケット追加
     )
 
+def get_amazon_domain(user_language):
     # Amazonのドメインを作成
     domain_mappings = {
         "en": "amazon.com",
