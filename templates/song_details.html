@@ -87,7 +87,6 @@
         </ul>
         <p><strong>Duration</strong>: {{ (song.duration // 60)|int }}:{{ "%02d"|format(song.duration % 60) }} ({{ song.duration|float|round(1) }} seconds)</p>
         <p><strong>Tempo</strong>: {{ song.tempo|float|round(1) }} BPM</p>
-        <p><strong>Time Signature</strong>: {{ song.time_signature }} beats per measure</p>
         <p><strong>Key</strong>: {{ ["C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"][song.key] }}</p>
         <p><strong>Mode</strong>: {{ "Major" if song.mode == 1 else "Minor" }}</p>
     </div> <!-- End of div -->
