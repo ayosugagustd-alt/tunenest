@@ -2,6 +2,15 @@
 
 <html lang="{{ user_language }}">
 <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="hiro" name="author">
+    <meta content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }} - Find song details, lyrics, popularity and more on TuneNest." name="description">
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }}">
+    <meta name="twitter:description" content="Dive into the world of '{{ song.name }}' - Explore its lyrics, popularity, and unique insights on TuneNest.">
+    <meta name="twitter:image" content="{{ song.album_artwork_url or url_for('static', filename='TuneNest.png') }}">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZ8PJFVHVW"></script>
     <script>
@@ -25,15 +34,6 @@
         "album": "{{ song.album_name }}"
     }
     </script>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <meta content="hiro" name="author"/>
-    <meta content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }} - Find song details, lyrics, popularity and more on TuneNest." name="description"/>
-    <!-- Twitter Card data -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }}">
-    <meta name="twitter:description" content="Dive into the world of '{{ song.name }}' - Explore its lyrics, popularity, and unique insights on TuneNest.">
-    <meta name="twitter:image" content="{{ song.album_artwork_url or url_for('static', filename='TuneNest.png') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>

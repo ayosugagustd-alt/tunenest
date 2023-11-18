@@ -2,6 +2,16 @@
 
 <html lang="{{ user_language }}">
 <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="View artist details" name="description">
+    <meta content="hiro" name="author">
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ artist['name'] }} - Artist Profile">
+    <meta name="twitter:description" content="Discover the music and journey of {{ artist.name }} - Learn about their popularity, influence, and more on TuneNest.">
+    <meta name="twitter:image" content="{{ artist['image_url'] or url_for('static', filename='TuneNest.png') }}">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZ8PJFVHVW"></script>
     <script>
@@ -11,16 +21,6 @@
         gtag('config', 'G-FZ8PJFVHVW');
     </script>
     <title>{{ artist['name'] }} - Detailed Artist Information</title>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <meta content="telephone=no" name="format-detection"/>
-    <meta content="View artist details" name="description"/>
-    <meta content="hiro" name="author"/>
-    <!-- Twitter Card data -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="{{ artist['name'] }} - Artist Profile">
-    <meta name="twitter:description" content="Discover the music and journey of {{ artist.name }} - Learn about their popularity, influence, and more on TuneNest.">
-    <meta name="twitter:image" content="{{ artist['image_url'] or url_for('static', filename='TuneNest.png') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
@@ -60,13 +60,13 @@
 </div>
 <div class="section-space">
     <h2>Latest Album</h2>
-    <ul>
-        {% if latest_album %}
+    {% if latest_album %}
+        <ul>
             <li><a href="{{ url_for('album_details', artist_id=latest_album['artist_id'], album_id=latest_album['id']) }}">{{ latest_album['name'] }}</a></li>
-        {% else %}
-            <p>No information available about the latest album.</p>
-        {% endif %}
-    </ul>
+        </ul>
+    {% else %}
+        <p>No information available about the latest album.</p>
+    {% endif %}
 </div>
 <div class="section-space">
     <h2><a href="{{ url_for('all_albums_and_songs_for_artist', artist_id=artist.id) }}">Album List</a></h2>
