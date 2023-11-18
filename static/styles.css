@@ -535,6 +535,8 @@ input[type='range']:active::-moz-range-thumb {
     /* Spotifyプレイヤーのサイズ調整 */
     .spotify-player {
         width: 76%; /* プレイヤーの幅を画面幅に合わせる */
+        border: 0;
+        background: transparent;
     }
 }
 

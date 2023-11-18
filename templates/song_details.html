@@ -36,7 +36,7 @@
     </script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
+    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='f_f_event_43_s16_f_event_43_0nbg.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='f_f_event_43_s32_f_event_43_0nbg.png') }}">
     <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename='f_f_event_43_s64_f_event_43_0nbg.png') }}">
@@ -52,12 +52,16 @@
     <div class="section-space">
         <a href="{{ amazon_search_url }}" target="_blank" rel="noopener"><i class="fab fa-amazon"></i>Search on Amazon</a>
         <div class="album-artwork big-artwork">
-            <img alt="Album Artwork" src="{{ song.album_artwork_url or url_for('static', filename='TuneNest.png') }}" loading="lazy"/>
+            <img alt="Album Artwork" src="{{ song.album_artwork_url or url_for('static', filename='TuneNest.png') }}" loading="lazy">
         </div>
-        <iframe class="spotify-player" title="Spotify player" allow="encrypted-media" allowtransparency="true" frameborder="0" height="80" src="https://open.spotify.com/embed/track/{{ song_id }}" width="300"></iframe>
+<!--        <iframe class="spotify-player" title="Spotify player" allow="encrypted-media" allowtransparency="true" frameborder="0" height="80" src="https://open.spotify.com/embed/track/{{ song_id }}" width="300"></iframe> -->
+            <iframe class="spotify-player" title="Spotify player" allow="encrypted-media"
+                height="80" src="https://open.spotify.com/embed/track/{{ song_id }}" width="300">
+            </iframe>
+
 
         <!-- Twitter Share Link -->
-        <a href="https://twitter.com/intent/tweet?text={{ song.name | urlencode }} - {{ song.artists | map(attribute='name') | join(', ') | urlencode }} https://open.spotify.com/track/{{ song_id | urlencode }} %23NowPlaying"
+        <a href="https://twitter.com/intent/tweet?text={{ song.name | urlencode }}%20-%20{{ song.artists | map(attribute='name') | join(', ') | urlencode }} https://open.spotify.com/track/{{ song_id | urlencode }}%20%23NowPlaying"
             target="_blank" rel="noopener">
             <i class="fab fa-twitter"></i>Share
         </a>
