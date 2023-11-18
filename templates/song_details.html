@@ -61,7 +61,7 @@
 
 
         <!-- Twitter Share Link -->
-        <a href="https://twitter.com/intent/tweet?text={{ song.name | urlencode }}%20-%20{{ song.artists | map(attribute='name') | join(', ') | urlencode }} https://open.spotify.com/track/{{ song_id | urlencode }}%20%23NowPlaying"
+        <a href="https://twitter.com/intent/tweet?text={{ song.name | urlencode }}%20-%20{{ song.artists | map(attribute='name') | join(', ') | urlencode }}%20https://open.spotify.com/track/{{ song_id | urlencode }}%20%23NowPlaying"
             target="_blank" rel="noopener">
             <i class="fab fa-twitter"></i>Share
         </a>
