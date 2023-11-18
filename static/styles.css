@@ -434,6 +434,10 @@ input[type='range']:active::-moz-range-thumb {
   font-size: 0.8em; /* 見出しより小さく設定 */
 }
 
+#youtube-video {
+    border: 0;  /* frameborder="0" の代わり */
+}
+
 @media only screen and (max-width: 768px) {
 	body {
     	margin: 10px;
