@@ -2,6 +2,15 @@
 
 <html lang="{{ user_language }}">
 <head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="description" content="{{ playlist_description or 'TuneNest: Blend Spotify & YouTube for a rich music experience. Explore previews, artist profiles, album details, and track insights.' }}">
+    <meta name="author" content="hiro">
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="TuneNest - Explore the World of Music">
+    <meta name="twitter:description" content="Discover, play, and dive deep into a universe of songs and playlists. TuneNest brings your music experience to life.">
+    <meta name="twitter:image" content="{{ collage_filename or url_for('static', filename='TuneNest.png') }}">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZ8PJFVHVW"></script>
     <script>
@@ -41,16 +50,6 @@
         }
     }
     </script>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <meta name="description" content="{{ playlist_description or 'TuneNest: Blend Spotify & YouTube for a rich music experience. Explore previews, artist profiles, album details, and track insights.' }}">
-
-    <meta name="author" content="hiro">
-    <!-- Twitter Card data -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="TuneNest - Explore the World of Music">
-    <meta name="twitter:description" content="Discover, play, and dive deep into a universe of songs and playlists. TuneNest brings your music experience to life.">
-    <meta name="twitter:image" content="{{ collage_filename or url_for('static', filename='TuneNest.png') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
@@ -104,7 +103,7 @@
         {% for track in tracks %}
         <div class="custom-list-item">
             <span class="custom-list-number">{{ "{: >3}".format(loop.index).replace(" ", "&nbsp;")|safe }}.</span>
-            <span class="custom-list-content">
+            <div class="custom-list-content">
                 <div class="track-info">
                     <span class="track-name">{{ track.name }}</span><span class="separator"></span><span class="artist">{{ track.artist }}</span></div>
                 <div class="icon-row">
@@ -121,14 +120,14 @@
                     <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
                     <i class="fas fa-info-circle"></i><span class="icon-caption">Info</span></a>
                 </div>
-            </span>
+            </div>
         </div>
         {% endfor %}
-
+    </div>
 <footer>
-    <p>Data sourced from <a href="https://www.spotify.com/" target="_blank" rel="noopener"><i class="fab fa-spotify"></i>Spotify</a> and <a href="https://www.youtube.com/" target="_blank" rel="noopener"><i class="fab fa-youtube"></i>YouTube</p></a>
-    <p><a href="{{ url_for('static', filename='privacy-policy-en.html') }}" target="_blank" rel="noopener"></i>Terms of Service and Privacy Policy</a></p>
-    <p><a href="{{ url_for('static', filename='privacy-policy.html') }}" target="_blank" rel="noopener"></i>利用規約とプライバシーポリシー</a></p>
+    <p>Data sourced from <a href="https://www.spotify.com/" target="_blank" rel="noopener"><i class="fab fa-spotify"></i>Spotify</a> and <a href="https://www.youtube.com/" target="_blank" rel="noopener"><i class="fab fa-youtube"></i>YouTube</a></p>
+    <p><a href="{{ url_for('static', filename='privacy-policy-en.html') }}" target="_blank" rel="noopener">Terms of Service and Privacy Policy</a></p>
+    <p><a href="{{ url_for('static', filename='privacy-policy.html') }}" target="_blank" rel="noopener">利用規約とプライバシーポリシー</a></p>
     <p>As an Amazon Associate I earn from qualifying purchases.</p>
     <p>&copy; 2023 hiro. All rights reserved. Follow me on <a href="https://twitter.com/jmusic_hiro" target="_blank" rel="noopener" title="hiro's X"><i class="fab fa-twitter"></i></a></p>
 </footer>
@@ -371,6 +370,5 @@
             document.getElementById('playing').innerHTML = message;
         });
     </script>
-
 </body>
 </html>
