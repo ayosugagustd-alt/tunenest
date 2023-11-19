@@ -99,7 +99,7 @@ def get_user_language(request):
         "sv",
         "lb",
     ]
-    return request.accept_languages.best_match(supported_languages, default="en")
+    return request.accept_languages.best_match(supported_languages, default="ja")
 
 
 # Spotify API Clientを生成して返す。言語設定はしない。
@@ -220,7 +220,7 @@ def get_market_from_language():
 
     # ユーザーの言語に対応する市場を返す
     # 一致する市場がない場合はデフォルトで "US" を返す
-    return language_to_market.get(user_language, "US")
+    return language_to_market.get(user_language, "JP")
 
 
 # robots.txtファイルを返すルート。
