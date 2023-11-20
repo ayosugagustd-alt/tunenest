@@ -63,12 +63,14 @@
     {% if exceeds_max_tracks %}
         <p><i class="fas fa-exclamation-triangle"></i>This playlist contains more than 200 tracks, but only the first 200 are displayed.</p>
     {% endif %}
-    <h4><a href="{{ playlist_url }}" target="_blank" rel="noopener">Play this playlist on <i class="fab fa-spotify"></i>Spotify.</a></h4>
+    <h4><a href="{{ playlist_url }}" target="_blank" rel="noopener">このプレイリストを<i class="fab fa-spotify"></i>Spotifyで再生。</a></h4>
 
-    <div id="playlist-controls">
+    <div id="playlist-controls" lang="ja">
         <select class="search-input" id="playlistDropdown">
-            <option value="" disabled selected style="display:none;">-- SELECT a PLAYLIST --</option>
-            <option value="search" class="special-option">&#x1F50D; KEYWORD SEARCH</option>
+            <!-- "SELECT a PLAYLIST"を日本語に変更 -->
+            <option value="" disabled selected style="display:none;">-- プレイリストを選択 --</option>
+            <!-- "KEYWORD SEARCH"を日本語に変更 -->
+            <option value="search" class="special-option">&#x1F50D; キーワードを検索</option>
             <!-- カテゴリごとのグループ -->
             {% for category, items in playlists_grouped.items() %}
                 <optgroup label="{{ category }}">
@@ -79,10 +81,12 @@
             {% endfor %}
         </select>
         <div id="searchBox" style="display:none;">
-            <input type="text" class="search-input" id="keyword" placeholder="Enter Keyword..." autocomplete="off">
+            <!-- "Enter Keyword..."を日本語に変更 -->
+            <input type="text" class="search-input" id="keyword" placeholder="キーワードを入力……" autocomplete="off">
             <button id="searchButton"><i class="fas fa-search"></i></button>
         </div>
     </div>
+
     <div id="controls">
 
         <div id="playing-container">
@@ -363,11 +367,7 @@
                 pause();
                 });
             });
-
-            const COMMON_MESSAGE_BODY = "<p>Click the Play Button.</p>";
-            const message = '<span>Welcome to <strong>TuneNest</strong> !</span>' + COMMON_MESSAGE_BODY;
-
-            document.getElementById('playing').innerHTML = message;
+            document.getElementById('playing').innerHTML = "<p>再生ボタンを<br>押して下さい。</p>";
         });
     </script>
 </body>

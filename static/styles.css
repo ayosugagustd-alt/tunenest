@@ -22,7 +22,10 @@ body {
     background-color: #FFFFFF;
     color: #000000;
     font-size: var(--font-size);
+/*
     font-family: 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+*/
+    font-family: 'Yu Gothic', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', 'Helvetica Neue', Arial, sans-serif;
 
     margin: 20px;
 }
@@ -181,7 +184,10 @@ a:hover {
 }
 
 .custom-list-number {
+/*
     font-family: Monaco, Menlo, 'Lucida Console', monospace;
+*/
+   font-family: 'Yu Gothic', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo, 'Lucida Console', monospace;
 	color: grey;
     font-size: 20px;
     margin-right: 12px;
