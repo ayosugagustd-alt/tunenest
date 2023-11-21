@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="{{ user_language }}">
 <head>
     <meta charset="UTF-8">
     <meta content="hiro" name="author">
@@ -13,7 +13,7 @@
         gtag('js', new Date());
         gtag('config', 'G-FZ8PJFVHVW');
     </script>
-    <title>YouTube Video</title>
+    <title>YouTubeビデオ</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
@@ -24,7 +24,7 @@
 <body>
     <div class="video-container">
         <!-- Added title attribute -->
-        <iframe id="youtube-video" src="https://www.youtube.com/embed/{{ video_id }}" allowfullscreen title="YouTube Video"></iframe>
+        <iframe id="youtube-video" src="https://www.youtube.com/embed/{{ video_id }}" allowfullscreen title="YouTubeビデオ"></iframe>
     </div>
     <footer>
         <!-- Added rel attribute -->

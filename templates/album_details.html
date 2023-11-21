@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="View album details." name="description">
+    <meta content="アルバムの詳細を表示します。" name="description">
     <meta content="hiro" name="author">
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{ album.name }} by {{ artist_names }}">
-    <meta name="twitter:description" content="Explore '{{ album.name }}' - Find the tracklist, popularity, and release date on TuneNest.">
+    <meta name="twitter:description" content="'{{ album.name }}'を探索 - TuneNestでトラックリスト、人気度、リリース日を確認。">
     <meta name="twitter:image" content="{{ album.image or url_for('static', filename='TuneNest.png') }}">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZ8PJFVHVW"></script>
@@ -19,7 +19,7 @@
         gtag('js', new Date());
         gtag('config', 'G-FZ8PJFVHVW');
     </script>
-    <title>{{ album.name }} by {{ artist_names }} - Detailed Album Information</title>
+    <title>{{ album.name }} by {{ artist_names }} - アルバム詳細情報</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
@@ -30,14 +30,14 @@
 <body>
 <h1>{{ album.name }}</h1>
   <div class="section-space">
-    <a href="{{ amazon_search_url }}" target="_blank" rel="noopener"><i class="fab fa-amazon"></i>Search on Amazon</a>
+    <a href="{{ amazon_search_url }}" target="_blank" rel="noopener"><i class="fab fa-amazon"></i>Amazonで検索</a>
         <div class="album-artwork big-artwork">
-            <img alt="Album Artwork" src="{{ album.image or url_for('static', filename='TuneNest.png') }}" loading="lazy">
+            <img alt="アルバムのアートワーク" src="{{ album.image or url_for('static', filename='TuneNest.png') }}" loading="lazy">
         </div>
 </div>
 <div class="section-space">
-    <h2>Basic Information</h2>
-    <p><strong>Popularity</strong>: {{ album.popularity }}%</p>
+    <h2>基本情報</h2>
+    <p><strong>人気度</strong>: {{ album.popularity }}%</p>
     <span class="stars">
         {% for _ in range(0, album.popularity // 10) %}
             <span class="star"><i class="fas fa-star"></i></span>
@@ -49,16 +49,16 @@
             <span class="empty-star"><i class="far fa-star"></i></span>
         {% endfor %}
     </span>
-    <p><strong>Artists</strong>:
+    <p><strong>アーティスト</strong>:
     <ul>
         {% for artist in album.artists %}
         <li><a href="{{ url_for('artist_details', artist_id=artist.id) }}">{{ artist.name }}</a></li>
         {% endfor %}
     </ul>
-    <p><strong>Release Date</strong>: {{ album.release_date }}</p>
+    <p><strong>リリース日</strong>: {{ album.release_date }}</p>
   </div>
 <div class="section-space">
-    <h2>Tracklist</h2>
+    <h2>トラックリスト</h2>
     <ul>
         {% for track in album.tracks %}
             {% set minutes = (track.length / 1000 / 60)|int %}
@@ -69,7 +69,7 @@
 </div>
 <footer>
     <p>Data sourced from <a href="https://www.spotify.com" target="_blank" rel="noopener"><i class="fab fa-spotify"></i>Spotify</a>.</p>
-    <p><a href="{{ url_for('index') }}">Home</a></p>
+    <p><a href="{{ url_for('index') }}">ホーム</a></p>
 </footer>
 </body>
 </html>
