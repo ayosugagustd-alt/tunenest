@@ -9,7 +9,7 @@
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{ album.name }} by {{ artist_names }}">
-    <meta name="twitter:description" content="'{{ album.name }}'のトラックリスト、人気度、リリース日など確認。">
+    <meta name="twitter:description" content="'{{ album.name }}'のトラック一覧、人気度、リリース日など確認。">
     <meta name="twitter:image" content="{{ album.image or url_for('static', filename='TuneNest.png') }}">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZ8PJFVHVW"></script>
@@ -58,7 +58,7 @@
     <p><strong>リリース日</strong>： {{ album.release_date }}</p>
   </div>
 <div class="section-space">
-    <h2>トラックリスト</h2>
+    <h2>トラック一覧</h2>
     <ul>
         {% for track in album.tracks %}
             {% set minutes = (track.length / 1000 / 60)|int %}
