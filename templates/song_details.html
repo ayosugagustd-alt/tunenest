@@ -54,9 +54,8 @@
         <div class="album-artwork big-artwork">
             <img alt="アルバムアートワーク" src="{{ song.album_artwork_url or url_for('static', filename='TuneNest.png') }}" loading="lazy">
         </div>
-<!--        <iframe class="spotify-player" title="Spotify player" allow="encrypted-media" allowtransparency="true" frameborder="0" height="80" src="https://open.spotify.com/embed/track/{{ song_id }}" width="300"></iframe> -->
-            <iframe class="spotify-player" title="Spotify player" allow="encrypted-media"
-                height="80" src="https://open.spotify.com/embed/track/{{ song_id }}" width="300">
+        <iframe class="spotify-player" title="Spotify player" allow="encrypted-media" allowtransparency="true" frameborder="0" height="80" src="https://open.spotify.com/embed/track/{{ song_id }}" width="300"></iframe>
+
             </iframe>
 
 
