@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="hiro" name="author">
-    <meta content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }} - TuneNestで曲の詳細、歌詞、人気度などを見つけましょう。" name="description">
+    <meta content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }} - TuneNestで楽曲の詳細、歌詞、人気度などを見つけましょう。" name="description">
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }}">
@@ -89,7 +89,7 @@
         <p><strong>調</strong>：{{ "長調" if song.mode == 1 else "短調" }}</p>
     </div> <!-- End of div -->
     <div class="visual-section">
-        <h2>音楽特性 <span class="help-link"><a href="/help_song_details" target="_blank" rel="noopener">(音楽特性とは？)</a></span></h2>
+        <h2>音楽特性 <span class="help-link"><a href="/help_song_details" target="_blank" rel="noopener">（音楽特性とは？）</a></span></h2>
         <!-- code for visual properties -->
         {{ render_progress_bar("肯定感", song.valence, "progress-valence") }}
         {{ render_progress_bar("アコースティック度", song.acousticness, "progress-acousticness") }}
