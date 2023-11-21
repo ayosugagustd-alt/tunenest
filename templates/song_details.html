@@ -65,7 +65,7 @@
     <div class="section-space">
         <h2>基本情報</h2>
         <!-- code for song properties -->
-        <p><strong>人気度</strong>: {{ song.popularity }}%</p>
+        <p><strong>人気度</strong>：{{ song.popularity }}%</p>
         <span class="stars">
             {% for _ in range(0, song.popularity // 10) %}
                 <span class="star"><i class="fas fa-star"></i></span>
@@ -77,16 +77,16 @@
                 <span class="empty-star"><i class="far fa-star"></i></span>
             {% endfor %}
         </span>
-        <p><strong>アーティスト</strong>: 
+        <p><strong>アーティスト</strong>：
         <ul>
             {% for artist in song.artists %}
                 <li><a href="{{ url_for('artist_details', artist_id=artist.id) }}">{{ artist.name }}</a></li>
             {% endfor %}
         </ul>
-        <p><strong>再生時間</strong>: {{ (song.duration // 60)|int }}:{{ "%02d"|format(song.duration % 60) }} ({{ song.duration|float|round(1) }}秒)</p>
-        <p><strong>テンポ</strong>: {{ song.tempo|float|round(1) }} BPM</p>
-        <p><strong>キー</strong>: {{ ["C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"][song.key] }}</p>
-        <p><strong>調</strong>: {{ "Major" if song.mode == 1 else "Minor" }}</p>
+        <p><strong>再生時間</strong>：{{ (song.duration // 60)|int }}:{{ "%02d"|format(song.duration % 60) }} ({{ song.duration|float|round(1) }}秒)</p>
+        <p><strong>テンポ</strong>：{{ song.tempo|float|round(1) }} BPM</p>
+        <p><strong>キー</strong>：{{ ["C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"][song.key] }}</p>
+        <p><strong>調</strong>：{{ "Major" if song.mode == 1 else "Minor" }}</p>
     </div> <!-- End of div -->
     <div class="visual-section">
         <h2>音楽特性 <span class="help-link"><a href="/help_song_details" target="_blank" rel="noopener">(音楽特性とは？)</a></span></h2>
@@ -98,7 +98,7 @@
         {{ render_progress_bar("インストゥルメンタル度", song.instrumentalness, "progress-instrumentalness") }}
     </div> <!-- End of .visual-section -->
     <footer>
-        <p>歌詞提供:<a href="https://www.musixmatch.com" target="_blank" rel="noopener">musixmatch</a>.</p>
+        <p>歌詞提供：<a href="https://www.musixmatch.com" target="_blank" rel="noopener">musixmatch</a>.</p>
         <p><a href="{{ url_for('index') }}">ホーム</a></p>
     </footer>
 </body>

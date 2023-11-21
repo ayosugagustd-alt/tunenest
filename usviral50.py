@@ -616,7 +616,6 @@ def artist_details(artist_id):
         artist=artist_details,
         top_tracks=top_tracks_details,
         latest_album=latest_album_details,
-        market="JP",  # wikiのマーケット追加
     )
 
 
