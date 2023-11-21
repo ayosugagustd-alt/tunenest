@@ -61,7 +61,7 @@
     <h1>{{ playlist_name }}</h1>
     <h3>{{ playlist_description|safe }}</h3>
     {% if exceeds_max_tracks %}
-        <p><i class="fas fa-exclamation-triangle"></i>このプレイリストには200曲以上が含まれていますが、最初の200曲のみが表示されます。</p>
+        <p><i class="fas fa-exclamation-triangle"></i>このプレイリストは201曲以上ありますが、最初の200曲のみ表示しています。</p>
     {% endif %}
     <h4><a href="{{ playlist_url }}" target="_blank" rel="noopener">このプレイリストを<i class="fab fa-spotify"></i>Spotifyで再生。</a></h4>
 
