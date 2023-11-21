@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="telephone=no" name="format-detection">
-    <meta content="アーティストの詳細を表示" name="description">
+    <meta content="アーティストの基本情報" name="description">
     <meta content="hiro" name="author">
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="{{ artist['name'] }}">
+    <meta name="twitter:title" content="{{ artist['name'] }}"の基本情報>
     <meta name="twitter:description" content="{{ artist.name }}の人気度、影響力などを学ぶ。">
     <meta name="twitter:image" content="{{ artist['image_url'] or url_for('static', filename='TuneNest.png') }}">
     <!-- Google tag (gtag.js) -->
@@ -20,7 +20,7 @@
         gtag('js', new Date());
         gtag('config', 'G-FZ8PJFVHVW');
     </script>
-    <title>{{ artist['name'] }} - アーティスト詳細情報</title>
+    <title>{{ artist['name'] }} - アーティスト基本情報</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
