@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="{{ user_language }}">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -138,7 +138,6 @@
         let tracks = {{ tracks|tojson }};
         let index = 0;
         let audio;
-        let amazonDomain = "{{ amazon_domain }}";
 
         // 最初に有効なURLを見つける
         for (; index < tracks.length; index++) {
@@ -246,7 +245,7 @@
 
             // Amazonへのリンクを生成
             let amazonSearchKeywords = encodeURIComponent(`"${tracks[index].name}" "${tracks[index].artist}"`);
-            let amazonLink = `https://${amazonDomain}/s?k=${amazonSearchKeywords}&i=digital-music&tag=withmybgm-22`;
+            let amazonLink = `https://www.amazon.co.jp/s?k=${amazonSearchKeywords}&i=digital-music&tag=withmybgm-22`;
             playingInfo += `<br><a href="${amazonLink}" target="_blank" rel="noopener" style="margin-top: 4px; display: inline-block;">`;
             playingInfo += '<i class="fab fa-amazon"></i><span class="info-now-playing">Search</span></a>';
 
