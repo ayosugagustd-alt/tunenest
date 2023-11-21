@@ -9,7 +9,7 @@
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }}">
-    <meta name="twitter:description" content="'{{ song.name }}'の世界に深く潜り込もう - TuneNestでその歌詞、人気度、ユニークな洞察を探索。">
+    <meta name="twitter:description" content="'{{ song.name }}'の歌詞、人気度、音楽特性などを探索。">
     <meta name="twitter:image" content="{{ song.album_artwork_url or url_for('static', filename='TuneNest.png') }}">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZ8PJFVHVW"></script>
