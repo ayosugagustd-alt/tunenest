@@ -508,7 +508,7 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
                 clean_lyrics = lyrics_body.split("\n*******")[0]
                 clean_lyrics = clean_lyrics.replace("\n", "<br>")
             else:
-                clean_lyrics = "Lyrics not found."
+                clean_lyrics = "歌詞が見つかりませんでした。"
 
             # 成功した場合、曲の詳細情報を返す
             return {
