@@ -63,7 +63,7 @@
     {% if exceeds_max_tracks %}
         <p><i class="fas fa-exclamation-triangle"></i>このプレイリストには200曲以上が含まれていますが、最初の200曲のみが表示されます。</p>
     {% endif %}
-    <h4><a href="{{ playlist_url }}" target="_blank" rel="noopener">このプレイリストを<i class="fab fa-spotify"></i>Spotifyで再生</a></h4>
+    <h4><a href="{{ playlist_url }}" target="_blank" rel="noopener">このプレイリストを<i class="fab fa-spotify"></i>Spotifyで再生。</a></h4>
 
     <div id="playlist-controls" lang="ja">
         <select class="search-input" id="playlistDropdown">
@@ -113,16 +113,16 @@
                 <div class="icon-row">
                     {% if track.url %}
                         <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
-                        <i class="fab fa-spotify"></i><span class="icon-caption">Preview</span></a>
+                        <i class="fab fa-spotify"></i><span class="icon-caption">試聴</span></a>
                     {% else %}
-                        <i class="fab fa-spotify icon-disabled"></i><span class="icon-disabled-caption">Preview</span>
+                        <i class="fab fa-spotify icon-disabled"></i><span class="icon-disabled-caption">試聴</span>
                     {% endif %}
                     <a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" target="_blank" rel="noopener" class="media-link">
-                       <i class="fab fa-youtube"></i><span class="icon-caption">Watch</span></a>
+                       <i class="fab fa-youtube"></i><span class="icon-caption">視聴</span></a>
 
                     <!-- Info -->
                     <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
-                    <i class="fas fa-info-circle"></i><span class="icon-caption">Info</span></a>
+                    <i class="fas fa-info-circle"></i><span class="icon-caption">情報</span></a>
                 </div>
             </div>
         </div>
@@ -131,7 +131,7 @@
 <footer>
     <p>データ提供:<a href="https://www.spotify.com/" target="_blank" rel="noopener"><i class="fab fa-spotify"></i>Spotify</a></p>
     <p><a href="{{ url_for('static', filename='privacy-policy.html') }}" target="_blank" rel="noopener">利用規約とプライバシーポリシー</a></p>
-    <p>&copy; 2023 hiro. All rights reserved. Follow me on <a href="https://twitter.com/jmusic_hiro" target="_blank" rel="noopener" title="hiro's X"><i class="fab fa-twitter"></i></a></p>
+    <p>&copy; 2023 ヒロ。all rights reserved. フォローしてください<a href="https://twitter.com/jmusic_hiro" target="_blank" rel="noopener" title="hiro's X"><i class="fab fa-twitter"></i></a></p>
 </footer>
 
     <script>
@@ -221,38 +221,38 @@
             // Spotifyへのリンクを生成
             let spotifyLink = `https://open.spotify.com/track/${tracks[index].id}`;
             playingInfo += `<br><a href="${spotifyLink}" target="_blank" rel="noopener" class="media-link" style="margin-top: -10px; display: inline-block;">`;
-            playingInfo += '<i class="fab fa-spotify"></i><span class="info-now-playing">Full</span></a>';
+            playingInfo += '<i class="fab fa-spotify"></i><span class="info-now-playing">再生</span></a>';
         
             // YouTubeへのリンクを生成
             playingInfo += '<br><a href="/youtube?track=' + 
                                 encodeURIComponent(tracks[index].name) + 
                                 '&artist=' + encodeURIComponent(tracks[index].artist) + 
                                 '" target="_blank" rel="noopener" class="media-link" style="margin-top: 4px; display: inline-block;">';
-            playingInfo += '<i class="fab fa-youtube"></i><span class="info-now-playing">Watch</span></a>';
+            playingInfo += '<i class="fab fa-youtube"></i><span class="info-now-playing">視聴</span></a>';
 
             // Infoへのリンクを生成
             let infoLink = `/song_details/${tracks[index].id}`;
 
             playingInfo += `<br><a href="${infoLink}" target="_blank" rel="noopener" style="margin-top: 4px; display: inline-block;">`;
-            playingInfo += '<i class="fas fa-info-circle"></i><span class="info-now-playing">Info</span></a>';
+            playingInfo += '<i class="fas fa-info-circle"></i><span class="info-now-playing">情報</span></a>';
 
             // Tweet用のテキストを生成
             let tweetText = `${tracks[index].name} - ${tracks[index].artist} ${tracks[index].spotify_link} #NowPlaying`; 
         
             // Twitterへのリンクを生成
             playingInfo += '<br><a href="https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweetText) + '" target="_blank" rel="noopener" style="margin-top: 4px; display: inline-block;">';
-            playingInfo += '<i class="fab fa-twitter"></i><span class="info-now-playing">Share</span></a>';
+            playingInfo += '<i class="fab fa-twitter"></i><span class="info-now-playing">共有</span></a>';
 
             // Amazonへのリンクを生成
             let amazonSearchKeywords = encodeURIComponent(`"${tracks[index].name}" "${tracks[index].artist}"`);
             let amazonLink = `https://www.amazon.co.jp/s?k=${amazonSearchKeywords}&i=digital-music&tag=withmybgm-22`;
             playingInfo += `<br><a href="${amazonLink}" target="_blank" rel="noopener" style="margin-top: 4px; display: inline-block;">`;
-            playingInfo += '<i class="fab fa-amazon"></i><span class="info-now-playing">Search</span></a>';
+            playingInfo += '<i class="fab fa-amazon"></i><span class="info-now-playing">検索</span></a>';
 
             // 最後に全てのリンクと情報をHTMLに反映
             document.getElementById('playing').innerHTML = playingInfo;
 
-            // ここで新しく生成されたYouTubeとSpotify(Full)のリンクにイベントリスナーを設定
+            // ここで新しく生成されたYouTubeとSpotify(再生)のリンクにイベントリスナーを設定
             document.querySelectorAll('.media-link').forEach(function(link) {
                 link.addEventListener('click', function() {
                     // 一時停止関数を呼び出す
@@ -355,9 +355,9 @@
             });
         });
 
-        // 新しいYouTubeとSpotify(Full)のリンクのクリックイベント処理
+        // 新しいYouTubeとSpotify(再生)のリンクのクリックイベント処理
         document.addEventListener("DOMContentLoaded", function() {
-            // すべてのYouTubeとSpotify(Full)のリンクに対してイベントリスナーを追加
+            // すべてのYouTubeとSpotify(再生)のリンクに対してイベントリスナーを追加
             document.querySelectorAll('.media-link').forEach(function(link) {
                 link.addEventListener('click', function() {
                 // 一時停止関数を呼び出す
