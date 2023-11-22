@@ -100,27 +100,29 @@ header p {
 header { text-align: right; width: 98%; padding: 0px 0; }
 
 .fab.fa-spotify {
-    margin-right: 8px;
+    margin-left: 1px;
+    margin-right: 7px;
     font-size: 24px;
 	color: #1DB954;
 }
 .fab.fa-youtube {
-    margin-right: 5px;
+    margin-right: 4px;
     font-size: 24px;
     color: #FF0000;
 }
 .fas.fa-info-circle {
-    margin-right: 8px;
+    margin-right: 7px;
     font-size: 24px;
     color: #4169E1;
 }
 .fab.fa-twitter {
-    margin-right: 6px;
+    margin-right: 7px;
     font-size: 24px;
     color: #1DA1F2;
 }
 .fab.fa-amazon {
-    margin-right: 8px;
+    margin-left: 1px;
+    margin-right: 9px;
     font-size: 24px;
     color: #FF9900; 
 }
@@ -454,23 +456,18 @@ input[type='range']:active::-moz-range-thumb {
         margin-left: 4px;
     }
 	.fab.fa-spotify {
-        margin-right: 5px;
     	font-size: 20px;
 	}
 	.fab.fa-youtube {
-        margin-right: 2px;
     	font-size: 20px;
 	}
 	.fas.fa-info-circle {
-        margin-right: 5px;
     	font-size: 20px;
 	}
 	.fab.fa-twitter {
-        margin-right: 3px;
     	font-size: 20px;
 	}
 	.fab.fa-amazon {
-        margin-right: 5px;
     	font-size: 20px;
 	}
 
