@@ -526,7 +526,7 @@ input[type='range']:active::-moz-range-thumb {
     }
     .info-now-playing {
         font-size: 16px;
-        margin-bottom: 1px;
+        margin-bottom: 3px;
         margin-left: 5px;
     }
     input[type='range'] {
