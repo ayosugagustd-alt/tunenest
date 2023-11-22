@@ -30,7 +30,7 @@
 <body>
 <h1>{{ album.name }}</h1>
   <div class="section-space">
-    <a href="{{ amazon_search_url }}" target="_blank" rel="noopener"><i class="fab fa-amazon"></i>Amazonで検索</a>
+    <a href="{{ amazon_search_url }}" target="_blank" rel="noopener"><i class="fab fa-amazon"></i>amazonで検索</a>
         <div class="album-artwork big-artwork">
             <img alt="アルバムのアートワーク" src="{{ album.image or url_for('static', filename='TuneNest.png') }}" loading="lazy">
         </div>
