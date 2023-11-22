@@ -197,6 +197,7 @@ a:hover {
 
 /* Watch MV, Preview, Info Caption */
 .icon-caption {
+    font-family: 'MS Gothic', 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo, 'Lucida Console', monospace;
     font-size: 16px;
     margin-right: 32px;
     display: inline-block;
