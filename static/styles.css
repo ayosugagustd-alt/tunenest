@@ -88,7 +88,7 @@ button:active {
 /* アートワーク右の表示欄 */
 #playing {
     flex-grow: 1;
-    font-size: 40px;
+    font-size: 38px;
 	margin-left: 10px;
 }
 
