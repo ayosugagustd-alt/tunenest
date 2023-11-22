@@ -118,11 +118,11 @@
                         <i class="fab fa-spotify icon-disabled" style="margin-right: 5px;"></i><span class="icon-disabled-caption">試聴</span>
                     {% endif %}
                     <a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" target="_blank" rel="noopener" class="media-link">
-                       <i class="fab fa-youtube"></i><span class="icon-caption">視聴</span></a>
+                       <i class="fab fa-youtube" style="padding-top: 5px";></i><span class="icon-caption">視聴</span></a>
 
                     <!-- Info -->
                     <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
-                    <i class="fas fa-info-circle" style="margin-right: 5px;"></i><span class="icon-caption">情報</span></a>
+                    <i class="fas fa-info-circle" style="margin-right: 5px; padding-top: 5px;"></i><span class="icon-caption">情報</span></a>
                 </div>
             </div>
         </div>
