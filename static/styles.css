@@ -294,7 +294,7 @@ select {
 
 
 .progress-bar {
-    width: 100%;
+    width: 90%;
     height: 24px;
     background-color: #555;
     margin: 10px 0;
@@ -535,7 +535,7 @@ input[type='range']:active::-moz-range-thumb {
     }
     /* Spotifyプレイヤーのサイズ調整 */
     .spotify-player {
-        width: 76%; /* プレイヤーの幅を画面幅に合わせる */
+        width: 90%; /* プレイヤーの幅を画面幅に合わせる */
         border: 0;
         background: transparent;
     }
