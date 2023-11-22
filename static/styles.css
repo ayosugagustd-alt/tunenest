@@ -198,13 +198,13 @@ a:hover {
 /* Watch MV, Preview, Info Caption */
 .icon-caption {
     font-family: 'MS Gothic', 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo, 'Lucida Console', monospace;
-    font-size: 16px;
+    font-size: 20px;
     margin-right: 32px;
     display: inline-block;
 }
 /* Disabled Caption(No Preview) */
 .icon-disabled-caption {
-    font-size: 16px;
+    font-size: 20px;
     margin-right: 32px;
     display: inline-block;
 
@@ -222,6 +222,7 @@ a:hover {
 .artist{
 	color: grey;
     display: inline-block;
+    margin-bottom: 8px;  /* 下側に余白 */
 }
 
 .track-name{
@@ -271,7 +272,7 @@ select {
 
 .info-now-playing {
     font-size: 24px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     margin-left: 10px;
     display: inline-block;
 }
@@ -445,16 +446,16 @@ input[type='range']:active::-moz-range-thumb {
         max-width: 90%;
     }
     .custom-list-content {
-        font-size: 14px;
+        font-size: 16px;
     }
     .custom-list-number {
-        font-size: 14px;
+        font-size: 16px;
         margin-right: 6px;
     }
     /* アートワーク右の表示欄 */
     #playing {
         flex-grow: 1;
-        font-size: 14px;
+        font-size: 16px;
         margin-left: 4px;
     }
 	.fab.fa-spotify {
@@ -486,12 +487,12 @@ input[type='range']:active::-moz-range-thumb {
 
     /* Watch MV, Preview, Info Caption */
     .icon-caption {
-        font-size: 14px;
+        font-size: 16px;
         margin-right: 28px;
     }
     /* Disabled Caption(No Preview) */
     .icon-disabled-caption {
-        font-size: 14px;
+        font-size: 16px;
         margin-right: 28px;
     }
 	h1 {
@@ -519,8 +520,8 @@ input[type='range']:active::-moz-range-thumb {
         max-width: 80%;
     }
     .info-now-playing {
-        font-size: 14px;
-        margin-bottom: 8px;
+        font-size: 16px;
+        margin-bottom: 1px;
         margin-left: 5px;
     }
     input[type='range'] {
