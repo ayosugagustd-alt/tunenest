@@ -197,13 +197,14 @@ a:hover {
 
 /* Watch MV, Preview, Info Caption */
 .icon-caption {
-    font-family: 'MS Gothic', 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo, 'Lucida Console', monospace;
+    font-family: 'MS Gothic', 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo;
     font-size: 20px;
     margin-right: 32px;
     display: inline-block;
 }
 /* Disabled Caption(No Preview) */
 .icon-disabled-caption {
+    font-family: 'MS Gothic', 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo;
     font-size: 20px;
     margin-right: 32px;
     display: inline-block;
@@ -215,14 +216,14 @@ a:hover {
 }
 
 .icon-disabled {
-  color: lightgray;
-  opacity: 0.3;  /* 透明度も調整可能 */
+    color: lightgray;
+    opacity: 0.3;  /* 透明度も調整可能 */
 }
 
 .artist{
 	color: grey;
     display: inline-block;
-    margin-bottom: 8px;  /* 下側に余白 */
+    margin-bottom: 5px;  /* 下側に余白 */
 }
 
 .track-name{
@@ -234,9 +235,11 @@ a:hover {
     align-items: center;
 }
 
+/*
 .separator {
     margin: 0 10px;
 }
+*/
 
 /* 共通のスタイルを適用 */
 .search-input {
@@ -503,9 +506,11 @@ input[type='range']:active::-moz-range-thumb {
     	margin: 8px 0;
     	font-size: 14px;
 	}
+/*
 	.separator {
     	margin: 0px 5px;
 	}
+*/
     #buttons {
 	    margin-top: 10px;
 	    margin-bottom: 10px;
