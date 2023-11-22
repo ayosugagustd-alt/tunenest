@@ -216,21 +216,11 @@ a:hover {
   opacity: 0.3;  /* 透明度も調整可能 */
 }
 
-.track-info {
-    display: flex;  /* 横並びにする */
-    align-items: center; /* 新しい行に表示 */
-}
-
-.track-info .artist{
+.artist{
 	color: grey;
 }
 
-.artist {
-    margin-left: 16px;  /* 左側に16ピクセルのマージンを追加 */
-}
-
-.track-info .track-name{
-	color: black;
+.track-name{
 	font-weight: bold;
 }
 

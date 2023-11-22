@@ -108,8 +108,8 @@
         <div class="custom-list-item">
             <span class="custom-list-number">{{ "{: >3}".format(loop.index).replace(" ", "&nbsp;")|safe }}.</span>
             <div class="custom-list-content">
-                <div class="track-info">
-                    <span class="track-name">{{ track.name }}</span><span class="separator"></span><span class="artist">{{ track.artist }}</span></div>
+                <div class="track-name">{{ track.name }}</div>
+                <div class="artist">{{ track.artist }}</div>
                 <div class="icon-row">
                     {% if track.url %}
                         <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
