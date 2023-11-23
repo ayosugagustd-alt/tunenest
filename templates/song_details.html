@@ -81,7 +81,7 @@
         <p><strong>再生時間</strong>：{{ (song.duration // 60)|int }}:{{ "%02d"|format(song.duration % 60) }} ({{ song.duration|float|round(1) }}秒)</p>
         <p><strong>テンポ</strong>：{{ song.tempo|float|round(1) }} BPM</p>
         <p><strong>キー</strong>：{{ ["C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"][song.key] }}</p>
-        <p><strong>調</strong>：{{ "長調" if song.mode == 1 else "短調" }}</p>
+        <p><strong>調</strong>：{{ "メジャー" if song.mode == 1 else "マイナー" }}</p>
     </div> <!-- End of div -->
     <div class="visual-section">
         <h2>音楽特性 <span class="help-link"><a href="/help_song_details" target="_blank" rel="noopener">（音楽特性とは？）</a></span></h2>
