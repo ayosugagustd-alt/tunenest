@@ -446,7 +446,7 @@ input[type='range']:active::-moz-range-thumb {
         max-width: 68%;
     }
     .big-artwork img {
-        max-width: 90%;
+        max-width: 100%;
     }
     .custom-list-content {
         font-size: 16px;
@@ -522,7 +522,8 @@ input[type='range']:active::-moz-range-thumb {
     }
     .visual-section,  .section-space {
         padding: 5px;
-        max-width: 80%;
+//        max-width: 80%;
+        max-width: 100%;
     }
     .info-now-playing {
         font-size: 16px;
@@ -535,7 +536,7 @@ input[type='range']:active::-moz-range-thumb {
     }
     /* Spotifyプレイヤーのサイズ調整 */
     .spotify-player {
-        width: 90%; /* プレイヤーの幅を画面幅に合わせる */
+        width: 100%; /* プレイヤーの幅を画面幅に合わせる */
         border: 0;
         background: transparent;
     }
