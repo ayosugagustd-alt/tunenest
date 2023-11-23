@@ -11,7 +11,7 @@
 
 img {
     max-width: 100%;
-    max-height: 520px; /* 最大高さを設定 */
+    max-height: 640px; /* 最大高さを設定 */
     height: auto;
     padding-top: 5px;
 }
@@ -235,12 +235,6 @@ a:hover {
     align-items: center;
 }
 
-/*
-.separator {
-    margin: 0 10px;
-}
-*/
-
 /* 共通のスタイルを適用 */
 .search-input {
     margin-top: 0px;  /* 上側に余白 */
@@ -309,7 +303,7 @@ select {
 
 .visual-section {
     padding: 10px;
-    max-width: 570px; /* 最大高さを設定 */
+    max-width: 640px; /* 最大高さを設定 */
 }
 .section-space {
     padding: 10px;
@@ -506,11 +500,6 @@ input[type='range']:active::-moz-range-thumb {
     	margin: 8px 0;
     	font-size: 14px;
 	}
-/*
-	.separator {
-    	margin: 0px 5px;
-	}
-*/
     #buttons {
 	    margin-top: 10px;
 	    margin-bottom: 10px;
@@ -520,11 +509,6 @@ input[type='range']:active::-moz-range-thumb {
         font-size: 22px;
         margin-right: -2px;
     }
-    .visual-section,  .section-space {
-        padding: 5px;
-//        max-width: 80%;
-        max-width: 100%;
-    }
     .info-now-playing {
         font-size: 16px;
         margin-bottom: 3px;
@@ -533,12 +517,6 @@ input[type='range']:active::-moz-range-thumb {
     input[type='range'] {
         width: 100%; /* モバイルデバイスではスライダーの幅を画面幅に合わせる */
         max-width: 150px; /* 最大幅は150ピクセルに制限 */
-    }
-    /* Spotifyプレイヤーのサイズ調整 */
-    .spotify-player {
-        width: 100%; /* プレイヤーの幅を画面幅に合わせる */
-        border: 0;
-        background: transparent;
     }
 }
 
