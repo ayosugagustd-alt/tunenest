@@ -303,7 +303,7 @@ select {
 
 .visual-section {
     padding: 10px;
-    max-width: 640px; /* 最大高さを設定 */
+    max-width: 570px; /* 最大高さを設定 */
 }
 .section-space {
     padding: 10px;
