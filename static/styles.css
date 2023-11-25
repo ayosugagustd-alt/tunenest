@@ -441,10 +441,12 @@ input[type='range']:active::-moz-range-thumb {
 
 @media only screen and (max-width: 768px) {
 	body {
+        background-color: #ffffff;
     	margin: 10px;
 	}
     .container {
         max-width: 100%; /* スマートフォン等では最大幅を100%に */
+        box-shadow: none; /* 影を削除 */
     }
    img {
         max-width: 68%;
