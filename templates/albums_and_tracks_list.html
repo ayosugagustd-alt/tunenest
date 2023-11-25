@@ -23,6 +23,7 @@
     <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename='f_f_event_43_s64_f_event_43_0nbg.png') }}">
 </head>
 <body>
+<div class="container">
 <h1>アルバム</h1>
 	{% if total_albums > 0 %}
     	<p>アルバムの総数： {{ total_albums }}枚</p>
@@ -42,5 +43,6 @@
 	{% else %}
     	<p>アルバム情報はありません。</p>
 	{% endif %}
+</div>
 </body>
 </html>

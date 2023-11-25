@@ -42,6 +42,7 @@
     <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename='f_f_event_43_s64_f_event_43_0nbg.png') }}">
 </head>
 <body>
+<div class="container">
     {% macro render_progress_bar(property, value, bar_class="") %}
         <p><strong>{{ property }}</strong>: {{ value|float|round(1) }}%</p>
         <div class="progress-bar">
@@ -95,5 +96,6 @@
     <footer>
         <p>歌詞提供：<a href="https://www.musixmatch.com" target="_blank" rel="noopener">musixmatch</a>.</p>
     </footer>
+</div>
 </body>
 </html>
