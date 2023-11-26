@@ -85,7 +85,7 @@
         <p><strong>調</strong>：{{ "メジャー" if song.mode == 1 else "マイナー" }}</p>
     </div> <!-- End of div -->
     <div class="visual-section">
-        <h2>音楽特性 <span class="help-link"><a href="/help_song_details" target="_blank" rel="noopener">（音楽特性とは？）</a></span></h2>
+        <h2>音楽特性について <a href="/help_song_details" class="help-link" target="_blank" rel="noopener" title="音楽特性の詳細情報">[?]</a></h2>
         <!-- code for visual properties -->
         {{ render_progress_bar("肯定感", song.valence, "progress-valence") }}
         {{ render_progress_bar("アコースティック度", song.acousticness, "progress-acousticness") }}
