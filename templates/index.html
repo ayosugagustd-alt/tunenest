@@ -130,10 +130,8 @@
         {% endfor %}
     </div>
 <footer>
-    <p><a href="{{ url_for('static', filename='privacy-policy.html') }}" target="_blank" rel="noopener">利用規約とプライバシーポリシー</a></p>
-    <p>&copy; 2023 ヒロ。<a href="https://twitter.com/jmusic_hiro" target="_blank" rel="noopener" title="hiro's X"><i class="fab fa-twitter" style="margin-right: 0px;"></i></a>フォローしてください。🙏</p>
+    <p>&copy; 2023 ヒロ | <a href="{{ url_for('static', filename='privacy-policy.html') }}" target="_blank" rel="noopener">利用規約とプライバシーポリシー</a> | <a href="https://twitter.com/jmusic_hiro" target="_blank" rel="noopener" title="hiro's Twitter"><i class="fab fa-twitter"></i> Twitter</a></p>
 </footer>
-
     <script>
         let tracks = {{ tracks|tojson }};
         let index = 0;
