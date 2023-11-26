@@ -19,7 +19,7 @@ img {
 .rotate-message { display: none; }
 
 body {
-    background-color: #f5f5f5;
+    background-color: #FFFFFF;
     color: #000000;
     font-size: var(--font-size);
     font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo, 'Lucida Console', monospace;
