@@ -19,7 +19,6 @@ img {
 .rotate-message { display: none; }
 
 body {
-    background-color: #FFFFFF;
     color: #000000;
     font-size: var(--font-size);
     font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo, 'Lucida Console', monospace;
@@ -439,7 +438,6 @@ input[type='range']:active::-moz-range-thumb {
 
 @media only screen and (max-width: 768px) {
 	body {
-        background-color: #ffffff;
     	margin: 10px;
 	}
     .container {
