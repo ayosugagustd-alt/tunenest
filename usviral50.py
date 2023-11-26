@@ -158,12 +158,8 @@ def static_from_root():
 @app.route("/")
 def index():
     try:
-        # プレイリストIDと名前の辞書の先頭を取得
-        keys_list = list(playlists.keys())
-        default_playlist_id = keys_list[0]
-
-        # クエリパラメータか辞書からIDを取得
-        playlist_id = request.args.get("playlist_id", default_playlist_id)
+        # デフォルトID(Tokyo Super Hits)かクエリパラメータIDを設定
+        playlist_id = request.args.get("playlist_id", "37i9dQZF1DXafb0IuPwJyF")
 
         # Spotifyクライアントを取得
         sp = get_spotify_client()
