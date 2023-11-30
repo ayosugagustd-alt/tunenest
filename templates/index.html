@@ -258,7 +258,23 @@
                 });
             });
         
+            // 音量を0に設定して再生を開始
+            audio.volume = 0;
             audio.play();
+
+            // ユーザーが設定した最大ボリュームを取得
+            let maxVolume = volumeSlider.value;
+
+            // フェードイン処理
+            let fadeInterval = setInterval(function() {
+                // 音量を徐々に上げるが、ユーザー設定の最大ボリュームを超えない
+                if (audio.volume < maxVolume) {
+                    audio.volume = Math.min(audio.volume + 0.02, maxVolume); // この値は調整可能です
+                } else {
+                    // フェードイン完了時にIntervalをクリア
+                    clearInterval(fadeInterval);
+                }
+            }, 100); // 100ミリ秒ごとに音量を上げる
             audio.onended = playNext;
             updatePlayingIcon(true);
         }
