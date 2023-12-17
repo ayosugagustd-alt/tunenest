@@ -34,7 +34,6 @@ from functools import lru_cache
 SPOTIFY_CLIENT_ID = os.environ.get("SPOTIFY_CLIENT_ID", None)  # Spotify API
 SPOTIFY_CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET", None)
 YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)  # YouTube API
-MUSIXMATCH_API_KEY = os.environ.get("MUSIXMATCH_API_KEY", None)  # Musixmatch
 
 
 app = Flask(__name__)
@@ -64,9 +63,6 @@ def check_api_keys():
 
     if not YOUTUBE_API_KEY:
         raise ValueError("YouTube APIのキーが設定されていません。環境変数で設定してください。")
-
-    if not MUSIXMATCH_API_KEY:
-        raise ValueError("musixmatch APIのキーが設定されていません。環境変数で設定してください。")
 
 
 # Spotify API Clientを生成して返す。言語設定はしない。
@@ -107,44 +103,6 @@ def get_track_info(track):
     except KeyError as e:
         logging.warning(f"不良データを検出: {e}")
         return None  # 不良データを無視
-
-
-# キャッシュ用の辞書（検索クエリをキー、動画IDを値とする）
-youtube_url_cache = {}
-
-
-# YouTube動画を検索する関数
-# 引数:
-#   - q: 検索クエリ（例："Beatles Let it be"）
-#   - max_results: 返す最大結果数（デフォルトは1）
-#   - youtube_api_key: YouTube APIキー（デフォルトはNone）
-# 戻り値:
-#   - 動画のIDまたはエラーメッセージを含む辞書
-def youtube_search(q, max_results=1, youtube_api_key=None):
-    # キャッシュからURLを取得
-    if q in youtube_url_cache:
-        return youtube_url_cache[q]
-
-    try:
-        youtube = build("youtube", "v3", developerKey=youtube_api_key)
-        search_response = (
-            youtube.search()
-            .list(q=q, type="video", part="id,snippet", maxResults=max_results)
-            .execute()
-        )
-        videos = [
-            search_result["id"]["videoId"]
-            for search_result in search_response.get("items", [])
-        ]
-
-        # キャッシュにURLを保存（次回の高速化のため）
-        video_id = videos[0] if videos else None
-        youtube_url_cache[q] = video_id
-
-        return video_id
-    except HttpError as e:
-        logging.warning(f"YouTube APIでエラーが発生しました: {e}")
-        return {"error": f"An HTTP error occurred: {e}"}
 
 
 # robots.txtファイルを返すルート。
@@ -267,31 +225,6 @@ def index():
         return render_template("error.html", error=str(e))
 
 
-# YouTube検索のルーティング処理
-@app.route("/youtube")
-def youtube():
-    # クエリパラメータからトラック名とアーティスト名を取得
-    track_name = request.args.get("track")
-    artist_name = request.args.get("artist")
-
-    # YouTubeで動画を検索
-    video_id = youtube_search(
-        f"{track_name} {artist_name}", youtube_api_key=YOUTUBE_API_KEY
-    )
-
-    # エラーがあればエラーページを表示
-    if isinstance(video_id, dict) and "error" in video_id:
-        return render_template(
-            "error.html", error=f"An error occurred: {video_id['error']}"
-        )
-
-    # 動画IDが存在すれば結果を表示
-    if video_id:
-        return render_template("youtube.html", video_id=video_id)
-    else:
-        return "動画が見つかりません。", 404
-
-
 # アーティストの詳細情報とトップ曲、最新のアルバムを取得
 # 引数: artist_id (SpotifyのアーティストID)
 # 戻り値: アーティストの詳細、トップ曲のリスト、最新のアルバムの詳細を含む辞書
@@ -400,21 +333,6 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
                 for artist in song_details["artists"]
             ]
 
-            # アーティスト名と楽曲名からmusixmatchのtrack_idを取得
-            musixmatch_track_id = get_cached_musixmatch_track_id(
-                song_details["artists"][0]["name"], song_details["name"]
-            )
-
-            # track_idから歌詞を取得
-            lyrics = get_cached_lyrics(musixmatch_track_id)
-
-            if "lyrics" in lyrics["message"]["body"]:
-                lyrics_body = lyrics["message"]["body"]["lyrics"]["lyrics_body"]
-                clean_lyrics = lyrics_body.split("\n*******")[0]
-                clean_lyrics = clean_lyrics.replace("\n", "<br>")
-            else:
-                clean_lyrics = "歌詞が見つかりませんでした。"
-
             # 成功した場合、曲の詳細情報を返す
             return {
                 "acousticness": audio_features["acousticness"] * 100,
@@ -431,7 +349,6 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
                 "valence": audio_features["valence"] * 100,
                 "album_artwork_url": album_artwork_url,
                 "artists": artists,
-                "lyrics": clean_lyrics,
             }
         except Exception as e:  # タイムアウトやその他の例外をキャッチ
             logging.error(f"An error occurred: {e}. Retrying...")
@@ -566,38 +483,6 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
     return result
 
 
-# musixmatchのtrack_idから歌詞を取得
-@lru_cache(maxsize=128)
-def get_cached_lyrics(track_id):
-    api_key = MUSIXMATCH_API_KEY  # 環境変数からAPIキーを取得
-    base_url = "https://api.musixmatch.com/ws/1.1/"
-    endpoint = f"{base_url}track.lyrics.get?track_id={track_id}&apikey={api_key}"
-    # 歌詞情報を取得するAPIリクエストを送信
-    response = requests.get(endpoint)
-    if response.status_code == 200:
-        return response.json()  # 歌詞情報をJSONとして返す
-    else:
-        return None  # 200以外の場合はエラーとしてNoneを返す
-
-
-# アーティスト名と楽曲名からmusixmatchのtrack_idを取得
-@lru_cache(maxsize=128)
-def get_cached_musixmatch_track_id(artist_name, song_name):
-    api_key = MUSIXMATCH_API_KEY  # 環境変数からAPIキーを取得
-    base_url = "https://api.musixmatch.com/ws/1.1/"
-    query = f"track.search?q_track={song_name}&q_artist={artist_name}&apikey={api_key}"
-    endpoint = base_url + query
-
-    response = requests.get(endpoint)
-
-    if response.status_code == 200:
-        track_data = response.json()["message"]["body"]["track_list"]
-
-        if track_data:
-            return track_data[0]["track"]["track_id"]  # トラックIDを返す
-    return None
-
-
 # アーティスト詳細ページ
 @app.route("/artist/<artist_id>")
 def artist_details(artist_id):
@@ -621,21 +506,12 @@ def album_details(artist_id, album_id):
     try:
         album = get_album_details(album_id)  # 既存の関数でSpotifyからアルバム情報を取得
 
-        # アルバム名とアーティスト名に基づいてAmazon検索URLを作成
-        keywords = f"{album['name']} {album['artists'][0]['name']}"
-        affiliate_code = "withmybgm-22"
-        amazon_search_url = (
-            f"https://www.amazon.co.jp/s?k={quote_plus(keywords)}"
-            f"&i=digital-music&tag={affiliate_code}"
-        )
-
         # アーティスト名を結合してからテンプレートに渡す準備
         artist_names = ", ".join([artist["name"] for artist in album["artists"]])
 
         return render_template(
             "album_details.html",
             album=album,
-            amazon_search_url=amazon_search_url,  # Amazon検索URLをテンプレートに渡す
             artist_names=artist_names,
         )
 
@@ -755,18 +631,10 @@ def song_details(song_id):
     try:
         song = get_song_details_with_retry(song_id)  # Spotifyから曲情報を取得
 
-        # 楽曲名とアーティスト名に基づいてAmazon検索URLを作成
-        keywords = f"{song['name']} {song['artists'][0]['name']}"
-        affiliate_code = "withmybgm-22"
-        amazon_search_url = (
-            f"https://www.amazon.co.jp/s?k={quote_plus(keywords)}"
-            f"&i=digital-music&tag={affiliate_code}"
-        )
         return render_template(
             "song_details.html",
             song=song,
             song_id=song_id,
-            amazon_search_url=amazon_search_url,
         )
 
     except Exception as e:

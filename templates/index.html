@@ -118,8 +118,6 @@
                     {% else %}
                         <i class="fab fa-spotify icon-disabled" style="margin-right: 5px;"></i><span class="icon-disabled-caption">試聴</span>
                     {% endif %}
-                    <a href="/youtube?track={{ track.name|urlencode }}&artist={{ track.artist|urlencode }}" target="_blank" rel="noopener" class="media-link">
-                       <i class="fab fa-youtube" style="padding-top: 5px;"></i><span class="icon-caption">視聴</span></a>
 
                     <!-- Info -->
                     <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
@@ -221,31 +219,11 @@
             playingInfo += `<br><a href="${spotifyLink}" target="_blank" rel="noopener" class="media-link" style="margin-top: 1px; display: inline-block;">`;
             playingInfo += '<i class="fab fa-spotify"></i><span class="info-now-playing">再生</span></a>';
         
-            // YouTubeへのリンクを生成
-            playingInfo += '<br><a href="/youtube?track=' + 
-                                encodeURIComponent(tracks[index].name) + 
-                                '&artist=' + encodeURIComponent(tracks[index].artist) + 
-                                '" target="_blank" rel="noopener" class="media-link" style="margin-top: 1px; display: inline-block;">';
-            playingInfo += '<i class="fab fa-youtube"></i><span class="info-now-playing">視聴</span></a>';
-
             // Infoへのリンクを生成
             let infoLink = `/song_details/${tracks[index].id}`;
 
             playingInfo += `<br><a href="${infoLink}" target="_blank" rel="noopener" style="margin-top: 1px; display: inline-block;">`;
             playingInfo += '<i class="fas fa-info-circle"></i><span class="info-now-playing">情報</span></a>';
-
-            // Tweet用のテキストを生成
-            let tweetText = `${tracks[index].name} - ${tracks[index].artist} ${tracks[index].spotify_link} #NowPlaying`; 
-        
-            // Twitterへのリンクを生成
-            playingInfo += '<br><a href="https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweetText) + '" target="_blank" rel="noopener" style="margin-top: 1px; display: inline-block;">';
-            playingInfo += '<i class="fab fa-twitter"></i><span class="info-now-playing">共有</span></a>';
-
-            // Amazonへのリンクを生成
-            let amazonSearchKeywords = encodeURIComponent(`"${tracks[index].name}" "${tracks[index].artist}"`);
-            let amazonLink = `https://www.amazon.co.jp/s?k=${amazonSearchKeywords}&i=digital-music&tag=withmybgm-22`;
-            playingInfo += `<br><a href="${amazonLink}" target="_blank" rel="noopener" style="margin-top: 1px; display: inline-block;">`;
-            playingInfo += '<i class="fab fa-amazon"></i><span class="info-now-playing">検索</span></a>';
 
             // 最後に全てのリンクと情報をHTMLに反映
             document.getElementById('playing').innerHTML = playingInfo;

@@ -48,8 +48,6 @@
     </span>
     <p><strong>ジャンル</strong>：{{ artist['genres'] | join(', ') }}</p>
     <p><strong>Spotifyフォロワー数</strong>：{{ artist['followers'] }}人</p>
-    <p><a href="https://ja.wikipedia.org/w/index.php?search={{ artist['name'] | urlencode }}" target="_blank" rel="noopener">
-        <i class="fab fa-wikipedia-w"></i><strong>ウィキペディア</strong> </a></p>
   </div>
 <div class="section-space">
     <h2>代表曲</h2>

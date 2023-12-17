@@ -51,12 +51,10 @@
     {% endmacro %}
     <h1>{{ song.name }}</h1>
     <div class="section-space">
-        <a href="{{ amazon_search_url }}" target="_blank" rel="noopener"><i class="fab fa-amazon"></i>amazonで検索</a>
         <div class="album-artwork big-artwork">
             <img alt="アルバムアートワーク" src="{{ song.album_artwork_url or url_for('static', filename='TuneNest.png') }}" loading="lazy">
         </div>
         <iframe class="spotify-player" title="Spotify player" allow="encrypted-media" allowtransparency="true" frameborder="0" height="80" src="https://open.spotify.com/embed/track/{{ song_id }}" width="300"></iframe>
-        <p class="lyrics">{{ song.lyrics|safe }}</p>
     </div> <!-- End of .section-space -->
     <div class="section-space">
         <h2>基本情報</h2>
