@@ -129,6 +129,11 @@ header { text-align: right; width: 98%; padding: 0px 0; }
     font-size: 24px;
     color: #1DA1F2;
 }
+.fa-x-twitter {
+    margin-right: 7px;
+    font-size: 24px;
+    color: #000;
+}
 .fab.fa-amazon {
     margin-left: 1px;
     margin-right: 9px;

@@ -51,7 +51,7 @@
     }
     </script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='f_f_event_43_s16_f_event_43_0nbg.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='f_f_event_43_s32_f_event_43_0nbg.png') }}">
@@ -128,7 +128,7 @@
         {% endfor %}
     </div>
 <footer>
-    <p>&copy;2023 ヒロ <a href="https://twitter.com/jmusic_hiro" target="_blank" rel="noopener" title="hiro's Twitter"><i class="fab fa-twitter"></i></a><a href="{{ url_for('static', filename='privacy-policy.html') }}" target="_blank" rel="noopener">利用規約とプライバシーポリシー</a></p>
+    <p>&copy;2023 ヒロ <a href="https://twitter.com/jmusic_hiro" target="_blank" rel="noopener" title="ヒロのX"><i class="fa-brands fa-x-twitter"></i></a><a href="{{ url_for('static', filename='privacy-policy.html') }}" target="_blank" rel="noopener">利用規約とプライバシーポリシー</a></p>
 </footer>
     <script>
         let tracks = {{ tracks|tojson }};
