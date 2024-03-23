@@ -124,12 +124,7 @@ header { text-align: right; width: 98%; padding: 0px 0; }
     font-size: 24px;
     color: #4169E1;
 }
-.fab.fa-twitter {
-    margin-right: 7px;
-    font-size: 24px;
-    color: #1DA1F2;
-}
-.fa-x-twitter {
+.fab.fa-x-twitter {
     margin-right: 7px;
     font-size: 24px;
     color: #000;
@@ -487,10 +482,7 @@ input[type='range']:active::-moz-range-thumb {
 	.fas.fa-info-circle {
     	font-size: 20px;
 	}
-	.fab.fa-twitter {
-    	font-size: 20px;
-	}
-    .fa-x-twitter {
+    .fab.fa-x-twitter {
         font-size: 20px;
     }
 	.fab.fa-amazon {
