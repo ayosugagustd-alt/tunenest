@@ -121,7 +121,7 @@
 
                     <!-- Info -->
                     <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
-                        <i class="fas fa-info-circle" style="margin-right: 5px; padding-top: 5px;"></i><span class="icon-caption">楽曲詳細</span></a>
+                        <i class="fas fa-info-circle" style="margin-right: 5px; padding-top: 5px;"></i><span class="icon-caption">詳細</span></a>
                 </div>
             </div>
         </div>
@@ -223,9 +223,9 @@
             let infoLink = `/song_details/${tracks[index].id}`;
 
             playingInfo += `<br><a href="${infoLink}" target="_blank" rel="noopener" style="margin-top: 1px; display: inline-block;">`;
-            playingInfo += '<i class="fas fa-info-circle"></i><span class="info-now-playing">楽曲詳細</span></a>';
+            playingInfo += '<i class="fas fa-info-circle"></i><span class="info-now-playing">詳細</span></a>';
 
-            // 最後に全てのリンクと楽曲詳細をHTMLに反映
+            // 最後に全てのリンクと詳細をHTMLに反映
             document.getElementById('playing').innerHTML = playingInfo;
 
             // ここで新しく生成されたYouTubeとSpotify(再生)のリンクにイベントリスナーを設定
