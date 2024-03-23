@@ -490,6 +490,9 @@ input[type='range']:active::-moz-range-thumb {
 	.fab.fa-twitter {
     	font-size: 20px;
 	}
+    .fa-x-twitter {
+        font-size: 20px;
+    }
 	.fab.fa-amazon {
     	font-size: 20px;
 	}
