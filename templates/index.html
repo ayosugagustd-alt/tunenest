@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta name="description" content="{{ playlist_description or 'TuneNest: プレビュー再生、アーティストのプロフィール、アルバムの詳細、トラックの詳細を探索。' }}">
+    <meta name="description" content="{{ playlist_description or 'TuneNest: ハイライト再生、アーティストのプロフィール、アルバムの詳細、トラックの詳細を探索。' }}">
     <meta name="author" content="hiro">
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary">
@@ -19,7 +19,7 @@
         gtag('js', new Date());
         gtag('config', 'G-FZ8PJFVHVW');
     </script>
-    <title>{{ playlist_name or 'Explore Music' }} : Spotifyプレイリストを試聴</title>
+    <title>{{ playlist_name or 'Explore Music' }} : プレイリストをハイライト再生</title>
     <script type="application/ld+json">
     {
         "@context": "http://schema.org",
@@ -64,7 +64,7 @@
     {% if exceeds_max_tracks %}
         <p><i class="fas fa-exclamation-triangle"></i>{{ playlist_name }}は201曲以上ありますが、最初の200曲のみ表示しています。</p>
     {% endif %}
-    <h4><a href="{{ playlist_url }}" target="_blank" rel="noopener">{{ playlist_name }}を<i class="fab fa-spotify" style="margin-right: 2px;"></i>Spotifyで再生。</a></h4>
+    <h4><a href="{{ playlist_url }}" target="_blank" rel="noopener">{{ playlist_name }}を<i class="fab fa-spotify" style="margin-right: 2px;"></i>Spotifyでフル再生。</a></h4>
 
     <div id="playlist-controls" lang="ja">
         <select class="search-input" id="playlistDropdown">
@@ -114,14 +114,14 @@
                 <div class="icon-row">
                     {% if track.url %}
                         <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
-                        <i class="fab fa-spotify" style="margin-right: 5px;"></i><span class="icon-caption">試聴</span></a>
+                        <i class="fab fa-spotify" style="margin-right: 5px;"></i><span class="icon-caption">ハイライト再生</span></a>
                     {% else %}
-                        <i class="fab fa-spotify icon-disabled" style="margin-right: 5px;"></i><span class="icon-disabled-caption">試聴</span>
+                        <i class="fab fa-spotify icon-disabled" style="margin-right: 5px;"></i><span class="icon-disabled-caption">ハイライト再生</span>
                     {% endif %}
 
                     <!-- Info -->
                     <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
-                        <i class="fas fa-info-circle" style="margin-right: 5px; padding-top: 5px;"></i><span class="icon-caption">情報</span></a>
+                        <i class="fas fa-info-circle" style="margin-right: 5px; padding-top: 5px;"></i><span class="icon-caption">楽曲詳細</span></a>
                 </div>
             </div>
         </div>
@@ -217,15 +217,15 @@
             // Spotifyへのリンクを生成
             let spotifyLink = `https://open.spotify.com/track/${tracks[index].id}`;
             playingInfo += `<br><a href="${spotifyLink}" target="_blank" rel="noopener" class="media-link" style="margin-top: 1px; display: inline-block;">`;
-            playingInfo += '<i class="fab fa-spotify"></i><span class="info-now-playing">再生</span></a>';
+            playingInfo += '<i class="fab fa-spotify"></i><span class="info-now-playing">フル再生</span></a>';
         
             // Infoへのリンクを生成
             let infoLink = `/song_details/${tracks[index].id}`;
 
             playingInfo += `<br><a href="${infoLink}" target="_blank" rel="noopener" style="margin-top: 1px; display: inline-block;">`;
-            playingInfo += '<i class="fas fa-info-circle"></i><span class="info-now-playing">情報</span></a>';
+            playingInfo += '<i class="fas fa-info-circle"></i><span class="info-now-playing">楽曲詳細</span></a>';
 
-            // 最後に全てのリンクと情報をHTMLに反映
+            // 最後に全てのリンクと楽曲詳細をHTMLに反映
             document.getElementById('playing').innerHTML = playingInfo;
 
             // ここで新しく生成されたYouTubeとSpotify(再生)のリンクにイベントリスナーを設定
