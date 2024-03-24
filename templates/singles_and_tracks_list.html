@@ -40,6 +40,7 @@
         </div>
     {% else %}
         <p>シングルに関する情報はありません。</p>
+        <a href="{{ url_for('artist_details', artist_id=artist_id) }}">アーティス詳細へ戻る</a>
     {% endif %}
 </div>
 </body>
