@@ -101,7 +101,7 @@
             <button onclick="playNext()"><i class="fas fa-step-forward"></i></button>
             <!-- ボリュームコントロール用のスライダー -->
             <div class="slider-container">
-                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+                <input type="range" id="volumeSlider" min="0" max="0.7" step="0.01" value="0.7">
             </div>
         </div>
 
@@ -236,8 +236,8 @@
                 });
             });
         
-            // 音量を0に設定して再生を開始
-            audio.volume = 0.2;
+            // 音量を0.1に設定して再生を開始
+            audio.volume = 0.1;
             audio.play();
 
             // ユーザーが設定した最大ボリュームを取得
