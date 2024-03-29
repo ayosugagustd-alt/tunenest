@@ -210,6 +210,12 @@
                 artworkElement.style.animation = 'bounce 0.5s ease';
             }, 0);
 
+            // ここからブラウザのタイトルを更新するコードを挿入
+            const currentTrackName = tracks[index].name; // 現在再生中のトラック名を取得
+            const playlistName = "{{ playlist_name or 'Explore Music' }}"; // プレイリスト名を取得
+            document.title = `${currentTrackName} : ${playlistName} - TuneNest`; // ブラウザのタイトルを更新
+            // ここまで
+
             let playingInfo = '<span style="color: #7F7F7F;">#' + (index + 1) + ':</span>' + "<br>" + 
                               '<span>' + tracks[index].name + '</span>' + "<br>" + 
                               '<span style="color: #7F7F7F;">' + tracks[index].artist + '</span>' + "<br>";
