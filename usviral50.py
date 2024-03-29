@@ -158,13 +158,13 @@ def index():
             )
 
         # プレイリストのトラックを取得
-        MAX_TRACKS = 200  # 最大取得曲数を定義
+        MAX_TRACKS = 500  # 最大取得曲数を定義
 
         offset = 0
         limit = 100  # 1回のAPI呼び出しで取得できる最大トラック数
         all_tracks = []  # 全トラックを格納するリスト
 
-        exceeds_max_tracks = False  # 200曲以上かどうかのフラグ
+        exceeds_max_tracks = False  # 500曲以上かどうかのフラグ
 
         while True:
             results = sp.playlist_tracks(
