@@ -2,15 +2,6 @@
 
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta name="description" content="{{ playlist_description or 'TuneNest: ハイライト再生、アーティストのプロフィール、アルバムの詳細、トラックの詳細を探索。' }}">
-    <meta name="author" content="hiro">
-    <!-- Twitter Card data -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="{{ playlist_name }}">
-    <meta name="twitter:description" content="{{ playlist_description }}">
-    <meta name="twitter:image" content="{{ collage_filename or url_for('static', filename='TuneNest.png') }}">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZ8PJFVHVW"></script>
     <script>
@@ -20,6 +11,15 @@
 
         gtag('config', 'G-FZ8PJFVHVW');
     </script>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="description" content="{{ playlist_description or 'TuneNest: ハイライト再生、アーティストのプロフィール、アルバムの詳細、トラックの詳細を探索。' }}">
+    <meta name="author" content="hiro">
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ playlist_name }}">
+    <meta name="twitter:description" content="{{ playlist_description }}">
+    <meta name="twitter:image" content="{{ collage_filename or url_for('static', filename='TuneNest.png') }}">
     <title>{{ playlist_name or 'Explore Music' }} : プレイリストをハイライト再生</title>
     <script type="application/ld+json">
     {
