@@ -2,6 +2,15 @@
 
 <html lang="ja">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ELP4DSW3BL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-ELP4DSW3BL');
+    </script>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="hiro" name="author">
@@ -11,14 +20,6 @@
     <meta name="twitter:title" content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }}">
     <meta name="twitter:description" content="{{ song.name }}の人気度、音楽特性などを探索。">
     <meta name="twitter:image" content="{{ song.album_artwork_url or url_for('static', filename='TuneNest.png') }}">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZ8PJFVHVW"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-FZ8PJFVHVW');
-    </script>
     <title>{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }} - 人気度、その他 | TuneNest</title>
     <script type="application/ld+json">
     {
