@@ -116,8 +116,8 @@ def static_from_root():
 @app.route("/")
 def index():
     try:
-        # デフォルトID(Tokyo Super Hits)かクエリパラメータIDを設定
-        playlist_id = request.args.get("playlist_id", "37i9dQZF1DXebjPzM8sHrq")
+        # デフォルトIDかクエリパラメータIDを設定
+        playlist_id = request.args.get("playlist_id", "37i9dQZF1DWUQlpHXZRO4T")
 
         # Spotifyクライアントを取得
         sp = get_spotify_client()
