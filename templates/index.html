@@ -211,10 +211,12 @@
                 artworkElement.style.animation = 'bounce 0.5s ease';
             }, 0);
 
-            // ここからブラウザのタイトルを更新するコードを挿入
-            const currentTrackName = tracks[index].name; // 現在再生中のトラック名を取得
-            const artistName = tracks[index].artist; // 現在再生中のアーティスト名を取得
-            document.title = `${currentTrackName} - ${artistName}`; // ブラウザのタイトルを更新
+            // ブラウザのタイトルを更新する
+            const currentIndex = (index + 1); // 再生中のインデックス番号
+            const currentTrackName = tracks[index].name; // 再生中のトラック名
+            const currentArtistName = tracks[index].artist; // 再生中のアーティスト名
+            // ブラウザのタグを更新
+            document.title = `#${currentIndex}: ${currentTrackName} - ${currentArtistName}`;
             // ここまで
 
             let playingInfo = '<span style="color: #7F7F7F;">#' + (index + 1) + ':</span>' + "<br>" + 
