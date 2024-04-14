@@ -117,7 +117,7 @@ def static_from_root():
 def index():
     try:
         # デフォルトIDかクエリパラメータIDを設定
-        playlist_id = request.args.get("playlist_id", "37i9dQZF1DWUQlpHXZRO4T")
+        playlist_id = request.args.get("playlist_id", "6BAQM9GC2ejo38xe5EbBAK")
 
         # Spotifyクライアントを取得
         sp = get_spotify_client()
