@@ -97,7 +97,7 @@ button:active {
 /* アートワーク右の表示欄 */
 #playing {
     flex-grow: 1;
-    font-size: 38px;
+    font-size: 28px;
 	margin-left: 10px;
 }
 

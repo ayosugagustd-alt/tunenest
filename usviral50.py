@@ -78,11 +78,27 @@ def get_spotify_client():
             )
         return spotify_client
 
+# トラックのIDリストからオーディオ特性をバッチで取得する関数
+# 引数: track_ids (Spotify APIから取得したトラックIDのリスト)
+# 戻り値: トラックIDをキーとし、各トラックのオーディオ特性データを含む辞書
+def get_tracks_audio_features(track_ids):
+    sp = get_spotify_client()  # Spotifyクライアントを取得
+    features_dict = {}
+
+    # トラックIDのリストを50曲ずつのバッチに分割し、各バッチごとにオーディオ特性を取得
+    for i in range(0, len(track_ids), 50):
+        batch = track_ids[i:i+50]
+        features_list = sp.audio_features(batch)  # Spotify APIを呼び出してオーディオ特性を取得
+        for feature in features_list:
+            if feature:
+                features_dict[feature['id']] = feature  # 取得した特性を辞書に追加
+    return features_dict
+
 
 # トラック情報を取得する関数
 # 引数: track (Spotify APIから取得したトラックの辞書)
 # 戻り値: トラック情報を含む辞書
-def get_track_info(track):
+def get_track_info(track, audio_features):
     try:
         image_url = (
             track["album"]["images"][0]["url"]
@@ -91,6 +107,8 @@ def get_track_info(track):
         )
         spotify_link = track["external_urls"]["spotify"]
         artist_name = track["artists"][0]["name"]
+        tempo = audio_features['tempo'] if audio_features else '不明'
+
         track_info = {
             "id": track["id"],
             "url": track["preview_url"],
@@ -98,6 +116,7 @@ def get_track_info(track):
             "artist": artist_name,
             "image_url": image_url,
             "spotify_link": spotify_link,
+            "tempo": tempo
         }
         return track_info
     except KeyError as e:
@@ -187,13 +206,18 @@ def index():
 
             offset += limit
 
+        # トラックIDのリストを作成し、オーディオ特性を取得
+        track_ids = [item['track']['id'] for item in all_tracks if item.get('track') and item['track'].get('id')]
+        audio_features_dict = get_tracks_audio_features(track_ids)  # オーディオ特性を取得
+
         # トラック情報を整形（抜け番対応とNoneチェック）
         all_tracks_info = []
         for item in all_tracks:
             track = item.get("track")  # itemから"track"キーの値を安全に取得
-            if track is not None:  # trackがNoneでないことを確認
-                track_info = get_track_info(track)
-                if track_info is not None:  # get_track_infoの結果がNoneでないことを確認
+            if track and track['id'] in audio_features_dict:
+                track_features = audio_features_dict[track['id']]  # 対応するオーディオ特性を取得
+                track_info = get_track_info(track, track_features)  # オーディオ特性を引数として渡す
+                if track is not None:  # trackがNoneでないことを確認
                     all_tracks_info.append(track_info)
 
         # 有効なトラック情報のみをフィルタリング
