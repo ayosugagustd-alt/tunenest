@@ -239,6 +239,10 @@ a:hover {
 	font-weight: bold;
 }
 
+.track-tempo{
+	color: grey;
+}
+
 .icon-row {
     display: flex; /* 新しい行に表示 */
     align-items: center;

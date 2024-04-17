@@ -13,7 +13,7 @@
     </script>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta name="description" content="{{ playlist_description or 'TuneNest: 試聴、アーティストのプロフィール、アルバムの詳細、トラックの詳細を探索。' }}">
+    <meta name="description" content="{{ playlist_description or 'TuneNest: BPM、試聴、アーティストのプロフィール、アルバムの詳細、トラックの詳細を探索。' }}">
     <meta name="author" content="hiro">
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary">
@@ -112,6 +112,7 @@
             <div class="custom-list-content">
                 <div class="track-name">{{ track.name }}</div>
                 <div class="artist">{{ track.artist }}</div>
+                <div class="track-tempo">{{ track.tempo|float|round(1) }} BPM</div>
                 <div class="icon-row">
                     {% if track.url %}
                         <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
@@ -123,9 +124,6 @@
                     <!-- Info -->
                     <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
                         <i class="fas fa-info-circle" style="margin-right: 5px; padding-top: 5px;"></i><span class="icon-caption">詳細</span></a>
-
-                    <!-- tempo -->
-                    <div class="tempo">{{ track.tempo|float|round(1) }} BPM</div>
                 </div>
             </div>
         </div>
