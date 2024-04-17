@@ -13,14 +13,14 @@
     </script>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta name="description" content="{{ playlist_description or 'TuneNest: BPM、試聴、アーティストのプロフィール、アルバムの詳細、トラックの詳細を探索。' }}">
+    <meta name="description" content="{{ playlist_description or 'TuneNest: BPM、プレビュー、アーティストのプロフィール、アルバムの詳細、トラックの詳細を探索。' }}">
     <meta name="author" content="hiro">
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{ playlist_name }}">
     <meta name="twitter:description" content="{{ playlist_description }}">
     <meta name="twitter:image" content="{{ collage_filename or url_for('static', filename='TuneNest.png') }}">
-    <title>{{ playlist_name or 'Explore Music' }} : プレイリストを試聴</title>
+    <title>{{ playlist_name or 'Explore Music' }} : プレイリストをプレビュー</title>
     <script type="application/ld+json">
     {
         "@context": "http://schema.org",
@@ -116,9 +116,9 @@
                 <div class="icon-row">
                     {% if track.url %}
                         <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
-                        <i class="fab fa-spotify" style="margin-right: 5px;"></i><span class="icon-caption">試聴</span></a>
+                        <i class="fab fa-spotify" style="margin-right: 5px;"></i><span class="icon-caption">プレビュー</span></a>
                     {% else %}
-                        <i class="fab fa-spotify icon-disabled" style="margin-right: 5px;"></i><span class="icon-disabled-caption">試聴</span>
+                        <i class="fab fa-spotify icon-disabled" style="margin-right: 5px;"></i><span class="icon-disabled-caption">プレビュー</span>
                     {% endif %}
 
                     <!-- Info -->
@@ -230,7 +230,7 @@
             // Spotifyへのリンクを生成
             let spotifyLink = `https://open.spotify.com/track/${tracks[index].id}`;
             playingInfo += `<br><a href="${spotifyLink}" target="_blank" rel="noopener" class="media-link" style="margin-top: 1px; display: inline-block;">`;
-            playingInfo += '<i class="fab fa-spotify"></i><span class="info-now-playing">フル再生</span></a>';
+            playingInfo += '<i class="fab fa-spotify"></i><span class="info-now-playing">再生</span></a>';
         
             // Infoへのリンクを生成
             let infoLink = `/song_details/${tracks[index].id}`;
