@@ -207,14 +207,14 @@ a:hover {
 
 /* Watch MV, Preview, Info Caption */
 .icon-caption {
-    font-family: 'MS Gothic', 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo;
+    font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo, 'Lucida Console', monospace;
     font-size: 20px;
     margin-right: 32px;
     display: inline-block;
 }
 /* Disabled Caption(No Preview) */
 .icon-disabled-caption {
-    font-family: 'MS Gothic', 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo;
+    font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo, 'Lucida Console', monospace;
     font-size: 20px;
     margin-right: 32px;
     display: inline-block;
@@ -240,8 +240,15 @@ a:hover {
 	font-weight: bold;
 }
 
-.track-tempo{
-	color: grey;
+.tempo-value {
+    font-family: 'Courier', 'Space Mono', 'GT Pressura Mono', monospace;
+    font-weight: bold;
+}
+
+.tempo-unit, .key-info {
+    font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo, 'Lucida Console', monospace;
+    color: grey;
+    margin-right: 16px;
 }
 
 .icon-row {
