@@ -72,7 +72,8 @@
             <!-- "SELECT a PLAYLIST"を日本語に変更 -->
             <option value="" disabled selected style="display:none;">曲検索 / プレイリスト選択</option>
             <!-- "KEYWORD SEARCH"を日本語に変更 -->
-            <option value="search" class="special-option">&#x1F50D; 曲検索はココ</option>
+            <option value="searchTrack" class="special-option">&#x1F50D; 曲検索はココ</option>
+            <option value="searchPlaylist" class="special-option">&#x1F50D; プレイリスト検索はココ</option>
             <!-- カテゴリごとのグループ -->
             {% for category, items in playlists_grouped.items() %}
                 <optgroup label="{{ category }}">
@@ -330,7 +331,7 @@
 
             playlistDropdown.addEventListener('change', function() {
                 const selectedPlaylistId = playlistDropdown.value;
-                if (selectedPlaylistId === 'search') {
+                if (selectedPlaylistId === 'searchTrack' || selectedPlaylistId === 'searchPlaylist') {
                     searchBox.style.display = 'flex';
                 } else {
                     searchBox.style.display = 'none';
@@ -339,30 +340,35 @@
                 }
             });
 
-            // 新しく追加: キーワードで検索する処理
             searchButton.addEventListener('click', async function() {
                 const keyword = keywordInput.value;
-                if (keyword) {
-                    try {
+                if (!keyword) {
+                    alert("キーワードを入力してください。");
+                    return; // キーワードが空の場合は処理を中断
+                }
 
-                        // プレイリストではなく楽曲を検索するように仕様変更
-                        // const response = await fetch(`/search_playlist?keyword=${keyword}`);
-                        const response = await fetch(`/search_track?keyword=${keyword}`);
+                let apiEndpoint = "";
+                // ドロップダウンで選択されたオプションに基づいてAPIエンドポイントを設定
+                if (playlistDropdown.value === 'searchTrack') {
+                    apiEndpoint = `/search_track?keyword=${encodeURIComponent(keyword)}`;
+                } else if (playlistDropdown.value === 'searchPlaylist') {
+                    apiEndpoint = `/search_playlist?keyword=${encodeURIComponent(keyword)}`;
+                }
 
-                        if (response.ok) {
-                            const data = await response.json();
-                            // プレイリストではなく楽曲を検索するように仕様変更
-                            // const playlist_id = data.playlist_id;
-                            // const url = `/?playlist_id=${playlist_id}`;
-                            // window.location.href = url;
-                            const track_id = data.track_id;
-                            window.open(`/song_details/${track_id}`, '_blank');
-                        } else {
-                            console.error('Search failed');
+                try {
+                    const response = await fetch(apiEndpoint);
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (playlistDropdown.value === 'searchTrack') {
+                            window.open(`/song_details/${data.track_id}`, '_blank'); // 楽曲詳細ページを新しいタブで開く
+                        } else if (playlistDropdown.value === 'searchPlaylist') {
+                            window.location.href = `/?playlist_id=${data.playlist_id}`; // プレイリストページにリダイレクト
                         }
-                    } catch (error) {
-                        console.error('There was a problem with the fetch operation:', error);
+                    } else {
+                        console.error('Search failed:', response.statusText);
                     }
+                } catch (error) {
+                    console.error('There was a problem with the fetch operation:', error);
                 }
             });
         });
@@ -370,23 +376,53 @@
         document.addEventListener('DOMContentLoaded', function() {
             const searchButton = document.getElementById('searchButton');
             const keywordInput = document.getElementById('keyword');
+            const playlistDropdown = document.getElementById('playlistDropdown'); // ドロップダウンを取得
+
+
+            // ドロップダウンの選択が変わったときの処理を追加
+            playlistDropdown.addEventListener('change', function() {
+                if (playlistDropdown.value === 'searchTrack') {
+                    keywordInput.placeholder = "曲名、アーティスト名で検索";
+                } else if (playlistDropdown.value === 'searchPlaylist') {
+                    keywordInput.placeholder = "プレイリスト名で検索";
+                } else {
+                    keywordInput.placeholder = "曲名、アーティスト名など…";
+                }
+            });
 
             function performSearch() {
                 const keyword = keywordInput.value;
-                if (keyword) {
-                    fetch(`/search_track?keyword=${encodeURIComponent(keyword)}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.track_id) {
-                                window.open(`/song_details/${data.track_id}`, '_blank');
-                            } else {
-                                console.error('No track ID returned');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('There was a problem with the fetch operation:', error);
-                        });
+                if (!keyword) {
+                    alert("キーワードを入力してください。");
+                    return; // キーワードが空の場合は処理を中断
                 }
+
+                let apiEndpoint = "";
+                if (playlistDropdown.value === 'searchTrack') {
+                    apiEndpoint = `/search_track?keyword=${encodeURIComponent(keyword)}`;
+                } else if (playlistDropdown.value === 'searchPlaylist') {
+                    apiEndpoint = `/search_playlist?keyword=${encodeURIComponent(keyword)}`;
+                }
+
+                fetch(apiEndpoint)
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        }
+                        throw new Error('Search failed: ' + response.statusText);
+                    })
+                    .then(data => {
+                        if (playlistDropdown.value === 'searchTrack' && data.track_id) {
+                            window.open(`/song_details/${data.track_id}`, '_blank');
+                        } else if (playlistDropdown.value === 'searchPlaylist' && data.playlist_id) {
+                            window.location.href = `/?playlist_id=${data.playlist_id}`;
+                        } else {
+                            console.error('No valid ID returned');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with the fetch operation:', error);
+                    });
             }
 
             // ボタンクリックで検索を実行
