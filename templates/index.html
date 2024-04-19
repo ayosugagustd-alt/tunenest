@@ -263,7 +263,8 @@
             let fadeInterval = setInterval(function() {
                 // 音量を徐々に上げるが、ユーザー設定の最大ボリュームを超えない
                 if (audio.volume < maxVolume) {
-                    audio.volume = Math.min(audio.volume + 0.01, maxVolume); // この値は調整可能です
+//                    audio.volume = Math.min(audio.volume + 0.01, maxVolume); // この値は調整可能です
+                    audio.volume = Math.min(audio.volume + (maxVolume / 20), maxVolume); // この値は調整可能です
                 } else {
                     // フェードイン完了時にIntervalをクリア
                     clearInterval(fadeInterval);
@@ -449,6 +450,28 @@
                 });
             });
             document.getElementById('playing').innerHTML = "<strong>tune</strong><span style='color: grey;'>nest</span>";
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            let audio = new Audio();  // 現在のオーディオ
+            let nextAudio = preloadNextTrack();  // 次のオーディオをプリロード
+
+            audio.onended = function() {
+                playNextTrack();  // 終了時に次のトラックを再生
+            };
+
+            function preloadNextTrack() {
+                let nextIndex = (index + 1) % tracks.length;
+                let nextTrackURL = tracks[nextIndex].url;
+                let nextAudio = new Audio(nextTrackURL);
+                nextAudio.preload = 'auto';
+                return nextAudio;
+            }
+
+            function playNextTrack() {
+                audio = nextAudio;  // 現在のオーディオを更新
+                audio.play();
+                nextAudio = preloadNextTrack();  // 次をプリロード
+            }
         });
     </script>
 </div>
