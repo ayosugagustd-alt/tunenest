@@ -379,6 +379,15 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
             # アルバムのアートワークURLを取得
             album_artwork_url = song_details["album"]["images"][0]["url"]
 
+            # アルバム名を取得
+            album_name = song_details["album"]["name"]
+
+            # レーベル名を取得
+            label = song_details["album"]["label"] if "label" in song_details["album"] else "不明"
+
+            # リリース日を取得
+            release_date = song_details["album"]["release_date"]
+
             # アーティスト名を取得（複数の場合あり）
             artists = [
                 {"name": artist["name"], "id": artist["id"]}
@@ -404,7 +413,10 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
                 "valence": audio_features["valence"] * 100,
                 "album_artwork_url": album_artwork_url,
                 "artists": artists,
-                "camelot_key": camelot_key_value  # 追加されたキャメロットキー情報
+                "camelot_key": camelot_key_value,  # 追加されたキャメロットキー情報
+                "album_name": album_name,  # 追加されたアルバム名
+                "label": label,  # 追加されたレーベル名
+                "release_date": release_date  # 追加されたリリース日
             }
         except Exception as e:  # タイムアウトやその他の例外をキャッチ
             logging.error(f"An error occurred: {e}. Retrying...")
