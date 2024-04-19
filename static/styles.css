@@ -472,7 +472,6 @@ input[type='range']:active::-moz-range-thumb {
     font-size: 24px; /* アイコンサイズ */
 }
 
-
 @media only screen and (max-width: 768px) {
 	body {
         background-color: #ffffff; /* 背景色を白に設定 */
