@@ -45,6 +45,12 @@
     	<p>アルバム情報はありません。</p>
         <a href="{{ url_for('artist_details', artist_id=artist_id) }}">アーティスト詳細へ戻る</a>
 	{% endif %}
+    <!-- Navigation Icon at the bottom -->
+    <div class="home-icon">
+        <a href="/" aria-label="Home">
+            <i class="fas fa-home"></i> <!-- FontAwesomeのホームアイコン -->
+        </a>
+    </div>
 </div>
 </body>
 </html>
