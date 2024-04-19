@@ -688,6 +688,25 @@ def search_playlist():
 
     return jsonify({"playlist_id": playlist_id})
 
+# キーワードで楽曲を検索する新しいルート
+@app.route("/search_track", methods=["GET"])
+def search_track():
+    keyword = request.args.get("keyword")
+    if not keyword:
+        return jsonify({"error": "No keyword provided"}), 400
+
+    sp = get_spotify_client()
+
+    # Spotify APIでキーワードに基づいて楽曲を検索
+    results = sp.search(q=keyword, type='track', limit=1, market='JP')
+    if not results or not results.get("tracks") or not results["tracks"]["items"]:
+        return jsonify({"error": "No tracks found"}), 404
+
+    track = results["tracks"]["items"][0]
+    track_id = track["id"]
+
+    return jsonify({"track_id": track_id})
+
 
 # メインのエントリーポイント
 # スクリプトが直接実行された場合に以下のコードが実行される

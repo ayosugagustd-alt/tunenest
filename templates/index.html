@@ -70,9 +70,9 @@
     <div id="playlist-controls" lang="ja">
         <select class="search-input" id="playlistDropdown">
             <!-- "SELECT a PLAYLIST"を日本語に変更 -->
-            <option value="" disabled selected style="display:none;">-- プレイリストを選択 --</option>
+            <option value="" disabled selected style="display:none;">楽曲検索 / プレイリスト選択</option>
             <!-- "KEYWORD SEARCH"を日本語に変更 -->
-            <option value="search" class="special-option">&#x1F50D; キーワードを検索</option>
+            <option value="search" class="special-option">&#x1F50D; 楽曲検索はココ</option>
             <!-- カテゴリごとのグループ -->
             {% for category, items in playlists_grouped.items() %}
                 <optgroup label="{{ category }}">
@@ -84,7 +84,7 @@
         </select>
         <div id="searchBox" style="display:none;">
             <!-- "Enter Keyword..."を日本語に変更 -->
-            <input type="text" class="search-input" id="keyword" placeholder="キーワードを入力……" autocomplete="off">
+            <input type="text" class="search-input" id="keyword" placeholder="曲名、アーティスト名など…" autocomplete="off">
             <button id="searchButton"><i class="fas fa-search"></i></button>
         </div>
     </div>
@@ -344,18 +344,59 @@
                 const keyword = keywordInput.value;
                 if (keyword) {
                     try {
-                        const response = await fetch(`/search_playlist?keyword=${keyword}`);
+
+                        // プレイリストではなく楽曲を検索するように仕様変更
+                        // const response = await fetch(`/search_playlist?keyword=${keyword}`);
+                        const response = await fetch(`/search_track?keyword=${keyword}`);
+
                         if (response.ok) {
                             const data = await response.json();
-                            const playlist_id = data.playlist_id;
-                            const url = `/?playlist_id=${playlist_id}`;
-                            window.location.href = url;
+                            // プレイリストではなく楽曲を検索するように仕様変更
+                            // const playlist_id = data.playlist_id;
+                            // const url = `/?playlist_id=${playlist_id}`;
+                            // window.location.href = url;
+                            const track_id = data.track_id;
+                            window.open(`/song_details/${track_id}`, '_blank');
                         } else {
                             console.error('Search failed');
                         }
                     } catch (error) {
                         console.error('There was a problem with the fetch operation:', error);
                     }
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchButton = document.getElementById('searchButton');
+            const keywordInput = document.getElementById('keyword');
+
+            function performSearch() {
+                const keyword = keywordInput.value;
+                if (keyword) {
+                    fetch(`/search_track?keyword=${encodeURIComponent(keyword)}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.track_id) {
+                                window.open(`/song_details/${data.track_id}`, '_blank');
+                            } else {
+                                console.error('No track ID returned');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('There was a problem with the fetch operation:', error);
+                        });
+                }
+            }
+
+            // ボタンクリックで検索を実行
+            searchButton.addEventListener('click', performSearch);
+
+            // エンターキーで検索を実行
+            keywordInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); // フォームの自動送信を防ぐ
+                    performSearch();
                 }
             });
         });
