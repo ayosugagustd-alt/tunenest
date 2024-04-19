@@ -70,9 +70,9 @@
     <div id="playlist-controls" lang="ja">
         <select class="search-input" id="playlistDropdown">
             <!-- "SELECT a PLAYLIST"を日本語に変更 -->
-            <option value="" disabled selected style="display:none;">楽曲検索 / プレイリスト選択</option>
+            <option value="" disabled selected style="display:none;">曲検索 / プレイリスト選択</option>
             <!-- "KEYWORD SEARCH"を日本語に変更 -->
-            <option value="search" class="special-option">&#x1F50D; 楽曲検索はココ</option>
+            <option value="search" class="special-option">&#x1F50D; 曲検索はココ</option>
             <!-- カテゴリごとのグループ -->
             {% for category, items in playlists_grouped.items() %}
                 <optgroup label="{{ category }}">
