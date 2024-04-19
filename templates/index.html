@@ -113,7 +113,8 @@
             <div class="custom-list-content">
                 <div class="track-name">{{ track.name }}</div>
                 <div class="artist">{{ track.artist }}</div>
-                <div class="track-tempo">{{ track.tempo|float|round(1) }} BPM　{{ track.key_signature }}({{ track.camelot_key_signature }})</div>
+                <div class="track-tempo">{{ track.tempo|float|round(1) }} BPM</div>
+                <div class="track-tempo">{{ track.key_signature }}（{{ track.camelot_key_signature }}）</div>
                 <div class="icon-row">
                     {% if track.url %}
                         <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">

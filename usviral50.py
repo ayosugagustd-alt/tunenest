@@ -385,6 +385,9 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
                 for artist in song_details["artists"]
             ]
 
+            # キャメロットキーを計算
+            camelot_key_value = camelot_key(audio_features["key"], audio_features["mode"])
+
             # 成功した場合、曲の詳細情報を返す
             return {
                 "acousticness": audio_features["acousticness"] * 100,
@@ -401,6 +404,7 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
                 "valence": audio_features["valence"] * 100,
                 "album_artwork_url": album_artwork_url,
                 "artists": artists,
+                "camelot_key": camelot_key_value  # 追加されたキャメロットキー情報
             }
         except Exception as e:  # タイムアウトやその他の例外をキャッチ
             logging.error(f"An error occurred: {e}. Retrying...")

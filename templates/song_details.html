@@ -82,6 +82,7 @@
         <p><strong>テンポ</strong>：{{ song.tempo|float|round(1) }} BPM</p>
         <p><strong>キー</strong>：{{ ["C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"][song.key] }}</p>
         <p><strong>調</strong>：{{ "メジャー" if song.mode == 1 else "マイナー" }}</p>
+        <p><strong>キャメロットキー</strong>：{{ song.camelot_key }}</p>
     </div> <!-- End of div -->
     <div class="visual-section">
         <h2>音楽特性 <a href="/help_song_details" class="help-link" target="_blank" rel="noopener" title="音楽特性の詳細情報">[?]</a></h2>
