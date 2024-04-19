@@ -98,6 +98,20 @@ def get_tracks_audio_features(track_ids):
 # トラック情報を取得する関数
 # 引数: track (Spotify APIから取得したトラックの辞書)
 # 戻り値: トラック情報を含む辞書
+def camelot_key(key, mode):
+    # キャメロット・ホイールに基づくキーの変換テーブル
+    camelot_map = {
+        # Major keys
+        (0, 1): '8B', (1, 1): '3B', (2, 1): '10B', (3, 1): '5B', (4, 1): '12B', (5, 1): '7B',
+        (6, 1): '2B', (7, 1): '9B', (8, 1): '4B', (9, 1): '11B', (10, 1): '6B', (11, 1): '1B',
+        # Minor keys
+        (0, 0): '5A', (1, 0): '12A', (2, 0): '7A', (3, 0): '2A', (4, 0): '9A', (5, 0): '4A',
+        (6, 0): '11A', (7, 0): '6A', (8, 0): '1A', (9, 0): '8A', (10, 0): '3A', (11, 0): '10A'
+    }
+    
+    # キーと調を数値で取得し、対応するキャメロット・キーを返す
+    return camelot_map.get((key, mode), 'N/A')
+
 def get_track_info(track, audio_features):
     try:
         image_url = (
@@ -109,6 +123,18 @@ def get_track_info(track, audio_features):
         artist_name = track["artists"][0]["name"]
         tempo = audio_features['tempo'] if audio_features else '不明'
 
+        # キーと調を解析
+        key_map = ["C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"]
+        key = key_map[audio_features['key']] if audio_features and 'key' in audio_features else 'N/A'
+        mode = "Maj" if audio_features and audio_features.get('mode') == 1 else "min"
+
+        # キーと調を組み合わせて文字列を作成
+        key_signature = f"{key} {mode}"
+
+        # キャメロットキーの追加
+        camelot_key_signature = camelot_key(audio_features['key'], audio_features['mode'])
+
+        # トラック情報を辞書でまとめる
         track_info = {
             "id": track["id"],
             "url": track["preview_url"],
@@ -116,7 +142,9 @@ def get_track_info(track, audio_features):
             "artist": artist_name,
             "image_url": image_url,
             "spotify_link": spotify_link,
-            "tempo": tempo
+            "tempo": tempo,
+            "key_signature": key_signature,  # 追加されたキー情報
+            "camelot_key_signature": camelot_key_signature  # 新しく追加されたキャメロットキー情報
         }
         return track_info
     except KeyError as e:
