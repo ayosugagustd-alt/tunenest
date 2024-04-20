@@ -362,24 +362,14 @@
                 }
 
                 let apiEndpoint = "";
-
-                /* test */
-                let windowReference = null; // 新しいタブを開くための参照を事前に保存
-                /**/
-
                 // ドロップダウンで選択されたオプションに基づいてAPIエンドポイントを設定
                 if (playlistDropdown.value === 'searchTrack') {
                     apiEndpoint = `/search_track?keyword=${encodeURIComponent(keyword)}`;
-
-                    /* test */
-                    windowReference = window.open('', '_blank'); // ここで空のタブを開く
-                    /**/
-
                 } else if (playlistDropdown.value === 'searchPlaylist') {
                     apiEndpoint = `/search_playlist?keyword=${encodeURIComponent(keyword)}`;
                 }
 
-                /* try {
+                try {
                     const response = await fetch(apiEndpoint);
                     if (response.ok) {
                         const data = await response.json();
@@ -394,28 +384,7 @@
                     }
                 } catch (error) {
                     console.error('There was a problem with the fetch operation:', error);
-                } */
-
-/* test */
-    fetch(apiEndpoint)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Search failed:', response.statusText);
-            }
-        })
-        .then(data => {
-            if (playlistDropdown.value === 'searchTrack') {
-                windowReference.location.href = `/song_details/${data.track_id}`; // 新しいタブのURLを設定
-            } else if (playlistDropdown.value === 'searchPlaylist') {
-                window.location.href = `/?playlist_id=${data.playlist_id}`; // プレイリストページにリダイレクト
-            }
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-            windowReference.close(); // エラーが発生した場合、新しいタブを閉じる
-        });
+                }
             });
         });
 
