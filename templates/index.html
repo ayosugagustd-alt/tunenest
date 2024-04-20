@@ -374,7 +374,8 @@
                     if (response.ok) {
                         const data = await response.json();
                         if (playlistDropdown.value === 'searchTrack') {
-                            window.open(`/song_details/${data.track_id}`, '_blank'); // 楽曲詳細ページを新しいタブで開く
+//                            window.open(`/song_details/${data.track_id}`, '_blank'); // 楽曲詳細ページを新しいタブで開く
+                            window.location.href = `/song_details/${data.track_id}`; // 新しいタブで開くのではなく、同じタブでリダイレクト
                         } else if (playlistDropdown.value === 'searchPlaylist') {
                             window.location.href = `/?playlist_id=${data.playlist_id}`; // プレイリストページにリダイレクト
                         }
