@@ -375,7 +375,7 @@
                         const data = await response.json();
                         if (playlistDropdown.value === 'searchTrack') {
 //                            window.open(`/song_details/${data.track_id}`, '_blank'); // 楽曲詳細ページを新しいタブで開く
-                            window.location.href = `/song_details/${data.track_id}`; // 新しいタブで開くのではなく、同じタブでリダイレクト
+                            window.location.href = `/song_details/${data.track_id}`; // 同じタブでリダイレクト
                         } else if (playlistDropdown.value === 'searchPlaylist') {
                             window.location.href = `/?playlist_id=${data.playlist_id}`; // プレイリストページにリダイレクト
                         }
@@ -428,7 +428,8 @@
                     })
                     .then(data => {
                         if (playlistDropdown.value === 'searchTrack' && data.track_id) {
-                            window.open(`/song_details/${data.track_id}`, '_blank');
+//                            window.open(`/song_details/${data.track_id}`, '_blank');
+                            window.location.href = `/song_details/${data.track_id}`; // 同じタブでリダイレクト
                         } else if (playlistDropdown.value === 'searchPlaylist' && data.playlist_id) {
                             window.location.href = `/?playlist_id=${data.playlist_id}`;
                         } else {
