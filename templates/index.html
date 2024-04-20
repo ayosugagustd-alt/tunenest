@@ -203,7 +203,6 @@
 
         function play() {
             let camelotColor = tracks[index].camelot_color;  // サーバーから受け取ったカラーコード
-            document.getElementById('playing').style.backgroundColor = camelotColor;  // 背景色の設定
 
             let artworkUrl = tracks[index].image_url;
             if (!artworkUrl) {
@@ -230,11 +229,11 @@
             document.title = `#${currentIndex}: ${currentTrackName} - ${currentArtistName}`;
             // ここまで
 
-            let playingInfo = '<span style="color: #7F7F7F;">#' + (index + 1) + ':</span>' + "<br>" + 
-                              '<span>' + tracks[index].name + '</span>' + "<br>" + 
-                              '<span style="color: #7F7F7F;">' + tracks[index].artist + '</span>' + "<br>" +
-                              '<span style="color: #7F7F7F;">' + formattedTempo + ' BPM</span>' + "<br>" + // BPMを追加
-                              '<span style="color: #7F7F7F;">' + tracks[index].key_signature + ' (' + tracks[index].camelot_key_signature + ')</span>';
+            let playingInfo = '<span style="color: #7F7F7F;">#' + (index + 1) + ':</span>' + "<br>" +
+                  '<span>' + tracks[index].name + '</span>' + "<br>" +
+                  '<span style="color: #7F7F7F;">' + tracks[index].artist + '</span>' + "<br>" +
+                  '<span style="color: #7F7F7F;">' + formattedTempo + ' BPM</span>' + "<br>" +
+                  '<span style="color: ' + camelotColor + ';">' + tracks[index].key_signature + ' (' + tracks[index].camelot_key_signature + ')</span>';
 
             // Spotifyへのリンクを生成
             let spotifyLink = `https://open.spotify.com/track/${tracks[index].id}`;
