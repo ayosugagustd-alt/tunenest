@@ -324,7 +324,6 @@
             }
         }
 
-/*
         document.addEventListener('DOMContentLoaded', function() {
             const playlistDropdown = document.getElementById('playlistDropdown');
             const searchBox = document.getElementById('searchBox');
@@ -387,69 +386,6 @@
                 }
             });
         });
-*/
-window.onload = function() {
-    const playlistDropdown = document.getElementById('playlistDropdown');
-    const searchBox = document.getElementById('searchBox');
-    const searchButton = document.getElementById('searchButton');
-    const keywordInput = document.getElementById('keyword');
-    // ボリュームスライダーの要素を取得
-    const volumeSlider = document.getElementById("volumeSlider");
-
-    // iOSデバイス以外の場合にのみスライダーを表示
-    if (!/iPad|iPhone|iPod/.test(navigator.userAgent) || window.MSStream) {
-        volumeSlider.style.display = 'block'; // または 'inline', 'inline-block' など、レイアウトに応じて
-    }
-
-    // スライダーの値が変更されたときに音量を調整
-    volumeSlider.addEventListener("input", function() {
-        audio.volume = volumeSlider.value;
-    });
-
-    playlistDropdown.addEventListener('change', function() {
-        const selectedPlaylistId = playlistDropdown.value;
-        if (selectedPlaylistId === 'searchTrack' || selectedPlaylistId === 'searchPlaylist') {
-            searchBox.style.display = 'flex';
-        } else {
-            searchBox.style.display = 'none';
-            const url = `/?playlist_id=${selectedPlaylistId}`;
-            window.location.href = url;
-        }
-    });
-
-    searchButton.addEventListener('click', async function() {
-        const keyword = keywordInput.value;
-        if (!keyword) {
-            alert("キーワードを入力してください。");
-            return; // キーワードが空の場合は処理を中断
-        }
-
-        let apiEndpoint = "";
-        // ドロップダウンで選択されたオプションに基づいてAPIエンドポイントを設定
-        if (playlistDropdown.value === 'searchTrack') {
-            apiEndpoint = `/search_track?keyword=${encodeURIComponent(keyword)}`;
-        } else if (playlistDropdown.value === 'searchPlaylist') {
-            apiEndpoint = `/search_playlist?keyword=${encodeURIComponent(keyword)}`;
-        }
-
-        try {
-            const response = await fetch(apiEndpoint);
-            if (response.ok) {
-                const data = await response.json();
-                if (playlistDropdown.value === 'searchTrack') {
-                    window.open(`/song_details/${data.track_id}`, '_blank'); // 楽曲詳細ページを新しいタブで開く
-                } else if (playlistDropdown.value === 'searchPlaylist') {
-                    window.location.href = `/?playlist_id=${data.playlist_id}`; // プレイリストページにリダイレクト
-                }
-            } else {
-                console.error('Search failed:', response.statusText);
-            }
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-        }
-    });
-};
-
 
         document.addEventListener('DOMContentLoaded', function() {
             const searchButton = document.getElementById('searchButton');
