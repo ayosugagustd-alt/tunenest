@@ -193,7 +193,7 @@ a:hover {
 }
 
 .custom-list-number {
-    font-family: 'Courier', 'Space Mono', 'GT Pressura Mono', monospace;
+    font-family: 'Fira Code', 'Consolas', 'Courier New', 'Roboto Mono', 'Source Code Pro', monospace;
 	color: grey;
     font-size: 20px;
     margin-right: 12px;
@@ -241,8 +241,9 @@ a:hover {
 }
 
 .tempo-value {
-    font-family: 'Courier', 'Space Mono', 'GT Pressura Mono', monospace;
+    font-family: 'Fira Code', 'Consolas', 'Courier New', 'Roboto Mono', 'Source Code Pro', monospace;
     font-weight: bold;
+    font-size: 20px;
     color: grey;
 }
 

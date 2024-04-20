@@ -202,8 +202,6 @@
         }
 
         function play() {
-            let camelotColor = tracks[index].camelot_color;  // サーバーから受け取ったカラーコード
-
             let artworkUrl = tracks[index].image_url;
             if (!artworkUrl) {
                 artworkUrl = "{{ url_for('static', filename='TuneNest.png') }}";
@@ -213,11 +211,17 @@
 
             // アニメーションの適用
             let artworkElement = document.getElementById('playing-artwork');
-            artworkElement.style.animation = 'none';  // 既存のアニメーションをリセット
 
-            setTimeout(() => {
-                artworkElement.style.animation = 'bounce 0.5s ease';
-            }, 0);
+            artworkElement.onload = () => {
+                // アニメーションの適用
+                artworkElement.style.animation = 'none';  // 既存のアニメーションをリセット
+                setTimeout(() => {
+                    artworkElement.style.removeProperty('animation');
+                    artworkElement.offsetWidth; // 強制再描画
+                    artworkElement.style.animation = 'bounce 0.5s ease';
+                }, 0);
+            };
+            artworkElement.src = artworkUrl;
 
             // ブラウザのタイトルを更新する
             const currentIndex = (index + 1); // 再生中のインデックス番号
@@ -228,6 +232,8 @@
             // ブラウザのタグを更新
             document.title = `#${currentIndex}: ${currentTrackName} - ${currentArtistName}`;
             // ここまで
+
+            let camelotColor = tracks[index].camelot_color;  // サーバーから受け取ったカラーコード
 
             let playingInfo = '<span style="color: #7F7F7F;">#' + (index + 1) + ':</span>' + "<br>" +
                   '<span><strong>' + tracks[index].name + '</strong></span>' + "<br>" +
@@ -258,7 +264,7 @@
             });
         
             // 音量を0.1に設定して再生を開始
-            audio.volume = 0.1;
+            audio.volume = 0.2;
             audio.play();
 
             // ユーザーが設定した最大ボリュームを取得
@@ -454,8 +460,10 @@
                 pause();
                 });
             });
+
             document.getElementById('playing').innerHTML = "<strong>tune</strong><span style='color: grey;'>nest</span>";
         });
+
         document.addEventListener('DOMContentLoaded', function() {
             let audio = new Audio();  // 現在のオーディオ
             let nextAudio = preloadNextTrack();  // 次のオーディオをプリロード
