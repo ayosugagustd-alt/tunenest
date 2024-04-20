@@ -202,6 +202,9 @@
         }
 
         function play() {
+            let camelotColor = tracks[index].camelot_color;  // サーバーから受け取ったカラーコード
+            document.getElementById('playing').style.backgroundColor = camelotColor;  // 背景色の設定
+
             let artworkUrl = tracks[index].image_url;
             if (!artworkUrl) {
                 artworkUrl = "{{ url_for('static', filename='TuneNest.png') }}";

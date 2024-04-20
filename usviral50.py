@@ -98,6 +98,33 @@ def get_tracks_audio_features(track_ids):
 # トラック情報を取得する関数
 # 引数: track (Spotify APIから取得したトラックの辞書)
 # 戻り値: トラック情報を含む辞書
+# キャメロットキーに対応する色のマッピング
+camelot_colors = {
+    '1A': '#70ECD4',  # 明るいターコイズブルー
+    '1B': '#00EDC9',  # 鮮やかなシアン
+    '2A': '#92F0A4',  # 淡いライムグリーン
+    '2B': '#27EC82',  # 鮮烈な蛍光グリーン
+    '3A': '#B1EE86',  # 柔らかい黄緑色
+    '3B': '#85ED4E',  # 明るい草色
+    '4A': '#E6E0A2',  # 薄いサンドカラー
+    '4B': '#E0C86E',  # ゴールデンイエロー
+    '5A': '#FEC8AC',  # サーモンピンク
+    '5B': '#FFA279',  # 明るいコーラルレッド
+    '6A': '#FFB3BF',  # 柔らかいピンク
+    '6B': '#FF8C93',  # 明るいピンクレッド
+    '7A': '#FFB4D2',  # ペールピンク
+    '7B': '#FF85B4',  # フューシャピンク
+    '8A': '#EBB7F9',  # 淡いラベンダー
+    '8B': '#F087D9',  # 明るいマゼンタ
+    '9A': '#E7B6F8',  # 淡いパープル
+    '9B': '#CE93FF',  # 明るいライラック
+    '10A': '#C0CEFB',  # 柔らかいスカイブルー
+    '10B': '#A1B9FF',  # 明るいサファイアブルー
+    '11A': '#94E5F8',  # 明るいシアンブルー
+    '11B': '#3ED2F8',  # 鮮やかなアクアマリン
+    '12A': '#50EBF0',  # 水色
+    '12B': '#01EDED'   # トルコ石色
+}
 def camelot_key(key, mode):
     # キャメロット・ホイールに基づくキーの変換テーブル
     camelot_map = {
@@ -133,6 +160,7 @@ def get_track_info(track, audio_features):
 
         # キャメロットキーの追加
         camelot_key_signature = camelot_key(audio_features['key'], audio_features['mode'])
+        camelot_color = camelot_colors.get(camelot_key_signature, '#FFFFFF')  # デフォルトは白
 
         # トラック情報を辞書でまとめる
         track_info = {
@@ -144,7 +172,8 @@ def get_track_info(track, audio_features):
             "spotify_link": spotify_link,
             "tempo": tempo,
             "key_signature": key_signature,  # 追加されたキー情報
-            "camelot_key_signature": camelot_key_signature  # 新しく追加されたキャメロットキー情報
+            "camelot_key_signature": camelot_key_signature,  # 新しく追加されたキャメロットキー情報
+            "camelot_color": camelot_color # キャメロットのカラーコード
         }
         return track_info
     except KeyError as e:
