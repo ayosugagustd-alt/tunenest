@@ -3,11 +3,7 @@ import json  # JSON形式データのエンコード/デコード
 import logging  # ロギング機能
 import os  # OSレベルの機能を扱う
 import time  # 時間に関する機能
-from urllib.parse import quote_plus  # URLエンコーディング
 from collections import defaultdict  # デフォルト値を持つ辞書
-
-# サードパーティのHTTP関連ライブラリ
-import requests  # HTTPリクエスト
 
 # Flask関連ライブラリ
 from flask import Flask  # Flask本体
@@ -16,10 +12,6 @@ from flask import render_template  # HTMLテンプレートレンダリング
 from flask import request  # HTTPリクエストオブジェクト
 from flask import send_from_directory  # ファイル送信
 from flask import url_for  # URL生成
-
-# Google APIクライアント
-from googleapiclient.discovery import build  # APIサービスビルド
-from googleapiclient.errors import HttpError  # Google APIのHTTPエラー
 
 # Spotify APIクライアント
 from spotipy.oauth2 import SpotifyClientCredentials  # Spotify OAuth2認証
@@ -72,11 +64,12 @@ def get_spotify_client():
         if not spotify_client:
             spotify_client = Spotify(
                 client_credentials_manager=SpotifyClientCredentials(
-                    client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET
-                ),
+                    client_id=SPOTIFY_CLIENT_ID,
+                    client_secret=SPOTIFY_CLIENT_SECRET),
                 language="ja",  # 動的に言語設定
             )
         return spotify_client
+
 
 # トラックのIDリストからオーディオ特性をバッチで取得する関数
 # 引数: track_ids (Spotify APIから取得したトラックIDのリスト)
@@ -87,11 +80,11 @@ def get_tracks_audio_features(track_ids):
 
     # トラックIDのリストを50曲ずつのバッチに分割し、各バッチごとにオーディオ特性を取得
     for i in range(0, len(track_ids), 50):
-        batch = track_ids[i:i+50]
-        features_list = sp.audio_features(batch)  # Spotify APIを呼び出してオーディオ特性を取得
+        batch = track_ids[i:i + 50]
+        features_list = sp.audio_features(batch)  # オーディオ特性を取得
         for feature in features_list:
             if feature:
-                features_dict[feature['id']] = feature  # 取得した特性を辞書に追加
+                features_dict[feature["id"]] = feature  # 特性を辞書に追加
     return features_dict
 
 
@@ -100,44 +93,67 @@ def get_tracks_audio_features(track_ids):
 # 戻り値: トラック情報を含む辞書
 # キャメロットキーに対応する色のマッピング
 camelot_colors = {
-    '1A': '#70ECD4',  # 明るいターコイズブルー
-    '1B': '#00EDC9',  # 鮮やかなシアン
-    '2A': '#92F0A4',  # 淡いライムグリーン
-    '2B': '#27EC82',  # 鮮烈な蛍光グリーン
-    '3A': '#B1EE86',  # 柔らかい黄緑色
-    '3B': '#85ED4E',  # 明るい草色
-    '4A': '#E6E0A2',  # 薄いサンドカラー
-    '4B': '#E0C86E',  # ゴールデンイエロー
-    '5A': '#FEC8AC',  # サーモンピンク
-    '5B': '#FFA279',  # 明るいコーラルレッド
-    '6A': '#FFB3BF',  # 柔らかいピンク
-    '6B': '#FF8C93',  # 明るいピンクレッド
-    '7A': '#FFB4D2',  # ペールピンク
-    '7B': '#FF85B4',  # フューシャピンク
-    '8A': '#EBB7F9',  # 淡いラベンダー
-    '8B': '#F087D9',  # 明るいマゼンタ
-    '9A': '#E7B6F8',  # 淡いパープル
-    '9B': '#CE93FF',  # 明るいライラック
-    '10A': '#C0CEFB',  # 柔らかいスカイブルー
-    '10B': '#A1B9FF',  # 明るいサファイアブルー
-    '11A': '#94E5F8',  # 明るいシアンブルー
-    '11B': '#3ED2F8',  # 鮮やかなアクアマリン
-    '12A': '#50EBF0',  # 水色
-    '12B': '#01EDED'   # トルコ石色
+    "1A": "#70ECD4",  # 明るいターコイズブルー
+    "1B": "#00EDC9",  # 鮮やかなシアン
+    "2A": "#92F0A4",  # 淡いライムグリーン
+    "2B": "#27EC82",  # 鮮烈な蛍光グリーン
+    "3A": "#B1EE86",  # 柔らかい黄緑色
+    "3B": "#85ED4E",  # 明るい草色
+    "4A": "#E6E0A2",  # 薄いサンドカラー
+    "4B": "#E0C86E",  # ゴールデンイエロー
+    "5A": "#FEC8AC",  # サーモンピンク
+    "5B": "#FFA279",  # 明るいコーラルレッド
+    "6A": "#FFB3BF",  # 柔らかいピンク
+    "6B": "#FF8C93",  # 明るいピンクレッド
+    "7A": "#FFB4D2",  # ペールピンク
+    "7B": "#FF85B4",  # フューシャピンク
+    "8A": "#EBB7F9",  # 淡いラベンダー
+    "8B": "#F087D9",  # 明るいマゼンタ
+    "9A": "#E7B6F8",  # 淡いパープル
+    "9B": "#CE93FF",  # 明るいライラック
+    "10A": "#C0CEFB",  # 柔らかいスカイブルー
+    "10B": "#A1B9FF",  # 明るいサファイアブルー
+    "11A": "#94E5F8",  # 明るいシアンブルー
+    "11B": "#3ED2F8",  # 鮮やかなアクアマリン
+    "12A": "#50EBF0",  # 水色
+    "12B": "#01EDED",  # トルコ石色
 }
+
+
 def camelot_key(key, mode):
     # キャメロット・ホイールに基づくキーの変換テーブル
     camelot_map = {
         # Major keys
-        (0, 1): '8B', (1, 1): '3B', (2, 1): '10B', (3, 1): '5B', (4, 1): '12B', (5, 1): '7B',
-        (6, 1): '2B', (7, 1): '9B', (8, 1): '4B', (9, 1): '11B', (10, 1): '6B', (11, 1): '1B',
+        (0, 1): "8B",
+        (1, 1): "3B",
+        (2, 1): "10B",
+        (3, 1): "5B",
+        (4, 1): "12B",
+        (5, 1): "7B",
+        (6, 1): "2B",
+        (7, 1): "9B",
+        (8, 1): "4B",
+        (9, 1): "11B",
+        (10, 1): "6B",
+        (11, 1): "1B",
         # Minor keys
-        (0, 0): '5A', (1, 0): '12A', (2, 0): '7A', (3, 0): '2A', (4, 0): '9A', (5, 0): '4A',
-        (6, 0): '11A', (7, 0): '6A', (8, 0): '1A', (9, 0): '8A', (10, 0): '3A', (11, 0): '10A'
+        (0, 0): "5A",
+        (1, 0): "12A",
+        (2, 0): "7A",
+        (3, 0): "2A",
+        (4, 0): "9A",
+        (5, 0): "4A",
+        (6, 0): "11A",
+        (7, 0): "6A",
+        (8, 0): "1A",
+        (9, 0): "8A",
+        (10, 0): "3A",
+        (11, 0): "10A",
     }
-    
+
     # キーと調を数値で取得し、対応するキャメロット・キーを返す
-    return camelot_map.get((key, mode), 'N/A')
+    return camelot_map.get((key, mode), "N/A")
+
 
 def get_track_info(track, audio_features):
     try:
@@ -148,19 +164,38 @@ def get_track_info(track, audio_features):
         )
         spotify_link = track["external_urls"]["spotify"]
         artist_name = track["artists"][0]["name"]
-        tempo = audio_features['tempo'] if audio_features else '不明'
+        tempo = audio_features["tempo"] if audio_features else "不明"
 
         # キーと調を解析
-        key_map = ["C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"]
-        key = key_map[audio_features['key']] if audio_features and 'key' in audio_features else 'N/A'
-        mode = "Maj" if audio_features and audio_features.get('mode') == 1 else "min"
+        key_map = [
+            "C",
+            "C#/Db",
+            "D",
+            "D#/Eb",
+            "E",
+            "F",
+            "F#/Gb",
+            "G",
+            "G#/Ab",
+            "A",
+            "A#/Bb",
+            "B",
+        ]
+        key = (
+            key_map[audio_features["key"]]
+            if audio_features and "key" in audio_features
+            else "N/A"
+        )
+        mode = "Maj" if audio_features and audio_features.get("mode") == 1 else "min"
 
         # キーと調を組み合わせて文字列を作成
         key_signature = f"{key} {mode}"
 
         # キャメロットキーの追加
-        camelot_key_signature = camelot_key(audio_features['key'], audio_features['mode'])
-        camelot_color = camelot_colors.get(camelot_key_signature, '#FFFFFF')  # デフォルトは白
+        camelot_key_signature = camelot_key(
+            audio_features["key"], audio_features["mode"]
+        )
+        camelot_color = camelot_colors.get(camelot_key_signature, "#FFFFFF")
 
         # トラック情報を辞書でまとめる
         track_info = {
@@ -172,8 +207,8 @@ def get_track_info(track, audio_features):
             "spotify_link": spotify_link,
             "tempo": tempo,
             "key_signature": key_signature,  # 追加されたキー情報
-            "camelot_key_signature": camelot_key_signature,  # 新しく追加されたキャメロットキー情報
-            "camelot_color": camelot_color # キャメロットのカラーコード
+            "camelot_key_signature": camelot_key_signature,  # キャメロットキー
+            "camelot_color": camelot_color,  # キャメロットのカラーコード
         }
         return track_info
     except KeyError as e:
@@ -264,16 +299,24 @@ def index():
             offset += limit
 
         # トラックIDのリストを作成し、オーディオ特性を取得
-        track_ids = [item['track']['id'] for item in all_tracks if item.get('track') and item['track'].get('id')]
-        audio_features_dict = get_tracks_audio_features(track_ids)  # オーディオ特性を取得
+        track_ids = [
+            item["track"]["id"]
+            for item in all_tracks
+            if item.get("track") and item["track"].get("id")
+        ]
+
+        # オーディオ特性を取得
+        audio_features_dict = get_tracks_audio_features(track_ids)
 
         # トラック情報を整形（抜け番対応とNoneチェック）
         all_tracks_info = []
         for item in all_tracks:
             track = item.get("track")  # itemから"track"キーの値を安全に取得
-            if track and track['id'] in audio_features_dict:
-                track_features = audio_features_dict[track['id']]  # 対応するオーディオ特性を取得
-                track_info = get_track_info(track, track_features)  # オーディオ特性を引数として渡す
+            if track and track["id"] in audio_features_dict:
+                # 対応するオーディオ特性を取得
+                track_features = audio_features_dict[track["id"]]
+                # オーディオ特性を引数として渡す
+                track_info = get_track_info(track, track_features)
                 if track is not None:  # trackがNoneでないことを確認
                     all_tracks_info.append(track_info)
 
@@ -403,7 +446,9 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
         try:
             sp = get_spotify_client()  # Spotifyクライアントの取得
             song_details = get_cached_track(song_id, sp)  # 曲の基本情報を取得
-            audio_features = get_cached_audio_features(song_id, sp)  # 曲のオーディオ特性を取得
+
+            # 曲のオーディオ特性を取得
+            audio_features = get_cached_audio_features(song_id, sp)
 
             # アルバムのアートワークURLを取得
             album_artwork_url = song_details["album"]["images"][0]["url"]
@@ -412,7 +457,11 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
             album_name = song_details["album"]["name"]
 
             # レーベル名を取得
-            label = song_details["album"]["label"] if "label" in song_details["album"] else "不明"
+            label = (
+                song_details["album"]["label"]
+                if "label" in song_details["album"]
+                else "不明"
+            )
 
             # リリース日を取得
             release_date = song_details["album"]["release_date"]
@@ -424,7 +473,9 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
             ]
 
             # キャメロットキーを計算
-            camelot_key_value = camelot_key(audio_features["key"], audio_features["mode"])
+            camelot_key_value = camelot_key(
+                audio_features["key"], audio_features["mode"]
+            )
 
             # 成功した場合、曲の詳細情報を返す
             return {
@@ -445,7 +496,7 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
                 "camelot_key": camelot_key_value,  # 追加されたキャメロットキー情報
                 "album_name": album_name,  # 追加されたアルバム名
                 "label": label,  # 追加されたレーベル名
-                "release_date": release_date  # 追加されたリリース日
+                "release_date": release_date,  # 追加されたリリース日
             }
         except Exception as e:  # タイムアウトやその他の例外をキャッチ
             logging.error(f"An error occurred: {e}. Retrying...")
@@ -761,6 +812,7 @@ def search_playlist():
 
     return jsonify({"playlist_id": playlist_id})
 
+
 # キーワードで楽曲を検索する新しいルート
 @app.route("/search_track", methods=["GET"])
 def search_track():
@@ -771,7 +823,7 @@ def search_track():
     sp = get_spotify_client()
 
     # Spotify APIでキーワードに基づいて楽曲を検索
-    results = sp.search(q=keyword, type='track', limit=1, market='JP')
+    results = sp.search(q=keyword, type="track", limit=1, market="JP")
     if not results or not results.get("tracks") or not results["tracks"]["items"]:
         return jsonify({"error": "No tracks found"}), 404
 
