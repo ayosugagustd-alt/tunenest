@@ -243,10 +243,12 @@ a:hover {
 .tempo-value {
     font-family: 'Courier', 'Space Mono', 'GT Pressura Mono', monospace;
     font-weight: bold;
+    color: grey;
 }
 
 .tempo-unit, .key-info {
     font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo, 'Lucida Console', monospace;
+    font-weight: bold;
     color: grey;
     margin-right: 16px;
 }
