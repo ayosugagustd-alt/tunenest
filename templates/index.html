@@ -509,8 +509,19 @@
         });
 
         function sortTracks(sortType) {
-            // URLのクエリパラメータを変更してページをリロード
-            window.location.href = `${window.location.pathname}?sort=${sortType}`;
+            const params = new URLSearchParams(window.location.search); // 現在のURLのクエリパラメータを取得
+            params.set('sort', sortType); // ソートパラメータを設定または更新
+
+            // プレイリストIDがURLにない場合、ドロップダウンから取得して設定
+            if (!params.has('playlist_id')) {
+                const playlistId = document.getElementById('playlistDropdown').value;
+                if (playlistId) {
+                    params.set('playlist_id', playlistId);
+                }
+            }
+
+            const newUrl = `${window.location.pathname}?${params.toString()}`; // 新しいURLを生成
+            window.location.href = newUrl; // 新しいURLでページをリロード
         }
     </script>
 </div>
