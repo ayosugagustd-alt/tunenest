@@ -338,9 +338,11 @@
             const volumeSlider = document.getElementById("volumeSlider");
 
             // iOSデバイス以外の場合にのみスライダーを表示
+/*
             if (!/iPad|iPhone|iPod/.test(navigator.userAgent) || window.MSStream) {
                 volumeSlider.style.display = 'block'; // または 'inline', 'inline-block' など、レイアウトに応じて
             }
+*/
 
             // スライダーの値が変更されたときに音量を調整
             volumeSlider.addEventListener("input", function() {
