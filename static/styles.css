@@ -382,10 +382,6 @@ footer {
   gap: 10px; /* ラベルとスライダーの間隔 */
 }
 
-.slider-container {
-  padding-left: 20px; /* ここで左側にパディングを追加 */
-}
-
 /* ラベルのスタイリング */
 .volume-control label {
   font-size: 16px;
