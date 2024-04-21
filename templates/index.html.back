@@ -138,11 +138,6 @@
     <p>&copy;2023 tunenest.com. All rights reserved. Developed by ヒロ. <a href="https://twitter.com/jmusic_hiro" target="_blank" rel="noopener" title="ヒロのX"><i class="fab fa-x-twitter"></i></a><a href="{{ url_for('static', filename='privacy-policy.html') }}" target="_blank" rel="noopener"></p><p>利用規約とプライバシーポリシー</a></p>
 </footer>
     <script>
-        /* Safariを識別 */
-        function isSafari() {
-            return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-        }
-
         let tracks = {{ tracks|tojson }};
         let index = 0;
         let audio;
@@ -379,11 +374,8 @@
                     if (response.ok) {
                         const data = await response.json();
                         if (playlistDropdown.value === 'searchTrack') {
-                            if (isSafari()) {
-                                window.location.href = `/song_details/${data.track_id}`; // 同じタブでリダイレクト
-                            } else {
-                                window.open(`/song_details/${data.track_id}`, '_blank'); // 楽曲詳細ページを新しいタブで開く
-                            }
+//                            window.open(`/song_details/${data.track_id}`, '_blank'); // 楽曲詳細ページを新しいタブで開く
+                            window.location.href = `/song_details/${data.track_id}`; // 同じタブでリダイレクト
                         } else if (playlistDropdown.value === 'searchPlaylist') {
                             window.location.href = `/?playlist_id=${data.playlist_id}`; // プレイリストページにリダイレクト
                         }
@@ -436,11 +428,8 @@
                     })
                     .then(data => {
                         if (playlistDropdown.value === 'searchTrack' && data.track_id) {
-                            if (isSafari()) {
-                                window.location.href = `/song_details/${data.track_id}`; // Safariでは同じタブでリダイレクト
-                            } else {
-                                window.open(`/song_details/${data.track_id}`, '_blank'); // 他のブラウザでは新しいタブで開く
-                            }
+//                            window.open(`/song_details/${data.track_id}`, '_blank');
+                            window.location.href = `/song_details/${data.track_id}`; // 同じタブでリダイレクト
                         } else if (playlistDropdown.value === 'searchPlaylist' && data.playlist_id) {
                             window.location.href = `/?playlist_id=${data.playlist_id}`;
                         } else {
