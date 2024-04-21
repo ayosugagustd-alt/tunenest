@@ -222,6 +222,13 @@ def get_track_info(track, audio_features):
 def static_from_root():
     return send_from_directory(app.static_folder, "robots.txt")
 
+def camelot_to_sort_key(camelot_key):
+    # Camelot Keyを数値に変換する
+    key_number, scale = int(camelot_key[:-1]), camelot_key[-1]
+    # Aは偶数、Bは奇数として処理
+    scale_number = 0 if scale == 'A' else 1
+    # 10A なら 10 * 2 = 20, 10B なら 10 * 2 + 1 = 21
+    return key_number * 2 + scale_number
 
 # インデックスページのルーティング処理
 @app.route("/")
@@ -229,6 +236,9 @@ def index():
     try:
         # デフォルトIDかクエリパラメータIDを設定
         playlist_id = request.args.get("playlist_id", "37i9dQZF1DWXjs5HmaJqaY")
+
+        # クエリパラメータから 'sort' の値を取得、デフォルトは None または ''
+        sort_by = request.args.get('sort', default=None)
 
         # Spotifyクライアントを取得
         sp = get_spotify_client()
@@ -322,6 +332,13 @@ def index():
 
         # 有効なトラック情報のみをフィルタリング
         valid_tracks_info = [track for track in all_tracks_info if track]
+
+        # トラックソートの処理
+        if sort_by == 'bpm':
+            valid_tracks_info.sort(key=lambda x: x['tempo'])
+        elif sort_by == 'camelot':
+            # Camelot Keyでソート
+            valid_tracks_info.sort(key=lambda x: camelot_to_sort_key(x['camelot_key_signature']))
 
         # カテゴリごとにプレイリストを整理
         playlists_grouped = defaultdict(list)

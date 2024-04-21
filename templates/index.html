@@ -96,6 +96,14 @@
             <img id="playing-artwork" src="{{ collage_filename }}" alt="Spotify Playlist Artwork" loading="lazy">
             <div id="playing"></div>
         </div>
+        <div class="sort-buttons">
+            <button class="sort-button" onclick="sortTracks('bpm')">
+                <strong>BPM 順</strong>
+            </button>
+            <button class="sort-button" onclick="sortTracks('camelot')">
+                <strong>Key 順</strong>
+            </button>
+        </div>
 
         <div id="buttons">
             <button onclick="previous()"><i class="fas fa-step-backward"></i></button>
@@ -499,6 +507,11 @@
                 nextAudio = preloadNextTrack();  // 次をプリロード
             }
         });
+
+        function sortTracks(sortType) {
+            // URLのクエリパラメータを変更してページをリロード
+            window.location.href = `${window.location.pathname}?sort=${sortType}`;
+        }
     </script>
 </div>
 </body>

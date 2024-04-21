@@ -73,6 +73,40 @@ button:active {
     color: white;
 }
 
+.sort-buttons {
+    display: flex;
+    flex-direction: row; /* ボタンを横並びにする */
+    justify-content: flex-start; /* 左寄せ */
+    align-items: center; /* アイテムを中央揃え */
+    margin-top: 10px; /* アートワークからのマージン */
+}
+
+.sort-button {
+    margin: 5px; /* ボタン間のマージンを追加 */
+    width: 100px;
+    height: 30px;
+    background-color: #F5F5F5;
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.sort-button:hover {
+    background-color: #E0E0E0;
+}
+
+.sort-button:active {
+    background-color: #C0C0C0;
+    color: white;
+}
+
+
 #controls {
     text-align: left;
 }
