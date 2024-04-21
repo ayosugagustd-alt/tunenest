@@ -61,6 +61,7 @@ button {
     justify-content: center;
     align-items: center;
     -webkit-tap-highlight-color: transparent; /* タップハイライトを透明に */
+    flex: 0 0 auto; /* ボタンのサイズが内容に依存し、拡大縮小しないように設定 */
 }
 
 button:hover {
@@ -88,11 +89,19 @@ button:active {
 }
 
 #buttons {
+    position: fixed;
+    left: 50%;
+    bottom: 20px; /* 適宜調整してください */
+    transform: translateX(-50%);
+    z-index: 100; /* 他の要素より前に表示 */
+    background: #fff; /* 背景色 */
+    border-radius: 10px; /* デザインはお好みで調整 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 影を付ける */
+    padding: 10px;
     display: flex;
+    justify-content: center;
     align-items: center;
-	margin-top: 10px;
-	margin-bottom: 20px;
-	margin-left: 5px;
+    width: auto; /* 必要に応じて調整 */
 }
 
 /* アートワーク右の表示欄 */
@@ -559,6 +568,7 @@ input[type='range']:active::-moz-range-thumb {
 	    margin-top: 10px;
 	    margin-bottom: 10px;
 	    margin-left: 2px;
+        width: 80%;
     }
     .star, .empty-star, .half-star {
         font-size: 22px;
