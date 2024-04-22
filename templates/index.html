@@ -96,15 +96,18 @@
             <img id="playing-artwork" src="{{ collage_filename }}" alt="Spotify Playlist Artwork" loading="lazy">
             <div id="playing"></div>
         </div>
-        <div class="sort-buttons">
-            <button class="sort-button" onclick="sortTracks('bpm')">
-                <strong>BPM ▲</strong>
-            </button>
-            <button class="sort-button" onclick="sortTracks('camelot')">
-                <strong>KEY ▲ </strong>
-            </button>
+        <div class="sort-section">
+            <div class="sort-option">
+                <span>BPM:</span>
+                <button class="sort-button" onclick="sortTracks('bpm', 'asc')"><i class="fas fa-arrow-up"></i></button>
+                <button class="sort-button" onclick="sortTracks('bpm', 'desc')"><i class="fas fa-arrow-down"></i></button>
+            </div>
+            <div class="sort-option">
+                <span>Camelot Key:</span>
+                <button class="sort-button" onclick="sortTracks('camelot', 'asc')"><i class="fas fa-arrow-up"></i></button>
+                <button class="sort-button" onclick="sortTracks('camelot', 'desc')"><i class="fas fa-arrow-down"></i></button>
+            </div>
         </div>
-
         <div id="buttons">
             <button onclick="previous()"><i class="fas fa-step-backward"></i></button>
             <button onclick="togglePlay()"><i class="fas fa-play"></i><i class="fas fa-pause"></i></button>
@@ -508,9 +511,10 @@
             }
         });
 
-        function sortTracks(sortType) {
+        function sortTracks(sortType, sortOrder) {
             const params = new URLSearchParams(window.location.search); // 現在のURLのクエリパラメータを取得
             params.set('sort', sortType); // ソートパラメータを設定または更新
+            params.set('order', sortOrder); // ソートパラメータを設定または更新
 
             // プレイリストIDがURLにない場合、ドロップダウンから取得して設定
             if (!params.has('playlist_id')) {

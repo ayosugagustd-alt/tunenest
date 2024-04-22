@@ -333,12 +333,15 @@ def index():
         # 有効なトラック情報のみをフィルタリング
         valid_tracks_info = [track for track in all_tracks_info if track]
 
+        sort_order = request.args.get('order', 'asc')  # デフォルトは昇順
+        reverse_sort = True if sort_order == 'desc' else False
+
         # トラックソートの処理
         if sort_by == 'bpm':
-            valid_tracks_info.sort(key=lambda x: x['tempo'])
+            valid_tracks_info.sort(key=lambda x: x['tempo'], reverse=reverse_sort)
         elif sort_by == 'camelot':
             # Camelot Keyでソート
-            valid_tracks_info.sort(key=lambda x: camelot_to_sort_key(x['camelot_key_signature']))
+            valid_tracks_info.sort(key=lambda x: camelot_to_sort_key(x['camelot_key_signature']), reverse=reverse_sort)
 
         # カテゴリごとにプレイリストを整理
         playlists_grouped = defaultdict(list)

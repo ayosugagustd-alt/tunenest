@@ -83,7 +83,7 @@ button:active {
 
 .sort-button {
     margin: 5px; /* ボタン間のマージンを追加 */
-    width: 100px;
+    width: 30px;
     height: 30px;
     background-color: #F5F5F5;
     color: black;
@@ -97,6 +97,19 @@ button:active {
     transition: background-color 0.3s;
 }
 
+.sort-section {
+    display: flex;
+    justify-content: flex-start; /* 左寄せ */
+    align-items: center; /* アイテムを中央揃え */
+    margin-top: 10px; /* アートワークからのマージン */
+}
+
+.sort-option {
+    display: flex;
+    align-items: center;
+    margin-right: 20px; /* オプション間のスペース */
+}
+
 .sort-button:hover {
     background-color: #E0E0E0;
 }
@@ -105,6 +118,7 @@ button:active {
     background-color: #C0C0C0;
     color: white;
 }
+/**/
 
 
 #controls {
