@@ -309,7 +309,7 @@ a:hover {
     font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo, 'Lucida Console', monospace;
     font-weight: bold;
     color: grey;
-    margin-right: 16px;
+    margin-right: 14px;
     display: inline-block; /* 要素をインラインブロックとして扱う */
     width: 40px; /* 幅を指定して一定に保つ */
     text-align: right; /* テキストを右揃えにする */
