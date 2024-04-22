@@ -459,6 +459,13 @@ def get_cached_track(song_id, sp):
 def get_cached_audio_features(song_id, sp):
     return sp.audio_features([song_id])[0]
 
+def normalize_loudness(loudness):
+    """Normalize the loudness level from a dB scale of -60 to 0 to a scale of 0 to 100."""
+    if loudness < -60:
+        loudness = -60  # Ensure the loudness does not go below -60 dB
+    elif loudness > 0:
+        loudness = 0  # Ensure the loudness does not go above 0 dB
+    return (loudness + 60) / 0.6  # Normalize to 0-100 scale
 
 def get_song_details_with_retry(song_id, max_retries=3, delay=5):
     retries = 0
@@ -497,6 +504,10 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
                 audio_features["key"], audio_features["mode"]
             )
 
+            # ラウドネスの生の値と正規化された値を取得
+            loudness_raw = audio_features["loudness"]
+            loudness_normalized = normalize_loudness(loudness_raw)
+
             # 成功した場合、曲の詳細情報を返す
             return {
                 "acousticness": audio_features["acousticness"] * 100,
@@ -513,10 +524,14 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
                 "valence": audio_features["valence"] * 100,
                 "album_artwork_url": album_artwork_url,
                 "artists": artists,
-                "camelot_key": camelot_key_value,  # 追加されたキャメロットキー情報
+                "camelot_key": camelot_key_value,  # キャメロットキー
                 "album_name": album_name,  # 追加されたアルバム名
                 "label": label,  # 追加されたレーベル名
                 "release_date": release_date,  # 追加されたリリース日
+                "liveness": audio_features["liveness"] * 100,
+                "speechiness": audio_features["speechiness"] * 100,
+                "loudness_normalized": loudness_normalized,
+                "loudness_raw": loudness_raw,
             }
         except Exception as e:  # タイムアウトやその他の例外をキャッチ
             logging.error(f"An error occurred: {e}. Retrying...")

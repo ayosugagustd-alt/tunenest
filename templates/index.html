@@ -127,7 +127,8 @@
                 <div>
                     <span class="tempo-value">{{ "{: >5.1f}".format(track.tempo|float|round(1)).replace(" ", "&nbsp;")|safe }}</span>
                     <span class="tempo-unit">BPM</span>
-                    <span class="key-info">{{ track.key_signature }} ({{ track.camelot_key_signature }})</span>
+                    <span class="key-info">{{ "{:>3}".format(track.camelot_key_signature) }}</span>
+                    <span>({{ track.key_signature }})</span>
                 </div>
                 <div class="icon-row">
                     {% if track.url %}

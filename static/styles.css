@@ -7,6 +7,9 @@
     --danceability-color: #ff69b4; /* Danceability桃色 */
     --energy-color: #e74c3c; /* Energy赤色 */
     --instrumentalness-color: #b3e0f2; /* Instrumentalnessオフホワイト */
+    --liveness-color: #f39c12; /* ビブラントオレンジ */
+    --speechiness-color: #2ecc71; /* ライトグリーン */
+    --loudness-color: #2980b9; /* ストロングブルー */
 }
 
 img {
@@ -307,6 +310,9 @@ a:hover {
     font-weight: bold;
     color: grey;
     margin-right: 16px;
+    display: inline-block; /* 要素をインラインブロックとして扱う */
+    width: 40px; /* 幅を指定して一定に保つ */
+    text-align: right; /* テキストを右揃えにする */
 }
 
 .icon-row {
@@ -379,6 +385,9 @@ select {
 .progress-danceability { background-color: var(--danceability-color); }
 .progress-energy { background-color: var(--energy-color); }
 .progress-instrumentalness { background-color: var(--instrumentalness-color); }
+.progress-liveness { background-color: var(--liveness-color); }
+.progress-speechiness { background-color: var(--speechiness-color); }
+.progress-loudness { background-color: var(--loudness-color); }
 
 .visual-section {
     padding: 10px;

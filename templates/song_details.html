@@ -44,8 +44,8 @@
 </head>
 <body>
 <div class="container">
-    {% macro render_progress_bar(property, value, bar_class="") %}
-        <p><strong>{{ property }}</strong>: {{ value|float|round(1) }}%</p>
+    {% macro render_progress_bar(property, value, bar_class="", unit="%", original_value=None) %}
+        <p><strong>{{ property }}</strong>: {{ (original_value if original_value is not none else value)|float|round(1) }}{{ unit }}</p>
         <div class="progress-bar">
             <div class="progress {{ bar_class }}" style="width:{{ value }}%"></div>
         </div>
@@ -95,6 +95,9 @@
         {{ render_progress_bar("踊りやすさ", song.danceability, "progress-danceability") }}
         {{ render_progress_bar("エネルギー", song.energy, "progress-energy") }}
         {{ render_progress_bar("インストゥルメンタル度", song.instrumentalness, "progress-instrumentalness") }}
+        {{ render_progress_bar("ラウドネス（-60 dB ～ 0 dB）", song.loudness_normalized, "progress-loudness", " dB", song.loudness_raw) }}
+        {{ render_progress_bar("ライブ感", song.liveness, "progress-liveness", ) }}
+        {{ render_progress_bar("スピーチ度", song.speechiness, "progress-speechiness") }}
     </div> <!-- End of .visual-section -->
     <!-- Navigation Icon at the bottom -->
     <div class="home-icon">
