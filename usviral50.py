@@ -235,7 +235,7 @@ def camelot_to_sort_key(camelot_key):
 def index():
     try:
         # デフォルトIDかクエリパラメータIDを設定
-        playlist_id = request.args.get("playlist_id", "37i9dQZF1DWXjs5HmaJqaY")
+        playlist_id = request.args.get("playlist_id", "37i9dQZF1DWSobRXOCtFPM")
 
         # クエリパラメータから 'sort' の値を取得、デフォルトは None または ''
         sort_by = request.args.get('sort', default=None)
