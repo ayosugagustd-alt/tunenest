@@ -104,14 +104,14 @@ button:active {
     display: flex;
     justify-content: flex-start; /* 左寄せ */
     align-items: center; /* アイテムを中央揃え */
-    margin-top: 10px; /* アートワークからのマージン */
-    margin-left: 4px; /* アートワークからのマージン */
+    margin-top: 20px; /* アートワークからのマージン */
+    margin-left: 8px; /* アートワークからのマージン */
 }
 
 .sort-option {
     display: flex;
     align-items: center;
-    margin-right: 30px; /* オプション間のスペース */
+    margin-right: 12px; /* オプション間のスペース */
 }
 
 .sort-button:hover {
@@ -301,14 +301,12 @@ a:hover {
 
 .tempo-value {
     font-family: 'Fira Code', 'Consolas', 'Courier New', 'Roboto Mono', 'Source Code Pro', monospace;
-    font-weight: bold;
     color: grey;
     margin-right: 28px;
 }
 
 .camelot-info {
     font-family: 'Fira Code', 'Consolas', 'Courier New', 'Roboto Mono', 'Source Code Pro', monospace;
-    font-weight: bold;
     color: grey;
     width: 50px; /* 幅を指定して一定に保つ */
     text-align: right; /* テキストを右揃えにする */
