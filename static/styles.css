@@ -315,6 +315,12 @@ a:hover {
     display: inline-block; /* 要素をインラインブロックとして扱う */
 }
 
+.camelot-big-info {
+    font-family: 'Fira Code', 'Consolas', 'Courier New', 'Roboto Mono', 'Source Code Pro', monospace;
+    font-weight: bold;
+    color: grey;
+}
+
 .icon-row {
     display: flex; /* 新しい行に表示 */
     align-items: center;
