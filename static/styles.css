@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Roboto+Mono&display=swap');
 :root {
     --star-color: #FF9900;
     --empty-star-color: #767676;
@@ -26,7 +27,7 @@ body {
     margin: 0; /* デフォルトのマージンをリセット */
     color: #000000;
     font-size: var(--font-size);
-    font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo, 'Lucida Console', monospace;
+    font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .container {
@@ -252,7 +253,7 @@ a:hover {
 }
 
 .custom-list-number {
-    font-family: 'Fira Code', 'Consolas', 'Courier New', 'Roboto Mono', 'Source Code Pro', monospace;
+    font-family: 'Roboto Mono', monospace;
 	color: grey;
     font-size: 20px;
     margin-right: 12px;
@@ -266,14 +267,14 @@ a:hover {
 
 /* Watch MV, Preview, Info Caption */
 .icon-caption {
-    font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo, 'Lucida Console', monospace;
+    font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 20px;
     margin-right: 32px;
     display: inline-block;
 }
 /* Disabled Caption(No Preview) */
 .icon-disabled-caption {
-    font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo, 'Lucida Console', monospace;
+    font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 20px;
     margin-right: 32px;
     display: inline-block;
@@ -301,14 +302,14 @@ a:hover {
 
 .tempo-value {
     font-weight: bold;
-    font-family: 'Fira Code', 'Consolas', 'Courier New', 'Roboto Mono', 'Source Code Pro', monospace;
+    font-family: 'Roboto Mono', monospace;
     color: grey;
     margin-right: 28px;
 }
 
 .camelot-info {
     font-weight: bold;
-    font-family: 'Fira Code', 'Consolas', 'Courier New', 'Roboto Mono', 'Source Code Pro', monospace;
+    font-family: 'Roboto Mono', monospace;
     color: grey;
     width: 50px; /* 幅を指定して一定に保つ */
     text-align: right; /* テキストを右揃えにする */
@@ -316,7 +317,7 @@ a:hover {
 }
 
 .camelot-big-info {
-    font-family: 'Fira Code', 'Consolas', 'Courier New', 'Roboto Mono', 'Source Code Pro', monospace;
+    font-family: 'Roboto Mono', monospace;
     color: grey;
 }
 
