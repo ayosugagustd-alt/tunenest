@@ -567,7 +567,10 @@ input[type='range']:active::-moz-range-thumb {
         padding-bottom: 70px; /* コンテンツの下に余白を追加 */
     }
    img {
+/*
         max-width: 68%;
+*/
+        max-width: 50%;
     }
     .big-artwork img {
         max-width: 100%;
