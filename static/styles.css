@@ -300,12 +300,14 @@ a:hover {
 }
 
 .tempo-value {
+    font-weight: bold;
     font-family: 'Fira Code', 'Consolas', 'Courier New', 'Roboto Mono', 'Source Code Pro', monospace;
     color: grey;
     margin-right: 28px;
 }
 
 .camelot-info {
+    font-weight: bold;
     font-family: 'Fira Code', 'Consolas', 'Courier New', 'Roboto Mono', 'Source Code Pro', monospace;
     color: grey;
     width: 50px; /* 幅を指定して一定に保つ */
