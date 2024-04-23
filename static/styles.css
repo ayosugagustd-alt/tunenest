@@ -649,7 +649,7 @@ input[type='range']:active::-moz-range-thumb {
         max-width: 150px; /* 最大幅は150ピクセルに制限 */
     }
     .tempo-value {
-        width: 90px; /* 幅を指定して一定に保つ */
+        width: 100px; /* 幅を指定して一定に保つ */
     }
     .sort-option {
         margin-right: 2px; /* オプション間のスペース */
