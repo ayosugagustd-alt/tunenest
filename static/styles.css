@@ -300,33 +300,19 @@ a:hover {
 }
 
 .tempo-value {
-    font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo, 'Lucida Console', monospace;
+    font-family: 'Fira Code', 'Consolas', 'Courier New', 'Roboto Mono', 'Source Code Pro', monospace;
     font-weight: bold;
     color: grey;
     margin-right: 28px;
-    display: inline-block; /* 要素をインラインブロックとして扱う */
-    width: 110px; /* 幅を指定して一定に保つ */
-    text-align: right; /* テキストを右揃えにする */
 }
 
 .camelot-info {
-    font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo, 'Lucida Console', monospace;
+    font-family: 'Fira Code', 'Consolas', 'Courier New', 'Roboto Mono', 'Source Code Pro', monospace;
     font-weight: bold;
     color: grey;
-    margin-right: 70px;
-    display: inline-block; /* 要素をインラインブロックとして扱う */
-    width: 60px; /* 幅を指定して一定に保つ */
+    width: 50px; /* 幅を指定して一定に保つ */
     text-align: right; /* テキストを右揃えにする */
-}
-
-.key-info {
-    font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo, 'Lucida Console', monospace;
-    font-weight: bold;
-    color: grey;
-    margin-right: 14px;
     display: inline-block; /* 要素をインラインブロックとして扱う */
-    width: 80px; /* 幅を指定して一定に保つ */
-    text-align: left; /* テキストを右揃えにする */
 }
 
 .icon-row {
