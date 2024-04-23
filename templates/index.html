@@ -125,10 +125,8 @@
                 <div class="track-name">{{ track.name }}</div>
                 <div class="artist">{{ track.artist }}</div>
                 <div>
-                    <span class="tempo-value">{{ "{: >5.1f}".format(track.tempo|float|round(1)).replace(" ", "&nbsp;")|safe }}</span>
-                    <span class="tempo-unit">BPM</span>
-                    <span class="key-info">{{ "{:>3}".format(track.camelot_key_signature) }}</span>
-                    <span>{{ track.key_signature }}</span>
+                    <span class="tempo-value">{{ "{: >5.1f}".format(track.tempo|float|round(1)).replace(" ", "&nbsp;")|safe }} BPM</span>
+                    <span class="camelot-info">{{ "{:>3}".format(track.camelot_key_signature) }}</span>
                 </div>
                 <div class="icon-row">
                     {% if track.url %}
@@ -252,11 +250,14 @@
 
             let camelotColor = tracks[index].camelot_color;  // サーバーから受け取ったカラーコード
 
-            let playingInfo = '<span style="color: #7F7F7F;">#' + (index + 1) + ':</span>' + "<br>" +
-                  '<span><strong>' + tracks[index].name + '</strong></span>' + "<br>" +
-                  '<span style="color: #7F7F7F;">' + tracks[index].artist + '</span>' + "<br>" +
-                  '<span style="color: #7F7F7F;"><strong>' + formattedTempo + ' BPM</strong></span>' + "<br>" +
-                  '<span style="color: ' + camelotColor + '"><strong>' + tracks[index].key_signature + ' (' + tracks[index].camelot_key_signature + ')</strong></span>';
+            let playingInfo = `
+                <span style="color: #7F7F7F;">#${index + 1}:</span><br>
+                <span><strong>${tracks[index].name}</strong></span><br>
+                <span style="color: #7F7F7F;">${tracks[index].artist}</span><br>
+                <span style="color: #7F7F7F;"><strong>${formattedTempo} BPM</strong></span><br>
+                <span style="color: ${camelotColor}"><strong>${tracks[index].camelot_key_signature} (${tracks[index].key_signature})</strong></span>
+            `;
+
 
             // Spotifyへのリンクを生成
             let spotifyLink = `https://open.spotify.com/track/${tracks[index].id}`;

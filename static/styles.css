@@ -105,12 +105,13 @@ button:active {
     justify-content: flex-start; /* 左寄せ */
     align-items: center; /* アイテムを中央揃え */
     margin-top: 10px; /* アートワークからのマージン */
+    margin-left: 4px; /* アートワークからのマージン */
 }
 
 .sort-option {
     display: flex;
     align-items: center;
-    margin-right: 20px; /* オプション間のスペース */
+    margin-right: 30px; /* オプション間のスペース */
 }
 
 .sort-button:hover {
@@ -299,20 +300,33 @@ a:hover {
 }
 
 .tempo-value {
-    font-family: 'Fira Code', 'Consolas', 'Courier New', 'Roboto Mono', 'Source Code Pro', monospace;
+    font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo, 'Lucida Console', monospace;
     font-weight: bold;
-    font-size: 20px;
     color: grey;
+    margin-right: 28px;
+    display: inline-block; /* 要素をインラインブロックとして扱う */
+    width: 110px; /* 幅を指定して一定に保つ */
+    text-align: right; /* テキストを右揃えにする */
 }
 
-.tempo-unit, .key-info {
+.camelot-info {
+    font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo, 'Lucida Console', monospace;
+    font-weight: bold;
+    color: grey;
+    margin-right: 70px;
+    display: inline-block; /* 要素をインラインブロックとして扱う */
+    width: 60px; /* 幅を指定して一定に保つ */
+    text-align: right; /* テキストを右揃えにする */
+}
+
+.key-info {
     font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Noto Sans Japanese', Monaco, Menlo, 'Lucida Console', monospace;
     font-weight: bold;
     color: grey;
     margin-right: 14px;
     display: inline-block; /* 要素をインラインブロックとして扱う */
-    width: 40px; /* 幅を指定して一定に保つ */
-    text-align: right; /* テキストを右揃えにする */
+    width: 80px; /* 幅を指定して一定に保つ */
+    text-align: left; /* テキストを右揃えにする */
 }
 
 .icon-row {
@@ -633,6 +647,15 @@ input[type='range']:active::-moz-range-thumb {
     input[type='range'] {
         width: 100%; /* モバイルデバイスではスライダーの幅を画面幅に合わせる */
         max-width: 150px; /* 最大幅は150ピクセルに制限 */
+    }
+    .tempo-value {
+        width: 90px; /* 幅を指定して一定に保つ */
+    }
+    .sort-option {
+        margin-right: 2px; /* オプション間のスペース */
+    }
+    .sort-section {
+        margin-left: 0px; /* アートワークからのマージン */
     }
 }
 
