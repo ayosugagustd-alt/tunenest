@@ -142,7 +142,7 @@ button:active {
 #buttons {
     position: fixed;
     left: 50%;
-    bottom: 5px; /* 適宜調整してください */
+    bottom: 20px; /* 適宜調整してください */
     transform: translateX(-50%);
     z-index: 100; /* 他の要素より前に表示 */
     background: #fff; /* 背景色 */
