@@ -119,28 +119,30 @@
         </div>
 
         {% for track in tracks %}
-        <div class="custom-list-item">
-            <span class="custom-list-number">{{ "{: >3}".format(loop.index).replace(" ", "&nbsp;")|safe }}.</span>
-            <div class="custom-list-content">
-                <div class="track-name">{{ track.name }}</div>
-                <div class="artist">{{ track.artist }}</div>
-                <div class="icon-row">
-                    {% if track.url %}
-                        <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
-                        <i class="fab fa-spotify" style="margin-right: 5px;"></i><span class="icon-caption">試聴</span></a>
-                    {% else %}
-                        <i class="fab fa-spotify icon-disabled" style="margin-right: 5px;"></i><span class="icon-disabled-caption">試聴</span>
-                    {% endif %}
-
-                    <!-- Info -->
-                    <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
-                        <i class="fas fa-info-circle" style="margin-right: 5px; padding-top: 5px;"></i><span class="icon-caption">詳細</span></a>
-
-                    <span class="tempo-value">{{ "{: >3.0f}".format(track.tempo|float|round(1)).replace(" ", "&nbsp;")|safe }}BPM</span>
-                    <span class="camelot-info">{{ "{: >3}".format(track.camelot_key_signature) }}</span>
-                </div>
-            </div>
+<div class="custom-list-item">
+    <img src="{{ track.image_url | default(url_for('static', filename='TuneNest.png')) }}" alt="Artwork" class="track-artwork">
+    <div class="track-info">
+        <div class="track-details">
+            <div class="track-name">{{ track.name }}</div>
+            <div class="artist">{{ track.artist }}</div>
         </div>
+        <div class="icon-row">
+            {% if track.url %}
+            <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
+                <i class="fab fa-spotify"></i><span class="icon-caption">試聴</span>
+            </a>
+            {% else %}
+            <i class="fab fa-spotify icon-disabled"></i><span class="icon-disabled-caption">不可</span>
+            {% endif %}
+            <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
+                <i class="fas fa-info-circle"></i><span class="icon-caption">詳細</span>
+            </a>
+            <span class="tempo-value">{{ '{:0.1f}'.format(track.tempo|float) }} BPM</span>
+            <span class="camelot-info">{{ "{: >3}".format(track.camelot_key_signature) }}</span>
+        </div>
+    </div>
+</div>
+
         {% endfor %}
     </div>
 <footer>

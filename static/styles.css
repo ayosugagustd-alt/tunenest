@@ -15,7 +15,7 @@
 
 img {
     max-width: 100%;
-    max-height: 480px; /* 最大高さを設定 */
+    max-height: 300px; /* 最大高さを設定 */
     height: auto;
     padding-top: 5px;
 }
@@ -548,6 +548,76 @@ input[type='range']:active::-moz-range-thumb {
     font-size: 24px; /* アイコンサイズ */
 }
 
+/**/
+.custom-list-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 5px;
+}
+
+.track-artwork {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.track-info {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.track-details {
+    display: flex;
+    align-items: center;
+}
+
+.track-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.artist {
+    font-size: 14px;
+    color: #666;
+}
+
+.icon-row {
+    display: flex;
+    align-items: center;
+}
+
+.icon-caption, .tempo-value, .camelot-info, .icon-disabled-caption {
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+.sort-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #1DB954;
+}
+
+.track-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.tempo-value {
+    width: 80px; /* 数値部分の幅を固定 */
+    text-align: right; /* 右寄せにする */
+    display: inline-block; /* inline-block属性を設定 */
+}
+/**/
+
 @media only screen and (max-width: 768px) {
 	body {
         background-color: #ffffff; /* 背景色を白に設定 */
@@ -652,6 +722,63 @@ input[type='range']:active::-moz-range-thumb {
     .camelot-info {
         width: 36px; /* 幅を指定して一定に保つ */
     }
+/**/
+/* モバイルデバイス用のスタイル */
+@media only screen and (max-width: 768px) {
+    .custom-list-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 5px;  /* パディングを減らす */
+    }
+
+    .track-artwork {
+        width: 80px;  /* より小さく */
+        height: 80px;
+        margin-bottom: 5px;  /* 余白を減らす */
+    }
+
+    .track-info {
+        width: 100%;
+    }
+
+    .track-details, .icon-row {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 0;  /* 左パディングを削除 */
+    }
+
+    .track-name, .artist {
+        font-size: 12px;  /* 曲名とアーティスト名のフォントサイズを統一 */
+        margin-bottom: 2px; /* 余白を減らして、行間を調整 */
+    }
+
+    .icon-caption, .icon-disabled-caption {
+        font-size: 12px;  /* '試聴'と'詳細'のフォントサイズを調整 */
+    }
+
+    .tempo-value, .camelot-info {
+        font-size: 12px;  /* BPMとCamelotのフォントサイズを同じに */
+        margin-top: 2px;  /* 余白を減らす */
+        display: block;  /* 行の整列を保つためにblockに */
+        text-align: left; /* 左揃えにして行頭を揃える */
+        margin-left: 0;  /* 左マージンを0にする */
+    }
+
+    .sort-button {
+        font-size: 10px;  /* ソートボタンのフォントサイズを小さく */
+    }
+
+    .sort-section {
+        font-size: 12px; /* ソートセクションのテキストサイズを調整 */
+    }
+
+    .icon-row {
+        margin-top: 5px;  /* アイコン行のマージントップを調整 */
+        padding-left: 0;  /* 左パディングを削除して揃える */
+    }
+}
+
+/**/
 }
 
 @media (hover: none), (pointer: coarse) {

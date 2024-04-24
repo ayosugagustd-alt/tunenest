@@ -13,14 +13,14 @@
     </script>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta name="description" content="{{ playlist_description or 'tunenest: BPM、プレビュー、アーティストのプロフィール、アルバムの詳細、トラックの詳細を探索。' }}">
+    <meta name="description" content="{{ playlist_description or 'tunenest: BPM、試聴、アーティストのプロフィール、アルバムの詳細、トラックの詳細を探索。' }}">
     <meta name="author" content="hiro">
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{ playlist_name }}">
     <meta name="twitter:description" content="{{ playlist_description }}">
     <meta name="twitter:image" content="{{ collage_filename or url_for('static', filename='TuneNest.png') }}">
-    <title>{{ playlist_name or 'Explore Music' }} : プレイリストをプレビュー</title>
+    <title>{{ playlist_name or 'Explore Music' }} : プレイリストを試聴</title>
     <script type="application/ld+json">
     {
         "@context": "http://schema.org",
@@ -96,7 +96,18 @@
             <img id="playing-artwork" src="{{ collage_filename }}" alt="Spotify Playlist Artwork" loading="lazy">
             <div id="playing"></div>
         </div>
-
+        <div class="sort-section">
+            <div class="sort-option">
+                <button class="sort-button" onclick="sortTracks('bpm', 'asc')"><i class="fas fa-arrow-up"></i></button>
+                <span><strong>BPM</strong></span>
+                <button class="sort-button" onclick="sortTracks('bpm', 'desc')"><i class="fas fa-arrow-down"></i></button>
+            </div>
+            <div class="sort-option">
+                <button class="sort-button" onclick="sortTracks('camelot', 'asc')"><i class="fas fa-arrow-up"></i></button>
+                <span><strong>Camelot</strong></span>
+                <button class="sort-button" onclick="sortTracks('camelot', 'desc')"><i class="fas fa-arrow-down"></i></button>
+            </div>
+        </div>
         <div id="buttons">
             <button onclick="previous()"><i class="fas fa-step-backward"></i></button>
             <button onclick="togglePlay()"><i class="fas fa-play"></i><i class="fas fa-pause"></i></button>
@@ -113,22 +124,20 @@
             <div class="custom-list-content">
                 <div class="track-name">{{ track.name }}</div>
                 <div class="artist">{{ track.artist }}</div>
-                <div>
-                    <span class="tempo-value">{{ "{: >5.1f}".format(track.tempo|float|round(1)).replace(" ", "&nbsp;")|safe }}</span>
-                    <span class="tempo-unit">BPM</span>
-                    <span class="key-info">{{ track.key_signature }} ({{ track.camelot_key_signature }})</span>
-                </div>
                 <div class="icon-row">
                     {% if track.url %}
                         <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
-                        <i class="fab fa-spotify" style="margin-right: 5px;"></i><span class="icon-caption">プレビュー</span></a>
+                        <i class="fab fa-spotify" style="margin-right: 5px;"></i><span class="icon-caption">試聴</span></a>
                     {% else %}
-                        <i class="fab fa-spotify icon-disabled" style="margin-right: 5px;"></i><span class="icon-disabled-caption">プレビュー</span>
+                        <i class="fab fa-spotify icon-disabled" style="margin-right: 5px;"></i><span class="icon-disabled-caption">試聴</span>
                     {% endif %}
 
                     <!-- Info -->
                     <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
                         <i class="fas fa-info-circle" style="margin-right: 5px; padding-top: 5px;"></i><span class="icon-caption">詳細</span></a>
+
+                    <span class="tempo-value">{{ "{: >3.0f}".format(track.tempo|float|round(1)).replace(" ", "&nbsp;")|safe }}BPM</span>
+                    <span class="camelot-info">{{ "{: >3}".format(track.camelot_key_signature) }}</span>
                 </div>
             </div>
         </div>
@@ -138,6 +147,11 @@
     <p>&copy;2023 tunenest.com. All rights reserved. Developed by ヒロ. <a href="https://twitter.com/jmusic_hiro" target="_blank" rel="noopener" title="ヒロのX"><i class="fab fa-x-twitter"></i></a><a href="{{ url_for('static', filename='privacy-policy.html') }}" target="_blank" rel="noopener"></p><p>利用規約とプライバシーポリシー</a></p>
 </footer>
     <script>
+        /* Safariを識別 */
+        function isSafari() {
+            return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        }
+
         let tracks = {{ tracks|tojson }};
         let index = 0;
         let audio;
@@ -235,11 +249,13 @@
 
             let camelotColor = tracks[index].camelot_color;  // サーバーから受け取ったカラーコード
 
-            let playingInfo = '<span style="color: #7F7F7F;">#' + (index + 1) + ':</span>' + "<br>" +
-                  '<span><strong>' + tracks[index].name + '</strong></span>' + "<br>" +
-                  '<span style="color: #7F7F7F;">' + tracks[index].artist + '</span>' + "<br>" +
-                  '<span style="color: #7F7F7F;"><strong>' + formattedTempo + ' BPM</strong></span>' + "<br>" +
-                  '<span style="color: ' + camelotColor + '"><strong>' + tracks[index].key_signature + ' (' + tracks[index].camelot_key_signature + ')</strong></span>';
+            let playingInfo = `
+                <span style="color: #7F7F7F;">#${index + 1}:</span><br>
+                <span><strong>${tracks[index].name}</strong></span><br>
+                <span style="color: #7F7F7F;">${tracks[index].artist}</span><br>
+                <span class="tempo-value" style="color: #7F7F7F;">${formattedTempo} BPM</span><br>
+                <span class="camelot-big-info" style="color: ${camelotColor}">${tracks[index].camelot_key_signature} = ${tracks[index].key_signature}</span>
+            `;
 
             // Spotifyへのリンクを生成
             let spotifyLink = `https://open.spotify.com/track/${tracks[index].id}`;
@@ -374,8 +390,11 @@
                     if (response.ok) {
                         const data = await response.json();
                         if (playlistDropdown.value === 'searchTrack') {
-//                            window.open(`/song_details/${data.track_id}`, '_blank'); // 楽曲詳細ページを新しいタブで開く
-                            window.location.href = `/song_details/${data.track_id}`; // 同じタブでリダイレクト
+                            if (isSafari()) {
+                                window.location.href = `/song_details/${data.track_id}`; // 同じタブでリダイレクト
+                            } else {
+                                window.open(`/song_details/${data.track_id}`, '_blank'); // 楽曲詳細ページを新しいタブで開く
+                            }
                         } else if (playlistDropdown.value === 'searchPlaylist') {
                             window.location.href = `/?playlist_id=${data.playlist_id}`; // プレイリストページにリダイレクト
                         }
@@ -428,8 +447,11 @@
                     })
                     .then(data => {
                         if (playlistDropdown.value === 'searchTrack' && data.track_id) {
-//                            window.open(`/song_details/${data.track_id}`, '_blank');
-                            window.location.href = `/song_details/${data.track_id}`; // 同じタブでリダイレクト
+                            if (isSafari()) {
+                                window.location.href = `/song_details/${data.track_id}`; // Safariでは同じタブでリダイレクト
+                            } else {
+                                window.open(`/song_details/${data.track_id}`, '_blank'); // 他のブラウザでは新しいタブで開く
+                            }
                         } else if (playlistDropdown.value === 'searchPlaylist' && data.playlist_id) {
                             window.location.href = `/?playlist_id=${data.playlist_id}`;
                         } else {
@@ -488,6 +510,23 @@
                 nextAudio = preloadNextTrack();  // 次をプリロード
             }
         });
+
+        function sortTracks(sortType, sortOrder) {
+            const params = new URLSearchParams(window.location.search); // 現在のURLのクエリパラメータを取得
+            params.set('sort', sortType); // ソートパラメータを設定または更新
+            params.set('order', sortOrder); // ソートパラメータを設定または更新
+
+            // プレイリストIDがURLにない場合、ドロップダウンから取得して設定
+            if (!params.has('playlist_id')) {
+                const playlistId = document.getElementById('playlistDropdown').value;
+                if (playlistId) {
+                    params.set('playlist_id', playlistId);
+                }
+            }
+
+            const newUrl = `${window.location.pathname}?${params.toString()}`; // 新しいURLを生成
+            window.location.href = newUrl; // 新しいURLでページをリロード
+        }
     </script>
 </div>
 </body>
