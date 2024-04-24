@@ -132,7 +132,7 @@
                 <i class="fab fa-spotify"></i><span class="icon-caption">試聴</span>
             </a>
             {% else %}
-            <i class="fab fa-spotify icon-disabled"></i><span class="icon-disabled-caption">不可</span>
+                <i class="fab fa-spotify icon-disabled"></i><span class="icon-disabled-caption">不可</span>
             {% endif %}
             <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
                 <i class="fas fa-info-circle"></i><span class="icon-caption">詳細</span>
@@ -256,8 +256,8 @@
                 <span style="color: #7F7F7F;">#${index + 1}:</span><br>
                 <span><strong>${tracks[index].name}</strong></span><br>
                 <span style="color: #7F7F7F;">${tracks[index].artist}</span><br>
-                <span class="tempo-value" style="color: #7F7F7F;">${formattedTempo} BPM</span><br>
-                <span class="camelot-big-info" style="color: ${camelotColor}">${tracks[index].camelot_key_signature} = ${tracks[index].key_signature}</span>
+                <span style="color: #7F7F7F;">${formattedTempo} BPM</span><br>
+                <span style="color: ${camelotColor}">${tracks[index].camelot_key_signature} = ${tracks[index].key_signature}</span>
             `;
 
             // Spotifyへのリンクを生成
