@@ -572,16 +572,21 @@ footer {
 
     .search-input {
         width: 100%;
+        -webkit-appearance: none; /* iOSのデフォルトスタイリングを無効化 */
+        /* 必要に応じて他のスタイリングを追加 */
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 10px;
     }
 
     footer p {
         font-size: 10px;
     }
-
     .fab.fa-x-twitter {
         margin-right: 2px;
         font-size: 8px;
     }
+
 }
 
 /* スマートフォン向けのスタイル (画面幅が 767px 以下) */
@@ -706,6 +711,19 @@ footer {
 
     .search-input {
         width: 100%;
+        -webkit-appearance: none; /* iOSのデフォルトスタイリングを無効化 */
+        /* 必要に応じて他のスタイリングを追加 */
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+
+    footer p {
+        font-size: 10px;
+    }
+    .fab.fa-x-twitter {
+        margin-right: 2px;
+        font-size: 8px;
     }
 
 }
@@ -799,4 +817,13 @@ footer {
         margin-top: -15px; /* アートワークからのマージン */
         margin-bottom: 15px; /* アートワークからのマージン */
     }
+
+    footer p {
+        font-size: 10px;
+    }
+    .fab.fa-x-twitter {
+        margin-right: 2px;
+        font-size: 8px;
+    }
+
 }
