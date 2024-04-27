@@ -26,11 +26,14 @@ body {
 
 /* ヘッダーとタイトル */
 h1 {
-    margin-top: 0px;
+    margin-top: 4px;
     margin-bottom: 0px;
     font-size: 48px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;  /* Bold for more impact */
+}
+h3 {
+    margin-left: 4px;
 }
 
 /* スライダーのトラック */
@@ -450,7 +453,6 @@ footer {
 
     h1 {
         font-size: 24px; /* タイトルのフォントサイズを小さく調整 */
-        padding: 8px 12px; /* タイトル周りのパディングを調整 */
     }
 
     .container {
@@ -592,7 +594,6 @@ footer {
 
     h1 {
         font-size: 28px; /* タイトルのフォントサイズを小さく */
-        padding: 10px 15px; /* タイトル周りのパディングを調整 */
     }
 
     .custom-list-item {
@@ -726,7 +727,6 @@ footer {
 
     h1 {
         font-size: 32px; /* タイトルのフォントサイズを調整 */
-        padding: 12px 18px; /* タイトル周りのパディングを調整 */
     }
 
     .container {
