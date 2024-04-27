@@ -455,7 +455,7 @@ footer {
 
     .container {
         padding: 8px; /* コンテナのパディングを調整 */
-        padding-bottom: 50px; /* 下部に余白を追加 */
+        padding-bottom: 120px; /* 下部に余白を追加 */
     }
 
     .custom-list-item {
@@ -510,16 +510,16 @@ footer {
         margin-right: 0px;
     }
     .camelot-info {
-        margin-right: 15px;
+        margin-right: 10px;
         width: 35px; /* 幅を指定して一定に保つ */
         text-align: right; /* テキストを右揃えにする */
     }
 
     #playing {
-        font-size: 14px;
+        font-size: 12px;
     }
     .info-now-playing {
-        font-size: 14px;
+        font-size: 12px;
         display: inline-block;
     }
 
@@ -568,6 +568,19 @@ footer {
     .sort-section {
         margin-top: -20px; /* アートワークからのマージン */
         margin-bottom: 10px; /* アートワークからのマージン */
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    footer p {
+        font-size: 10px;
+    }
+
+    .fab.fa-x-twitter {
+        margin-right: 2px;
+        font-size: 8px;
     }
 }
 
@@ -624,7 +637,7 @@ footer {
 
     .icon-caption, .icon-disabled-caption {
         font-size: 12px;
-        margin-right: 10px;
+        margin-right: 30px;
     }
     .tempo-value {
         width: 70px; /* 数値部分の幅を固定 */
@@ -632,16 +645,16 @@ footer {
         margin-right: 0px;
     }
     .camelot-info {
-        margin-right: 20px;
+        margin-right: 30px;
         width: 40px; /* 幅を指定して一定に保つ */
         text-align: right; /* テキストを右揃えにする */
     }
 
     #playing {
-        font-size: 16px;
+        font-size: 14px;
     }
     .info-now-playing {
-        font-size: 16px;
+        font-size: 14px;
         display: inline-block;
     }
 
@@ -690,6 +703,11 @@ footer {
         margin-top: -30px; /* アートワークからのマージン */
         margin-bottom: 20px; /* アートワークからのマージン */
     }
+
+    .search-input {
+        width: 100%;
+    }
+
 }
 
 /* タブレット向けのスタイル (画面幅が 768px から 1024px) */
