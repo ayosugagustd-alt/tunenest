@@ -28,7 +28,7 @@ body {
 h1 {
     margin-top: 0px;
     margin-bottom: 0px;
-    font-size: 36px;
+    font-size: 48px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;  /* Bold for more impact */
 }
@@ -120,7 +120,7 @@ a:hover {
 
 img {
     max-width: 100%;
-    max-height: 300px; /* 最大高さを設定 */
+    max-height: 520px; /* 最大高さを設定 */
     height: auto;
     padding-top: 5px;
 }
@@ -449,7 +449,7 @@ footer {
     }
 
     h1 {
-        font-size: 20px; /* タイトルのフォントサイズを小さく調整 */
+        font-size: 24px; /* タイトルのフォントサイズを小さく調整 */
         padding: 8px 12px; /* タイトル周りのパディングを調整 */
     }
 
@@ -591,7 +591,7 @@ footer {
     }
 
     h1 {
-        font-size: 24px; /* タイトルのフォントサイズを小さく */
+        font-size: 28px; /* タイトルのフォントサイズを小さく */
         padding: 10px 15px; /* タイトル周りのパディングを調整 */
     }
 
@@ -681,7 +681,7 @@ footer {
         font-size: 12px;
     }
     .fas.fa-volume-up.no-blink {
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .track-number {
@@ -695,7 +695,7 @@ footer {
         margin: 2px; /* ボタン間のマージンを追加 */
         width: 20px;
         height: 20px;
-        font-size: 12px;
+        font-size: 14px;
         border-radius: 15px;
     }
 
@@ -725,7 +725,7 @@ footer {
     }
 
     h1 {
-        font-size: 28px; /* タイトルのフォントサイズを調整 */
+        font-size: 32px; /* タイトルのフォントサイズを調整 */
         padding: 12px 18px; /* タイトル周りのパディングを調整 */
     }
 
@@ -809,11 +809,11 @@ footer {
     }
 
     footer p {
-        font-size: 10px;
+        font-size: 12px;
     }
     .fab.fa-x-twitter {
         margin-right: 2px;
-        font-size: 8px;
+        font-size: 10px;
     }
 
 }
