@@ -344,6 +344,7 @@ footer {
     margin-left: 10px; /* アートワークからのマージン */
 }
 .sort-option {
+    font-size: 18px;
     display: flex;
     align-items: center;
     margin-right: 24px; /* オプション間のスペース */
@@ -583,7 +584,9 @@ footer {
         margin-right: 2px;
         font-size: 8px;
     }
-
+    .sort-option {
+        font-size: 14px;
+    }
 }
 
 /* スマートフォン向けのスタイル (画面幅が 767px 以下) */
@@ -716,7 +719,9 @@ footer {
         margin-right: 2px;
         font-size: 8px;
     }
-
+    .sort-option {
+        font-size: 16px;
+    }
 }
 
 /* タブレット向けのスタイル (画面幅が 768px から 1024px) */
@@ -815,5 +820,4 @@ footer {
         margin-right: 2px;
         font-size: 10px;
     }
-
 }
