@@ -13,3 +13,6 @@ __pycache__/
 *.swp
 *.un~
 *.flake8
+
+# バックアップファイル
+*.back

@@ -75,7 +75,7 @@
         <p><strong>レーベル</strong>：{{ song.label }}</p>
         <!-- code for song properties -->
         <p><strong>Spotify人気度</strong>：{{ song.popularity }}%</p>
-        <span class="stars">
+        <span>
             {% for _ in range(0, song.popularity // 10) %}
                 <span class="star"><i class="fas fa-star"></i></span>
             {% endfor %}

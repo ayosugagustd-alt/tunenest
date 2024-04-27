@@ -39,7 +39,7 @@
 <div class="section-space">
     <h2>基本情報</h2>
     <p><strong>Spotify人気度</strong>：{{ album.popularity }}%</p>
-    <span class="stars">
+    <span>
         {% for _ in range(0, album.popularity // 10) %}
             <span class="star"><i class="fas fa-star"></i></span>
         {% endfor %}

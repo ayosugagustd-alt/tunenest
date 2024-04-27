@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Roboto+Mono&display=swap');
+/* ベースのインポートとルート変数 */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap');
+
 :root {
     --star-color: #FF9900;
     --empty-star-color: #767676;
@@ -13,38 +15,71 @@
     --loudness-color: #2980b9; /* ストロングブルー */
 }
 
-img {
-    max-width: 100%;
-    max-height: 300px; /* 最大高さを設定 */
-    height: auto;
-    padding-top: 5px;
-}
-
-.rotate-message { display: none; }
-
+/* ボディとグローバルスタイル */
 body {
     background-color: #f5f5f5; /* 背景色を薄い灰色に設定 */
     margin: 0; /* デフォルトのマージンをリセット */
     color: #000000;
     font-size: var(--font-size);
-    font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
-.container {
-    max-width: 1000px; /* 最大幅を設定 */
-    margin: 0 auto; /* 上下のマージンを0にし、左右を自動で調整して中央寄せ */
-    background-color: #fff; /* コンテナの背景は白 */
-    padding: 20px; /* 内側の余白を設定 */
-    padding-bottom: 90px; /* コンテンツの下に余白を追加 */
-    min-height: 100vh; /* 最小の高さをビューポートの100%に設定 */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* やや控えめな影を追加 */
-}
-
+/* ヘッダーとタイトル */
 h1 {
     margin-top: 0px;
     margin-bottom: 0px;
-    font-size: 60px;
-	font-weight: bold;
+    font-size: 36px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;  /* Bold for more impact */
+}
+
+/* スライダーのトラック */
+input[type='range'] {
+  -webkit-appearance: none; /* デフォルトのスタイルを無効にする */
+  width: 200px;
+  margin: 7.5px 0;
+  height: 8px; /* スライダーのトラックの高さ */
+  border-radius: 4px;
+  background: #F5F5F5; /* トラックの背景色 */
+  outline: none; /* アウトラインを消す */
+}
+/* スライダーのサム（つまみ） */
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 24px; /* サムの高さ */
+  width: 24px; /* サムの幅 */
+  border-radius: 12px; /* サムを円形に */
+  background: #E0E0E0; /* サムの背景色 */
+  cursor: pointer;
+  transition: background-color 0.3s; /* 背景色の変化にトランジションを適用 */
+}
+/* サムがホバーされた時 */
+input[type='range']:hover::-webkit-slider-thumb {
+  background: #C0C0C0;
+}
+/* サムがアクティブ（ドラッグされている時） */
+input[type='range']:active::-webkit-slider-thumb {
+  background: #A9A9A9; /* アクティブ時のサムの色 */
+}
+/* Firefox用のスタイリング */
+input[type='range']::-moz-range-track {
+  background: #F5F5F5;
+  height: 8px;
+  border-radius: 4px;
+  outline: none;
+}
+input[type='range']::-moz-range-thumb {
+  height: 24px;
+  width: 24px;
+  border-radius: 12px;
+  background: #E0E0E0;
+  border: none;
+}
+input[type='range']:hover::-moz-range-thumb {
+  background: #C0C0C0;
+}
+input[type='range']:active::-moz-range-thumb {
+  background: #A9A9A9;
 }
 
 button {
@@ -67,82 +102,50 @@ button {
     -webkit-tap-highlight-color: transparent; /* タップハイライトを透明に */
     flex: 0 0 auto; /* ボタンのサイズが内容に依存し、拡大縮小しないように設定 */
 }
-
 button:hover {
     background-color: #E0E0E0;
 }
-
 button:active {
     background-color: #C0C0C0;
     color: white;
 }
 
-.sort-buttons {
-    display: flex;
-    flex-direction: row; /* ボタンを横並びにする */
-    justify-content: flex-start; /* 左寄せ */
-    align-items: center; /* アイテムを中央揃え */
-    margin-top: 10px; /* アートワークからのマージン */
+a {
+    text-decoration: none;
+    color: #1a0dab; /* Googleリンクの典型的な青色 */
+}
+a:hover {
+    text-decoration: underline;
 }
 
-.sort-button {
-    margin: 5px; /* ボタン間のマージンを追加 */
-    width: 30px;
-    height: 30px;
-    background-color: #F5F5F5;
-    color: black;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s;
+img {
+    max-width: 100%;
+    max-height: 300px; /* 最大高さを設定 */
+    height: auto;
+    padding-top: 5px;
 }
 
-.sort-section {
-    display: flex;
-    justify-content: flex-start; /* 左寄せ */
-    align-items: center; /* アイテムを中央揃え */
-    margin-top: 20px; /* アートワークからのマージン */
-    margin-left: 10px; /* アートワークからのマージン */
+.album-artwork {
+    display: block;
+    margin: 0px;
 }
 
-.sort-option {
-    display: flex;
-    align-items: center;
-    margin-right: 24px; /* オプション間のスペース */
-}
-
-.sort-button:hover {
-    background-color: #E0E0E0;
-}
-
-.sort-button:active {
-    background-color: #C0C0C0;
-    color: white;
+.track-artwork {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+    border-radius: 5px;
+    object-fit: cover;
 }
 
 #controls {
     text-align: left;
 }
 
-/* アートワークのマージンなど */
-#playing-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-#playing-artwork {
-    margin-right: 4px; /* 右側の余白を調整 */
-}
-
 #buttons {
     position: fixed;
     left: 50%;
-    bottom: 20px; /* 適宜調整してください */
+    bottom: 10px; /* 適宜調整してください */
     transform: translateX(-50%);
     z-index: 100; /* 他の要素より前に表示 */
     background: #fff; /* 背景色 */
@@ -153,372 +156,6 @@ button:active {
     justify-content: center;
     align-items: center;
     width: auto; /* 必要に応じて調整 */
-}
-
-/* アートワーク右の表示欄 */
-#playing {
-    flex-grow: 1;
-    font-size: 28px;
-	margin-left: 10px;
-}
-
-header p {
-    margin: 5px 0;
-    font-size: 16px;
-    color: #555;
-}
-header { text-align: right; width: 98%; padding: 0px 0; }
-
-.fab.fa-spotify {
-    margin-left: 1px;
-    margin-right: 7px;
-    font-size: 24px;
-	color: #1DB954;
-}
-.fab.fa-youtube {
-    margin-right: 4px;
-    font-size: 24px;
-    color: #FF0000;
-}
-.fas.fa-info-circle {
-    margin-right: 7px;
-    font-size: 24px;
-    color: #4169E1;
-}
-.fab.fa-x-twitter {
-    margin-right: 7px;
-    font-size: 24px;
-    color: #000;
-}
-.fab.fa-amazon {
-    margin-left: 1px;
-    margin-right: 9px;
-    font-size: 24px;
-    color: #FF9900; 
-}
-
-.fas.fa-volume-up {
-    animation: fadeInOut 2s infinite;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-    font-size: 20px;
-	color: #333333;
-}
-@keyframes fadeInOut {
-    0% {opacity: 1;}
-    50% {opacity: 0.5;}
-    100% {opacity: 1;}
-}
-.fas.fa-volume-up.no-blink {
-    animation: none;
-    font-size: 20px;
-	color: #F5F5F5;
-}
-
-.fas.fa-exclamation-triangle {
-    font-size: 24px;
-    color: #DAA520;  /* 黄土色 */
-}
-
-.video-container {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    padding-top: 30px;
-    height: 0;
-    overflow: hidden;
-}
-
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-a {
-    text-decoration: none;
-    color: #1a0dab; /* Googleリンクの典型的な青色 */
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-.custom-list-item {
-    margin-top: 14px;
-    display: flex;
-    align-items: flex-start;
-
-    flex-wrap: nowrap;  /* 要素が1行に収まるようになる */
-}
-
-.custom-list-number {
-    font-family: 'Roboto Mono', monospace;
-	color: grey;
-    font-size: 20px;
-    margin-right: 12px;
-
-    line-height: 1.7;
-}
-
-.custom-list-content {
-    font-size: 20px;
-}
-
-/* Watch MV, Preview, Info Caption */
-.icon-caption {
-    font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 20px;
-    margin-right: 30px;
-    display: inline-block;
-}
-/* Disabled Caption(No Preview) */
-.icon-disabled-caption {
-    font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 20px;
-    margin-right: 32px;
-    display: inline-block;
-
-    color: #A9A9A9;
-}
-.icon-caption:hover {
-    text-decoration: underline;
-}
-
-.icon-disabled {
-    color: lightgray;
-    opacity: 0.3;  /* 透明度も調整可能 */
-}
-
-.artist{
-	color: grey;
-    display: inline-block;
-    margin-bottom: 5px;  /* 下側に余白 */
-}
-
-.track-name{
-	font-weight: bold;
-}
-
-.tempo-value {
-    font-weight: bold;
-    font-family: 'Roboto Mono', monospace;
-    color: grey;
-    margin-right: 12px;
-}
-
-.camelot-info {
-    font-weight: bold;
-    font-family: 'Roboto Mono', monospace;
-    color: grey;
-    width: 45px; /* 幅を指定して一定に保つ */
-    text-align: right; /* テキストを右揃えにする */
-    display: inline-block; /* 要素をインラインブロックとして扱う */
-}
-
-.icon-row {
-    display: flex; /* 新しい行に表示 */
-    align-items: center;
-}
-
-/* 共通のスタイルを適用 */
-.search-input {
-    margin-top: 0px;  /* 上側に余白 */
-    margin-left: 0px;  /* 左側に余白 */
-    margin-bottom: 0px;  /* 下側に余白 */
-    margin-right: 10px; /* 右のボタンとの間隔 */
-    box-sizing: border-box;  /* paddingとborderを含む */
-    padding: 10px;
-    border: 2px solid gainsboro;
-    border-radius: 5px;
-    vertical-align: middle;
-	font-size: 16px;
-    width: 260px;  /* 固定幅 */
-    height: 50px;  /* 固定幅 */
-}
-
-.search-input:focus {
-    outline: none;
-    border: 2px solid gray;
-}
-
-/* selectタグにスタイルを適用 */
-select {
-    color: #555;
-    background-color: white;
-}
-
-/* スピーカーアイコン */
-.playing-icon {
-    margin-left: 8px;  /* 左側にマージン */
-}
-
-.info-now-playing {
-    font-size: 24px;
-    margin-bottom: 5px;
-    margin-left: 10px;
-    display: inline-block;
-}
-
-.info-now-playing:hover {
-    text-decoration: underline;
-}
-
-.star, .empty-star, .half-star {
-    font-size: 24px;
-    margin-right: -3px;
-}
-.star { color: var(--star-color); }
-.half-star { color: var(--star-color); }
-.empty-star { color: var(--empty-star-color); }
-
-
-.progress-bar {
-    width: 100%;
-    height: 24px;
-    background-color: #555;
-    margin: 10px 0;
-}
-.progress { height: 100%; background-color: var(--star-color); }
-
-.progress-valence { background-color: var(--valence-color); }
-.progress-acousticness { background-color: var(--acousticness-color); }
-.progress-danceability { background-color: var(--danceability-color); }
-.progress-energy { background-color: var(--energy-color); }
-.progress-instrumentalness { background-color: var(--instrumentalness-color); }
-.progress-liveness { background-color: var(--liveness-color); }
-.progress-speechiness { background-color: var(--speechiness-color); }
-.progress-loudness { background-color: var(--loudness-color); }
-
-.visual-section {
-    padding: 10px;
-    max-width: 570px; /* 最大高さを設定 */
-}
-.section-space {
-    padding: 10px;
-}
-
-#ul, ol箇条書きのマーク表示しない
-.no-bullet { list-style-type: none; }
-
-.album-artwork {
-    display: block;
-    margin: 0px;
-}
-
-footer p {
-    margin: 0px 0;
-    font-size: 16px;
-    color: #555;
-}
-footer {
-    text-align: left;
-    width: 100%;
-    padding: 50px 0 0 0;
-}
-
-@keyframes bounce {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-.special-option {
-    font-weight: bold;
-}
-
-.fas.fa-pause {
-    display: none;
-}
-
-/* スライダーのコンテナ */
-.volume-control {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* ラベルとスライダーの間隔 */
-}
-
-/* ラベルのスタイリング */
-.volume-control label {
-  font-size: 16px;
-  color: black;
-}
-
-/* スライダーのトラック */
-input[type='range'] {
-  -webkit-appearance: none; /* デフォルトのスタイルを無効にする */
-  width: 200px;
-  margin: 7.5px 0;
-  height: 8px; /* スライダーのトラックの高さ */
-  border-radius: 4px;
-  background: #F5F5F5; /* トラックの背景色 */
-  outline: none; /* アウトラインを消す */
-}
-
-/* スライダーのサム（つまみ） */
-input[type='range']::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  height: 24px; /* サムの高さ */
-  width: 24px; /* サムの幅 */
-  border-radius: 12px; /* サムを円形に */
-  background: #E0E0E0; /* サムの背景色 */
-  cursor: pointer;
-  transition: background-color 0.3s; /* 背景色の変化にトランジションを適用 */
-}
-
-/* サムがホバーされた時 */
-input[type='range']:hover::-webkit-slider-thumb {
-  background: #C0C0C0;
-}
-
-/* サムがアクティブ（ドラッグされている時） */
-input[type='range']:active::-webkit-slider-thumb {
-  background: #A9A9A9; /* アクティブ時のサムの色 */
-}
-
-/* Firefox用のスタイリング */
-input[type='range']::-moz-range-track {
-  background: #F5F5F5;
-  height: 8px;
-  border-radius: 4px;
-  outline: none;
-}
-
-input[type='range']::-moz-range-thumb {
-  height: 24px;
-  width: 24px;
-  border-radius: 12px;
-  background: #E0E0E0;
-  border: none;
-}
-
-input[type='range']:hover::-moz-range-thumb {
-  background: #C0C0C0;
-}
-
-input[type='range']:active::-moz-range-thumb {
-  background: #A9A9A9;
-}
-
-#searchBox {
-    display: flex; /* Flexboxを有効化 */
-    align-items: center; /* アイテムを中央に揃える */
-}
-
-#searchButton {
-    flex-shrink: 0; /* ボタンのサイズが縮小しないようにする */
-}
-
-#volumeSlider {
-    display: none;
-}
-
-.help-link a {
-  font-size: 0.8em; /* 見出しより小さく設定 */
-}
-
-#youtube-video {
-    border: 0;  /* frameborder="0" の代わり */
 }
 
 .home-icon {
@@ -536,14 +173,42 @@ input[type='range']:active::-moz-range-thumb {
     justify-content: center;
     align-items: center;
 }
-
 .home-icon a {
     display: block;
     color: #333; /* アイコン色 */
     font-size: 24px; /* アイコンサイズ */
 }
 
-/**/
+.container {
+    max-width: 1000px; /* 最大幅を設定 */
+    margin: 0 auto; /* 上下のマージンを0にし、左右を自動で調整して中央寄せ */
+    background-color: #fff; /* コンテナの背景は白 */
+    padding: 20px; /* 内側の余白を設定 */
+    padding-bottom: 120px; /* コンテンツの下に余白を追加 */
+    min-height: 100vh; /* 最小の高さをビューポートの100%に設定 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* やや控えめな影を追加 */
+}
+
+.track-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.icon-row {
+    display: flex;
+    align-items: center;
+}
+
+.section-space {
+    padding: 10px;
+}
+
+.visual-section {
+    padding: 10px;
+    max-width: 570px; /* 最大高さを設定 */
+}
+
 .custom-list-item {
     display: flex;
     align-items: center;
@@ -552,19 +217,155 @@ input[type='range']:active::-moz-range-thumb {
     margin-bottom: 5px;
 }
 
-.track-artwork {
-    width: 50px;
-    height: 50px;
-    margin-right: 15px;
-    border-radius: 5px;
-    object-fit: cover;
+.icon-caption, .tempo-value, .camelot-info, .icon-disabled-caption {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;  /* Regular for readability */
+    margin-right: 10px;
+    font-size: 16px;
+    display: inline-block;
+}
+.icon-caption:hover {
+    text-decoration: underline;
+}
+.icon-disabled-caption {
+    color: #A9A9A9;
 }
 
-.track-info {
+.fas.fa-volume-up {
+    animation: fadeInOut 2s infinite;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    font-size: 20px;
+	color: #333333;
+    margin-left: 8px;  /* アイコンとテキスト間の間隔を追加 */
+}
+.fas.fa-volume-up.no-blink {
+    animation: none;
+    font-size: 20px;
+	color: #F5F5F5;
+    margin-left: 8px;  /* アイコンとテキスト間の間隔を追加 */
+}
+
+footer p {
+    font-size: 14px;
+    color: #555;
+}
+
+@keyframes fadeInOut {
+    0% {opacity: 1;}
+    50% {opacity: 0.5;}
+    100% {opacity: 1;}
+}
+@keyframes bounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+select {
+    color: #555;
+    background-color: white;
+}
+
+#playing {
     flex-grow: 1;
+    font-size: 24px;
+	margin-left: 10px;
+}
+#playing-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    margin-bottom: 50px;
+}
+#playing-artwork {
+    margin-right: 4px; /* 右側の余白を調整 */
+}
+#searchBox {
+    display: flex; /* Flexboxを有効化 */
+    align-items: center; /* アイテムを中央に揃える */
+}
+#searchButton {
+    flex-shrink: 0; /* ボタンのサイズが縮小しないようにする */
+}
+
+#volumeSlider {
+    display: none;
+}
+
+footer {
+    text-align: left;
+    width: 100%;
+}
+
+.track-number {
+    width: 30px;
+    text-align: right;
+    margin-right: 10px;
+}
+
+.star, .empty-star, .half-star {
+    font-size: 24px;
+    margin-right: -3px;
+}
+.star { color: var(--star-color); }
+.half-star { color: var(--star-color); }
+.empty-star { color: var(--empty-star-color); }
+
+.search-input {
+    margin-top: 0px;  /* 上側に余白 */
+    margin-left: 0px;  /* 左側に余白 */
+    margin-bottom: 0px;  /* 下側に余白 */
+    margin-right: 10px; /* 右のボタンとの間隔 */
+    box-sizing: border-box;  /* paddingとborderを含む */
+    padding: 10px;
+    border: 2px solid gainsboro;
+    border-radius: 5px;
+    vertical-align: middle;
+	font-size: 16px;
+    width: 300px;  /* 固定幅 */
+    height: 50px;  /* 固定幅 */
+}
+.search-input:focus {
+    outline: none;
+    border: 2px solid gray;
+}
+
+.special-option {
+    font-weight: bold;
+}
+
+.sort-section {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* アイテムを中央揃え */
+    margin-top: 20px; /* アートワークからのマージン */
+    margin-left: 10px; /* アートワークからのマージン */
+}
+.sort-option {
+    display: flex;
+    align-items: center;
+    margin-right: 24px; /* オプション間のスペース */
+}
+.sort-button {
+    margin: 5px; /* ボタン間のマージンを追加 */
+    width: 30px;
+    height: 30px;
+    background-color: #F5F5F5;
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+.sort-button:hover {
+    background-color: #E0E0E0;
+}
+.sort-button:active {
+    background-color: #C0C0C0;
+    color: white;
 }
 
 .track-details {
@@ -579,31 +380,8 @@ input[type='range']:active::-moz-range-thumb {
 }
 
 .artist {
-    font-size: 14px;
+    font-size: 16px;
     color: #666;
-}
-
-.icon-row {
-    display: flex;
-    align-items: center;
-}
-
-.icon-caption, .tempo-value, .camelot-info, .icon-disabled-caption {
-    margin-left: 10px;
-    font-size: 14px;
-}
-
-.sort-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #1DB954;
-}
-
-.track-info {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
 }
 
 .tempo-value {
@@ -611,174 +389,396 @@ input[type='range']:active::-moz-range-thumb {
     text-align: right; /* 右寄せにする */
     display: inline-block; /* inline-block属性を設定 */
 }
-/**/
 
-@media only screen and (max-width: 768px) {
-	body {
-        background-color: #ffffff; /* 背景色を白に設定 */
-    	margin: 10px;
-	}
+.camelot-info {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;  /* Regular for readability */
+
+    width: 45px; /* 幅を指定して一定に保つ */
+    text-align: right; /* テキストを右揃えにする */
+    display: inline-block; /* 要素をインラインブロックとして扱う */
+}
+
+.info-now-playing {
+    font-size: 24px;
+    display: inline-block;
+}
+.info-now-playing:hover {
+    text-decoration: underline;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 24px;
+    background-color: #555;
+    margin: 10px 0;
+}
+.progress { height: 100%; background-color: var(--star-color); }
+.progress-valence { background-color: var(--valence-color); }
+.progress-acousticness { background-color: var(--acousticness-color); }
+.progress-danceability { background-color: var(--danceability-color); }
+.progress-energy { background-color: var(--energy-color); }
+.progress-instrumentalness { background-color: var(--instrumentalness-color); }
+.progress-liveness { background-color: var(--liveness-color); }
+.progress-speechiness { background-color: var(--speechiness-color); }
+.progress-loudness { background-color: var(--loudness-color); }
+
+.help-link a {
+  font-size: 0.8em; /* 見出しより小さく設定 */
+}
+
+.fas.fa-pause {
+    display: none;
+}
+
+.fas.fa-exclamation-triangle {
+    font-size: 24px;
+    color: #DAA520;  /* 黄土色 */
+}
+
+.fab.fa-x-twitter {
+    margin-right: 7px;
+    font-size: 24px;
+    color: #000;
+}
+
+/* スマートフォン向けのスタイル (iPhone SEなど画面幅が 375px 以下) */
+@media (max-width: 375px) {
+    body {
+        font-size: 14px; /* フォントサイズを小さく */
+    }
+
+    h1 {
+        font-size: 20px; /* タイトルのフォントサイズを小さく調整 */
+        padding: 8px 12px; /* タイトル周りのパディングを調整 */
+    }
+
     .container {
-        max-width: 100%; /* スマートフォン等では最大幅を100%に */
-        box-shadow: none; /* モバイルビューでの影を無効化 */
-        padding-bottom: 70px; /* コンテンツの下に余白を追加 */
-    }
-   img {
-        max-width: 50%;
-    }
-    .big-artwork img {
-        max-width: 100%;
-    }
-    .custom-list-content {
-        font-size: 16px;
-    }
-    .custom-list-number {
-        font-size: 16px;
-        margin-right: 6px;
-    }
-    /* アートワーク右の表示欄 */
-    #playing {
-        flex-grow: 1;
-        font-size: 16px;
-        margin-left: 4px;
-    }
-	.fab.fa-spotify {
-    	font-size: 20px;
-	}
-	.fab.fa-youtube {
-    	font-size: 20px;
-	}
-	.fas.fa-info-circle {
-    	font-size: 20px;
-	}
-    .fab.fa-x-twitter {
-        font-size: 20px;
-    }
-	.fab.fa-amazon {
-    	font-size: 20px;
-	}
-
-    .fas.fa-volume-up {
-        font-size: 16px;
-    }
-    .fas.fa-volume-up.no-blink {
-        font-size: 16px;
+        padding: 8px; /* コンテナのパディングを調整 */
+        padding-bottom: 50px; /* 下部に余白を追加 */
     }
 
-    .fas.fa-exclamation-triangle {
-        font-size: 20px;
-    }
-
-    /* Watch MV, Preview, Info Caption */
-    .icon-caption {
-        font-size: 16px;
-        margin-right: 20px;
-    }
-    /* Disabled Caption(No Preview) */
-    .icon-disabled-caption {
-        font-size: 16px;
-        margin-right: 28px;
-    }
-	h1 {
-        margin-bottom: 10px;
-    	font-size: 32px;
-	}
-	footer p {
-    	font-size: 14px;
-	}
-    #buttons {
-	    margin-top: 10px;
-	    margin-bottom: 10px;
-	    margin-left: 2px;
-        width: 80%;
-    }
-    .star, .empty-star, .half-star {
-        font-size: 22px;
-        margin-right: -2px;
-    }
-    .info-now-playing {
-        font-size: 16px;
-        margin-bottom: 3px;
-        margin-left: 5px;
-    }
-    input[type='range'] {
-        width: 100%; /* モバイルデバイスではスライダーの幅を画面幅に合わせる */
-        max-width: 150px; /* 最大幅は150ピクセルに制限 */
-    }
-    .tempo-value {
-        margin-right: 7px;
-    }
-    .sort-option {
-        margin-right: 20px; /* オプション間のスペース */
-    }
-    .sort-section {
-        margin-left: 4px; /* アートワークからのマージン */
-    }
-    .camelot-info {
-        width: 36px; /* 幅を指定して一定に保つ */
-    }
-/**/
-/* モバイルデバイス用のスタイル */
-@media only screen and (max-width: 768px) {
     .custom-list-item {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 5px;  /* パディングを減らす */
-    }
-
-    .track-artwork {
-        width: 80px;  /* より小さく */
-        height: 80px;
-        margin-bottom: 5px;  /* 余白を減らす */
+        display: flex;
+        flex-direction: row; /* 横並びに配置 */
+        align-items: center;
+        justify-content: flex-start; /* 左寄せ */
     }
 
     .track-info {
-        width: 100%;
+        flex-direction: column; /* 要素を縦に並べる */
+        align-items: start;
     }
 
-    .track-details, .icon-row {
-        flex-direction: column;
-        align-items: flex-start;
-        padding-left: 0;  /* 左パディングを削除 */
+    input[type='range'] {
+        width: 100%; /* スライダーはフル幅で表示 */
     }
 
-    .track-name, .artist {
-        font-size: 12px;  /* 曲名とアーティスト名のフォントサイズを統一 */
-        margin-bottom: 2px; /* 余白を減らして、行間を調整 */
+    #buttons {
+        margin-top: 8px;
+        margin-bottom: 8px;
+        margin-left: 2px;
+        width: 80%;
+    }
+
+    img {
+        max-height: 100%;
+    }
+    #playing-artwork {
+        max-height: 160px; /* 画像の最大高さを調整 */
+    }
+
+    .track-artwork {
+        width: 36px;
+        height: 36px;
+    }
+
+    .track-details {
+        display: flex;
+        flex-direction: row; /* 楽曲名とアーティスト名を縦並びに */
+        align-items: flex-start; /* 垂直方向をセンタリング */
+        width: 100%;  /* コンテナの幅を100%に設定 */
     }
 
     .icon-caption, .icon-disabled-caption {
-        font-size: 12px;  /* '試聴'と'詳細'のフォントサイズを調整 */
+        font-size: 10px;
+        margin-right: 8px;
+    }
+    .tempo-value {
+        width: 60px; /* 数値部分の幅を固定 */
+        text-align: right; /* 右寄せにする */
+        margin-right: 0px;
+    }
+    .camelot-info {
+        margin-right: 15px;
+        width: 35px; /* 幅を指定して一定に保つ */
+        text-align: right; /* テキストを右揃えにする */
     }
 
-    .tempo-value, .camelot-info {
-        font-size: 12px;  /* BPMとCamelotのフォントサイズを同じに */
-        margin-top: 2px;  /* 余白を減らす */
-        display: block;  /* 行の整列を保つためにblockに */
-        text-align: left; /* 左揃えにして行頭を揃える */
-        margin-left: 0;  /* 左マージンを0にする */
+    #playing {
+        font-size: 14px;
     }
-
-    .sort-button {
-        font-size: 10px;  /* ソートボタンのフォントサイズを小さく */
-    }
-
-    .sort-section {
-        font-size: 12px; /* ソートセクションのテキストサイズを調整 */
+    .info-now-playing {
+        font-size: 14px;
+        display: inline-block;
     }
 
     .icon-row {
-        margin-top: 5px;  /* アイコン行のマージントップを調整 */
-        padding-left: 0;  /* 左パディングを削除して揃える */
+        display: flex;
+        flex-direction: row; /* BPMなどの情報を横並びに */
+        justify-content: flex-start; /* 左寄せ */
+        align-items: center;  /* アイテムを垂直方向の中心に揃える */
+        width: 100%;  /* コンテナの幅を100%に設定 */
+        margin-top: 8px; /* 上にマージンを追加して視覚的な区切りを明確に */
+    }
+
+    .artist, .track-name, .icon-caption, .icon-disabled-caption, .tempo-value, .camelot-info {
+        font-size: 10px;
+        display: inline; /* インライン表示にして、アイコンが右に来るように */
+    }
+
+    .playing-icon {
+        margin-left: 2px; /* アイコンの左マージンを設定 */
+        vertical-align: middle; /* アイコンの垂直位置を中央に */
+        font-size: 10px;
+    }
+
+    .fas.fa-volume-up {
+        font-size: 10px;
+    }
+    .fas.fa-volume-up.no-blink {
+        font-size: 10px;
+    }
+
+    .track-number {
+        width: 24px;
+        font-size: 10px;
+        text-align: right;
+        margin-right: 6px;
+    }
+
+    .sort-button {
+        margin: 2px; /* ボタン間のマージンを追加 */
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+        border-radius: 15px;
+    }
+
+    .sort-section {
+        margin-top: -20px; /* アートワークからのマージン */
+        margin-bottom: 10px; /* アートワークからのマージン */
     }
 }
 
-/**/
+/* スマートフォン向けのスタイル (画面幅が 767px 以下) */
+@media (max-width: 767px) {
+    body {
+        font-size: 14px; /* フォントサイズを小さく */
+    }
+
+    h1 {
+        font-size: 24px; /* タイトルのフォントサイズを小さく */
+        padding: 10px 15px; /* タイトル周りのパディングを調整 */
+    }
+
+    .custom-list-item {
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start; /* 左寄せ */
+    }
+    .track-info {
+        flex-direction: column; /* 要素を縦に並べる */
+        align-items: start;
+    }
+
+    input[type='range'] {
+        width: 100%; /* スライダーはフル幅で表示 */
+    }
+
+    #buttons {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 2px;
+        width: 80%;
+    }
+
+    img {
+        max-height: 100%;
+    }
+    #playing-artwork {
+        max-height: 200px; /* 画像の最大高さを調整 */
+    }
+
+    .track-artwork {
+        width: 40px;
+        height: 40px;
+    }
+
+    .track-details {
+        display: flex;
+        flex-direction: row; /* 楽曲名とアーティスト名を縦並びに */
+        align-items: flex-start; /* 垂直方向をセンタリング */
+        width: 100%;  /* コンテナの幅を100%に設定 */
+    }
+
+    .icon-caption, .icon-disabled-caption {
+        font-size: 12px;
+        margin-right: 10px;
+    }
+    .tempo-value {
+        width: 70px; /* 数値部分の幅を固定 */
+        text-align: right; /* 右寄せにする */
+        margin-right: 0px;
+    }
+    .camelot-info {
+        margin-right: 20px;
+        width: 40px; /* 幅を指定して一定に保つ */
+        text-align: right; /* テキストを右揃えにする */
+    }
+
+    #playing {
+        font-size: 16px;
+    }
+    .info-now-playing {
+        font-size: 16px;
+        display: inline-block;
+    }
+
+    .icon-row {
+        display: flex;
+        flex-direction: row; /* BPMなどの情報を横並びに */
+        justify-content: flex-start; /* 左寄せ */
+        align-items: center;  /* アイテムを垂直方向の中心に揃える */
+        width: 100%;  /* コンテナの幅を100%に設定 */
+        margin-top: 10px; /* 上にマージンを追加して視覚的な区切りを明確に */
+    }
+
+    .artist, .track-name, .icon-caption, .icon-disabled-caption, .tempo-value, .camelot-info {
+        font-size: 12px;
+        display: inline; /* インライン表示にして、アイコンが右に来るように */
+    }
+
+    .playing-icon {
+        margin-left: 2px; /* アイコンの左マージンを設定 */
+        vertical-align: middle; /* アイコンの垂直位置を中央に */
+    }
+
+    .fas.fa-volume-up {
+        font-size: 12px;
+    }
+    .fas.fa-volume-up.no-blink {
+        font-size: 12px;
+    }
+
+    .track-number {
+        width: 24px;
+        font-size: 10px;
+        text-align: right;
+        margin-right: 6px;
+    }
+
+    .sort-button {
+        margin: 2px; /* ボタン間のマージンを追加 */
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+        border-radius: 15px;
+    }
+
+    .sort-section {
+        margin-top: -30px; /* アートワークからのマージン */
+        margin-bottom: 20px; /* アートワークからのマージン */
+    }
 }
 
-@media (hover: none), (pointer: coarse) {
-  button:hover, button:active {
-    background-color: #F5F5F5;
-    color: black;
-  }
+/* タブレット向けのスタイル (画面幅が 768px から 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    body {
+        font-size: 16px; /* フォントサイズを少し大きく */
+    }
+
+    h1 {
+        font-size: 28px; /* タイトルのフォントサイズを調整 */
+        padding: 12px 18px; /* タイトル周りのパディングを調整 */
+    }
+
+    .container {
+        padding: 15px; /* コンテナのパディングを調整 */
+        padding-bottom: 70px; /* 下部に余白を追加 */
+    }
+
+    .custom-list-item {
+        display: flex;
+        flex-direction: row; /* 横並びに配置 */
+        align-items: center;
+        justify-content: flex-start; /* 左寄せ */
+    }
+
+    .track-number {
+        width: 35px; /* 最大3桁に対応 */
+        text-align: right;
+        margin-right: 12px;
+    }
+
+    .track-artwork {
+        width: 60px;
+        height: 60px;
+        margin-right: 20px;
+    }
+
+    .track-info {
+        display: flex;
+        flex-direction: column; /* 楽曲情報全体を縦に並べる */
+        align-items: start;
+    }
+
+    .track-details {
+        display: flex;
+        flex-direction: row; /* 楽曲名とアーティスト名を縦並びに */
+        align-items: flex-start; /* 垂直方向をセンタリング */
+        width: 100%;  /* コンテナの幅を100%に設定 */
+    }
+
+    .icon-row {
+        display: flex;
+        flex-direction: row; /* BPMなどの情報を横並びに */
+        justify-content: flex-start; /* 左寄せ */
+        align-items: center;  /* アイテムを垂直方向の中心に揃える */
+        width: 100%;  /* コンテナの幅を100%に設定 */
+        margin-top: 12px; /* 上にマージンを追加して視覚的な区切りを明確に */
+    }
+
+    .icon-caption, .icon-disabled-caption, .tempo-value, .camelot-info {
+        font-size: 14px; /* アイコンとテキストのフォントサイズを調整 */
+        margin-right: 12px;
+    }
+
+    .info-now-playing {
+        font-size: 18px;
+    }
+
+    .playing-icon {
+        font-size: 16px;
+    }
+
+    .fas.fa-volume-up {
+        font-size: 14px;
+    }
+    .fas.fa-volume-up.no-blink {
+        font-size: 14px;
+    }
+
+    .sort-button {
+        margin: 5px; /* ボタン間のマージンを追加 */
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+        border-radius: 15px;
+    }
+
+    .sort-section {
+        margin-top: -15px; /* アートワークからのマージン */
+        margin-bottom: 15px; /* アートワークからのマージン */
+    }
 }

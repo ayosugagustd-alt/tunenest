@@ -62,10 +62,12 @@
 <div class="container">
     <h1>{{ playlist_name }}</h1>
     <h3>{{ playlist_description|safe }}</h3>
+
+
     {% if exceeds_max_tracks %}
         <p><i class="fas fa-exclamation-triangle"></i>{{ playlist_name }}は501曲以上ありますが、最初の500曲のみ表示しています。</p>
     {% endif %}
-    <h4><a href="{{ playlist_url }}" target="_blank" rel="noopener">{{ playlist_name }}を<i class="fab fa-spotify" style="margin-right: 2px;"></i>Spotifyで再生</a></h4>
+        <h3><a href="{{ playlist_url }}" target="_blank" rel="noopener">{{ playlist_name }}をSpotifyで再生</a></h3>
 
     <div id="playlist-controls" lang="ja">
         <select class="search-input" id="playlistDropdown">
@@ -91,7 +93,6 @@
     </div>
 
     <div id="controls">
-
         <div id="playing-container">
             <img id="playing-artwork" src="{{ collage_filename }}" alt="Spotify Playlist Artwork" loading="lazy">
             <div id="playing"></div>
@@ -113,42 +114,42 @@
             <button onclick="togglePlay()"><i class="fas fa-play"></i><i class="fas fa-pause"></i></button>
             <button onclick="playNext()"><i class="fas fa-step-forward"></i></button>
             <!-- ボリュームコントロール用のスライダー -->
-            <div class="slider-container">
+            <div>
                 <input type="range" id="volumeSlider" min="0" max="0.5" step="0.01" value="0.5">
             </div>
         </div>
-
         {% for track in tracks %}
-<div class="custom-list-item">
-    <img src="{{ track.image_url | default(url_for('static', filename='TuneNest.png')) }}" alt="Artwork" class="track-artwork">
-    <div class="track-info">
-        <div class="track-details">
-            <div class="track-name">{{ track.name }}</div>
-            <div class="artist">{{ track.artist }}</div>
-        </div>
-        <div class="icon-row">
-            {% if track.url %}
-            <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
-                <i class="fab fa-spotify"></i><span class="icon-caption">試聴</span>
-            </a>
-            {% else %}
-                <i class="fab fa-spotify icon-disabled"></i><span class="icon-disabled-caption">不可</span>
-            {% endif %}
-            <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
-                <i class="fas fa-info-circle"></i><span class="icon-caption">詳細</span>
-            </a>
-            <span class="tempo-value">{{ '{:0.1f}'.format(track.tempo|float) }} BPM</span>
-            <span class="camelot-info">{{ "{: >3}".format(track.camelot_key_signature) }}</span>
-        </div>
-    </div>
-</div>
-
+            <div class="custom-list-item">
+                <div class="track-number">{{ loop.index }}</div>
+                <img src="{{ track.image_url | default(url_for('static', filename='TuneNest.png')) }}" alt="Artwork" class="track-artwork">
+                <div class="track-info">
+                    <div class="track-details">
+                        <div class="track-name">{{ track.name }}</div>
+                        <div class="artist">{{ track.artist }}</div>
+                    </div>
+                    <div class="icon-row">
+                        <span class="tempo-value">{{ '{:0.1f}'.format(track.tempo|float) }} BPM</span>
+                        <span class="camelot-info">{{ "{: >3}".format(track.camelot_key_signature) }}</span>
+                        {% if track.url %}
+                            <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
+                            <span class="icon-caption">試聴</span>
+                        </a>
+                        {% else %}
+                            <span class="icon-disabled-caption">不可</span>
+                        {% endif %}
+                        <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
+                            <span class="icon-caption">詳細</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
     </div>
+
 <footer>
     <p>&copy;2023 ヒロ. <a href="https://twitter.com/jmusic_hiro" target="_blank" rel="noopener" title="ヒロのX"><i class="fab fa-x-twitter"></i></a> <a href="{{ url_for('static', filename='privacy-policy.html') }}" target="_blank" rel="noopener">利用規約とプライバシーポリシー</a></p>
-
 </footer>
+
     <script>
         /* Safariを識別 */
         function isSafari() {
@@ -262,14 +263,14 @@
 
             // Spotifyへのリンクを生成
             let spotifyLink = `https://open.spotify.com/track/${tracks[index].id}`;
-            playingInfo += `<br><a href="${spotifyLink}" target="_blank" rel="noopener" class="media-link" style="margin-top: 1px; display: inline-block;">`;
-            playingInfo += '<i class="fab fa-spotify"></i><span class="info-now-playing">再生</span></a>';
+            playingInfo += `<br><a href="${spotifyLink}" target="_blank" rel="noopener" style="margin-top: 1px; display: inline-block;">`;
+            playingInfo += '<span class="info-now-playing">再生</span></a>';
         
             // Infoへのリンクを生成
             let infoLink = `/song_details/${tracks[index].id}`;
 
             playingInfo += `<br><a href="${infoLink}" target="_blank" rel="noopener" style="margin-top: 1px; display: inline-block;">`;
-            playingInfo += '<i class="fas fa-info-circle"></i><span class="info-now-playing">詳細</span></a>';
+            playingInfo += '<span class="info-now-playing">詳細</span></a>';
 
             // 最後に全てのリンクと詳細をHTMLに反映
             document.getElementById('playing').innerHTML = playingInfo;
@@ -488,9 +489,9 @@
                 });
             });
 
-            document.getElementById('playing').innerHTML = "<strong>tune</strong><span style='color: grey;'>nest</span>";
-        });
+            document.getElementById('playing').innerHTML = "<h1>tune<span style='color: grey;'>nest</span></h1>";
 
+        });
         document.addEventListener('DOMContentLoaded', function() {
             let audio = new Audio();  // 現在のオーディオ
             let nextAudio = preloadNextTrack();  // 次のオーディオをプリロード
