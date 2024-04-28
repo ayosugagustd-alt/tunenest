@@ -275,14 +275,6 @@
             // 最後に全てのリンクと詳細をHTMLに反映
             document.getElementById('playing').innerHTML = playingInfo;
 
-            // ここで新しく生成されたYouTubeとSpotify(再生)のリンクにイベントリスナーを設定
-            document.querySelectorAll('.media-link').forEach(function(link) {
-                link.addEventListener('click', function() {
-                    // 一時停止関数を呼び出す
-                    pause();
-                });
-            });
-        
             // 音量を0.1に設定して再生を開始
             audio.volume = 0.2;
             audio.play();
@@ -294,7 +286,6 @@
             let fadeInterval = setInterval(function() {
                 // 音量を徐々に上げるが、ユーザー設定の最大ボリュームを超えない
                 if (audio.volume < maxVolume) {
-//                    audio.volume = Math.min(audio.volume + 0.01, maxVolume); // この値は調整可能です
                     audio.volume = Math.min(audio.volume + (maxVolume / 20), maxVolume); // この値は調整可能です
                 } else {
                     // フェードイン完了時にIntervalをクリア
@@ -349,85 +340,32 @@
             const searchBox = document.getElementById('searchBox');
             const searchButton = document.getElementById('searchButton');
             const keywordInput = document.getElementById('keyword');
-            // ボリュームスライダーの要素を取得
             const volumeSlider = document.getElementById("volumeSlider");
 
-            // iOSデバイス以外の場合にのみスライダーを表示
+            // ボリュームスライダーの表示と調整
             if (!/iPad|iPhone|iPod/.test(navigator.userAgent) || window.MSStream) {
-                volumeSlider.style.display = 'block'; // または 'inline', 'inline-block' など、レイアウトに応じて
+                volumeSlider.style.display = 'block';
             }
-
-            // スライダーの値が変更されたときに音量を調整
             volumeSlider.addEventListener("input", function() {
                 audio.volume = volumeSlider.value;
             });
 
-
+            // ドロップダウンの選択が変わったときの処理
             playlistDropdown.addEventListener('change', function() {
                 const selectedPlaylistId = playlistDropdown.value;
-                if (selectedPlaylistId === 'searchTrack' || selectedPlaylistId === 'searchPlaylist') {
+                if (selectedPlaylistId === 'searchTrack') {
                     searchBox.style.display = 'flex';
-                } else {
-                    searchBox.style.display = 'none';
-                    const url = `/?playlist_id=${selectedPlaylistId}`;
-                    window.location.href = url;
-                }
-            });
-
-            searchButton.addEventListener('click', async function() {
-                const keyword = keywordInput.value;
-                if (!keyword) {
-                    alert("キーワードを入力してください。");
-                    return; // キーワードが空の場合は処理を中断
-                }
-
-                let apiEndpoint = "";
-                // ドロップダウンで選択されたオプションに基づいてAPIエンドポイントを設定
-                if (playlistDropdown.value === 'searchTrack') {
-                    apiEndpoint = `/search_track?keyword=${encodeURIComponent(keyword)}`;
-                } else if (playlistDropdown.value === 'searchPlaylist') {
-                    apiEndpoint = `/search_playlist?keyword=${encodeURIComponent(keyword)}`;
-                }
-
-                try {
-                    const response = await fetch(apiEndpoint);
-                    if (response.ok) {
-                        const data = await response.json();
-                        if (playlistDropdown.value === 'searchTrack') {
-                            if (isSafari()) {
-                                window.location.href = `/song_details/${data.track_id}`; // 同じタブでリダイレクト
-                            } else {
-                                window.open(`/song_details/${data.track_id}`, '_blank'); // 楽曲詳細ページを新しいタブで開く
-                            }
-                        } else if (playlistDropdown.value === 'searchPlaylist') {
-                            window.location.href = `/?playlist_id=${data.playlist_id}`; // プレイリストページにリダイレクト
-                        }
-                    } else {
-                        console.error('Search failed:', response.statusText);
-                    }
-                } catch (error) {
-                    console.error('There was a problem with the fetch operation:', error);
-                }
-            });
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchButton = document.getElementById('searchButton');
-            const keywordInput = document.getElementById('keyword');
-            const playlistDropdown = document.getElementById('playlistDropdown'); // ドロップダウンを取得
-
-
-            // ドロップダウンの選択が変わったときの処理を追加
-            playlistDropdown.addEventListener('change', function() {
-                if (playlistDropdown.value === 'searchTrack') {
                     keywordInput.placeholder = "曲名、アーティスト名で検索";
-                } else if (playlistDropdown.value === 'searchPlaylist') {
+                } else if (selectedPlaylistId === 'searchPlaylist') {
+                    searchBox.style.display = 'flex';
                     keywordInput.placeholder = "プレイリスト名で検索";
                 } else {
-                    keywordInput.placeholder = "曲名、アーティスト名など…";
+                    searchBox.style.display = 'none';
+                    window.location.href = `/?playlist_id=${selectedPlaylistId}`;
                 }
             });
 
+            // 検索機能
             function performSearch() {
                 const keyword = keywordInput.value;
                 if (!keyword) {
@@ -435,12 +373,9 @@
                     return; // キーワードが空の場合は処理を中断
                 }
 
-                let apiEndpoint = "";
-                if (playlistDropdown.value === 'searchTrack') {
-                    apiEndpoint = `/search_track?keyword=${encodeURIComponent(keyword)}`;
-                } else if (playlistDropdown.value === 'searchPlaylist') {
-                    apiEndpoint = `/search_playlist?keyword=${encodeURIComponent(keyword)}`;
-                }
+                let apiEndpoint = playlistDropdown.value === 'searchTrack' ?
+                    `/search_track?keyword=${encodeURIComponent(keyword)}` :
+                    `/search_playlist?keyword=${encodeURIComponent(keyword)}`;
 
                 fetch(apiEndpoint)
                     .then(response => {
@@ -452,14 +387,12 @@
                     .then(data => {
                         if (playlistDropdown.value === 'searchTrack' && data.track_id) {
                             if (isSafari()) {
-                                window.location.href = `/song_details/${data.track_id}`; // Safariでは同じタブでリダイレクト
+                                window.location.href = `/song_details/${data.track_id}`;
                             } else {
-                                window.open(`/song_details/${data.track_id}`, '_blank'); // 他のブラウザでは新しいタブで開く
+                                window.open(`/song_details/${data.track_id}`, '_blank');
                             }
                         } else if (playlistDropdown.value === 'searchPlaylist' && data.playlist_id) {
                             window.location.href = `/?playlist_id=${data.playlist_id}`;
-                        } else {
-                            console.error('No valid ID returned');
                         }
                     })
                     .catch(error => {
@@ -467,52 +400,13 @@
                     });
             }
 
-            // ボタンクリックで検索を実行
             searchButton.addEventListener('click', performSearch);
-
-            // エンターキーで検索を実行
             keywordInput.addEventListener('keypress', function(event) {
                 if (event.key === 'Enter') {
-                    event.preventDefault(); // フォームの自動送信を防ぐ
+                    event.preventDefault();
                     performSearch();
                 }
             });
-        });
-
-        // 新しいYouTubeとSpotify(再生)のリンクのクリックイベント処理
-        document.addEventListener("DOMContentLoaded", function() {
-            // すべてのYouTubeとSpotify(再生)のリンクに対してイベントリスナーを追加
-            document.querySelectorAll('.media-link').forEach(function(link) {
-                link.addEventListener('click', function() {
-                // 一時停止関数を呼び出す
-                pause();
-                });
-            });
-
-            document.getElementById('playing').innerHTML = "<h1>tune<span style='color: grey;'>nest</span></h1>";
-
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-            let audio = new Audio();  // 現在のオーディオ
-            let nextAudio = preloadNextTrack();  // 次のオーディオをプリロード
-
-            audio.onended = function() {
-                playNextTrack();  // 終了時に次のトラックを再生
-            };
-
-            function preloadNextTrack() {
-                let nextIndex = (index + 1) % tracks.length;
-                let nextTrackURL = tracks[nextIndex].url;
-                let nextAudio = new Audio(nextTrackURL);
-                nextAudio.preload = 'auto';
-                return nextAudio;
-            }
-
-            function playNextTrack() {
-                audio = nextAudio;  // 現在のオーディオを更新
-                audio.play();
-                nextAudio = preloadNextTrack();  // 次をプリロード
-            }
         });
 
         function sortTracks(sortType, sortOrder) {
