@@ -133,7 +133,7 @@
                         <div class="artist">{{ track.artist }}</div>
                     </div>
                     <div class="icon-row">
-                        <span class="tempo-value">{{ track.tempo|float|int }} BPM</span>
+                        <span class="tempo-value">{{ '{:0.1f}'.format(track.tempo|float) }} BPM</span>
                         <span class="camelot-info">{{ "{: >3}".format(track.camelot_key_signature) }}</span>
                         {% if track.url %}
                             <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
