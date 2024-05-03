@@ -325,8 +325,11 @@ def index():
             if track and track["id"] in audio_features_dict:
                 # 対応するオーディオ特性を取得
                 track_features = audio_features_dict[track["id"]]
-                # オーディオ特性を引数として渡す
+                # トラックのpopularityスコアを取得
+                popularity = track.get("popularity", 0)  # 万が一popularityがない場合0を
+                # オーディオ特性とpopularityを引数として渡す
                 track_info = get_track_info(track, track_features)
+                track_info['popularity'] = popularity  # popularity情報をtrack_infoに追加
                 if track is not None:  # trackがNoneでないことを確認
                     all_tracks_info.append(track_info)
 
@@ -338,10 +341,15 @@ def index():
 
         # トラックソートの処理
         if sort_by == 'bpm':
-            valid_tracks_info.sort(key=lambda x: x['tempo'], reverse=reverse_sort)
+            # ソート基準を BMP と Camelot Key で行う
+            valid_tracks_info.sort(key=lambda x: (x['tempo'], camelot_to_sort_key(x['camelot_key_signature'])), reverse=reverse_sort)
         elif sort_by == 'camelot':
-            # Camelot Keyでソート
-            valid_tracks_info.sort(key=lambda x: camelot_to_sort_key(x['camelot_key_signature']), reverse=reverse_sort)
+            # ソート基準を Camelot Key と BPM で行う
+            valid_tracks_info.sort(key=lambda x: (camelot_to_sort_key(x['camelot_key_signature']), x['tempo']), reverse=reverse_sort)
+        elif sort_by == 'popularity':
+            valid_tracks_info.sort(key=lambda x: x['popularity'], reverse=reverse_sort)
+
+
 
         # カテゴリごとにプレイリストを整理
         playlists_grouped = defaultdict(list)
