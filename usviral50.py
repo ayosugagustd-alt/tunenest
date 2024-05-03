@@ -231,7 +231,7 @@ def camelot_to_sort_key(camelot_key):
     return key_number * 2 + scale_number
 
 def format_tempo(tempo):
-    return round(float(tempo), 1)
+    return round(float(tempo), 0)
 
 # インデックスページのルーティング処理
 @app.route("/")
