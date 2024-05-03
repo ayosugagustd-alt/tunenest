@@ -230,6 +230,9 @@ def camelot_to_sort_key(camelot_key):
     # 10A なら 10 * 2 = 20, 10B なら 10 * 2 + 1 = 21
     return key_number * 2 + scale_number
 
+def format_tempo(tempo):
+    return round(float(tempo), 1)
+
 # インデックスページのルーティング処理
 @app.route("/")
 def index():
@@ -342,10 +345,10 @@ def index():
         # トラックソートの処理
         if sort_by == 'bpm':
             # ソート基準を BMP と Camelot Key で行う
-            valid_tracks_info.sort(key=lambda x: (x['tempo'], camelot_to_sort_key(x['camelot_key_signature'])), reverse=reverse_sort)
+            valid_tracks_info.sort(key=lambda x: (format_tempo(x['tempo']), camelot_to_sort_key(x['camelot_key_signature'])), reverse=reverse_sort)
         elif sort_by == 'camelot':
             # ソート基準を Camelot Key と BPM で行う
-            valid_tracks_info.sort(key=lambda x: (camelot_to_sort_key(x['camelot_key_signature']), x['tempo']), reverse=reverse_sort)
+            valid_tracks_info.sort(key=lambda x: (camelot_to_sort_key(x['camelot_key_signature']), format_tempo(x['tempo'])), reverse=reverse_sort)
         elif sort_by == 'popularity':
             valid_tracks_info.sort(key=lambda x: x['popularity'], reverse=reverse_sort)
 
