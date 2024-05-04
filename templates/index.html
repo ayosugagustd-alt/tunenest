@@ -61,13 +61,13 @@
 <body>
 <div class="container">
     <h1>{{ playlist_name }}</h1>
-    <h3>{{ playlist_description|safe }}</h3>
+    <p>{{ playlist_description|safe }}</p>
 
 
     {% if exceeds_max_tracks %}
         <p><i class="fas fa-exclamation-triangle"></i>{{ playlist_name }}は501曲以上ありますが、最初の500曲のみ表示しています。</p>
     {% endif %}
-        <h3><a href="{{ playlist_url }}" target="_blank" rel="noopener">{{ playlist_name }}をSpotifyで再生</a></h3>
+        <p><a href="{{ playlist_url }}" target="_blank" rel="noopener">このプレイリストをSpotifyで再生</a></p>
 
     <div id="playlist-controls" lang="ja">
         <select class="search-input" id="playlistDropdown">
@@ -103,21 +103,21 @@
                     <button class="sort-button" onclick="sortTracks('bpm', 'asc')"><i class="fas fa-sort-up"></i></button>
                     <button class="sort-button" onclick="sortTracks('bpm', 'desc')"><i class="fas fa-sort-down"></i></button>
                 </div>
-                <span><strong>BPM</strong></span>
+                <h4>BPM</h4>
             </div>
             <div class="sort-option">
                 <div>
                     <button class="sort-button" onclick="sortTracks('camelot', 'asc')"><i class="fas fa-sort-up"></i></button>
                     <button class="sort-button" onclick="sortTracks('camelot', 'desc')"><i class="fas fa-sort-down"></i></button>
                 </div>
-                <span><strong>KEY</strong> <a href="/static/CamelotWheel.png" target="_blank" rel="noopener" title="Camelot Wheelについて"><i class="fas fa-question-circle"></i></a></span>
+                <h4>KEY<a href="/static/CamelotWheel.png" class="help-link" target="_blank" rel="noopener" title="Camelot Wheelについて"><i class="fas fa-question-circle"></i></a></h4>
             </div>
             <div class="sort-option">
                 <div>
                     <button class="sort-button" onclick="sortTracks('popularity', 'desc')"><i class="fas fa-sort-up"></i></button>
                     <button class="sort-button" onclick="sortTracks('popularity', 'asc')"><i class="fas fa-sort-down"></i></button>
                 </div>
-                <span><strong>人気</strong></span>
+                <h4>人気</h4>
             </div>
         </div>
         <div id="buttons">
@@ -135,7 +135,7 @@
                 <img src="{{ track.image_url | default(url_for('static', filename='TuneNest.png')) }}" alt="Artwork" class="track-artwork">
                 <div class="track-info">
                     <div class="track-details">
-                        <div class="track-name">{{ track.name }}</div><br>
+                        <div class="track-name">{{ track.name }}</div>
                         <div class="artist">{{ track.artist }}</div>
                     </div>
                     <div class="icon-row">
