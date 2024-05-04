@@ -99,19 +99,25 @@
         </div>
         <div class="sort-section">
             <div class="sort-option">
-                <button class="sort-button" onclick="sortTracks('bpm', 'asc')"><i class="fas fa-sort-up"></i></button>
+                <div>
+                    <button class="sort-button" onclick="sortTracks('bpm', 'asc')"><i class="fas fa-sort-up"></i></button>
+                    <button class="sort-button" onclick="sortTracks('bpm', 'desc')"><i class="fas fa-sort-down"></i></button>
+                </div>
                 <span><strong>BPM</strong></span>
-                <button class="sort-button" onclick="sortTracks('bpm', 'desc')"><i class="fas fa-sort-down"></i></button>
             </div>
             <div class="sort-option">
-                <button class="sort-button" onclick="sortTracks('camelot', 'asc')"><i class="fas fa-sort-up"></i></button>
+                <div>
+                    <button class="sort-button" onclick="sortTracks('camelot', 'asc')"><i class="fas fa-sort-up"></i></button>
+                    <button class="sort-button" onclick="sortTracks('camelot', 'desc')"><i class="fas fa-sort-down"></i></button>
+                </div>
                 <span><strong>KEY</strong> <a href="/static/CamelotWheel.png" target="_blank" rel="noopener" title="Camelot Wheelについて"><i class="fas fa-question-circle"></i></a></span>
-                <button class="sort-button" onclick="sortTracks('camelot', 'desc')"><i class="fas fa-sort-down"></i></button>
             </div>
             <div class="sort-option">
-                <button class="sort-button" onclick="sortTracks('popularity', 'desc')"><i class="fas fa-sort-up"></i></button>
+                <div>
+                    <button class="sort-button" onclick="sortTracks('popularity', 'desc')"><i class="fas fa-sort-up"></i></button>
+                    <button class="sort-button" onclick="sortTracks('popularity', 'asc')"><i class="fas fa-sort-down"></i></button>
+                </div>
                 <span><strong>人気</strong></span>
-                <button class="sort-button" onclick="sortTracks('popularity', 'asc')"><i class="fas fa-sort-down"></i></button>
             </div>
         </div>
         <div id="buttons">
@@ -129,12 +135,10 @@
                 <img src="{{ track.image_url | default(url_for('static', filename='TuneNest.png')) }}" alt="Artwork" class="track-artwork">
                 <div class="track-info">
                     <div class="track-details">
-                        <div class="track-name">{{ track.name }}</div>
+                        <div class="track-name">{{ track.name }}</div><br>
                         <div class="artist">{{ track.artist }}</div>
                     </div>
                     <div class="icon-row">
-                        <span class="tempo-value">{{ '{:0.0f}'.format(track.tempo|float) }} BPM</span>
-                        <span class="camelot-info">{{ "{: >3}".format(track.camelot_key_signature) }}</span>
                         {% if track.url %}
                             <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
                             <span class="icon-caption">試聴</span>
@@ -145,6 +149,8 @@
                         <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
                             <span class="icon-caption">詳細</span>
                         </a>
+                        <span class="tempo-value">{{ '{:0.0f}'.format(track.tempo|float) }} BPM</span>
+                        <span class="camelot-info">{{ "{: >3}".format(track.camelot_key_signature) }}</span>
                     </div>
                 </div>
             </div>

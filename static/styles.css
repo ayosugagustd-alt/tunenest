@@ -374,7 +374,7 @@ footer {
 
 .track-details {
     display: flex;
-    align-items: center;
+    flex-direction: column; /* 子要素を縦に並べる */
 }
 
 .track-name {
@@ -384,12 +384,13 @@ footer {
 }
 
 .artist {
+    display: block; /* 新しい行で表示 */
     font-size: 16px;
     color: #666;
 }
 
 .tempo-value {
-    width: 80px; /* 数値部分の幅を固定 */
+    width: 70px; /* 数値部分の幅を固定 */
     text-align: right; /* 右寄せにする */
     display: inline-block; /* inline-block属性を設定 */
 }
@@ -398,7 +399,7 @@ footer {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;  /* Regular for readability */
 
-    width: 45px; /* 幅を指定して一定に保つ */
+    width: 30px; /* 幅を指定して一定に保つ */
     text-align: right; /* テキストを右揃えにする */
     display: inline-block; /* 要素をインラインブロックとして扱う */
 }
@@ -445,6 +446,7 @@ footer {
     font-size: 14px;
     color: #000;
 }
+
 
 /* スマートフォン向けのスタイル (iPhone SEなど画面幅が 375px 以下) */
 @media (max-width: 375px) {
@@ -508,13 +510,13 @@ footer {
         margin-right: 8px;
     }
     .tempo-value {
-        width: 60px; /* 数値部分の幅を固定 */
+        width: 40px; /* 数値部分の幅を固定 */
         text-align: right; /* 右寄せにする */
         margin-right: 0px;
     }
     .camelot-info {
         margin-right: 10px;
-        width: 35px; /* 幅を指定して一定に保つ */
+        width: 20px; /* 幅を指定して一定に保つ */
         text-align: right; /* テキストを右揃えにする */
     }
 
@@ -650,7 +652,7 @@ footer {
     }
     .camelot-info {
         margin-right: 30px;
-        width: 40px; /* 幅を指定して一定に保つ */
+        width: 30px; /* 幅を指定して一定に保つ */
         text-align: right; /* テキストを右揃えにする */
     }
 
