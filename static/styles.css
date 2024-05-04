@@ -475,10 +475,6 @@ footer {
         align-items: start;
     }
 
-    input[type='range'] {
-        width: 100%; /* スライダーはフル幅で表示 */
-    }
-
     #buttons {
         margin-top: 8px;
         margin-bottom: 8px;
@@ -618,10 +614,6 @@ footer {
         align-items: start;
     }
 
-    input[type='range'] {
-        width: 100%; /* スライダーはフル幅で表示 */
-    }
-
     #buttons {
         margin-top: 10px;
         margin-bottom: 10px;
@@ -759,10 +751,6 @@ footer {
     .track-info {
         flex-direction: column; /* 要素を縦に並べる */
         align-items: start;
-    }
-
-    input[type='range'] {
-        width: 100%; /* スライダーはフル幅で表示 */
     }
 
     button {
