@@ -130,12 +130,12 @@ img {
 
 .album-artwork {
     display: block;
-    margin: 0px;
+    margin: 2px;
 }
 
 .track-artwork {
-    width: 60px;
-    height: 60px;
+    width: 64px;
+    height: 64px;
     margin-right: 15px;
     border-radius: 5px;
     object-fit: cover;
@@ -275,7 +275,7 @@ select {
 #playing-container {
     display: flex;
     align-items: center;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 #playing-artwork {
     margin-right: 4px; /* 右側の余白を調整 */
@@ -338,8 +338,7 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center; /* アイテムを中央揃え */
-    margin-top: 20px; /* アートワークからのマージン */
-    margin-left: 10px; /* アートワークからのマージン */
+    margin-bottom: 20px; /* アートワークからのマージン */
 }
 .sort-option {
     font-size: 18px;
@@ -348,7 +347,7 @@ footer {
     margin-right: 24px; /* オプション間のスペース */
 }
 .sort-button {
-    margin: 5px; /* ボタン間のマージンを追加 */
+    margin: 8px; /* ボタン間のマージンを追加 */
     width: 38px;
     height: 38px;
     background-color: #F5F5F5;
@@ -573,7 +572,6 @@ footer {
     }
 
     .sort-section {
-        margin-top: -20px; /* アートワークからのマージン */
         margin-bottom: 10px; /* アートワークからのマージン */
     }
 
@@ -592,6 +590,7 @@ footer {
         font-size: 14px;
     }
 }
+
 
 @media (min-width: 481px) and (max-width: 768px) {
     body {
@@ -716,8 +715,7 @@ footer {
     }
 
     .sort-section {
-        margin-top: -20px; /* アートワークからのマージン */
-        margin-bottom: 12px; /* アートワークからのマージン */
+        margin-bottom: 10px; /* アートワークからのマージン */
     }
 
     .search-input {
@@ -735,6 +733,7 @@ footer {
         font-size: 16px;
     }
 }
+
 
 @media (min-width: 769px) and (max-width: 1024px) {
     body {
@@ -862,8 +861,7 @@ footer {
     }
 
     .sort-section {
-        margin-top: -20px; /* アートワークからのマージン */
-        margin-bottom: 14px; /* アートワークからのマージン */
+        margin-bottom: 10px; /* アートワークからのマージン */
     }
     .sort-option {
         font-size: 28px;
