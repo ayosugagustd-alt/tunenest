@@ -394,18 +394,15 @@ footer {
 }
 
 .camelot-info {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;  /* Regular for readability */
-
     width: 70px; /* 幅を指定して一定に保つ */
     text-align: right; /* テキストを右揃えにする */
     display: inline-block; /* 要素をインラインブロックとして扱う */
 }
 
 .track-popularity {
-    display: inline-block;
-    width: 40px; /* 適宜調整してください */
+    width: 50px; /* 適宜調整してください */
     text-align: right; /* 右寄せにする */
+    display: inline-block;
 }
 
 
@@ -521,9 +518,7 @@ footer {
     }
 
     .track-popularity {
-        display: inline-block;
         width: 20px; /* 適宜調整してください */
-        text-align: right; /* 右寄せにする */
     }
 
     #playing {
@@ -665,9 +660,7 @@ footer {
     }
 
     .track-popularity {
-        display: inline-block;
         width: 24px; /* 適宜調整してください */
-        text-align: right; /* 右寄せにする */
     }
 
     #playing {
@@ -809,9 +802,7 @@ footer {
     }
 
     .track-popularity {
-        display: inline-block;
         width: 28px; /* 適宜調整してください */
-        text-align: right; /* 右寄せにする */
     }
 
     #playing {
@@ -954,9 +945,7 @@ footer {
     }
 
     .track-popularity {
-        display: inline-block;
         width: 50px; /* 適宜調整してください */
-        text-align: right; /* 右寄せにする */
     }
 
     #playing {
