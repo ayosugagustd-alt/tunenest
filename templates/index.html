@@ -149,7 +149,7 @@
                         <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
                             <span class="icon-caption">詳細</span>
                         </a>
-                        <span class="tempo-value">{{ '{:0.0f}'.format(track.tempo|float) }}BPM</span>
+                        <span class="tempo-value">{{ '{:0.0f}'.format(track.tempo|float) }} BPM</span>
                         <span class="camelot-info">{{ "{: >3}".format(track.camelot_key_signature) }}</span>
                         <span class="track-popularity">{{ '{: >3}'.format(track.popularity) }}%</span>
                     </div>
