@@ -40,7 +40,7 @@ h3 {
 input[type='range'] {
   -webkit-appearance: none; /* デフォルトのスタイルを無効にする */
   width: 200px;
-  margin: 7.5px 0;
+  margin: 7.5px 10px;
   height: 8px; /* スライダーのトラックの高さ */
   border-radius: 4px;
   background: #F5F5F5; /* トラックの背景色 */
@@ -475,10 +475,23 @@ footer {
         align-items: start;
     }
 
-    #buttons {
-        margin-top: 8px;
-        margin-bottom: 8px;
-        margin-left: 2px;
+    button {
+        width: 30px;            /* ボタンの幅 */
+        height: 30px;           /* ボタンの高さを幅と同じにして円形に */
+        font-size: 15px;
+    }
+
+    /* スライダーのトラック */
+    input[type='range'] {
+      width: 120px;
+      margin: 4px 6px;
+      height: 4.5px; /* スライダーのトラックの高さ */
+    }
+    /* スライダーのサム（つまみ） */
+    input[type='range']::-webkit-slider-thumb {
+      height: 16px; /* サムの高さ */
+      width: 16px; /* サムの幅 */
+      border-radius: 8px; /* サムを円形に */
     }
 
     img {
@@ -614,10 +627,23 @@ footer {
         align-items: start;
     }
 
-    #buttons {
-        margin-top: 10px;
-        margin-bottom: 10px;
-        margin-left: 4px;
+    button {
+        width: 44px;            /* ボタンの幅 */
+        height: 44px;           /* ボタンの高さを幅と同じにして円形に */
+        font-size: 22px;
+    }
+
+    /* スライダーのトラック */
+    input[type='range'] {
+      width: 120px;
+      margin: 5px 8px;
+      height: 5.5px; /* スライダーのトラックの高さ */
+    }
+    /* スライダーのサム（つまみ） */
+    input[type='range']::-webkit-slider-thumb {
+      height: 18px; /* サムの高さ */
+      width: 18px; /* サムの幅 */
+      border-radius: 10px; /* サムを円形に */
     }
 
     img {
@@ -754,14 +780,22 @@ footer {
     }
 
     button {
-        width: 70px;            /* ボタンの幅 */
-        height: 70px;           /* ボタンの高さを幅と同じにして円形に */
-        font-size: 30px;
+        width: 50px;            /* ボタンの幅 */
+        height: 50px;           /* ボタンの高さを幅と同じにして円形に */
+        font-size: 25px;
     }
-    #buttons {
-        margin-top: 12px;
-        margin-bottom: 12px;
-        margin-left: 6px;
+
+    /* スライダーのトラック */
+    input[type='range'] {
+      width: 140px;
+      margin: 6px 8px;
+      height: 6.5px; /* スライダーのトラックの高さ */
+    }
+    /* スライダーのサム（つまみ） */
+    input[type='range']::-webkit-slider-thumb {
+      height: 18px; /* サムの高さ */
+      width: 18px; /* サムの幅 */
+      border-radius: 10px; /* サムを円形に */
     }
 
     img {
