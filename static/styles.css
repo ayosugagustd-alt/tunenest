@@ -375,6 +375,7 @@ footer {
 }
 
 .track-name {
+    width: 420px;
     font-size: 16px;
     font-weight: bold;
     margin-right: 10px;
@@ -449,7 +450,7 @@ footer {
 }
 
 
-@media (max-width: 480px) {
+@media (max-width: 375px) {
     body {
         font-size: 14px; /* フォントサイズを小さく */
     }
@@ -551,6 +552,9 @@ footer {
         font-size: 12px;
         display: inline; /* インライン表示にして、アイコンが右に来るように */
     }
+    .track-name {
+        width: 260px;
+    }
 
     .playing-icon {
         margin-left: 2px; /* アイコンの左マージンを設定 */
@@ -600,6 +604,159 @@ footer {
     }
 }
 
+@media (min-width: 376px) and (max-width: 480px) {
+    body {
+        font-size: 14px; /* フォントサイズを小さく */
+    }
+
+    h1 {
+        font-size: 22px; /* タイトルのフォントサイズを小さく調整 */
+    }
+
+    .container {
+        padding: 8px; /* コンテナのパディングを調整 */
+        padding-bottom: 120px; /* 下部に余白を追加 */
+    }
+
+    .custom-list-item {
+        display: flex;
+        flex-direction: row; /* 横並びに配置 */
+        align-items: center;
+        justify-content: flex-start; /* 左寄せ */
+    }
+
+    .track-info {
+        flex-direction: column; /* 要素を縦に並べる */
+        align-items: start;
+    }
+
+    button {
+        width: 30px;            /* ボタンの幅 */
+        height: 30px;           /* ボタンの高さを幅と同じにして円形に */
+        font-size: 15px;
+    }
+
+    /* スライダーのトラック */
+    input[type='range'] {
+      width: 120px;
+      margin: 4px 6px;
+      height: 4.5px; /* スライダーのトラックの高さ */
+    }
+    /* スライダーのサム（つまみ） */
+    input[type='range']::-webkit-slider-thumb {
+      height: 16px; /* サムの高さ */
+      width: 16px; /* サムの幅 */
+      border-radius: 8px; /* サムを円形に */
+    }
+
+    img {
+        max-height: 100%;
+    }
+    #playing-artwork {
+        max-height: 160px; /* 画像の最大高さを調整 */
+    }
+
+    .track-artwork {
+        width: 40px;
+        height: 40px;
+        margin-right: 8px;
+    }
+
+    .track-details {
+        display: flex;
+        align-items: flex-start; /* 垂直方向をセンタリング */
+        width: 100%;  /* コンテナの幅を100%に設定 */
+    }
+
+    .icon-caption, .icon-disabled-caption {
+        font-size: 10px;
+        margin-right: 14px;
+    }
+    .tempo-value {
+        width: 60px; /* 数値部分の幅を固定 */
+        text-align: right; /* 右寄せにする */
+        margin-right: 0px;
+    }
+    .camelot-info {
+        width: 40px; /* 幅を指定して一定に保つ */
+    }
+
+    .track-popularity {
+        width: 20px; /* 適宜調整してください */
+    }
+
+    #playing {
+        font-size: 12px;
+    }
+    .info-now-playing {
+        font-size: 12px;
+        display: inline-block;
+    }
+
+    .icon-row {
+        display: flex;
+        flex-direction: row; /* BPMなどの情報を横並びに */
+        justify-content: flex-start; /* 左寄せ */
+        align-items: center;  /* アイテムを垂直方向の中心に揃える */
+        width: 100%;  /* コンテナの幅を100%に設定 */
+        margin-top: 8px; /* 上にマージンを追加して視覚的な区切りを明確に */
+    }
+
+    .artist, .track-name, .icon-caption, .icon-disabled-caption, .tempo-value, .camelot-info, .track-popularity {
+        font-size: 12px;
+        display: inline; /* インライン表示にして、アイコンが右に来るように */
+    }
+    .track-name {
+        width: 270px;
+    }
+
+    .playing-icon {
+        margin-left: 2px; /* アイコンの左マージンを設定 */
+        vertical-align: middle; /* アイコンの垂直位置を中央に */
+        font-size: 10px;
+    }
+
+    .fas.fa-volume-up {
+        font-size: 20px;
+    }
+    .fas.fa-volume-up.no-blink {
+        font-size: 14px;
+    }
+
+    .track-number {
+        width: 20px;
+        font-size: 10px;
+        text-align: right;
+        margin-right: 6px;
+    }
+
+    .sort-button {
+        margin: 2px; /* ボタン間のマージンを追加 */
+        width: 24px;
+        height: 24px;
+        font-size: 16px;
+        border-radius: 15px;
+    }
+
+    .sort-section {
+        margin-bottom: 10px; /* アートワークからのマージン */
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    footer p {
+        font-size: 10px;
+    }
+    .fab.fa-x-twitter {
+        margin-right: 2px;
+        font-size: 8px;
+    }
+    .sort-option {
+        font-size: 14px;
+    }
+}
 
 @media (min-width: 481px) and (max-width: 768px) {
     body {
@@ -703,6 +860,9 @@ footer {
         font-size: 14px;
         display: inline; /* インライン表示にして、アイコンが右に来るように */
     }
+    .track-name {
+        width: 600px;
+    }
 
     .playing-icon {
         margin-left: 4px; /* アイコンの左マージンを設定 */
@@ -751,7 +911,6 @@ footer {
         font-size: 16px;
     }
 }
-
 
 @media (min-width: 769px) and (max-width: 1024px) {
     body {
@@ -852,6 +1011,9 @@ footer {
     .artist, .track-name, .icon-caption, .icon-disabled-caption, .tempo-value, .camelot-info, .track-popularity {
         font-size: 24px;
         display: inline; /* インライン表示にして、アイコンが右に来るように */
+    }
+    .track-name {
+        width: 610px;
     }
 
     .playing-icon {
