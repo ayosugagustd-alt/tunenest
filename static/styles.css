@@ -477,9 +477,9 @@ footer {
     }
 
     button {
-        width: 30px;            /* ボタンの幅 */
-        height: 30px;           /* ボタンの高さを幅と同じにして円形に */
-        font-size: 15px;
+        width: 40px;            /* ボタンの幅 */
+        height: 40px;           /* ボタンの高さを幅と同じにして円形に */
+        font-size: 20px;
     }
 
     /* スライダーのトラック */
@@ -632,9 +632,9 @@ footer {
     }
 
     button {
-        width: 30px;            /* ボタンの幅 */
-        height: 30px;           /* ボタンの高さを幅と同じにして円形に */
-        font-size: 15px;
+        width: 40px;            /* ボタンの幅 */
+        height: 40px;           /* ボタンの高さを幅と同じにして円形に */
+        font-size: 20px;
     }
 
     /* スライダーのトラック */
@@ -1097,9 +1097,9 @@ footer {
     }
 
     button {
-        width: 50px;            /* ボタンの幅 */
-        height: 50px;           /* ボタンの高さを幅と同じにして円形に */
-        font-size: 25px;
+        width: 48px;            /* ボタンの幅 */
+        height: 48px;           /* ボタンの高さを幅と同じにして円形に */
+        font-size: 24px;
     }
 
     /* スライダーのトラック */
@@ -1250,9 +1250,9 @@ footer {
     }
 
     button {
-        width: 50px;            /* ボタンの幅 */
-        height: 50px;           /* ボタンの高さを幅と同じにして円形に */
-        font-size: 25px;
+        width: 48px;            /* ボタンの幅 */
+        height: 48px;           /* ボタンの高さを幅と同じにして円形に */
+        font-size: 24px;
     }
 
     /* スライダーのトラック */
@@ -1403,9 +1403,9 @@ footer {
     }
 
     button {
-        width: 50px;            /* ボタンの幅 */
-        height: 50px;           /* ボタンの高さを幅と同じにして円形に */
-        font-size: 25px;
+        width: 48px;            /* ボタンの幅 */
+        height: 48px;           /* ボタンの高さを幅と同じにして円形に */
+        font-size: 24px;
     }
 
     /* スライダーのトラック */
@@ -1556,9 +1556,9 @@ media (min-width: 1025px) and (max-width: 1440px) {
     }
 
     button {
-        width: 50px;            /* ボタンの幅 */
-        height: 50px;           /* ボタンの高さを幅と同じにして円形に */
-        font-size: 25px;
+        width: 48px;            /* ボタンの幅 */
+        height: 48px;           /* ボタンの高さを幅と同じにして円形に */
+        font-size: 24px;
     }
 
     /* スライダーのトラック */
