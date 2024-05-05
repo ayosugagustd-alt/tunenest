@@ -4,7 +4,7 @@
 :root {
     --star-color: #FF9900;
     --empty-star-color: #767676;
-    --font-size: 16px;
+    --font-size: 20px;
     --valence-color: #ffd54f; /* Valence黄色 */
     --acousticness-color: #228b22; /* Acousticness深緑色 */
     --danceability-color: #ff69b4; /* Danceability桃色 */
@@ -134,8 +134,8 @@ img {
 }
 
 .track-artwork {
-    width: 64px;
-    height: 64px;
+    width: 80px;
+    height: 80px;
     margin-right: 15px;
     border-radius: 5px;
     object-fit: cover;
@@ -224,7 +224,7 @@ img {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;  /* Regular for readability */
     margin-right: 20px;
-    font-size: 16px;
+    font-size: 20px;
     display: inline-block;
 }
 .icon-caption:hover {
@@ -237,17 +237,17 @@ img {
 .fas.fa-volume-up {
     animation: fadeInOut 2s infinite;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-    font-size: 30px;
+    font-size: 20px;
 	color: #333333;
 }
 .fas.fa-volume-up.no-blink {
     animation: none;
-    font-size: 30px;
+    font-size: 20px;
 	color: #F5F5F5;
 }
 
 footer p {
-    font-size: 14px;
+    font-size: 18px;
     color: #555;
 }
 
@@ -321,7 +321,7 @@ footer {
     border: 2px solid gainsboro;
     border-radius: 5px;
     vertical-align: middle;
-	font-size: 16px;
+	font-size: 20px;
     width: 100%;
     height: 50px;  /* 固定幅 */
 }
@@ -341,7 +341,7 @@ footer {
     margin-bottom: 20px; /* アートワークからのマージン */
 }
 .sort-option {
-    font-size: 18px;
+    font-size: 22px;
     display: flex;
     align-items: center;
     margin-right: 24px; /* オプション間のスペース */
@@ -376,13 +376,13 @@ footer {
 
 .track-name {
     width: 420px;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     margin-right: 10px;
 }
 
 .artist {
-    font-size: 16px;
+    font-size: 20px;
     color: #666;
 }
 
@@ -445,7 +445,7 @@ footer {
 
 .fab.fa-x-twitter {
     margin-right: 7px;
-    font-size: 14px;
+    font-size: 18px;
     color: #000;
 }
 
@@ -566,7 +566,7 @@ footer {
         font-size: 20px;
     }
     .fas.fa-volume-up.no-blink {
-        font-size: 14px;
+        font-size: 20px;
     }
 
     .track-number {
@@ -580,7 +580,7 @@ footer {
         margin: 2px; /* ボタン間のマージンを追加 */
         width: 24px;
         height: 24px;
-        font-size: 16px;
+        font-size: 20px;
         border-radius: 15px;
     }
 
@@ -589,6 +589,7 @@ footer {
     }
 
     .search-input {
+        font-size: 16px;
         width: 100%;
     }
 
@@ -720,7 +721,7 @@ footer {
         font-size: 20px;
     }
     .fas.fa-volume-up.no-blink {
-        font-size: 14px;
+        font-size: 20px;
     }
 
     .track-number {
@@ -734,7 +735,7 @@ footer {
         margin: 2px; /* ボタン間のマージンを追加 */
         width: 24px;
         height: 24px;
-        font-size: 16px;
+        font-size: 20px;
         border-radius: 15px;
     }
 
@@ -743,6 +744,7 @@ footer {
     }
 
     .search-input {
+        font-size: 16px;
         width: 100%;
     }
 
@@ -874,7 +876,7 @@ footer {
         font-size: 22px;
     }
     .fas.fa-volume-up.no-blink {
-        font-size: 16px;
+        font-size: 22px;
     }
 
     .track-number {
@@ -888,7 +890,7 @@ footer {
         margin: 4px; /* ボタン間のマージンを追加 */
         width: 28px; /* ボタンサイズを調整 */
         height: 28px;
-        font-size: 20px;
+        font-size: 24px;
         border-radius: 20px;
     }
 
@@ -897,6 +899,7 @@ footer {
     }
 
     .search-input {
+        font-size: 18px;
         width: 100%;
     }
 
@@ -1028,7 +1031,7 @@ footer {
         font-size: 22px;
     }
     .fas.fa-volume-up.no-blink {
-        font-size: 16px;
+        font-size: 22px;
     }
 
     .track-number {
@@ -1042,7 +1045,7 @@ footer {
         margin: 4px; /* ボタン間のマージンを追加 */
         width: 28px; /* ボタンサイズを調整 */
         height: 28px;
-        font-size: 20px;
+        font-size: 24px;
         border-radius: 20px;
     }
 
@@ -1051,6 +1054,7 @@ footer {
     }
 
     .search-input {
+        font-size: 18px;
         width: 100%;
     }
 
@@ -1146,10 +1150,10 @@ footer {
     }
 
     #playing {
-        font-size: 28px;
+        font-size: 24px;
     }
     .info-now-playing {
-        font-size: 28px;
+        font-size: 24px;
         display: inline-block;
     }
 
@@ -1180,21 +1184,21 @@ footer {
         font-size: 24px;
     }
     .fas.fa-volume-up.no-blink {
-        font-size: 18px;
+        font-size: 24px;
     }
 
     .track-number {
         width: 28px; /* トラック番号の幅を調整 */
-        font-size: 18px;
+        font-size: 20px;
         text-align: right;
         margin-right: 10px;
     }
 
     .sort-button {
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
+        font-size: 26px;
         margin: 10px; /* ボタン間のマージンを追加 */
-        font-size: 30px;
         border-radius: 20px;
     }
 
@@ -1202,10 +1206,11 @@ footer {
         margin-bottom: 10px; /* アートワークからのマージン */
     }
     .sort-option {
-        font-size: 28px;
+        font-size: 20px;
     }
 
     .search-input {
+        font-size: 18px;
         width: 100%;
     }
 
@@ -1298,10 +1303,10 @@ footer {
     }
 
     #playing {
-        font-size: 28px;
+        font-size: 24px;
     }
     .info-now-playing {
-        font-size: 28px;
+        font-size: 24px;
         display: inline-block;
     }
 
@@ -1332,21 +1337,21 @@ footer {
         font-size: 24px;
     }
     .fas.fa-volume-up.no-blink {
-        font-size: 18px;
+        font-size: 24px;
     }
 
     .track-number {
         width: 28px; /* トラック番号の幅を調整 */
-        font-size: 18px;
+        font-size: 20px;
         text-align: right;
         margin-right: 10px;
     }
 
     .sort-button {
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
+        font-size: 26px;
         margin: 10px; /* ボタン間のマージンを追加 */
-        font-size: 30px;
         border-radius: 20px;
     }
 
@@ -1354,10 +1359,11 @@ footer {
         margin-bottom: 10px; /* アートワークからのマージン */
     }
     .sort-option {
-        font-size: 28px;
+        font-size: 20px;
     }
 
     .search-input {
+        font-size: 18px;
         width: 100%;
     }
 
@@ -1450,10 +1456,163 @@ footer {
     }
 
     #playing {
-        font-size: 28px;
+        font-size: 22px;
     }
     .info-now-playing {
-        font-size: 28px;
+        font-size: 22px;
+        display: inline-block;
+    }
+
+    .icon-row {
+        display: flex;
+        flex-direction: row; /* BPMなどの情報を横並びに */
+        justify-content: flex-start; /* 左寄せ */
+        align-items: center;  /* アイテムを垂直方向の中心に揃える */
+        width: 100%;  /* コンテナの幅を100%に設定 */
+        margin-top: 14px; /* 上にマージンを追加して視覚的な区切りを明確に */
+    }
+
+    .artist, .track-name, .icon-caption, .icon-disabled-caption, .tempo-value, .camelot-info, .track-popularity {
+        font-size: 22px;
+        display: inline; /* インライン表示にして、アイコンが右に来るように */
+    }
+    .track-name {
+        width: 780px;
+    }
+
+    .playing-icon {
+        margin-left: 6px; /* アイコンの左マージンを設定 */
+        vertical-align: middle; /* アイコンの垂直位置を中央に */
+        font-size: 12px;
+    }
+
+    .fas.fa-volume-up {
+        font-size: 22px;
+    }
+    .fas.fa-volume-up.no-blink {
+        font-size: 22px;
+    }
+
+    .track-number {
+        width: 28px; /* トラック番号の幅を調整 */
+        font-size: 18px;
+        text-align: right;
+        margin-right: 10px;
+    }
+
+    .sort-button {
+        width: 30px;
+        height: 30px;
+        font-size: 26px;
+        margin: 10px; /* ボタン間のマージンを追加 */
+        border-radius: 20px;
+    }
+
+    .sort-section {
+        margin-bottom: 10px; /* アートワークからのマージン */
+    }
+    .sort-option {
+        font-size: 22px;
+    }
+
+    .search-input {
+        font-size: 20px;
+        width: 100%;
+    }
+
+    footer p {
+        font-size: 14px;
+    }
+    .fab.fa-x-twitter {
+        margin-right: 6px;
+        font-size: 12px;
+    }
+}
+
+media (min-width: 1025px) and (max-width: 1440px) {
+    body {
+        font-size: 20px; /* フォントサイズをさらに大きく */
+    }
+
+    h1 {
+        font-size: 28px; /* タイトルのフォントサイズを大きく調整 */
+    }
+
+    .container {
+        padding: 16px; /* コンテナのパディングをさらに増やす */
+        padding-bottom: 180px; /* 下部に余白を追加 */
+    }
+
+    .custom-list-item {
+        display: flex;
+        flex-direction: row; /* 横並びに配置 */
+        align-items: center;
+        justify-content: flex-start; /* 左寄せ */
+    }
+
+    .track-info {
+        flex-direction: column; /* 要素を縦に並べる */
+        align-items: start;
+    }
+
+    button {
+        width: 50px;            /* ボタンの幅 */
+        height: 50px;           /* ボタンの高さを幅と同じにして円形に */
+        font-size: 25px;
+    }
+
+    /* スライダーのトラック */
+    input[type='range'] {
+      width: 140px;
+      margin: 6px 8px;
+      height: 6.5px; /* スライダーのトラックの高さ */
+    }
+    /* スライダーのサム（つまみ） */
+    input[type='range']::-webkit-slider-thumb {
+      height: 18px; /* サムの高さ */
+      width: 18px; /* サムの幅 */
+      border-radius: 10px; /* サムを円形に */
+    }
+
+    img {
+        max-height: 100%;
+    }
+    #playing-artwork {
+        max-height: 280px; /* 画像の最大高さを調整 */
+    }
+
+    .track-artwork {
+        width: 80px; /* アートワークのサイズを調整 */
+        height: 80px;
+    }
+
+    .track-details {
+        display: flex;
+        align-items: flex-start; /* 垂直方向をセンタリング */
+        width: 100%;  /* コンテナの幅を100%に設定 */
+    }
+
+    .icon-caption, .icon-disabled-caption {
+        margin-right: 64px;
+    }
+    .tempo-value {
+        width: 110px; /* 数値部分の幅を固定 */
+        text-align: right; /* 右寄せにする */
+        margin-right: 28px;
+    }
+    .camelot-info {
+        width: 60px; /* 幅を指定して一定に保つ */
+    }
+
+    .track-popularity {
+        width: 80px; /* 適宜調整してください */
+    }
+
+    #playing {
+        font-size: 22px;
+    }
+    .info-now-playing {
+        font-size: 22px;
         display: inline-block;
     }
 
@@ -1484,7 +1643,7 @@ footer {
         font-size: 24px;
     }
     .fas.fa-volume-up.no-blink {
-        font-size: 18px;
+        font-size: 24px;
     }
 
     .track-number {
@@ -1495,10 +1654,10 @@ footer {
     }
 
     .sort-button {
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
+        font-size: 26px;
         margin: 10px; /* ボタン間のマージンを追加 */
-        font-size: 30px;
         border-radius: 20px;
     }
 
@@ -1506,10 +1665,11 @@ footer {
         margin-bottom: 10px; /* アートワークからのマージン */
     }
     .sort-option {
-        font-size: 28px;
+        font-size: 22px;
     }
 
     .search-input {
+        font-size: 20px;
         width: 100%;
     }
 
