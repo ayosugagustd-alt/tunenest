@@ -449,6 +449,10 @@ footer {
     color: #000;
 }
 
+.tunenest-logo {
+    color: #C0C0C0; /* 灰色の色コードを適用 */
+}
+
 
 @media (max-width: 375px) {
     body {
