@@ -237,86 +237,105 @@ def format_tempo(tempo):
 @app.route("/")
 def index():
     try:
-        # デフォルトIDかクエリパラメータIDを設定
-        playlist_id = request.args.get("playlist_id", "37i9dQZF1DX9pyi5MHNyc7")
-
-        # クエリパラメータから 'sort' の値を取得、デフォルトは None または ''
-        sort_by = request.args.get('sort', default=None)
-
         # Spotifyクライアントを取得
         sp = get_spotify_client()
 
-        # プレイリストの詳細情報を取得
-        playlist_details = sp.playlist(playlist_id, market="JP")
+        keyword = request.args.get("keyword")  # クエリからキーワードを受け取る
 
-        # クエリパラメータからプレイリスト説明を取得
-        custom_description = request.args.get("description")
-        if custom_description:
-            playlist_description = custom_description
+        if keyword:
+            # キーワードに基づいて楽曲を検索し、結果の上限を50件に設定
+            results = sp.search(q=keyword, type="track", limit=50, market="JP")
+            track_ids = [track["id"] for track in results["tracks"]["items"]]
+            total_results = results['tracks']['total']  # 検索結果の総件数
+
+            if total_results == 0:
+                playlist_description = "検索結果がありません。"
+            elif total_results > 50:
+                playlist_description = f"検索結果は{total_results}曲ありますが、最初の50曲のみ表示しています。"
+            else:
+                playlist_description = f"検索結果は{total_results}曲です。"
+
+            # キーワード検索の結果を all_tracks として扱う
+            all_tracks = [{'track': track} for track in results["tracks"]["items"]]
+            playlist_name = keyword
+            collage_filename = url_for("static", filename="TuneNest.png")
+            playlist_url = ""
+            exceeds_max_tracks = False
         else:
-            # プレイリストのdescriptionを取得
-            playlist_description = playlist_details.get("description", "No description")
+            # デフォルトIDかクエリパラメータIDを設定
+            playlist_id = request.args.get("playlist_id", "37i9dQZF1DX9pyi5MHNyc7")
 
-        # プレイリストのURLを取得
-        playlist_url = playlist_details.get("external_urls", {}).get("spotify", "#")
+            # プレイリストの詳細情報を取得
+            playlist_details = sp.playlist(playlist_id, market="JP")
 
-        # 現実のプレイリスト名を取得
-        actual_playlist_name = playlist_details.get("name", "No playlist name")
+            # クエリパラメータからプレイリスト説明を取得
+            custom_description = request.args.get("description")
+            if custom_description:
+                playlist_description = custom_description
+            else:
+                # プレイリストのdescriptionを取得
+                playlist_description = playlist_details.get("description", "No description")
 
-        # クエリパラメータか現実のプレイリスト名を取得
-        # ドロップリストではプレイリスト名を渡していないので
-        # 通常クエリパラメータを与えられることはありません
-        playlist_name = request.args.get("playlist_name", actual_playlist_name)
+            # プレイリストのURLを取得
+            playlist_url = playlist_details.get("external_urls", {}).get("spotify", "#")
 
-        # クエリパラメータからカバー画像のURLを取得
-        custom_artwork_img = request.args.get("artwork_img")
+            # 現実のプレイリスト名を取得
+            actual_playlist_name = playlist_details.get("name", "No playlist name")
 
-        # プレイリストのカバー画像URLを安全に取得
-        collage_filename = url_for("static", filename="TuneNest.png")  # デフォルト値
-        if custom_artwork_img:
-            collage_filename = url_for("static", filename=custom_artwork_img)
-        elif playlist_details.get("images") and playlist_details["images"]:
-            # プレイリストのimagesが存在し、空のリストでないことを確認
-            collage_filename = playlist_details["images"][0].get(
-                "url", collage_filename
-            )
+            # クエリパラメータか現実のプレイリスト名を取得
+            # ドロップリストではプレイリスト名を渡していないので
+            # 通常クエリパラメータを与えられることはありません
+            playlist_name = request.args.get("playlist_name", actual_playlist_name)
 
-        # プレイリストのトラックを取得
-        MAX_TRACKS = 500  # 最大取得曲数を定義
+            # クエリパラメータからカバー画像のURLを取得
+            custom_artwork_img = request.args.get("artwork_img")
 
-        offset = 0
-        limit = 100  # 1回のAPI呼び出しで取得できる最大トラック数
-        all_tracks = []  # 全トラックを格納するリスト
+            # プレイリストのカバー画像URLを安全に取得
+            collage_filename = url_for("static", filename="TuneNest.png")  # デフォルト値
+            if custom_artwork_img:
+                collage_filename = url_for("static", filename=custom_artwork_img)
+            elif playlist_details.get("images") and playlist_details["images"]:
+                # プレイリストのimagesが存在し、空のリストでないことを確認
+                collage_filename = playlist_details["images"][0].get(
+                    "url", collage_filename
+                )
 
-        exceeds_max_tracks = False  # 500曲以上かどうかのフラグ
+            # プレイリストのトラックを取得
+            MAX_TRACKS = 500  # 最大取得曲数を定義
 
-        while True:
-            results = sp.playlist_tracks(
-                playlist_id, offset=offset, limit=limit, market="JP"
-            )
-            if results is None or results["items"] is None:
-                raise ValueError("Spotify APIが正常な値を返しませんでした。")
+            offset = 0
+            limit = 100  # 1回のAPI呼び出しで取得できる最大トラック数
+            all_tracks = []  # 全トラックを格納するリスト
 
-            all_tracks.extend(results["items"])
+            exceeds_max_tracks = False  # 500曲以上かどうかのフラグ
 
-            # 上限に達した場合、ループを抜ける
-            if len(all_tracks) > MAX_TRACKS:
-                exceeds_max_tracks = True
-                all_tracks = all_tracks[:MAX_TRACKS]
-                break
+            while True:
+                results = sp.playlist_tracks(
+                    playlist_id, offset=offset, limit=limit, market="JP"
+                )
+                if results is None or results["items"] is None:
+                    raise ValueError("Spotify APIが正常な値を返しませんでした。")
 
-            # 全てのトラックを取得した場合、ループを抜ける
-            if len(results["items"]) < limit:
-                break
+                all_tracks.extend(results["items"])
 
-            offset += limit
+                # 上限に達した場合、ループを抜ける
+                if len(all_tracks) > MAX_TRACKS:
+                    exceeds_max_tracks = True
+                    all_tracks = all_tracks[:MAX_TRACKS]
+                    break
 
-        # トラックIDのリストを作成し、オーディオ特性を取得
-        track_ids = [
-            item["track"]["id"]
-            for item in all_tracks
-            if item.get("track") and item["track"].get("id")
-        ]
+                # 全てのトラックを取得した場合、ループを抜ける
+                if len(results["items"]) < limit:
+                    break
+
+                offset += limit
+
+            # トラックIDのリストを作成し、オーディオ特性を取得
+            track_ids = [
+                item["track"]["id"]
+                for item in all_tracks
+                if item.get("track") and item["track"].get("id")
+            ]
 
         # オーディオ特性を取得
         audio_features_dict = get_tracks_audio_features(track_ids)
@@ -343,6 +362,8 @@ def index():
         reverse_sort = True if sort_order == 'desc' else False
 
         # トラックソートの処理
+        # クエリパラメータから 'sort' の値を取得、デフォルトは None または ''
+        sort_by = request.args.get('sort', default=None)
         if sort_by == 'bpm':
             # ソート基準を BMP と Camelot Key で行う
             valid_tracks_info.sort(key=lambda x: (format_tempo(x['tempo']), camelot_to_sort_key(x['camelot_key_signature'])), reverse=reverse_sort)
@@ -857,26 +878,6 @@ def search_playlist():
     playlist_id = playlist["id"]
 
     return jsonify({"playlist_id": playlist_id})
-
-
-# キーワードで楽曲を検索する新しいルート
-@app.route("/search_track", methods=["GET"])
-def search_track():
-    keyword = request.args.get("keyword")
-    if not keyword:
-        return jsonify({"error": "No keyword provided"}), 400
-
-    sp = get_spotify_client()
-
-    # Spotify APIでキーワードに基づいて楽曲を検索
-    results = sp.search(q=keyword, type="track", limit=1, market="JP")
-    if not results or not results.get("tracks") or not results["tracks"]["items"]:
-        return jsonify({"error": "No tracks found"}), 404
-
-    track = results["tracks"]["items"][0]
-    track_id = track["id"]
-
-    return jsonify({"track_id": track_id})
 
 
 # メインのエントリーポイント

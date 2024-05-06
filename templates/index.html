@@ -67,7 +67,9 @@
     {% if exceeds_max_tracks %}
         <p><i class="fas fa-exclamation-triangle"></i>{{ playlist_name }}は501曲以上ありますが、最初の500曲のみ表示しています。</p>
     {% endif %}
+    {% if playlist_url %}
         <p><a href="{{ playlist_url }}" target="_blank" rel="noopener">このプレイリストをSpotifyで再生</a></p>
+    {% endif %}
 
     <div id="playlist-controls" lang="ja">
         <select class="search-input" id="playlistDropdown">
@@ -386,31 +388,29 @@
                     return; // キーワードが空の場合は処理を中断
                 }
 
-                let apiEndpoint = playlistDropdown.value === 'searchTrack' ?
-                    `/search_track?keyword=${encodeURIComponent(keyword)}` :
-                    `/search_playlist?keyword=${encodeURIComponent(keyword)}`;
+                let apiEndpoint = '';
 
-                fetch(apiEndpoint)
-                    .then(response => {
-                        if (response.ok) {
-                            return response.json();
-                        }
-                        throw new Error('Search failed: ' + response.statusText);
-                    })
-                    .then(data => {
-                        if (playlistDropdown.value === 'searchTrack' && data.track_id) {
-                            if (isSafari()) {
-                                window.location.href = `/song_details/${data.track_id}`;
-                            } else {
-                                window.open(`/song_details/${data.track_id}`, '_blank');
+                if (playlistDropdown.value === 'searchTrack') {
+                    window.location.href = `/?keyword=${encodeURIComponent(keyword)}`;
+                } else if (playlistDropdown.value === 'searchPlaylist') {
+                    apiEndpoint = `/search_playlist?keyword=${encodeURIComponent(keyword)}`;
+
+                    fetch(apiEndpoint)
+                        .then(response => {
+                            if (response.ok) {
+                                return response.json();
                             }
-                        } else if (playlistDropdown.value === 'searchPlaylist' && data.playlist_id) {
-                            window.location.href = `/?playlist_id=${data.playlist_id}`;
-                        }
-                    })
-                    .catch(error => {
-                        console.error('There was a problem with the fetch operation:', error);
-                    });
+                            throw new Error('Search failed: ' + response.statusText);
+                        })
+                        .then(data => {
+                            if (data.playlist_id) {
+                                window.location.href = `/?playlist_id=${data.playlist_id}`;
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error searching playlist:', error);
+                        });
+                }
             }
 
             searchButton.addEventListener('click', performSearch);
