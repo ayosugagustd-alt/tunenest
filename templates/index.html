@@ -60,7 +60,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>{{ playlist_name }}</h1>
+    <h2>{{ playlist_name }}</h2>
     <p>{{ playlist_description|safe }}</p>
 
 
@@ -107,21 +107,21 @@
                     <button class="sort-button" onclick="sortTracks('bpm', 'asc')"><i class="fas fa-sort-up"></i></button>
                     <button class="sort-button" onclick="sortTracks('bpm', 'desc')"><i class="fas fa-sort-down"></i></button>
                 </div>
-                <h4>BPM</h4>
+                <p>BPM</p>
             </div>
             <div class="sort-option">
                 <div>
                     <button class="sort-button" onclick="sortTracks('camelot', 'asc')"><i class="fas fa-sort-up"></i></button>
                     <button class="sort-button" onclick="sortTracks('camelot', 'desc')"><i class="fas fa-sort-down"></i></button>
                 </div>
-                <h4>KEY<a href="/static/CamelotWheel.png" class="help-link" target="_blank" rel="noopener" title="Camelot Wheelについて"><i class="fas fa-question-circle"></i></a></h4>
+                <p>Key<a href="/static/CamelotWheel.png" class="help-link" target="_blank" rel="noopener" title="Camelot Wheelについて"><i class="fas fa-question-circle"></i></a></p>
             </div>
             <div class="sort-option">
                 <div>
                     <button class="sort-button" onclick="sortTracks('popularity', 'desc')"><i class="fas fa-sort-up"></i></button>
                     <button class="sort-button" onclick="sortTracks('popularity', 'asc')"><i class="fas fa-sort-down"></i></button>
                 </div>
-                <h4>人気</h4>
+                <p>人気</p>
             </div>
         </div>
         <div id="buttons">

@@ -604,6 +604,8 @@ def get_artist_albums_with_songs(artist_id, page, per_page=10):
             "tracks": [],
             "album_id": album["id"],  # アルバムID
             "artist_id": artist_id,  # アーティストID
+            "total_tracks": album["total_tracks"],  # アルバムの総楽曲数
+            "images": album["images"] if "images" in album and album["images"] else None,  # カバー画像情報
         }
 
         # 各アルバムに含まれる楽曲を取得
@@ -641,6 +643,7 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
             "tracks": [],
             "single_id": single["id"],  # シングルIDの追加
             "artist_id": artist_id,  # アーティストIDの追加
+            "images": single["images"] if "images" in single and single["images"] else None,
         }
 
         # シングルに含まれる楽曲を取得
@@ -682,6 +685,8 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
             "tracks": [],  # 収録曲リスト
             "compilation_id": compilation["id"],  # コンピレーションID
             "artist_id": artist_id,  # アーティストID
+            "total_tracks": compilation["total_tracks"],  # 総楽曲数
+            "images": compilation["images"] if "images" in compilation and compilation["images"] else None,
         }
 
         # 各コンピレーションアルバムに含まれる楽曲を取得

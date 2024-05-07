@@ -45,12 +45,12 @@
 <body>
 <div class="container">
     {% macro render_progress_bar(property, value, bar_class="", unit="%", original_value=None) %}
-        <p><strong>{{ property }}</strong>: {{ (original_value if original_value is not none else value)|float|round(1) }}{{ unit }}</p>
+        <p>{{ property }}: {{ (original_value if original_value is not none else value)|float|round(1) }}{{ unit }}</p>
         <div class="progress-bar">
             <div class="progress {{ bar_class }}" style="width:{{ value }}%"></div>
         </div>
     {% endmacro %}
-    <h1>{{ song.name }}</h1>
+    <h2>{{ song.name }}</h2>
     <div class="section-space">
         <div class="album-artwork">
             <img alt="アルバムアートワーク" src="{{ song.album_artwork_url or url_for('static', filename='TuneNest.png') }}" loading="lazy">
@@ -58,23 +58,23 @@
         <iframe class="spotify-player" title="Spotify player" allow="encrypted-media" allowtransparency="true" frameborder="0" height="80" src="https://open.spotify.com/embed/track/{{ song_id }}" width="300"></iframe>
     </div> <!-- End of .section-space -->
     <div class="section-space">
-        <h2>基本情報</h2>
-        <p><strong>アーティスト名</strong>：
+        <h3>基本情報</h3>
+        <p>アーティスト名：</p>
         <ul>
             {% for artist in song.artists %}
                 <li><a href="{{ url_for('artist_details', artist_id=artist.id) }}">{{ artist.name }}</a></li>
             {% endfor %}
         </ul>
-        <p><strong>アルバム名</strong>：{{ song.album_name }}</p>
-        <p><strong>リリース日</strong>：{{ song.release_date }}</p>
-        <p><strong>テンポ</strong>：{{ song.tempo|float|round(1) }} BPM</p>
-        <p><strong>キー</strong>：{{ ["C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"][song.key] }}</p>
-        <p><strong>調性</strong>：{{ "メジャー" if song.mode == 1 else "マイナー" }}</p>
-        <p><strong>キャメロット</strong>：{{ song.camelot_key }}</p>
-        <p><strong>再生時間</strong>：{{ (song.duration // 60)|int }}:{{ "%02d"|format(song.duration % 60) }} ({{ song.duration|float|round(1) }}秒)</p>
-        <p><strong>レーベル</strong>：{{ song.label }}</p>
+        <p>アルバム名：{{ song.album_name }}</p>
+        <p>リリース日：{{ song.release_date }}</p>
+        <p>テンポ：{{ song.tempo|float|round(1) }} BPM</p>
+        <p>キー：{{ ["C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"][song.key] }}</p>
+        <p>調性：{{ "メジャー" if song.mode == 1 else "マイナー" }}</p>
+        <p>キャメロット：{{ song.camelot_key }}</p>
+        <p>再生時間：{{ (song.duration // 60)|int }}:{{ "%02d"|format(song.duration % 60) }} ({{ song.duration|float|round(1) }}秒)</p>
+        <p>レーベル：{{ song.label }}</p>
         <!-- code for song properties -->
-        <p><strong>Spotify人気度</strong>：{{ song.popularity }}%</p>
+        <p>Spotify人気度：{{ song.popularity }}%</p>
         <span>
             {% for _ in range(0, song.popularity // 10) %}
                 <span class="star"><i class="fas fa-star"></i></span>
@@ -88,7 +88,7 @@
         </span>
     </div> <!-- End of div -->
     <div class="visual-section">
-        <h2>音楽特性 <a href="/help_song_details" class="help-link" target="_blank" rel="noopener" title="音楽特性の詳細情報"><i class="fas fa-question-circle"></i></a></h2>
+        <h3>音楽特性 <a href="/help_song_details" class="help-link" target="_blank" rel="noopener" title="音楽特性の詳細情報"><i class="fas fa-question-circle"></i></a></h3>
         <!-- code for visual properties -->
         {{ render_progress_bar("肯定感", song.valence, "progress-valence") }}
         {{ render_progress_bar("アコースティック度", song.acousticness, "progress-acousticness") }}

@@ -25,20 +25,32 @@
 </head>
 <body>
 <div class="container">
-<h1>コンピ・アルバム</h1>
+<h2>コンピ・アルバム</h2>
     {% if total_compilations > 0 %}
         <p>コンピレーション・アルバムの総数：{{ total_compilations }}枚</p>
         {% include 'pagination.html' %}
         <div>
             {% for compilation in compilations_with_songs %}
-            <h2>
-                <a href="{{ url_for('album_details', artist_id=compilation['artist_id'], album_id=compilation['compilation_id']) }}">{{ loop.index + (page - 1) * per_page }}. {{ compilation.name }} ({{ compilation.release_date }})</a>
-            </h2>
-            <table>
+            <h3>
+                <a href="{{ url_for('album_details', artist_id=compilation['artist_id'], album_id=compilation['compilation_id']) }}">{{ loop.index + (page - 1) * per_page }}. {{ compilation.name }}</a>
+            </h3>
+            <!-- カバー画像表示 -->
+            {% if compilation.images %}
+                <img src="{{ compilation.images[0].url }}" alt="カバー画像" style="max-width: 200px;">
+            {% else %}
+                <img src="{{ url_for('static', filename='TuneNest.png') }}" alt="デフォルト画像" style="max-width: 200px;">
+            {% endif %}
+            <p>リリース日: {{ compilation.release_date }}</p>
+            <p>トラック数： {{ compilation['total_tracks'] }}</p>
+            <ol>
                 {% for track in compilation.tracks %}
-                    <tr><td><a href="{{ url_for('song_details', song_id=track['track_id']) }}">{{ track['name'] }}</a></td></tr>
+                    <li>
+                        <a href="{{ url_for('song_details', song_id=track['track_id']) }}">{{ track['name'] }}</a>
+                    </li>
                 {% endfor %}
-            </table>
+            </ol>
+            <!-- アルバム間の区切り線 -->
+            <hr class="album-divider">
             {% endfor %}
         </div>
     {% else %}

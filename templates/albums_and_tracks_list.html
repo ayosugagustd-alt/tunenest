@@ -25,30 +25,40 @@
 </head>
 <body>
 <div class="container">
-<h1>アルバム</h1>
-	{% if total_albums > 0 %}
-    	<p>アルバムの総数： {{ total_albums }}枚</p>
-		{% include 'pagination.html' %} 
-    	<div>
+    <h2>アルバム</h2>
+    {% if total_albums > 0 %}
+   	<p>アルバムの総数： {{ total_albums }}枚</p>
+        {% include 'pagination.html' %} 
+        <div>
         {% for album in albums_with_songs %}
-			<h2><a href="{{ url_for('album_details', artist_id=album['artist_id'], album_id=album['album_id']) }}">{{ loop.index + (page - 1) * per_page }}. {{ album.name }} ({{ album.release_date }})</a></h2>
-<table>
+            <h3><a href="{{ url_for('album_details', artist_id=album['artist_id'], album_id=album['album_id']) }}">{{ loop.index + (page - 1) * per_page }}. {{ album.name }}</a></h3>
+            <!-- カバー画像表示 -->
+            {% if album.images %}
+                <img src="{{ album.images[0].url }}" alt="カバー画像" style="max-width: 200px;">
+            {% else %}
+                <img src="{{ url_for('static', filename='TuneNest.png') }}" alt="デフォルト画像" style="max-width: 200px;">
+            {% endif %}
+            <p>リリース日： {{ album['release_date'] }}</p>
+            <p>トラック数： {{ album['total_tracks'] }}</p>
+            <ol>
                 {% for track in album.tracks %}
-                    <tr>
-<td><a href="{{ url_for('song_details', song_id=track['track_id']) }}">{{ track['name'] }}</a></td>
-</tr>
+                    <li>
+                        <a href="{{ url_for('song_details', song_id=track['track_id']) }}">{{ track['name'] }}</a>
+                    </li>
                 {% endfor %}
-            </table>
+            </ol>
+            <!-- アルバム間の区切り線 -->
+            <hr class="album-divider">
         {% endfor %}
-    	</div>
-	{% else %}
-    	<p>アルバム情報はありません。</p>
-        <a href="{{ url_for('artist_details', artist_id=artist_id) }}">アーティスト詳細へ戻る</a>
-	{% endif %}
+        </div>
+    {% else %}
+        <p>アルバム情報はありません。</p>
+            <a href="{{ url_for('artist_details', artist_id=artist_id) }}">アーティスト詳細へ戻る</a>
+    {% endif %}
     <!-- Navigation Icon at the bottom -->
     <div class="home-icon">
         <a href="/" aria-label="Home">
-            <i class="fas fa-home"></i> <!-- FontAwesomeのホームアイコン -->
+        <i class="fas fa-home"></i> <!-- FontAwesomeのホームアイコン -->
         </a>
     </div>
 </div>

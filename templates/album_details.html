@@ -30,15 +30,15 @@
 </head>
 <body>
 <div class="container">
-<h1>{{ album.name }}</h1>
+<h2>{{ album.name }}</h2>
   <div class="section-space">
         <div class="album-artwork">
             <img alt="アルバムのアートワーク" src="{{ album.image or url_for('static', filename='TuneNest.png') }}" loading="lazy">
         </div>
 </div>
 <div class="section-space">
-    <h2>基本情報</h2>
-    <p><strong>Spotify人気度</strong>：{{ album.popularity }}%</p>
+    <h3>基本情報</h3>
+    <p>Spotify人気度：{{ album.popularity }}%</p>
     <span>
         {% for _ in range(0, album.popularity // 10) %}
             <span class="star"><i class="fas fa-star"></i></span>
@@ -50,17 +50,17 @@
             <span class="empty-star"><i class="far fa-star"></i></span>
         {% endfor %}
     </span>
-    <p><strong>アーティスト</strong>：
-    <ul>
+    <p>アーティスト：
+    <ol>
         {% for artist in album.artists %}
         <li><a href="{{ url_for('artist_details', artist_id=artist.id) }}">{{ artist.name }}</a></li>
         {% endfor %}
     </ul>
-    <p><strong>リリース日</strong>： {{ album.release_date }}</p>
+    <p>リリース日： {{ album.release_date }}</p>
   </div>
 <div class="section-space">
-    <h2>トラック一覧</h2>
-    <ul>
+    <h3>トラック一覧</h3>
+    <ol>
         {% for track in album.tracks %}
             {% set minutes = (track.length / 1000 / 60)|int %}
             {% set seconds = ((track.length / 1000) % 60)|int %}

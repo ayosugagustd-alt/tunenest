@@ -25,18 +25,27 @@
 </head>
 <body>
 <div class="container">
-<h1>シングル</h1>
+<h2>シングル</h2>
     {% if total_singles > 0 %}
         <p>シングル総数： {{ total_singles }}枚</p>
         {% include 'pagination.html' %}
         <div>
             {% for single in singles_with_songs %}
-                <h2>{{ loop.index + (page - 1) * per_page }}. {{ single.name }} ({{ single.release_date }})</h2>
-                <table>
+                <h3>{{ loop.index + (page - 1) * per_page }}. {{ single.name }}</h3>
+                <!-- カバー画像表示 -->
+                {% if single.images %}
+                    <img src="{{ single.images[0].url }}" alt="カバー画像" style="max-width: 200px;">
+                {% else %}
+                    <img src="{{ url_for('static', filename='TuneNest.png') }}" alt="デフォルト画像" style="max-width: 200px;">
+                {% endif %}
+                <p>リリース日: {{ single.release_date }}</p>
+                <ol>
                     {% for track in single.tracks %}
-                        <tr><td><a href="{{ url_for('song_details', song_id=track['track_id']) }}">{{ track['name'] }}</a></td></tr>
+                        <li><a href="{{ url_for('song_details', song_id=track['track_id']) }}">{{ track['name'] }}</a></li>
                     {% endfor %}
-                </table>
+                </ol>
+                <!-- アルバム間の区切り線 -->
+                <hr class="album-divider">
             {% endfor %}
         </div>
     {% else %}
