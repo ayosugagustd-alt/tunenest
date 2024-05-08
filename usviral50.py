@@ -273,7 +273,7 @@ def index():
             exceeds_max_tracks = False
         else:
             # デフォルトIDかクエリパラメータIDを設定
-            playlist_id = request.args.get("playlist_id", "37i9dQZF1DX9pyi5MHNyc7")
+            playlist_id = request.args.get("playlist_id", "37i9dQZEVXbKXQ4mDTEBXq")
 
             # プレイリストの詳細情報を取得
             playlist_details = sp.playlist(playlist_id, market="JP")
