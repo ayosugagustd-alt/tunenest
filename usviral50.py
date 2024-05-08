@@ -243,15 +243,25 @@ def index():
         keyword = request.args.get("keyword")  # クエリからキーワードを受け取る
 
         if keyword:
-            # キーワードに基づいて楽曲を検索し、結果の上限を50件に設定
+            # キーワードに基づいて楽曲を検索し、まず最初の50件を取得
             results = sp.search(q=keyword, type="track", limit=50, market="JP")
             track_ids = [track["id"] for track in results["tracks"]["items"]]
             total_results = results['tracks']['total']  # 検索結果の総件数
 
+            # 最初の50件を結果リストに格納
+            all_tracks = results["tracks"]["items"]
+
+            # 検索結果が50件を超える場合、次の50件を追加で取得
+            if total_results > 50:
+                additional_results = sp.search(q=keyword, type="track", limit=50, offset=50, market="JP")
+                all_tracks.extend(additional_results["tracks"]["items"])
+                track_ids.extend([track["id"] for track in additional_results["tracks"]["items"]])
+
+            # 検索結果の説明メッセージを設定
             if total_results == 0:
                 playlist_description = "検索結果がありません。"
-            elif total_results > 50:
-                playlist_description = f"検索結果は{total_results}曲ありますが、最初の50曲のみ表示しています。"
+            elif total_results > 100:
+                playlist_description = f"検索結果は{total_results}曲ありますが、最初の100曲のみ表示しています。"
             else:
                 playlist_description = f"検索結果は{total_results}曲です。"
 
