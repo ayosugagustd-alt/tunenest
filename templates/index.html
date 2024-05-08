@@ -73,10 +73,9 @@
 
     <div id="playlist-controls" lang="ja">
         <select class="search-input" id="playlistDropdown">
-            <!-- "SELECT a PLAYLIST"を日本語に変更 -->
             <option value="" disabled selected style="display:none;">--  楽曲検索 / プレイリスト検索・選択  --</option>
-            <!-- "KEYWORD SEARCH"を日本語に変更 -->
             <option value="searchTrack" class="special-option">&#x1F50D; 楽曲検索</option>
+            <option value="searchArtist" class="special-option">&#x1F50D; アーティスト検索</option>
             <option value="searchPlaylist" class="special-option">&#x1F50D; プレイリスト検索</option>
             <!-- カテゴリごとのグループ -->
             {% for category, items in playlists_grouped.items() %}
@@ -88,7 +87,6 @@
             {% endfor %}
         </select>
         <div id="searchBox" style="display:none;">
-            <!-- "Enter Keyword..."を日本語に変更 -->
             <input type="text" class="search-input" id="keyword" placeholder="曲名、アーティスト名など…" autocomplete="off">
             <button id="searchButton"><i class="fas fa-search"></i></button>
         </div>
@@ -369,16 +367,24 @@
 
             // ドロップダウンの選択が変わったときの処理
             playlistDropdown.addEventListener('change', function() {
-                const selectedPlaylistId = playlistDropdown.value;
-                if (selectedPlaylistId === 'searchTrack') {
-                    searchBox.style.display = 'flex';
-                    keywordInput.placeholder = "曲名、アーティスト名を入力……";
-                } else if (selectedPlaylistId === 'searchPlaylist') {
-                    searchBox.style.display = 'flex';
-                    keywordInput.placeholder = "プレイリスト名を入力……";
-                } else {
-                    searchBox.style.display = 'none';
-                    window.location.href = `/?playlist_id=${selectedPlaylistId}`;
+                const selectedOption = playlistDropdown.value;
+                switch (selectedOption) {
+                    case 'searchTrack':
+                        searchBox.style.display = 'flex';
+                        keywordInput.placeholder = "曲名、アーティスト名を入力……";
+                        break;
+                    case 'searchArtist':
+                        searchBox.style.display = 'flex';
+                        keywordInput.placeholder = "アーティスト名を入力……";
+                        break;
+                    case 'searchPlaylist':
+                        searchBox.style.display = 'flex';
+                        keywordInput.placeholder = "プレイリスト名を入力……";
+                        break;
+                    default:
+                        searchBox.style.display = 'none';
+                        window.location.href = `/?playlist_id=${selectedOption}`;
+                        break;
                 }
             });
 
@@ -411,6 +417,29 @@
                         })
                         .catch(error => {
                             console.error('Error searching playlist:', error);
+                        });
+                } else if (playlistDropdown.value === 'searchArtist') {
+                    apiEndpoint = `/search_artist?keyword=${encodeURIComponent(keyword)}`;
+
+                    fetch(apiEndpoint)
+                        .then(response => {
+                            if (response.ok) {
+                                return response.json();
+                            }
+                            throw new Error('Search failed: ' + response.statusText);
+                        })
+                        .then(data => {
+                            if (data.artist_id) {
+                                const link = document.createElement('a');
+                                link.href = `/artist/${data.artist_id}`;
+                                link.target = '_blank';
+                                document.body.appendChild(link);
+                                link.click();
+                                document.body.removeChild(link);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error searching artist:', error);
                         });
                 }
             }
