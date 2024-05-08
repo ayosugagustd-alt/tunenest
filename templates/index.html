@@ -396,9 +396,9 @@
                     return; // キーワードが空の場合は処理を中断
                 }
 
-                // Safariかどうかを判定する関数
-                function isSafari() {
-                    return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+                /* モバイルデバイスかPCかを判定 */
+                function isMobileDevice() {
+                    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
                 }
 
                 let apiEndpoint = '';
@@ -435,12 +435,12 @@
                         })
                         .then(data => {
                             if (data.artist_id) {
+                                // デバイスタイプに基づいてリダイレクトまたは新しいタブを開く
                                 const artistUrl = `/artist/${data.artist_id}`;
-                                // Safariの場合は現在のタブ、それ以外は新しいタブで開く
-                                if (isSafari()) {
-                                    window.location.href = artistUrl;
+                                if (isMobileDevice()) {
+                                    window.location.href = artistUrl; // モバイルの場合は同じタブで開く
                                 } else {
-                                    window.open(artistUrl, '_blank');
+                                    window.open(artistUrl, '_blank'); // PCの場合は新しいタブで開く
                                 }
                             }
                         })
