@@ -396,6 +396,11 @@
                     return; // キーワードが空の場合は処理を中断
                 }
 
+                // Safariかどうかを判定する関数
+                function isSafari() {
+                    return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+                }
+
                 let apiEndpoint = '';
 
                 if (playlistDropdown.value === 'searchTrack') {
@@ -430,12 +435,13 @@
                         })
                         .then(data => {
                             if (data.artist_id) {
-                                const link = document.createElement('a');
-                                link.href = `/artist/${data.artist_id}`;
-                                link.target = '_blank';
-                                document.body.appendChild(link);
-                                link.click();
-                                document.body.removeChild(link);
+                                const artistUrl = `/artist/${data.artist_id}`;
+                                // Safariの場合は現在のタブ、それ以外は新しいタブで開く
+                                if (isSafari()) {
+                                    window.location.href = artistUrl;
+                                } else {
+                                    window.open(artistUrl, '_blank');
+                                }
                             }
                         })
                         .catch(error => {
