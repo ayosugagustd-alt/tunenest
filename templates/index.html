@@ -73,7 +73,7 @@
 
     <div id="playlist-controls" lang="ja">
         <select class="search-input" id="playlistDropdown">
-            <option value="" disabled selected style="display:none;"> 曲、アーティスト、プレイリスト検索</option>
+            <option value="" disabled selected style="display:none;">曲、アーティスト、プレイリスト検索</option>
             <option value="searchTrack" class="special-option">&#x1F50D; 曲検索</option>
             <option value="searchArtist" class="special-option">&#x1F50D; アーティスト検索</option>
             <option value="searchPlaylist" class="special-option">&#x1F50D; プレイリスト検索</option>
@@ -119,7 +119,13 @@
                     <button class="sort-button" onclick="sortTracks('popularity', 'desc')"><i class="fas fa-sort-up"></i></button>
                     <button class="sort-button" onclick="sortTracks('popularity', 'asc')"><i class="fas fa-sort-down"></i></button>
                 </div>
-                <p>人気度</p>
+                <p>人気</p>
+            </div>
+            <div class="sort-option">
+                <div>
+                    <button class="sort-button" onclick="resetTracks()"><i class="fas fa-undo"></i></button>
+                </div>
+                <p>RESET</p>
             </div>
         </div>
         <div id="buttons">
@@ -165,6 +171,9 @@
 </footer>
 
     <script>
+        // サーバーから受け取ったデフォルトプレイリストIDを保持
+        const defaultPlaylistId = "{{ default_playlist_id }}";
+
         /* Safariを識別 */
         function isSafari() {
             return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -273,7 +282,7 @@
                 <span style="color: #7F7F7F;">${tracks[index].artist}</span><br>
                 <span style="color: #7F7F7F;">${formattedTempo} BPM</span><br>
                 <span style="color: ${camelotColor}">${tracks[index].camelot_key_signature} (${tracks[index].key_signature})</span><br>
-                <span style="color: #7f7f7f;">人気度 ${tracks[index].popularity}%</span>
+                <span style="color: #7f7f7f;">人気 ${tracks[index].popularity}%</span>
             `;
 
             // Spotifyへのリンクを生成
@@ -475,6 +484,23 @@
             const newUrl = `${window.location.pathname}?${params.toString()}`; // 新しいURLを生成
             window.location.href = newUrl; // 新しいURLでページをリロード
         }
+
+        function resetTracks() {
+            const params = new URLSearchParams(window.location.search); // 現在のURLからクエリパラメータを取得
+
+            // プレイリストIDがない場合は、デフォルトにフォールバック
+            if (!params.has('playlist_id')) {
+                params.set('playlist_id', `${defaultPlaylistId}`);
+            }
+
+            // ソート関連のパラメータを削除
+            params.delete('sort');
+            params.delete('order');
+
+            // リセット後のURLでページをリロード
+            const newUrl = `${window.location.pathname}?${params.toString()}`;
+            window.location.href = newUrl;
+}
     </script>
 </div>
 </body>

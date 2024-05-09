@@ -37,11 +37,15 @@ client_lock = Lock()
 # playlists変数の初期化
 playlists = None
 
+# default_playlist_id変数の初期化
+default_playlist_id = None
+
 try:
     # プレイリストIDと名前の辞書を開く
     with open("config/playlists.json", "r", encoding="utf-8") as f:
         # playlistsはインデックスページのルーティング処理で参照する
         playlists = json.load(f)
+        default_playlist_id = next(iter(playlists.keys()))  # 最初のキーをデフォルトIDとして使用
 except FileNotFoundError:
     logging.warning("playlists.jsonが見つかりません。")
 except json.JSONDecodeError:
@@ -242,6 +246,9 @@ def index():
 
         keyword = request.args.get("keyword")  # クエリからキーワードを受け取る
 
+        # デフォルトIDかクエリパラメータIDを設定
+        playlist_id = request.args.get("playlist_id", default_playlist_id)
+
         if keyword:
             # キーワードに基づいて楽曲を検索し、まず最初の50件を取得
             results = sp.search(q=keyword, type="track", limit=50, market="JP")
@@ -272,9 +279,6 @@ def index():
             playlist_url = ""
             exceeds_max_tracks = False
         else:
-            # デフォルトIDかクエリパラメータIDを設定
-            playlist_id = request.args.get("playlist_id", "37i9dQZEVXbKXQ4mDTEBXq")
-
             # プレイリストの詳細情報を取得
             playlist_details = sp.playlist(playlist_id, market="JP")
 
@@ -405,6 +409,7 @@ def index():
             playlist_description=playlist_description,
             playlist_url=playlist_url,
             exceeds_max_tracks=exceeds_max_tracks,
+            default_playlist_id=default_playlist_id,
         )
     except Exception as e:
         # エラーページを表示
