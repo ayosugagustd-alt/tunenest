@@ -12,13 +12,14 @@
         gtag('config', 'G-ELP4DSW3BL');
     </script>
     <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta name="description" content="{{ playlist_description or 'tunenest: BPM、試聴、アーティストのプロフィール、アルバムの詳細、トラックの詳細を探索。' }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="{{ playlist_description or 'tunenest: 試聴、トラック詳細、アルバム詳細、アーティストプロフィールなどを探索' }}">
     <meta name="author" content="hiro">
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{ playlist_name }}">
-    <meta name="twitter:description" content="{{ playlist_description }}">
+    <meta name="twitter:description" content="{{ playlist_description or 'tunenestで様々なトラックを探索。' }}">
     <meta name="twitter:image" content="{{ collage_filename or url_for('static', filename='TuneNest.png') }}">
     <title>{{ playlist_name or 'Explore Music' }} : プレイリストを試聴</title>
     <script type="application/ld+json">
@@ -26,7 +27,7 @@
         "@context": "http://schema.org",
         "@type": "MusicPlaylist",
         "name": "{{ playlist_name or 'Explore Music' }}",
-        "description": "{{ playlist_description or 'Explore a variety of music tracks on tunenest.' }}",
+        "description": "{{ playlist_description or 'tunenestで様々なトラックを探索。' }}",
         "numTracks": "{{ tracks|length }}",
         "track": {
             "@type": "ItemList",
@@ -73,8 +74,8 @@
 
     <div id="playlist-controls" lang="ja">
         <select class="search-input" id="playlistDropdown">
-            <option value="" disabled selected style="display:none;">曲、アーティスト、プレイリスト検索</option>
-            <option value="searchTrack" class="special-option">&#x1F50D; 曲検索</option>
+            <option value="" disabled selected style="display:none;">トラック、アーティスト、プレイリスト検索</option>
+            <option value="searchTrack" class="special-option">&#x1F50D; トラック検索</option>
             <option value="searchArtist" class="special-option">&#x1F50D; アーティスト検索</option>
             <option value="searchPlaylist" class="special-option">&#x1F50D; プレイリスト検索</option>
             <!-- カテゴリごとのグループ -->
@@ -87,7 +88,7 @@
             {% endfor %}
         </select>
         <div id="searchBox" style="display:none;">
-            <input type="text" class="search-input" id="keyword" tabindex="0" placeholder="曲名、アーティスト名など…" autocomplete="off">
+            <input type="text" class="search-input" id="keyword" tabindex="0" placeholder="トラック名、アーティスト名など…" autocomplete="off">
             <button id="searchButton"><i class="fas fa-search"></i></button>
         </div>
     </div>
@@ -380,7 +381,7 @@
                 switch (selectedOption) {
                     case 'searchTrack':
                         searchBox.style.display = 'flex';
-                        keywordInput.placeholder = "曲名、アーティスト名を入力……";
+                        keywordInput.placeholder = "トラック名、アーティスト名を入力……";
                         break;
                     case 'searchArtist':
                         searchBox.style.display = 'flex';

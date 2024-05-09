@@ -12,9 +12,10 @@
         gtag('config', 'G-ELP4DSW3BL');
     </script>
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="hiro" name="author">
-    <meta content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }} - tunenestで楽曲の詳細、人気度などを見つけましょう。" name="description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }} - テンポ、キー、再生時間、音楽特性などを表示します">
+    <meta name="author" content="hiro">
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }}">
