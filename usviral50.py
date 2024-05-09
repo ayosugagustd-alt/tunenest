@@ -356,6 +356,8 @@ def index():
 
         # トラック情報を整形（抜け番対応とNoneチェック）
         all_tracks_info = []
+        tracks_needing_retry = []
+
         for item in all_tracks:
             track = item.get("track")  # itemから"track"キーの値を安全に取得
             if track and track["id"] in audio_features_dict:
@@ -363,11 +365,31 @@ def index():
                 track_features = audio_features_dict[track["id"]]
                 # トラックのpopularityスコアを取得
                 popularity = track.get("popularity", 0)  # 万が一popularityがない場合0を
+                if popularity == 0:
+                    # logging.warning(f"Track ID {track['id']} has popularity 0, marking for retry")
+                    tracks_needing_retry.append(track["id"])
+
                 # オーディオ特性とpopularityを引数として渡す
                 track_info = get_track_info(track, track_features)
                 track_info['popularity'] = popularity  # popularity情報をtrack_infoに追加
                 if track is not None:  # trackがNoneでないことを確認
                     all_tracks_info.append(track_info)
+
+        # バッチでトラック詳細情報を取得
+        if tracks_needing_retry:
+            # logging.info(f"Retrying {len(tracks_needing_retry)} tracks for popularity update")
+            batch_size = 50
+            for i in range(0, len(tracks_needing_retry), batch_size):
+                batch_ids = tracks_needing_retry[i:i+batch_size]
+                try:
+                    detailed_tracks = sp.tracks(batch_ids)["tracks"]
+                    for detailed_track in detailed_tracks:
+                        for track_info in all_tracks_info:
+                            if track_info["id"] == detailed_track["id"]:
+                                track_info["popularity"] = detailed_track["popularity"]
+                                # logging.info(f"Updated Track ID {detailed_track['id']} has popularity: {detailed_track['popularity']}")
+                except Exception as retry_error:
+                    logging.error(f"Failed to update popularity for batch: {retry_error}")
 
         # 有効なトラック情報のみをフィルタリング
         valid_tracks_info = [track for track in all_tracks_info if track]
@@ -386,8 +408,6 @@ def index():
             valid_tracks_info.sort(key=lambda x: (camelot_to_sort_key(x['camelot_key_signature']), format_tempo(x['tempo'])), reverse=reverse_sort)
         elif sort_by == 'popularity':
             valid_tracks_info.sort(key=lambda x: x['popularity'], reverse=reverse_sort)
-
-
 
         # カテゴリごとにプレイリストを整理
         playlists_grouped = defaultdict(list)
