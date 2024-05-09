@@ -68,7 +68,7 @@
         <p><i class="fas fa-exclamation-triangle"></i>{{ playlist_name }}は501曲以上ありますが、最初の500曲のみ表示しています。</p>
     {% endif %}
     {% if playlist_url %}
-        <p><a href="{{ playlist_url }}" target="_blank" rel="noopener">このプレイリストをSpotifyで再生</a></p>
+        <p><a href="{{ playlist_url }}" target="_blank" rel="noopener">Play this playlist on Spotify</a></p>
     {% endif %}
 
     <div id="playlist-controls" lang="ja">
@@ -112,7 +112,7 @@
                     <button class="sort-button" onclick="sortTracks('camelot', 'asc')"><i class="fas fa-sort-up"></i></button>
                     <button class="sort-button" onclick="sortTracks('camelot', 'desc')"><i class="fas fa-sort-down"></i></button>
                 </div>
-                <p>KEY<a href="/static/CamelotWheel.png" class="help-link" target="_blank" rel="noopener" title="Camelot Wheelについて"><i class="fas fa-question-circle"></i></a></p>
+                <p>Key<a href="/static/CamelotWheel.png" class="help-link" target="_blank" rel="noopener" title="Camelot Wheelについて"><i class="fas fa-question-circle"></i></a></p>
             </div>
             <div class="sort-option">
                 <div>
@@ -125,7 +125,7 @@
                 <div>
                     <button class="sort-button" onclick="resetTracks()"><i class="fas fa-undo"></i></button>
                 </div>
-                <p>RESET</p>
+                <p>Reset</p>
             </div>
         </div>
         <div id="buttons">
