@@ -476,7 +476,13 @@ def get_artist_details(artist_id):
         else None
     )
 
-    return artist_details, top_tracks_details, latest_album_details
+    # 関連アーティストを取得
+    related_artists = sp.artist_related_artists(artist_id)["artists"]
+    related_artists_details = [
+        {"name": artist["name"], "id": artist["id"]} for artist in related_artists
+    ]
+
+    return artist_details, top_tracks_details, latest_album_details, related_artists_details
 
 
 # アルバムIDを使用してアルバムの詳細情報を取得
@@ -741,10 +747,12 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
 # アーティスト詳細ページ
 @app.route("/artist/<artist_id>")
 def artist_details(artist_id):
+    artist_details, top_tracks_details, latest_album_details, related_artists_details = get_artist_details(artist_id)
     # アーティストの詳細情報、トップトラック、最新のアルバム情報を取得
-    artist_details, top_tracks_details, latest_album_details = get_artist_details(
-        artist_id
-    )
+    # artist_details, top_tracks_details, latest_album_details, related_artists_details = get_artist_details(
+    #     artist_id
+    # )
+
 
     # 取得した情報を使ってテンプレートをレンダリングして返す
     return render_template(
@@ -752,6 +760,7 @@ def artist_details(artist_id):
         artist=artist_details,
         top_tracks=top_tracks_details,
         latest_album=latest_album_details,
+        related_artists=related_artists_details,
     )
 
 

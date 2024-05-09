@@ -69,6 +69,14 @@
     {% endif %}
 </div>
 <div class="section-space">
+    <h3>関連アーティスト</h3>
+    <ul>
+        {% for artist in related_artists %}
+            <li><a href="{{ url_for('artist_details', artist_id=artist['id']) }}">{{ artist['name'] }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="section-space">
     <h3><a href="{{ url_for('all_albums_and_songs_for_artist', artist_id=artist.id) }}">アルバム一覧</a></h3>
     <h3><a href="{{ url_for('all_singles_and_songs_for_artist', artist_id=artist.id) }}">シングル一覧</a></h3>
     <h3><a href="{{ url_for('all_compilations_and_songs_for_artist', artist_id=artist.id) }}">コンピ・アルバム一覧</a></h3>
