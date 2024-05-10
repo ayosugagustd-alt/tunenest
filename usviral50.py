@@ -556,13 +556,6 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
             # アルバム名を取得
             album_name = song_details["album"]["name"]
 
-            # レーベル名を取得
-            label = (
-                song_details["album"]["label"]
-                if "label" in song_details["album"]
-                else "不明"
-            )
-
             # リリース日を取得
             release_date = song_details["album"]["release_date"]
 
@@ -599,7 +592,6 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
                 "artists": artists,
                 "camelot_key": camelot_key_value,  # キャメロットキー
                 "album_name": album_name,  # 追加されたアルバム名
-                "label": label,  # 追加されたレーベル名
                 "release_date": release_date,  # 追加されたリリース日
                 "liveness": audio_features["liveness"] * 100,
                 "speechiness": audio_features["speechiness"] * 100,

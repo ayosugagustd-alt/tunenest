@@ -51,8 +51,8 @@
             <div class="progress {{ bar_class }}" style="width:{{ value }}%"></div>
         </div>
     {% endmacro %}
-    <h2>{{ song.name }}</h2>
     <div class="section-space">
+        <h2>{{ song.name }}</h2>
         <div class="album-artwork">
             <img alt="アルバムアートワーク" src="{{ song.album_artwork_url or url_for('static', filename='TuneNest.png') }}" loading="lazy">
         </div>
@@ -73,7 +73,6 @@
         <p>調性：{{ "メジャー" if song.mode == 1 else "マイナー" }}</p>
         <p>キャメロット：{{ song.camelot_key }}</p>
         <p>再生時間：{{ (song.duration // 60)|int }}:{{ "%02d"|format(song.duration % 60) }} ({{ song.duration|float|round(1) }}秒)</p>
-        <p>レーベル：{{ song.label }}</p>
         <!-- code for song properties -->
         <p>Spotify人気度：{{ song.popularity }}%</p>
         <span>
