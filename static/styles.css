@@ -25,13 +25,12 @@ body {
 }
 
 /* ヘッダーとタイトル */
-h1 {
-    margin-top: 4px;
-    margin-bottom: 0px;
+h2 {
     font-size: 48px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;  /* Bold for more impact */
 }
+
 h3 {
     margin-left: 4px;
 }
@@ -204,7 +203,7 @@ img {
 }
 
 .section-space {
-    padding: 10px;
+    padding: 2px;
 }
 
 .visual-section {
@@ -468,7 +467,7 @@ footer {
         font-size: 14px; /* フォントサイズを小さく */
     }
 
-    h1 {
+    h2 {
         font-size: 22px; /* タイトルのフォントサイズを小さく調整 */
     }
 
@@ -623,7 +622,7 @@ footer {
         font-size: 14px; /* フォントサイズを小さく */
     }
 
-    h1 {
+    h2 {
         font-size: 22px; /* タイトルのフォントサイズを小さく調整 */
     }
 
@@ -778,7 +777,7 @@ footer {
         font-size: 16px; /* フォントサイズを少し大きく */
     }
 
-    h1 {
+    h2 {
         font-size: 24px; /* タイトルのフォントサイズを調整 */
     }
 
@@ -933,7 +932,7 @@ footer {
         font-size: 16px; /* フォントサイズを少し大きく */
     }
 
-    h1 {
+    h2 {
         font-size: 24px; /* タイトルのフォントサイズを調整 */
     }
 
@@ -1088,7 +1087,7 @@ footer {
         font-size: 20px; /* フォントサイズをさらに大きく */
     }
 
-    h1 {
+    h2 {
         font-size: 28px; /* タイトルのフォントサイズを大きく調整 */
     }
 
@@ -1241,7 +1240,7 @@ footer {
         font-size: 20px; /* フォントサイズをさらに大きく */
     }
 
-    h1 {
+    h2 {
         font-size: 28px; /* タイトルのフォントサイズを大きく調整 */
     }
 
@@ -1394,7 +1393,7 @@ footer {
         font-size: 20px; /* フォントサイズをさらに大きく */
     }
 
-    h1 {
+    h2 {
         font-size: 28px; /* タイトルのフォントサイズを大きく調整 */
     }
 
@@ -1547,7 +1546,7 @@ media (min-width: 1025px) and (max-width: 1440px) {
         font-size: 20px; /* フォントサイズをさらに大きく */
     }
 
-    h1 {
+    h2 {
         font-size: 28px; /* タイトルのフォントサイズを大きく調整 */
     }
 

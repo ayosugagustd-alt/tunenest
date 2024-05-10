@@ -64,7 +64,6 @@
     <h2>{{ playlist_name }}</h2>
     <p>{{ playlist_description|safe }}</p>
 
-
     {% if exceeds_max_tracks %}
         <p><i class="fas fa-exclamation-triangle"></i>{{ playlist_name }}は501曲以上ありますが、最初の500曲のみ表示しています。</p>
     {% endif %}

@@ -31,8 +31,8 @@
 </head>
 <body>
 <div class="container">
-<h2>{{ album.name }}</h2>
   <div class="section-space">
+        <h2>{{ album.name }}</h2>
         <div class="album-artwork">
             <img alt="アルバムのアートワーク" src="{{ album.image or url_for('static', filename='TuneNest.png') }}" loading="lazy">
         </div>
