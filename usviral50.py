@@ -742,7 +742,7 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
 # Wikipedia情報を取得する関数
 @lru_cache(maxsize=128)
 def get_wikipedia_summary(artist_name):
-    user_agent = "tunenest/1.0 (jmusic.hiro@gmail.com)"
+    user_agent = "tunenest/2.0 (jmusic.hiro@gmail.com)"
     wiki = wikipediaapi.Wikipedia(
         language="ja",
         user_agent=user_agent
