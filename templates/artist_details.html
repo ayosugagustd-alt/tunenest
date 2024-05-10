@@ -53,18 +53,6 @@
         <p>Spotifyフォロワー数：{{ artist['followers'] }}人</p>
     </div>
 
-
-    <!-- Wikipedia情報セクション -->
-    <div class="section-space">
-        <h3>Wikipedia情報</h3>
-        {% if wikipedia_info %}
-            <p>{{ wikipedia_info }}</p>
-            <p><small>出典: <a href="{{ wikipedia_url }}" target="_blank">Wikipedia</a>（Creative Commons Attribution CC BY-SA 4.0）</small></p>
-        {% else %}
-            <p>Wikipedia情報は見つかりませんでした。</p>
-        {% endif %}
-    </div>
-
     <div class="section-space">
         <h3>代表曲</h3>
             <ul>
