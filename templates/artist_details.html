@@ -31,56 +31,74 @@
 </head>
 <body>
 <div class="container">
-<h2>{{ artist['name'] }}</h2>
-  <div class="section-space">
-    <img alt="{{ artist['name'] }}の写真" src="{{ artist['image_url'] or url_for('static', filename='TuneNest.png') }}" loading="lazy">
-    <h3>基本情報</h3>
-    <p>Spotify人気度：{{ artist.popularity }}%</p>
-    <span class="stars">
-        {% for _ in range(0, artist.popularity // 10) %}
-            <span class="star"><i class="fas fa-star"></i></span>
-        {% endfor %}
-        {% if artist.popularity % 10 >= 5 %}
-            <span class="half-star"><i class="fas fa-star-half-alt"></i></span>
+
+    <h2>{{ artist['name'] }}</h2>
+
+    <div class="section-space">
+        <img alt="{{ artist['name'] }}の写真" src="{{ artist['image_url'] or url_for('static', filename='TuneNest.png') }}" loading="lazy">
+        <h3>基本情報</h3>
+        <p>Spotify人気度：{{ artist.popularity }}%</p>
+        <span class="stars">
+            {% for _ in range(0, artist.popularity // 10) %}
+                <span class="star"><i class="fas fa-star"></i></span>
+            {% endfor %}
+            {% if artist.popularity % 10 >= 5 %}
+                <span class="half-star"><i class="fas fa-star-half-alt"></i></span>
+            {% endif %}
+            {% for _ in range(0, 10 - (artist.popularity // 10) - (artist.popularity % 10 >= 5)) %}
+                <span class="empty-star"><i class="far fa-star"></i></span>
+            {% endfor %}
+        </span>
+        <p>ジャンル：{{ artist['genres'] | join(', ') }}</p>
+        <p>Spotifyフォロワー数：{{ artist['followers'] }}人</p>
+    </div>
+
+    <!-- Wikipedia情報セクション -->
+    <div class="section-space">
+        <h3>Wikipedia情報</h3>
+        {% if wikipedia_info %}
+            <p>{{ wikipedia_info }}</p>
+            <p><small>出典: <a href="{{ wikipedia_url }}" target="_blank">Wikipedia</a>（Creative Commons Attribution CC BY-SA 4.0）</small></p>
+        {% else %}
+            <p>Wikipedia情報は見つかりませんでした。</p>
         {% endif %}
-        {% for _ in range(0, 10 - (artist.popularity // 10) - (artist.popularity % 10 >= 5)) %}
-            <span class="empty-star"><i class="far fa-star"></i></span>
-        {% endfor %}
-    </span>
-    <p>ジャンル：{{ artist['genres'] | join(', ') }}</p>
-    <p>Spotifyフォロワー数：{{ artist['followers'] }}人</p>
-  </div>
-<div class="section-space">
-    <h3>代表曲</h3>
-    <ul>
-        {% for track in top_tracks %}
-            <li><a href="{{ url_for('song_details', song_id=track['id']) }}">{{ track['name'] }}</a></li>
-        {% endfor %}
-    </ul>
-</div>
-<div class="section-space">
-    <h3>最新アルバム</h3>
-    {% if latest_album %}
+    </div>
+
+    <div class="section-space">
+        <h3>代表曲</h3>
+            <ul>
+                {% for track in top_tracks %}
+                    <li><a href="{{ url_for('song_details', song_id=track['id']) }}">{{ track['name'] }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    <div class="section-space">
+        <h3>最新アルバム</h3>
+        {% if latest_album %}
+            <ul>
+                <li><a href="{{ url_for('album_details', artist_id=latest_album['artist_id'], album_id=latest_album['id']) }}">{{ latest_album['name'] }}</a></li>
+            </ul>
+        {% else %}
+            <p>最新アルバムに関する情報はありません。</p>
+        {% endif %}
+    </div>
+
+    <div class="section-space">
+        <h3>関連アーティスト</h3>
         <ul>
-            <li><a href="{{ url_for('album_details', artist_id=latest_album['artist_id'], album_id=latest_album['id']) }}">{{ latest_album['name'] }}</a></li>
+            {% for artist in related_artists %}
+                <li><a href="{{ url_for('artist_details', artist_id=artist['id']) }}">{{ artist['name'] }}</a></li>
+            {% endfor %}
         </ul>
-    {% else %}
-        <p>最新アルバムに関する情報はありません。</p>
-    {% endif %}
-</div>
-<div class="section-space">
-    <h3>関連アーティスト</h3>
-    <ul>
-        {% for artist in related_artists %}
-            <li><a href="{{ url_for('artist_details', artist_id=artist['id']) }}">{{ artist['name'] }}</a></li>
-        {% endfor %}
-    </ul>
-</div>
-<div class="section-space">
-    <h3><a href="{{ url_for('all_albums_and_songs_for_artist', artist_id=artist.id) }}">アルバム一覧</a></h3>
-    <h3><a href="{{ url_for('all_singles_and_songs_for_artist', artist_id=artist.id) }}">シングル一覧</a></h3>
-    <h3><a href="{{ url_for('all_compilations_and_songs_for_artist', artist_id=artist.id) }}">コンピ・アルバム一覧</a></h3>
-</div>
+    </div>
+
+    <div class="section-space">
+        <h3><a href="{{ url_for('all_albums_and_songs_for_artist', artist_id=artist.id) }}">アルバム一覧</a></h3>
+        <h3><a href="{{ url_for('all_singles_and_songs_for_artist', artist_id=artist.id) }}">シングル一覧</a></h3>
+        <h3><a href="{{ url_for('all_compilations_and_songs_for_artist', artist_id=artist.id) }}">コンピ・アルバム一覧</a></h3>
+    </div>
+
     <!-- Navigation Icon at the bottom -->
     <div class="home-icon">
         <a href="/" aria-label="Home">
