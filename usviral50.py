@@ -3,6 +3,7 @@ import json  # JSON形式データのエンコード/デコード
 import logging  # ロギング機能
 import os  # OSレベルの機能を扱う
 import time  # 時間に関する機能
+import wikipediaapi  # wikiに関する機能
 from collections import defaultdict  # デフォルト値を持つ辞書
 
 # Flask関連ライブラリ
@@ -482,7 +483,10 @@ def get_artist_details(artist_id):
         {"name": artist["name"], "id": artist["id"]} for artist in related_artists
     ]
 
-    return artist_details, top_tracks_details, latest_album_details, related_artists_details
+    # Wikipedia情報を取得
+    wikipedia_summary, wikipedia_url = get_wikipedia_summary(artist_details["name"])
+
+    return artist_details, top_tracks_details, latest_album_details, related_artists_details, wikipedia_summary, wikipedia_url
 
 
 # アルバムIDを使用してアルバムの詳細情報を取得
@@ -735,10 +739,52 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
 
     return result
 
+# Wikipedia情報を取得する関数
+@lru_cache(maxsize=128)
+def get_wikipedia_summary(artist_name):
+    user_agent = "tunenest/1.0 (jmusic.hiro@gmail.com)"
+    wiki = wikipediaapi.Wikipedia(
+        language="ja",
+        user_agent=user_agent
+    )
+
+    page = wiki.page(artist_name)
+    if page.exists():
+        if is_disambiguation_page(page):
+            relevant_page = find_relevant_page(page, artist_name, wiki)
+            if relevant_page:
+                return relevant_page.summary, relevant_page.fullurl
+            else:
+                return f"「{artist_name}」は見つかりませんでした", page.fullurl
+        else:
+            return page.summary, page.fullurl
+    else:
+        # スペースを省いたアーティスト名で再試行
+        page_with_space = wiki.page(artist_name.replace(" ", ""))
+        if page_with_space.exists():
+            return page_with_space.summary, page_with_space.fullurl
+        else:
+            return f"「{artist_name}」は見つかりませんでした", "https://ja.wikipedia.org/wiki/特別:検索?search={}".format(artist_name) 
+
+# 曖昧さ回避ページかどうかを確認する関数
+def is_disambiguation_page(page):
+    return any("曖昧さ回避" in category for category in page.categories)
+
+# 曖昧さ回避ページから関連するページを見つける関数
+def find_relevant_page(disambiguation_page, artist_name, wiki):
+    links = disambiguation_page.links
+    keywords = ["リスト", "音楽", "ミュージシャン", "作曲"]
+    for title, link in links.items():
+        if any(keyword in title for keyword in keywords):
+            possible_page = wiki.page(link.title)
+            if possible_page.exists():
+                return possible_page
+    return None
+
 # アーティスト詳細ページ
 @app.route("/artist/<artist_id>")
 def artist_details(artist_id):
-    artist_details, top_tracks_details, latest_album_details, related_artists_details = get_artist_details(artist_id)
+    artist_details, top_tracks_details, latest_album_details, related_artists_details, wikipedia_summary, wikipedia_url = get_artist_details(artist_id)
 
 
     # 取得した情報を使ってテンプレートをレンダリングして返す
@@ -748,6 +794,8 @@ def artist_details(artist_id):
         top_tracks=top_tracks_details,
         latest_album=latest_album_details,
         related_artists=related_artists_details,
+        wikipedia_info=wikipedia_summary,
+        wikipedia_url=wikipedia_url,
     )
 
 
