@@ -2,3 +2,4 @@ Flask==3.0.0
 google-api-python-client==2.106.0
 requests==2.31.0
 spotipy==2.23.0
+wikipedia-api==0.5.4
