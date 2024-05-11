@@ -269,7 +269,7 @@
             const currentTrackName = tracks[index].name; // 再生中のトラック名
             const currentArtistName = tracks[index].artist; // 再生中のアーティスト名
             const currentTempo = tracks[index].tempo; // 再生中のトラックのテンポ
-            const formattedTempo = currentTempo.toFixed(1); // テンポを小数点以下1桁でフォーマット
+            const formattedTempo = currentTempo.toFixed(0); // テンポを小数点以下0桁でフォーマット
             // ブラウザのタグを更新
             document.title = `#${currentIndex}: ${currentTrackName} - ${currentArtistName}`;
             // ここまで
@@ -279,9 +279,9 @@
             let playingInfo = `
                 <span style="color: #7F7F7F;">#${index + 1}:</span><br>
                 <span><strong>${tracks[index].name}</strong></span><br>
-                <span style="color: #7F7F7F;">${tracks[index].artist}</span><br>
+                <span style="color: #7F7F7F;">${tracks[index].artist}</span><br><br>
                 <span style="color: #7F7F7F;">${formattedTempo} BPM</span><br>
-                <span style="color: ${camelotColor}">${tracks[index].camelot_key_signature} (${tracks[index].key_signature})</span><br>
+                <span style="color: ${camelotColor}">${tracks[index].camelot_key_signature}</span><br>
                 <span style="color: #7f7f7f;">人気 ${tracks[index].popularity}%</span>
             `;
 
