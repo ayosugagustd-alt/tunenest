@@ -1332,7 +1332,7 @@ footer {
     }
 
     .artist, .track-name, .icon-caption, .icon-disabled-caption, .tempo-value, .camelot-info, .track-popularity {
-        font-size: 24px;
+        font-size: 20px;
         display: inline; /* インライン表示にして、アイコンが右に来るように */
     }
     .track-name {
@@ -1485,7 +1485,7 @@ footer {
     }
 
     .artist, .track-name, .icon-caption, .icon-disabled-caption, .tempo-value, .camelot-info, .track-popularity {
-        font-size: 22px;
+        font-size: 20px;
         display: inline; /* インライン表示にして、アイコンが右に来るように */
     }
     .track-name {
@@ -1638,7 +1638,7 @@ media (min-width: 1025px) and (max-width: 1440px) {
     }
 
     .artist, .track-name, .icon-caption, .icon-disabled-caption, .tempo-value, .camelot-info, .track-popularity {
-        font-size: 24px;
+        font-size: 20px;
         display: inline; /* インライン表示にして、アイコンが右に来るように */
     }
     .track-name {
