@@ -237,12 +237,12 @@ img {
 .fas.fa-volume-up {
     animation: fadeInOut 2s infinite;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-    font-size: 20px;
+    font-size: 24px;
 	color: #333333;
 }
 .fas.fa-volume-up.no-blink {
     animation: none;
-    font-size: 20px;
+    font-size: 24px;
 	color: #F5F5F5;
 }
 
@@ -581,10 +581,10 @@ footer {
     }
 
     .fas.fa-volume-up {
-        font-size: 20px;
+        font-size: 16px;
     }
     .fas.fa-volume-up.no-blink {
-        font-size: 20px;
+        font-size: 16px;
     }
 
     .track-number {
@@ -739,10 +739,10 @@ footer {
     }
 
     .fas.fa-volume-up {
-        font-size: 20px;
+        font-size: 18px;
     }
     .fas.fa-volume-up.no-blink {
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .track-number {
@@ -897,10 +897,10 @@ footer {
     }
 
     .fas.fa-volume-up {
-        font-size: 22px;
+        font-size: 20px;
     }
     .fas.fa-volume-up.no-blink {
-        font-size: 22px;
+        font-size: 20px;
     }
 
     .track-number {
@@ -1367,10 +1367,10 @@ footer {
     }
 
     .fas.fa-volume-up {
-        font-size: 24px;
+        font-size: 28px;
     }
     .fas.fa-volume-up.no-blink {
-        font-size: 24px;
+        font-size: 28px;
     }
 
     .track-number {
@@ -1523,10 +1523,10 @@ footer {
     }
 
     .fas.fa-volume-up {
-        font-size: 22px;
+        font-size: 28px;
     }
     .fas.fa-volume-up.no-blink {
-        font-size: 22px;
+        font-size: 28px;
     }
 
     .track-number {
@@ -1679,10 +1679,10 @@ media (min-width: 1025px) and (max-width: 1440px) {
     }
 
     .fas.fa-volume-up {
-        font-size: 24px;
+        font-size: 30px;
     }
     .fas.fa-volume-up.no-blink {
-        font-size: 24px;
+        font-size: 30px;
     }
 
     .track-number {
