@@ -32,6 +32,7 @@ h2 {
 }
 
 h3 {
+    font-size: 24px;
     margin-left: 4px;
 }
 
@@ -297,6 +298,7 @@ footer {
 }
 
 .track-number {
+    font-size: 16px;
     width: 40px;
     text-align: right;
     margin-right: 10px;
@@ -386,6 +388,7 @@ footer {
 }
 
 .tempo-value {
+    font-size: 20px;
     width: 100px; /* 数値部分の幅を固定 */
     text-align: right; /* 右寄せにする */
     display: inline-block; /* inline-block属性を設定 */
@@ -464,11 +467,14 @@ footer {
 
 @media (max-width: 375px) {
     body {
-        font-size: 14px; /* フォントサイズを小さく */
+        font-size: 16px;
     }
 
     h2 {
         font-size: 22px; /* タイトルのフォントサイズを小さく調整 */
+    }
+    h3 {
+        font-size: 12px;
     }
 
     .container {
@@ -619,11 +625,14 @@ footer {
 
 @media (min-width: 376px) and (max-width: 480px) {
     body {
-        font-size: 14px; /* フォントサイズを小さく */
+        font-size: 18px;
     }
 
     h2 {
-        font-size: 22px; /* タイトルのフォントサイズを小さく調整 */
+        font-size: 26px; /* タイトルのフォントサイズを小さく調整 */
+    }
+    h3 {
+        font-size: 14px;
     }
 
     .container {
@@ -774,11 +783,14 @@ footer {
 
 @media (min-width: 481px) and (max-width: 625px) {
     body {
-        font-size: 16px; /* フォントサイズを少し大きく */
+        font-size: 20px;
     }
 
     h2 {
-        font-size: 24px; /* タイトルのフォントサイズを調整 */
+        font-size: 30px; /* タイトルのフォントサイズを調整 */
+    }
+    h3 {
+        font-size: 16px;
     }
 
     .container {
@@ -929,11 +941,14 @@ footer {
 
 @media (min-width: 626px) and (max-width: 768px) {
     body {
-        font-size: 16px; /* フォントサイズを少し大きく */
+        font-size: 22px;
     }
 
     h2 {
-        font-size: 24px; /* タイトルのフォントサイズを調整 */
+        font-size: 34px; /* タイトルのフォントサイズを調整 */
+    }
+    h3 {
+        font-size: 18px;
     }
 
     .container {
@@ -1084,11 +1099,14 @@ footer {
 
 @media (min-width: 769px) and (max-width: 850px) {
     body {
-        font-size: 20px; /* フォントサイズをさらに大きく */
+        font-size: 24px;
     }
 
     h2 {
-        font-size: 28px; /* タイトルのフォントサイズを大きく調整 */
+        font-size: 38px; /* タイトルのフォントサイズを大きく調整 */
+    }
+    h3 {
+        font-size: 20px;
     }
 
     .container {
@@ -1237,11 +1255,14 @@ footer {
 
 @media (min-width: 851px) and (max-width: 960px) {
     body {
-        font-size: 20px; /* フォントサイズをさらに大きく */
+        font-size: 28px;
     }
 
     h2 {
-        font-size: 28px; /* タイトルのフォントサイズを大きく調整 */
+        font-size: 42px; /* タイトルのフォントサイズを大きく調整 */
+    }
+    h3 {
+        font-size: 22px;
     }
 
     .container {
@@ -1390,11 +1411,14 @@ footer {
 
 @media (min-width: 961px) and (max-width: 1024px) {
     body {
-        font-size: 20px; /* フォントサイズをさらに大きく */
+        font-size: 28px;
     }
 
     h2 {
-        font-size: 28px; /* タイトルのフォントサイズを大きく調整 */
+        font-size: 46px; /* タイトルのフォントサイズを大きく調整 */
+    }
+    h3 {
+        font-size: 24px;
     }
 
     .container {
@@ -1543,11 +1567,14 @@ footer {
 
 media (min-width: 1025px) and (max-width: 1440px) {
     body {
-        font-size: 20px; /* フォントサイズをさらに大きく */
+        font-size: 30px;
     }
 
     h2 {
-        font-size: 28px; /* タイトルのフォントサイズを大きく調整 */
+        font-size: 48px; /* タイトルのフォントサイズを大きく調整 */
+    }
+    h3 {
+        font-size: 26px;
     }
 
     .container {
