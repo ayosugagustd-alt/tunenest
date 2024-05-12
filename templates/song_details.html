@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-
 <html lang="ja">
-<head>
+  <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ELP4DSW3BL"></script>
     <script>
@@ -42,29 +41,28 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='f_f_event_43_s16_f_event_43_0nbg.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='f_f_event_43_s32_f_event_43_0nbg.png') }}">
     <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename='f_f_event_43_s64_f_event_43_0nbg.png') }}">
-</head>
-<body>
-<div class="container">
-    {% macro render_progress_bar(property, value, bar_class="", unit="%", original_value=None) %}
-        <p>{{ property }}: {{ (original_value if original_value is not none else value)|float|round(1) }}{{ unit }}</p>
-        <div class="progress-bar">
-            <div class="progress {{ bar_class }}" style="width:{{ value }}%"></div>
-        </div>
-    {% endmacro %}
-    <div class="section-space">
+  </head>
+  <body>
+    <div class="container">{% macro render_progress_bar(property, value, bar_class="", unit="%", original_value=None) %} 
+      <p>{{ property }}: {{ (original_value if original_value is not none else value)|float|round(1) }}{{ unit }}</p>
+      <div class="progress-bar">
+        <div class="progress {{ bar_class }}" style="width:{{ value }}%"></div>
+      </div>{% endmacro %} 
+      <div class="section-space">
         <h1>{{ song.name }}</h1>
         <div class="album-artwork">
-            <img alt="アルバムアートワーク" src="{{ song.album_artwork_url or url_for('static', filename='TuneNest.png') }}" loading="lazy">
+          <img alt="アルバムアートワーク" src="{{ song.album_artwork_url or url_for('static', filename='TuneNest.png') }}" loading="lazy">
         </div>
         <iframe class="spotify-player" title="Spotify player" allow="encrypted-media" allowtransparency="true" frameborder="0" height="80" src="https://open.spotify.com/embed/track/{{ song_id }}" width="300"></iframe>
-    </div> <!-- End of .section-space -->
-    <div class="section-space">
+      </div>
+      <!-- End of .section-space -->
+      <div class="section-space">
         <h2>基本情報</h2>
         <p>アーティスト名：</p>
-        <ul>
-            {% for artist in song.artists %}
-                <li><a href="{{ url_for('artist_details', artist_id=artist.id) }}">{{ artist.name }}</a></li>
-            {% endfor %}
+        <ul>{% for artist in song.artists %} 
+          <li>
+            <a href="{{ url_for('artist_details', artist_id=artist.id) }}">{{ artist.name }}</a>
+          </li>{% endfor %} 
         </ul>
         <p>アルバム名：{{ song.album_name }}</p>
         <p>リリース日：{{ song.release_date }}</p>
@@ -75,36 +73,35 @@
         <p>再生時間：{{ (song.duration // 60)|int }}:{{ "%02d"|format(song.duration % 60) }} ({{ song.duration|float|round(1) }}秒)</p>
         <!-- code for song properties -->
         <p>Spotify人気度：{{ song.popularity }}%</p>
-        <span>
-            {% for _ in range(0, song.popularity // 10) %}
-                <span class="star"><i class="fas fa-star"></i></span>
-            {% endfor %}
-            {% if song.popularity % 10 >= 5 %}
-                <span class="half-star"><i class="fas fa-star-half-alt"></i></span>
-            {% endif %}
-            {% for _ in range(0, 10 - (song.popularity // 10) - (song.popularity % 10 >= 5)) %}
-                <span class="empty-star"><i class="far fa-star"></i></span>
-            {% endfor %}
+        <span>{% for _ in range(0, song.popularity // 10) %} 
+          <span class="star">
+            <i class="fas fa-star"></i>
+          </span>{% endfor %} {% if song.popularity % 10 >= 5 %} 
+          <span class="half-star">
+            <i class="fas fa-star-half-alt"></i>
+          </span>{% endif %} {% for _ in range(0, 10 - (song.popularity // 10) - (song.popularity % 10 >= 5)) %} 
+          <span class="empty-star">
+            <i class="far fa-star"></i>
+          </span>{% endfor %} 
         </span>
-    </div> <!-- End of div -->
-    <div class="visual-section">
-        <h2>音楽特性 <a href="/help_song_details" class="help-link" target="_blank" rel="noopener" title="音楽特性の詳細情報"><i class="fas fa-question-circle"></i></a></h2>
-        <!-- code for visual properties -->
-        {{ render_progress_bar("肯定感", song.valence, "progress-valence") }}
-        {{ render_progress_bar("アコースティック度", song.acousticness, "progress-acousticness") }}
-        {{ render_progress_bar("踊りやすさ", song.danceability, "progress-danceability") }}
-        {{ render_progress_bar("エネルギー", song.energy, "progress-energy") }}
-        {{ render_progress_bar("インストゥルメンタル度", song.instrumentalness, "progress-instrumentalness") }}
-        {{ render_progress_bar("ラウドネス（-60 dB ～ 0 dB）", song.loudness_normalized, "progress-loudness", " dB", song.loudness_raw) }}
-        {{ render_progress_bar("ライブ感", song.liveness, "progress-liveness", ) }}
-        {{ render_progress_bar("スピーチ度", song.speechiness, "progress-speechiness") }}
-    </div> <!-- End of .visual-section -->
-    <!-- Navigation Icon at the bottom -->
-    <div class="home-icon">
+      </div>
+      <!-- End of div -->
+      <div class="visual-section">
+        <h2>音楽特性 
+          <a href="/help_song_details" class="help-link" target="_blank" rel="noopener" title="音楽特性の詳細情報">
+            <i class="fas fa-question-circle"></i>
+          </a>
+        </h2>
+        <!-- code for visual properties -->{{ render_progress_bar("肯定感", song.valence, "progress-valence") }} {{ render_progress_bar("アコースティック度", song.acousticness, "progress-acousticness") }} {{ render_progress_bar("踊りやすさ", song.danceability, "progress-danceability") }} {{ render_progress_bar("エネルギー", song.energy, "progress-energy") }} {{ render_progress_bar("インストゥルメンタル度", song.instrumentalness, "progress-instrumentalness") }} {{ render_progress_bar("ラウドネス（-60 dB ～ 0 dB）", song.loudness_normalized, "progress-loudness", " dB", song.loudness_raw) }} {{ render_progress_bar("ライブ感", song.liveness, "progress-liveness", ) }} {{ render_progress_bar("スピーチ度", song.speechiness, "progress-speechiness") }} 
+      </div>
+      <!-- End of .visual-section -->
+      <!-- Navigation Icon at the bottom -->
+      <div class="home-icon">
         <a href="/" aria-label="Home">
-            <i class="fas fa-home"></i> <!-- FontAwesomeのホームアイコン -->
+          <i class="fas fa-home"></i>
+          <!-- FontAwesomeのホームアイコン -->
         </a>
+      </div>
     </div>
-</div>
-</body>
+  </body>
 </html>

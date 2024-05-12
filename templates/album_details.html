@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-
 <html lang="ja">
-<head>
+  <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ELP4DSW3BL"></script>
     <script>
@@ -28,53 +27,54 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='f_f_event_43_s16_f_event_43_0nbg.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='f_f_event_43_s32_f_event_43_0nbg.png') }}">
     <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename='f_f_event_43_s64_f_event_43_0nbg.png') }}">
-</head>
-<body>
-<div class="container">
-  <div class="section-space">
+  </head>
+  <body>
+    <div class="container">
+      <div class="section-space">
         <h1>{{ album.name }}</h1>
         <div class="album-artwork">
-            <img alt="アルバムのアートワーク" src="{{ album.image or url_for('static', filename='TuneNest.png') }}" loading="lazy">
+          <img alt="アルバムのアートワーク" src="{{ album.image or url_for('static', filename='TuneNest.png') }}" loading="lazy">
         </div>
-</div>
-<div class="section-space">
-    <h2>基本情報</h2>
-    <p>Spotify人気度：{{ album.popularity }}%</p>
-    <span>
-        {% for _ in range(0, album.popularity // 10) %}
-            <span class="star"><i class="fas fa-star"></i></span>
-        {% endfor %}
-        {% if album.popularity % 10 >= 5 %}
-            <span class="half-star"><i class="fas fa-star-half-alt"></i></span>
-        {% endif %}
-        {% for _ in range(0, 10 - (album.popularity // 10) - (album.popularity % 10 >= 5)) %}
-            <span class="empty-star"><i class="far fa-star"></i></span>
-        {% endfor %}
-    </span>
-    <p>アーティスト：
-    <ul>
-        {% for artist in album.artists %}
-        <li><a href="{{ url_for('artist_details', artist_id=artist.id) }}">{{ artist.name }}</a></li>
-        {% endfor %}
-    </ul>
-    <p>リリース日： {{ album.release_date }}</p>
-  </div>
-<div class="section-space">
-    <h2>トラック一覧</h2>
-    <ol>
-        {% for track in album.tracks %}
-            {% set minutes = (track.length / 1000 / 60)|int %}
-            {% set seconds = ((track.length / 1000) % 60)|int %}
-            <li><a href="{{ url_for('song_details', song_id=track.id) }}">{{ track.name }}</a> ({{ minutes }}:{{ "%02d"|format(seconds) }})</li>
-        {% endfor %}
-    </ol>
-</div>
-    <!-- Navigation Icon at the bottom -->
-    <div class="home-icon">
+      </div>
+      <div class="section-space">
+        <h2>基本情報</h2>
+        <p>Spotify人気度：{{ album.popularity }}%
+        </p>
+        <span>{% for _ in range(0, album.popularity // 10) %} 
+          <span class="star">
+            <i class="fas fa-star"></i>
+          </span>{% endfor %} {% if album.popularity % 10 >= 5 %} 
+          <span class="half-star">
+            <i class="fas fa-star-half-alt"></i>
+          </span>{% endif %} {% for _ in range(0, 10 - (album.popularity // 10) - (album.popularity % 10 >= 5)) %} 
+          <span class="empty-star">
+            <i class="far fa-star"></i>
+          </span>{% endfor %} 
+        </span>
+        <p>アーティスト： 
+        <ul>{% for artist in album.artists %} 
+          <li>
+            <a href="{{ url_for('artist_details', artist_id=artist.id) }}">{{ artist.name }}</a>
+          </li>{% endfor %} 
+        </ul>
+        <p>リリース日： {{ album.release_date }}
+        </p>
+      </div>
+      <div class="section-space">
+        <h2>トラック一覧</h2>
+        <ol>{% for track in album.tracks %} {% set minutes = (track.length / 1000 / 60)|int %} {% set seconds = ((track.length / 1000) % 60)|int %} 
+          <li>
+            <a href="{{ url_for('song_details', song_id=track.id) }}">{{ track.name }}</a>({{ minutes }}:{{ "%02d"|format(seconds) }})
+          </li>{% endfor %} 
+        </ol>
+      </div>
+      <!-- Navigation Icon at the bottom -->
+      <div class="home-icon">
         <a href="/" aria-label="Home">
-            <i class="fas fa-home"></i> <!-- FontAwesomeのホームアイコン -->
+          <i class="fas fa-home"></i>
+          <!-- FontAwesomeのホームアイコン -->
         </a>
+      </div>
     </div>
-</div>
-</body>
+  </body>
 </html>

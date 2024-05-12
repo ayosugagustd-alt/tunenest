@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-
 <html lang="ja">
-<head>
+  <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ELP4DSW3BL"></script>
     <script>
@@ -58,119 +57,139 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='f_f_event_43_s16_f_event_43_0nbg.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='f_f_event_43_s32_f_event_43_0nbg.png') }}">
     <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename='f_f_event_43_s64_f_event_43_0nbg.png') }}">
-</head>
-<body>
-<div class="container">
-    <h1>{{ playlist_name }}</h1>
-    <p>{{ playlist_description|safe }}</p>
-
-    {% if exceeds_max_tracks %}
-        <p><i class="fas fa-exclamation-triangle"></i>{{ playlist_name }}は501曲以上ありますが、最初の500曲のみ表示しています。</p>
-    {% endif %}
-    {% if playlist_url %}
-        <p><a href="{{ playlist_url }}" target="_blank" rel="noopener">{{ playlist_name }}</a>をSpotifyで再生</p>
-    {% endif %}
-
-    <div id="playlist-controls" lang="ja">
+  </head>
+  <body>
+    <div class="container">
+      <h1>{{ playlist_name }}</h1>
+      <p>{{ playlist_description|safe }}</p>{% if exceeds_max_tracks %}
+      <p>
+        <i class="fas fa-exclamation-triangle"></i>{{ playlist_name }}は501曲以上ありますが、最初の500曲のみ表示しています。
+      </p>{% endif %} {% if playlist_url %} 
+      <p>
+        <a href="{{ playlist_url }}" target="_blank" rel="noopener">{{ playlist_name }}</a>をSpotifyで再生
+      </p>{% endif %} 
+      <div id="playlist-controls" lang="ja">
         <select class="search-input" id="playlistDropdown">
-            <option value="" disabled selected style="display:none;">トラック、アーティスト、プレイリスト検索</option>
-            <option value="searchTrack" class="special-option">&#x1F50D; トラック検索</option>
-            <option value="searchArtist" class="special-option">&#x1F50D; アーティスト検索</option>
-            <option value="searchPlaylist" class="special-option">&#x1F50D; プレイリスト検索</option>
-            <!-- カテゴリごとのグループ -->
-            {% for category, items in playlists_grouped.items() %}
-                <optgroup label="&#x1F3B5;{{ category }}">
-                    {% for id, name in items %}
-                        <option value="{{ id }}">&#x2022;{{ name }}</option>
-                    {% endfor %}
-                </optgroup>
-            {% endfor %}
+          <option value="" disabled selected style="display:none;">トラック、アーティスト、プレイリスト検索</option>
+          <option value="searchTrack" class="special-option">&#x1F50D; トラック検索</option>
+          <option value="searchArtist" class="special-option">&#x1F50D; アーティスト検索</option>
+          <option value="searchPlaylist" class="special-option">&#x1F50D; プレイリスト検索</option>
+          <!-- カテゴリごとのグループ -->{% for category, items in playlists_grouped.items() %} 
+          <optgroup label="&#x1F3B5;{{ category }}">{% for id, name in items %} 
+            <option value="{{ id }}">&#x2022;{{ name }}</option>{% endfor %}
+          </optgroup>{% endfor %} 
         </select>
         <div id="searchBox" style="display:none;">
-            <input type="text" class="search-input" id="keyword" tabindex="0" placeholder="トラック名、アーティスト名など…" autocomplete="off">
-            <button id="searchButton"><i class="fas fa-search"></i></button>
+          <input type="text" class="search-input" id="keyword" tabindex="0" placeholder="トラック名、アーティスト名など…" autocomplete="off">
+          <button id="searchButton">
+            <i class="fas fa-search"></i>
+          </button>
         </div>
-    </div>
-
-    <div id="controls">
+      </div>
+      <div id="controls">
         <div id="playing-container">
-            <img id="playing-artwork" src="{{ collage_filename }}" alt="Spotify Playlist Artwork" loading="lazy">
-            <div id="playing">
-                <h2>tune<span class="tunenest-logo">nest</span></h2>
-            </div>
+          <img id="playing-artwork" src="{{ collage_filename }}" alt="Spotify Playlist Artwork" loading="lazy">
+          <div id="playing">
+            <h2>tune
+              <span class="tunenest-logo">nest</span>
+            </h2>
+          </div>
         </div>
         <div class="sort-section">
-            <div class="sort-option">
-                <div>
-                    <button class="sort-button" onclick="sortTracks('bpm', 'asc')"><i class="fas fa-sort-up"></i></button>
-                    <button class="sort-button" onclick="sortTracks('bpm', 'desc')"><i class="fas fa-sort-down"></i></button>
-                </div>
-                <p>BPM</p>
+          <div class="sort-option">
+            <div>
+              <button class="sort-button" onclick="sortTracks('bpm', 'asc')">
+                <i class="fas fa-sort-up"></i>
+              </button>
+              <button class="sort-button" onclick="sortTracks('bpm', 'desc')">
+                <i class="fas fa-sort-down"></i>
+              </button>
             </div>
-            <div class="sort-option">
-                <div>
-                    <button class="sort-button" onclick="sortTracks('camelot', 'asc')"><i class="fas fa-sort-up"></i></button>
-                    <button class="sort-button" onclick="sortTracks('camelot', 'desc')"><i class="fas fa-sort-down"></i></button>
-                </div>
-                <p>Key<a href="/static/CamelotWheel.png" class="help-link" target="_blank" rel="noopener" title="Camelot Wheelについて"><i class="fas fa-question-circle"></i></a></p>
+            <p>BPM</p>
+          </div>
+          <div class="sort-option">
+            <div>
+              <button class="sort-button" onclick="sortTracks('camelot', 'asc')">
+                <i class="fas fa-sort-up"></i>
+              </button>
+              <button class="sort-button" onclick="sortTracks('camelot', 'desc')">
+                <i class="fas fa-sort-down"></i>
+              </button>
             </div>
-            <div class="sort-option">
-                <div>
-                    <button class="sort-button" onclick="sortTracks('popularity', 'desc')"><i class="fas fa-sort-up"></i></button>
-                    <button class="sort-button" onclick="sortTracks('popularity', 'asc')"><i class="fas fa-sort-down"></i></button>
-                </div>
-                <p>人気</p>
+            <p>Key
+              <a href="/static/CamelotWheel.png" class="help-link" target="_blank" rel="noopener" title="Camelot Wheelについて">
+                <i class="fas fa-question-circle"></i>
+              </a>
+            </p>
+          </div>
+          <div class="sort-option">
+            <div>
+              <button class="sort-button" onclick="sortTracks('popularity', 'desc')">
+                <i class="fas fa-sort-up"></i>
+              </button>
+              <button class="sort-button" onclick="sortTracks('popularity', 'asc')">
+                <i class="fas fa-sort-down"></i>
+              </button>
             </div>
-            <div class="sort-option">
-                <div>
-                    <button class="sort-button" onclick="resetTracks()"><i class="fas fa-undo"></i></button>
-                </div>
-                <p>Reset</p>
+            <p>人気</p>
+          </div>
+          <div class="sort-option">
+            <div>
+              <button class="sort-button" onclick="resetTracks()">
+                <i class="fas fa-undo"></i>
+              </button>
             </div>
+            <p>Reset</p>
+          </div>
         </div>
         <div id="buttons">
-            <button onclick="previous()"><i class="fas fa-step-backward"></i></button>
-            <button onclick="togglePlay()"><i class="fas fa-play"></i><i class="fas fa-pause"></i></button>
-            <button onclick="playNext()"><i class="fas fa-step-forward"></i></button>
-            <!-- ボリュームコントロール用のスライダー -->
-            <div>
-                <input type="range" id="volumeSlider" min="0" max="0.5" step="0.01" value="0.5">
+          <button onclick="previous()">
+            <i class="fas fa-step-backward"></i>
+          </button>
+          <button onclick="togglePlay()">
+            <i class="fas fa-play"></i>
+            <i class="fas fa-pause"></i>
+          </button>
+          <button onclick="playNext()">
+            <i class="fas fa-step-forward"></i>
+          </button>
+          <!-- ボリュームコントロール用のスライダー -->
+          <div>
+            <input type="range" id="volumeSlider" min="0" max="0.5" step="0.01" value="0.5">
+          </div>
+        </div>{% for track in tracks %} 
+        <div class="custom-list-item">
+          <div class="track-number">{{ loop.index }}</div>
+          <img src="{{ track.image_url | default(url_for('static', filename='TuneNest.png')) }}" alt="Artwork" class="track-artwork">
+          <div class="track-info">
+            <div class="track-details">
+              <div class="track-name">{{ track.name }}</div>
+              <div class="artist">{{ track.artist }}</div>
             </div>
-        </div>
-        {% for track in tracks %}
-            <div class="custom-list-item">
-                <div class="track-number">{{ loop.index }}</div>
-                <img src="{{ track.image_url | default(url_for('static', filename='TuneNest.png')) }}" alt="Artwork" class="track-artwork">
-                <div class="track-info">
-                    <div class="track-details">
-                        <div class="track-name">{{ track.name }}</div>
-                        <div class="artist">{{ track.artist }}</div>
-                    </div>
-                    <div class="icon-row">
-                        {% if track.url %}
-                            <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
-                            <span class="icon-caption">試聴</span>
-                        </a>
-                        {% else %}
-                            <span class="icon-disabled-caption">試聴</span>
-                        {% endif %}
-                        <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
-                            <span class="icon-caption">詳細</span>
-                        </a>
-                        <span class="tempo-value">{{ '{:0.0f}'.format(track.tempo|float) }} BPM</span>
-                        <span class="camelot-info">{{ "{: >3}".format(track.camelot_key_signature) }}</span>
-                        <span class="track-popularity">{{ '{: >3}'.format(track.popularity) }}%</span>
-                    </div>
-                </div>
+            <div class="icon-row">{% if track.url %} 
+              <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
+                <span class="icon-caption">試聴</span>
+              </a>{% else %} 
+              <span class="icon-disabled-caption">試聴</span>{% endif %}
+              <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
+                <span class="icon-caption">詳細</span>
+              </a>
+              <span class="tempo-value">{{ '{:0.0f}'.format(track.tempo|float) }} BPM</span>
+              <span class="camelot-info">{{ "{: >3}".format(track.camelot_key_signature) }}</span>
+              <span class="track-popularity">{{ '{: >3}'.format(track.popularity) }}%</span>
             </div>
-        {% endfor %}
-    </div>
-
-<footer>
-    <p>&copy;2023 ヒロ. <a href="https://twitter.com/jmusic_hiro" target="_blank" rel="noopener" title="ヒロのX"><i class="fab fa-x-twitter"></i></a> <a href="{{ url_for('static', filename='privacy-policy.html') }}" target="_blank" rel="noopener">利用規約とプライバシーポリシー</a></p>
-</footer>
-
-    <script>
+          </div>
+        </div>{% endfor %} 
+      </div>
+      <footer>
+        <p>&copy;2023 ヒロ. 
+          <a href="https://twitter.com/jmusic_hiro" target="_blank" rel="noopener" title="ヒロのX">
+            <i class="fab fa-x-twitter"></i>
+          </a>
+          <a href="{{ url_for('static', filename='privacy-policy.html') }}" target="_blank" rel="noopener">利用規約とプライバシーポリシー</a>
+        </p>
+      </footer>
+      <script>
         // サーバーから受け取ったデフォルトプレイリストIDを保持
         const defaultPlaylistId = "{{ default_playlist_id }}";
 
@@ -495,6 +514,6 @@
         }
 
     </script>
-</div>
-</body>
+    </div>
+  </body>
 </html>
