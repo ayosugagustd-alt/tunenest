@@ -5,6 +5,7 @@ import os  # OSレベルの機能を扱う
 import time  # 時間に関する機能
 from collections import defaultdict  # デフォルト値を持つ辞書
 
+
 # Flask関連ライブラリ
 from flask import Flask  # Flask本体
 from flask import jsonify  # JSONレスポンス生成
