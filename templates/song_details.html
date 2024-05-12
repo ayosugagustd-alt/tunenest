@@ -52,14 +52,14 @@
         </div>
     {% endmacro %}
     <div class="section-space">
-        <h2>{{ song.name }}</h2>
+        <h1>{{ song.name }}</h1>
         <div class="album-artwork">
             <img alt="アルバムアートワーク" src="{{ song.album_artwork_url or url_for('static', filename='TuneNest.png') }}" loading="lazy">
         </div>
         <iframe class="spotify-player" title="Spotify player" allow="encrypted-media" allowtransparency="true" frameborder="0" height="80" src="https://open.spotify.com/embed/track/{{ song_id }}" width="300"></iframe>
     </div> <!-- End of .section-space -->
     <div class="section-space">
-        <h3>基本情報</h3>
+        <h2>基本情報</h2>
         <p>アーティスト名：</p>
         <ul>
             {% for artist in song.artists %}
@@ -88,7 +88,7 @@
         </span>
     </div> <!-- End of div -->
     <div class="visual-section">
-        <h3>音楽特性 <a href="/help_song_details" class="help-link" target="_blank" rel="noopener" title="音楽特性の詳細情報"><i class="fas fa-question-circle"></i></a></h3>
+        <h2>音楽特性 <a href="/help_song_details" class="help-link" target="_blank" rel="noopener" title="音楽特性の詳細情報"><i class="fas fa-question-circle"></i></a></h2>
         <!-- code for visual properties -->
         {{ render_progress_bar("肯定感", song.valence, "progress-valence") }}
         {{ render_progress_bar("アコースティック度", song.acousticness, "progress-acousticness") }}

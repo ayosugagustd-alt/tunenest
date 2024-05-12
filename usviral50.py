@@ -69,8 +69,8 @@ def get_spotify_client():
         if not spotify_client:
             spotify_client = Spotify(
                 client_credentials_manager=SpotifyClientCredentials(
-                    client_id=SPOTIFY_CLIENT_ID,
-                    client_secret=SPOTIFY_CLIENT_SECRET),
+                    client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET
+                ),
                 language="ja",  # 動的に言語設定
             )
         return spotify_client
@@ -85,7 +85,7 @@ def get_tracks_audio_features(track_ids):
 
     # トラックIDのリストを50曲ずつのバッチに分割し、各バッチごとにオーディオ特性を取得
     for i in range(0, len(track_ids), 50):
-        batch = track_ids[i:i + 50]
+        batch = track_ids[i : i + 50]
         features_list = sp.audio_features(batch)  # オーディオ特性を取得
         for feature in features_list:
             if feature:
@@ -227,16 +227,19 @@ def get_track_info(track, audio_features):
 def static_from_root():
     return send_from_directory(app.static_folder, "robots.txt")
 
+
 def camelot_to_sort_key(camelot_key):
     # Camelot Keyを数値に変換する
     key_number, scale = int(camelot_key[:-1]), camelot_key[-1]
     # Aは偶数、Bは奇数として処理
-    scale_number = 0 if scale == 'A' else 1
+    scale_number = 0 if scale == "A" else 1
     # 10A なら 10 * 2 = 20, 10B なら 10 * 2 + 1 = 21
     return key_number * 2 + scale_number
 
+
 def format_tempo(tempo):
     return round(float(tempo), 0)
+
 
 # インデックスページのルーティング処理
 @app.route("/")
@@ -254,16 +257,20 @@ def index():
             # キーワードに基づいて楽曲を検索し、まず最初の50件を取得
             results = sp.search(q=keyword, type="track", limit=50, market="JP")
             track_ids = [track["id"] for track in results["tracks"]["items"]]
-            total_results = results['tracks']['total']  # 検索結果の総件数
+            total_results = results["tracks"]["total"]  # 検索結果の総件数
 
             # 最初の50件を結果リストに格納
             all_tracks = results["tracks"]["items"]
 
             # 検索結果が50件を超える場合、次の50件を追加で取得
             if total_results > 50:
-                additional_results = sp.search(q=keyword, type="track", limit=50, offset=50, market="JP")
+                additional_results = sp.search(
+                    q=keyword, type="track", limit=50, offset=50, market="JP"
+                )
                 all_tracks.extend(additional_results["tracks"]["items"])
-                track_ids.extend([track["id"] for track in additional_results["tracks"]["items"]])
+                track_ids.extend(
+                    [track["id"] for track in additional_results["tracks"]["items"]]
+                )
 
             # 検索結果の説明メッセージを設定
             if total_results == 0:
@@ -274,7 +281,7 @@ def index():
                 playlist_description = f"検索結果は{total_results}曲です。"
 
             # キーワード検索の結果を all_tracks として扱う
-            all_tracks = [{'track': track} for track in results["tracks"]["items"]]
+            all_tracks = [{"track": track} for track in results["tracks"]["items"]]
             playlist_name = keyword
             collage_filename = url_for("static", filename="TuneNest.png")
             playlist_url = ""
@@ -289,7 +296,9 @@ def index():
                 playlist_description = custom_description
             else:
                 # プレイリストのdescriptionを取得
-                playlist_description = playlist_details.get("description", "No description")
+                playlist_description = playlist_details.get(
+                    "description", "No description"
+                )
 
             # プレイリストのURLを取得
             playlist_url = playlist_details.get("external_urls", {}).get("spotify", "#")
@@ -372,7 +381,7 @@ def index():
 
                 # オーディオ特性とpopularityを引数として渡す
                 track_info = get_track_info(track, track_features)
-                track_info['popularity'] = popularity  # popularity情報をtrack_infoに追加
+                track_info["popularity"] = popularity  # popularity情報をtrack_infoに追加
                 if track is not None:  # trackがNoneでないことを確認
                     all_tracks_info.append(track_info)
 
@@ -381,7 +390,7 @@ def index():
             # logging.info(f"Retrying {len(tracks_needing_retry)} tracks for popularity update")
             batch_size = 50
             for i in range(0, len(tracks_needing_retry), batch_size):
-                batch_ids = tracks_needing_retry[i:i+batch_size]
+                batch_ids = tracks_needing_retry[i : i + batch_size]
                 try:
                     detailed_tracks = sp.tracks(batch_ids)["tracks"]
                     for detailed_track in detailed_tracks:
@@ -390,25 +399,39 @@ def index():
                                 track_info["popularity"] = detailed_track["popularity"]
                                 # logging.info(f"Updated Track ID {detailed_track['id']} has popularity: {detailed_track['popularity']}")
                 except Exception as retry_error:
-                    logging.error(f"Failed to update popularity for batch: {retry_error}")
+                    logging.error(
+                        f"Failed to update popularity for batch: {retry_error}"
+                    )
 
         # 有効なトラック情報のみをフィルタリング
         valid_tracks_info = [track for track in all_tracks_info if track]
 
-        sort_order = request.args.get('order', 'asc')  # デフォルトは昇順
-        reverse_sort = True if sort_order == 'desc' else False
+        sort_order = request.args.get("order", "asc")  # デフォルトは昇順
+        reverse_sort = True if sort_order == "desc" else False
 
         # トラックソートの処理
         # クエリパラメータから 'sort' の値を取得、デフォルトは None または ''
-        sort_by = request.args.get('sort', default=None)
-        if sort_by == 'bpm':
+        sort_by = request.args.get("sort", default=None)
+        if sort_by == "bpm":
             # ソート基準を BMP と Camelot Key で行う
-            valid_tracks_info.sort(key=lambda x: (format_tempo(x['tempo']), camelot_to_sort_key(x['camelot_key_signature'])), reverse=reverse_sort)
-        elif sort_by == 'camelot':
+            valid_tracks_info.sort(
+                key=lambda x: (
+                    format_tempo(x["tempo"]),
+                    camelot_to_sort_key(x["camelot_key_signature"]),
+                ),
+                reverse=reverse_sort,
+            )
+        elif sort_by == "camelot":
             # ソート基準を Camelot Key と BPM で行う
-            valid_tracks_info.sort(key=lambda x: (camelot_to_sort_key(x['camelot_key_signature']), format_tempo(x['tempo'])), reverse=reverse_sort)
-        elif sort_by == 'popularity':
-            valid_tracks_info.sort(key=lambda x: x['popularity'], reverse=reverse_sort)
+            valid_tracks_info.sort(
+                key=lambda x: (
+                    camelot_to_sort_key(x["camelot_key_signature"]),
+                    format_tempo(x["tempo"]),
+                ),
+                reverse=reverse_sort,
+            )
+        elif sort_by == "popularity":
+            valid_tracks_info.sort(key=lambda x: x["popularity"], reverse=reverse_sort)
 
         # カテゴリごとにプレイリストを整理
         playlists_grouped = defaultdict(list)
@@ -483,7 +506,12 @@ def get_artist_details(artist_id):
         {"name": artist["name"], "id": artist["id"]} for artist in related_artists
     ]
 
-    return artist_details, top_tracks_details, latest_album_details, related_artists_details
+    return (
+        artist_details,
+        top_tracks_details,
+        latest_album_details,
+        related_artists_details,
+    )
 
 
 # アルバムIDを使用してアルバムの詳細情報を取得
@@ -533,6 +561,7 @@ def get_cached_track(song_id, sp):
 def get_cached_audio_features(song_id, sp):
     return sp.audio_features([song_id])[0]
 
+
 def normalize_loudness(loudness):
     """Normalize the loudness level from a dB scale of -60 to 0 to a scale of 0 to 100."""
     if loudness < -60:
@@ -540,6 +569,7 @@ def normalize_loudness(loudness):
     elif loudness > 0:
         loudness = 0  # Ensure the loudness does not go above 0 dB
     return (loudness + 60) / 0.6  # Normalize to 0-100 scale
+
 
 def get_song_details_with_retry(song_id, max_retries=3, delay=5):
     retries = 0
@@ -639,7 +669,9 @@ def get_artist_albums_with_songs(artist_id, page, per_page=10):
             "album_id": album["id"],  # アルバムID
             "artist_id": artist_id,  # アーティストID
             "total_tracks": album["total_tracks"],  # アルバムの総楽曲数
-            "images": album["images"] if "images" in album and album["images"] else None,  # カバー画像情報
+            "images": album["images"]
+            if "images" in album and album["images"]
+            else None,  # カバー画像情報
         }
 
         # 各アルバムに含まれる楽曲を取得
@@ -677,7 +709,9 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
             "tracks": [],
             "single_id": single["id"],  # シングルIDの追加
             "artist_id": artist_id,  # アーティストIDの追加
-            "images": single["images"] if "images" in single and single["images"] else None,
+            "images": single["images"]
+            if "images" in single and single["images"]
+            else None,
         }
 
         # シングルに含まれる楽曲を取得
@@ -720,7 +754,9 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
             "compilation_id": compilation["id"],  # コンピレーションID
             "artist_id": artist_id,  # アーティストID
             "total_tracks": compilation["total_tracks"],  # 総楽曲数
-            "images": compilation["images"] if "images" in compilation and compilation["images"] else None,
+            "images": compilation["images"]
+            if "images" in compilation and compilation["images"]
+            else None,
         }
 
         # 各コンピレーションアルバムに含まれる楽曲を取得
@@ -736,11 +772,16 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
 
     return result
 
+
 # アーティスト詳細ページ
 @app.route("/artist/<artist_id>")
 def artist_details(artist_id):
-    artist_details, top_tracks_details, latest_album_details, related_artists_details = get_artist_details(artist_id)
-
+    (
+        artist_details,
+        top_tracks_details,
+        latest_album_details,
+        related_artists_details,
+    ) = get_artist_details(artist_id)
 
     # 取得した情報を使ってテンプレートをレンダリングして返す
     return render_template(
@@ -916,6 +957,7 @@ def search_playlist():
 
     return jsonify({"playlist_id": playlist_id})
 
+
 # キーワードでアーティストを検索する新しいルート
 @app.route("/search_artist", methods=["GET"])
 def search_artist():
@@ -927,11 +969,7 @@ def search_artist():
 
     # Spotify APIでキーワードでアーティストを検索
     results = sp.search(q=keyword, type="artist", limit=1, market="JP")
-    if (
-        not results
-        or not results.get("artists")
-        or not results["artists"].get("items")
-    ):
+    if not results or not results.get("artists") or not results["artists"].get("items"):
         return jsonify({"error": "No artists found"}), 404
 
     artist = results["artists"]["items"][0]

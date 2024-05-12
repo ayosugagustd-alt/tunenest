@@ -31,12 +31,10 @@
 </head>
 <body>
 <div class="container">
-
-    <h2>{{ artist['name'] }}</h2>
-
     <div class="section-space">
+        <h1>{{ artist['name'] }}</h1>
         <img alt="{{ artist['name'] }}の写真" src="{{ artist['image_url'] or url_for('static', filename='TuneNest.png') }}" loading="lazy">
-        <h3>基本情報</h3>
+        <h2>基本情報</h2>
         <p>Spotify人気度：{{ artist.popularity }}%</p>
         <span class="stars">
             {% for _ in range(0, artist.popularity // 10) %}
@@ -54,7 +52,7 @@
     </div>
 
     <div class="section-space">
-        <h3>代表曲</h3>
+        <h2>代表曲</h2>
             <ul>
                 {% for track in top_tracks %}
                     <li><a href="{{ url_for('song_details', song_id=track['id']) }}">{{ track['name'] }}</a></li>
@@ -63,7 +61,7 @@
         </div>
 
     <div class="section-space">
-        <h3>最新アルバム</h3>
+        <h2>最新アルバム</h2>
         {% if latest_album %}
             <ul>
                 <li><a href="{{ url_for('album_details', artist_id=latest_album['artist_id'], album_id=latest_album['id']) }}">{{ latest_album['name'] }}</a></li>
@@ -74,7 +72,7 @@
     </div>
 
     <div class="section-space">
-        <h3>関連アーティスト</h3>
+        <h2>関連アーティスト</h2>
         <ul>
             {% for artist in related_artists %}
                 <li><a href="{{ url_for('artist_details', artist_id=artist['id']) }}">{{ artist['name'] }}</a></li>
@@ -83,9 +81,9 @@
     </div>
 
     <div class="section-space">
-        <h3><a href="{{ url_for('all_albums_and_songs_for_artist', artist_id=artist.id) }}">アルバム一覧</a></h3>
-        <h3><a href="{{ url_for('all_singles_and_songs_for_artist', artist_id=artist.id) }}">シングル一覧</a></h3>
-        <h3><a href="{{ url_for('all_compilations_and_songs_for_artist', artist_id=artist.id) }}">コンピ・アルバム一覧</a></h3>
+        <h2><a href="{{ url_for('all_albums_and_songs_for_artist', artist_id=artist.id) }}">アルバム一覧</a></h2>
+        <h2><a href="{{ url_for('all_singles_and_songs_for_artist', artist_id=artist.id) }}">シングル一覧</a></h2>
+        <h2><a href="{{ url_for('all_compilations_and_songs_for_artist', artist_id=artist.id) }}">コンピ・アルバム一覧</a></h2>
     </div>
 
     <!-- Navigation Icon at the bottom -->

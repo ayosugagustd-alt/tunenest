@@ -32,13 +32,13 @@
 <body>
 <div class="container">
   <div class="section-space">
-        <h2>{{ album.name }}</h2>
+        <h1>{{ album.name }}</h1>
         <div class="album-artwork">
             <img alt="アルバムのアートワーク" src="{{ album.image or url_for('static', filename='TuneNest.png') }}" loading="lazy">
         </div>
 </div>
 <div class="section-space">
-    <h3>基本情報</h3>
+    <h2>基本情報</h2>
     <p>Spotify人気度：{{ album.popularity }}%</p>
     <span>
         {% for _ in range(0, album.popularity // 10) %}
@@ -60,7 +60,7 @@
     <p>リリース日： {{ album.release_date }}</p>
   </div>
 <div class="section-space">
-    <h3>トラック一覧</h3>
+    <h2>トラック一覧</h2>
     <ol>
         {% for track in album.tracks %}
             {% set minutes = (track.length / 1000 / 60)|int %}

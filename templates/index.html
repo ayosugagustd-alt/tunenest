@@ -61,14 +61,14 @@
 </head>
 <body>
 <div class="container">
-    <h2>{{ playlist_name }}</h2>
-    <h3>{{ playlist_description|safe }}</h3>
+    <h1>{{ playlist_name }}</h1>
+    <p>{{ playlist_description|safe }}</p>
 
     {% if exceeds_max_tracks %}
-        <h3><i class="fas fa-exclamation-triangle"></i>{{ playlist_name }}は501曲以上ありますが、最初の500曲のみ表示しています。</h3>
+        <p><i class="fas fa-exclamation-triangle"></i>{{ playlist_name }}は501曲以上ありますが、最初の500曲のみ表示しています。</p>
     {% endif %}
     {% if playlist_url %}
-        <h3><a href="{{ playlist_url }}" target="_blank" rel="noopener">{{ playlist_name }}</a>をSpotifyで再生</h3>
+        <p><a href="{{ playlist_url }}" target="_blank" rel="noopener">{{ playlist_name }}</a>をSpotifyで再生</p>
     {% endif %}
 
     <div id="playlist-controls" lang="ja">

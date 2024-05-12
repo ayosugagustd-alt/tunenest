@@ -1,5 +1,5 @@
 /* ベースのインポートとルート変数 */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 :root {
     --star-color: #FF9900;
@@ -23,15 +23,17 @@ body {
 }
 
 /* ヘッダーとタイトル */
+h1, h2, h3 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700; /* 一貫して太字を使用 */
+}
+
 h2 {
-    font-size: 48px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;  /* Bold for more impact */
+    font-weight: 500; /* サブタイトル用にやや軽め */
 }
 
 h3 {
-    font-size: 24px;
-    margin-left: 4px;
+    font-weight: 400; /* 見出しレベル3に通常の太さ */
 }
 
 /* スライダーのトラック */
@@ -1604,4 +1606,83 @@ media (min-width: 1025px) and (max-width: 1440px) {
         margin-right: 6px;
         font-size: 12px;
     }
+}
+
+/* font-size */
+/* スマホ小 (0 - 375px) */
+@media (max-width: 375px) {
+  h1 {
+    font-size: 24px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+  h3 {
+    font-size: 18px;
+  }
+}
+
+/* スマホ中 (376px - 480px) */
+@media (min-width: 376px) and (max-width: 480px) {
+  h1 {
+    font-size: 26px;
+  }
+  h2 {
+    font-size: 22px;
+  }
+  h3 {
+    font-size: 20px;
+  }
+}
+
+/* スマホ大/小型タブレット (481px - 625px) */
+@media (min-width: 481px) and (max-width: 625px) {
+  h1 {
+    font-size: 28px;
+  }
+  h2 {
+    font-size: 24px;
+  }
+  h3 {
+    font-size: 22px;
+  }
+}
+
+/* 小型タブレット/縦 (626px - 768px) */
+@media (min-width: 626px) and (max-width: 768px) {
+  h1 {
+    font-size: 30px;
+  }
+  h2 {
+    font-size: 26px;
+  }
+  h3 {
+    font-size: 24px;
+  }
+}
+
+/* 中型デスクトップ (961px - 1440px) */
+@media (min-width: 961px) and (max-width: 1440px) {
+  h1 {
+    font-size: 32px;
+  }
+  h2 {
+    font-size: 28px;
+  }
+  h3 {
+    font-size: 26px;
+  }
+}
+
+/* 超大型デスクトップ (1441px以上) */
+@media (min-width: 1441px) {
+  h1 {
+    font-size: 36px;
+  }
+  h2 {
+    font-size: 32px;
+  }
+  h3 {
+    font-size: 28px;
+  }
 }
