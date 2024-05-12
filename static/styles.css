@@ -1677,7 +1677,7 @@ media (min-width: 1025px) and (max-width: 1440px) {
 /* 超大型デスクトップ (1441px以上) */
 @media (min-width: 1441px) {
   h1 {
-    font-size: 38px;
+    font-size: 42px;
   }
   h2 {
     font-size: 32px;
