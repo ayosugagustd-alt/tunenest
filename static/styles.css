@@ -215,7 +215,6 @@ img {
     align-items: center;
     padding: 10px;
     border-bottom: 1px solid #ccc;
-    margin-bottom: 5px;
 }
 
 .icon-caption, .camelot-info, .icon-disabled-caption, .track-popularity {
@@ -230,18 +229,6 @@ img {
 }
 .icon-disabled-caption {
     color: #A9A9A9;
-}
-
-.fas.fa-volume-up {
-    animation: fadeInOut 2s infinite;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-    font-size: 24px;
-	color: #333333;
-}
-.fas.fa-volume-up.no-blink {
-    animation: none;
-    font-size: 24px;
-	color: #F5F5F5;
 }
 
 footer p {
@@ -462,6 +449,10 @@ footer {
     margin-bottom: 20px;
 }
 
+.playing-item {
+    background-color: #f0f8ff;
+}
+
 
 @media (max-width: 375px) {
     body {
@@ -570,19 +561,6 @@ footer {
     }
     .track-name {
         width: 260px;
-    }
-
-    .playing-icon {
-        margin-left: 2px; /* アイコンの左マージンを設定 */
-        vertical-align: middle; /* アイコンの垂直位置を中央に */
-        font-size: 10px;
-    }
-
-    .fas.fa-volume-up {
-        font-size: 16px;
-    }
-    .fas.fa-volume-up.no-blink {
-        font-size: 16px;
     }
 
     .track-number {
@@ -730,19 +708,6 @@ footer {
         width: 270px;
     }
 
-    .playing-icon {
-        margin-left: 2px; /* アイコンの左マージンを設定 */
-        vertical-align: middle; /* アイコンの垂直位置を中央に */
-        font-size: 10px;
-    }
-
-    .fas.fa-volume-up {
-        font-size: 18px;
-    }
-    .fas.fa-volume-up.no-blink {
-        font-size: 18px;
-    }
-
     .track-number {
         width: 20px;
         font-size: 10px;
@@ -886,19 +851,6 @@ footer {
     }
     .track-name {
         width: 400px;
-    }
-
-    .playing-icon {
-        margin-left: 4px; /* アイコンの左マージンを設定 */
-        vertical-align: middle; /* アイコンの垂直位置を中央に */
-        font-size: 12px;
-    }
-
-    .fas.fa-volume-up {
-        font-size: 20px;
-    }
-    .fas.fa-volume-up.no-blink {
-        font-size: 20px;
     }
 
     .track-number {
@@ -1046,19 +998,6 @@ footer {
         width: 600px;
     }
 
-    .playing-icon {
-        margin-left: 4px; /* アイコンの左マージンを設定 */
-        vertical-align: middle; /* アイコンの垂直位置を中央に */
-        font-size: 12px;
-    }
-
-    .fas.fa-volume-up {
-        font-size: 22px;
-    }
-    .fas.fa-volume-up.no-blink {
-        font-size: 22px;
-    }
-
     .track-number {
         width: 26px; /* トラック番号の幅を調整 */
         font-size: 12px;
@@ -1200,19 +1139,6 @@ footer {
     }
     .track-name {
         width: 610px;
-    }
-
-    .playing-icon {
-        margin-left: 6px; /* アイコンの左マージンを設定 */
-        vertical-align: middle; /* アイコンの垂直位置を中央に */
-        font-size: 12px;
-    }
-
-    .fas.fa-volume-up {
-        font-size: 24px;
-    }
-    .fas.fa-volume-up.no-blink {
-        font-size: 24px;
     }
 
     .track-number {
@@ -1358,19 +1284,6 @@ footer {
         width: 610px;
     }
 
-    .playing-icon {
-        margin-left: 6px; /* アイコンの左マージンを設定 */
-        vertical-align: middle; /* アイコンの垂直位置を中央に */
-        font-size: 12px;
-    }
-
-    .fas.fa-volume-up {
-        font-size: 28px;
-    }
-    .fas.fa-volume-up.no-blink {
-        font-size: 28px;
-    }
-
     .track-number {
         width: 28px; /* トラック番号の幅を調整 */
         font-size: 20px;
@@ -1514,19 +1427,6 @@ footer {
         width: 780px;
     }
 
-    .playing-icon {
-        margin-left: 6px; /* アイコンの左マージンを設定 */
-        vertical-align: middle; /* アイコンの垂直位置を中央に */
-        font-size: 12px;
-    }
-
-    .fas.fa-volume-up {
-        font-size: 28px;
-    }
-    .fas.fa-volume-up.no-blink {
-        font-size: 28px;
-    }
-
     .track-number {
         width: 28px; /* トラック番号の幅を調整 */
         font-size: 18px;
@@ -1668,19 +1568,6 @@ media (min-width: 1025px) and (max-width: 1440px) {
     }
     .track-name {
         width: 780px;
-    }
-
-    .playing-icon {
-        margin-left: 6px; /* アイコンの左マージンを設定 */
-        vertical-align: middle; /* アイコンの垂直位置を中央に */
-        font-size: 12px;
-    }
-
-    .fas.fa-volume-up {
-        font-size: 30px;
-    }
-    .fas.fa-volume-up.no-blink {
-        font-size: 30px;
     }
 
     .track-number {
