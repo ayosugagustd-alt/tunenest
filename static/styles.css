@@ -23,7 +23,7 @@ body {
 }
 
 /* ヘッダーとタイトル */
-h1, h2, h3 {
+h1, h2, h3, h4 {
     font-family: 'Roboto', sans-serif;
     font-weight: 700; /* 一貫して太字を使用 */
 }
@@ -33,7 +33,11 @@ h2 {
 }
 
 h3 {
-    font-weight: 400; /* 見出しレベル3に通常の太さ */
+    font-weight: 400;
+}
+
+h4 {
+    font-weight: 300;
 }
 
 /* スライダーのトラック */
@@ -256,9 +260,19 @@ select {
 
 #playing {
     flex-grow: 1;
-    font-size: 24px;
+    font-size: 22px;
 	margin-left: 10px;
 }
+
+.info-now-playing {
+    font-size: 22px;
+    display: inline-block;
+}
+
+.info-now-playing:hover {
+    text-decoration: underline;
+}
+
 #playing-container {
     display: flex;
     align-items: center;
@@ -394,15 +408,6 @@ footer {
     display: inline-block;
 }
 
-
-.info-now-playing {
-    font-size: 24px;
-    display: inline-block;
-}
-.info-now-playing:hover {
-    text-decoration: underline;
-}
-
 .progress-bar {
     width: 100%;
     height: 24px;
@@ -459,13 +464,6 @@ footer {
 @media (max-width: 375px) {
     body {
         font-size: 16px;
-    }
-
-    h2 {
-        font-size: 22px; /* タイトルのフォントサイズを小さく調整 */
-    }
-    h3 {
-        font-size: 12px;
     }
 
     .container {
@@ -606,13 +604,6 @@ footer {
         font-size: 18px;
     }
 
-    h2 {
-        font-size: 26px; /* タイトルのフォントサイズを小さく調整 */
-    }
-    h3 {
-        font-size: 14px;
-    }
-
     .container {
         padding: 8px; /* コンテナのパディングを調整 */
         padding-bottom: 120px; /* 下部に余白を追加 */
@@ -749,13 +740,6 @@ footer {
 @media (min-width: 481px) and (max-width: 625px) {
     body {
         font-size: 20px;
-    }
-
-    h2 {
-        font-size: 30px; /* タイトルのフォントサイズを調整 */
-    }
-    h3 {
-        font-size: 16px;
     }
 
     .container {
@@ -896,13 +880,6 @@ footer {
         font-size: 22px;
     }
 
-    h2 {
-        font-size: 34px; /* タイトルのフォントサイズを調整 */
-    }
-    h3 {
-        font-size: 18px;
-    }
-
     .container {
         padding: 12px; /* コンテナのパディングを調整 */
         padding-bottom: 150px; /* 下部に余白を追加 */
@@ -1041,13 +1018,6 @@ footer {
         font-size: 24px;
     }
 
-    h2 {
-        font-size: 38px; /* タイトルのフォントサイズを大きく調整 */
-    }
-    h3 {
-        font-size: 20px;
-    }
-
     .container {
         padding: 16px; /* コンテナのパディングをさらに増やす */
         padding-bottom: 180px; /* 下部に余白を追加 */
@@ -1119,10 +1089,10 @@ footer {
     }
 
     #playing {
-        font-size: 24px;
+        font-size: 18px;
     }
     .info-now-playing {
-        font-size: 24px;
+        font-size: 18px;
         display: inline-block;
     }
 
@@ -1182,13 +1152,6 @@ footer {
 @media (min-width: 851px) and (max-width: 960px) {
     body {
         font-size: 28px;
-    }
-
-    h2 {
-        font-size: 42px; /* タイトルのフォントサイズを大きく調整 */
-    }
-    h3 {
-        font-size: 22px;
     }
 
     .container {
@@ -1262,10 +1225,10 @@ footer {
     }
 
     #playing {
-        font-size: 24px;
+        font-size: 20px;
     }
     .info-now-playing {
-        font-size: 24px;
+        font-size: 20px;
         display: inline-block;
     }
 
@@ -1325,13 +1288,6 @@ footer {
 @media (min-width: 961px) and (max-width: 1024px) {
     body {
         font-size: 28px;
-    }
-
-    h2 {
-        font-size: 46px; /* タイトルのフォントサイズを大きく調整 */
-    }
-    h3 {
-        font-size: 24px;
     }
 
     .container {
@@ -1405,10 +1361,10 @@ footer {
     }
 
     #playing {
-        font-size: 22px;
+        font-size: 20px;
     }
     .info-now-playing {
-        font-size: 22px;
+        font-size: 20px;
         display: inline-block;
     }
 
@@ -1468,13 +1424,6 @@ footer {
 media (min-width: 1025px) and (max-width: 1440px) {
     body {
         font-size: 30px;
-    }
-
-    h2 {
-        font-size: 48px; /* タイトルのフォントサイズを大きく調整 */
-    }
-    h3 {
-        font-size: 26px;
     }
 
     .container {
@@ -1620,6 +1569,9 @@ media (min-width: 1025px) and (max-width: 1440px) {
   h3 {
     font-size: 18px;
   }
+  h4 {
+    font-size: 14px;
+  }
 }
 
 /* スマホ中 (376px - 480px) */
@@ -1632,6 +1584,9 @@ media (min-width: 1025px) and (max-width: 1440px) {
   }
   h3 {
     font-size: 20px;
+  }
+  h4 {
+    font-size: 16px;
   }
 }
 
@@ -1646,6 +1601,9 @@ media (min-width: 1025px) and (max-width: 1440px) {
   h3 {
     font-size: 22px;
   }
+  h4 {
+    font-size: 18px;
+  }
 }
 
 /* 小型タブレット/縦 (626px - 768px) */
@@ -1658,6 +1616,9 @@ media (min-width: 1025px) and (max-width: 1440px) {
   }
   h3 {
     font-size: 24px;
+  }
+  h4 {
+    font-size: 20px;
   }
 }
 
@@ -1672,6 +1633,9 @@ media (min-width: 1025px) and (max-width: 1440px) {
   h3 {
     font-size: 26px;
   }
+  h4 {
+    font-size: 22px;
+  }
 }
 
 /* 超大型デスクトップ (1441px以上) */
@@ -1683,6 +1647,9 @@ media (min-width: 1025px) and (max-width: 1440px) {
     font-size: 32px;
   }
   h3 {
-    font-size: 28px;
+    font-size: 26px;
+  }
+  h4 {
+    font-size: 22px;
   }
 }
