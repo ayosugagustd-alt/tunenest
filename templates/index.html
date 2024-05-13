@@ -153,6 +153,9 @@
           <button onclick="playNext()">
             <i class="fas fa-step-forward"></i>
           </button>
+          <button id="repeatModeButton" class="repeat-mode-button">
+            <i class="fas fa-sync"></i>
+          </button>
           <!-- ボリュームコントロール用のスライダー -->
           <div>
             <input type="range" id="volumeSlider" min="0" max="0.5" step="0.01" value="0.5">
@@ -190,6 +193,8 @@
         </p>
       </footer>
       <script>
+        let repeatMode = 'all'; // 'all' または 'single' を格納
+
         // サーバーから受け取ったデフォルトプレイリストIDを保持
         const defaultPlaylistId = "{{ default_playlist_id }}";
 
@@ -328,12 +333,20 @@
                 console.log("All tracks are unplayable. Stopping playback.");
                 return;
             }
-            index = (index + 1) % tracks.length;
-            if (tracks[index].url) {
+            if (repeatMode === 'single') {
+                // シングルリピートモードでは同じトラックを繰り返し再生する
                 audio.src = tracks[index].url;
                 play();
             } else {
-                playNext(attempts + 1); // URLがNoneの場合、次の曲にスキップ
+                // 通常は次のトラックへ進む
+                index = (index + 1) % tracks.length;
+                if (tracks[index].url) {
+                    audio.src = tracks[index].url;
+                    play();
+                } else {
+                    // URLが無い場合は次の曲へスキップ
+                    playNext(attempts + 1);
+                }
             }
         }
 
@@ -364,6 +377,9 @@
             const keywordInput = document.getElementById('keyword');
             const volumeSlider = document.getElementById("volumeSlider");
 
+            // 初期設定
+            updateRepeatModeButton();
+
             // ボリュームスライダーの表示と調整
             if (!/iPad|iPhone|iPod/.test(navigator.userAgent) || window.MSStream) {
                 volumeSlider.style.display = 'block';
@@ -371,6 +387,9 @@
             volumeSlider.addEventListener("input", function() {
                 audio.volume = volumeSlider.value;
             });
+
+            // リピートモードボタンのクリックイベントリスナー
+            repeatModeButton.addEventListener('click', toggleRepeatMode);
 
             // ドロップダウンの選択が変わったときの処理
             playlistDropdown.addEventListener('change', function() {
@@ -464,6 +483,33 @@
                     performSearch();
                 }
             });
+
+            function setRepeatMode(mode) {
+                repeatMode = mode;
+                updateRepeatModeButton();
+
+                // モード変更時にログを表示
+                console.log(`Repeat mode set to: ${repeatMode}`);
+            }
+
+            function toggleRepeatMode() {
+                if (repeatMode === 'all') {
+                    setRepeatMode('single');
+                } else {
+                    setRepeatMode('all');
+                }
+            }
+
+            function updateRepeatModeButton() {
+                const repeatModeButton =
+                             document.getElementById('repeatModeButton');
+                const icon = repeatModeButton.querySelector('i');
+                if (repeatMode === 'all') {
+                    icon.className = 'fas fa-sync'; // 全曲
+                } else {
+                    icon.className = 'fas fa-redo'; // 単曲
+                }
+            }
         });
 
         function sortTracks(sortType, sortOrder) {

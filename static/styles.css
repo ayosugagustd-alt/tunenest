@@ -460,6 +460,18 @@ footer {
     background-color: #f0f8ff;
 }
 
+.repeat-mode-button {
+    color: #C0C0C0;
+    background-color: white;
+}
+.repeat-mode-button:hover {
+    background-color: white;
+}
+.repeat-mode-button:active {
+    color: #A9A9A9;
+    background-color: white;
+}
+
 
 @media (max-width: 375px) {
     body {
