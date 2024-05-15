@@ -165,17 +165,20 @@
               <div class="track-name">{{ track.name }}</div>
               <div class="artist">{{ track.artist }}</div>
             </div>
-            <div class="icon-row">{% if track.url %} 
-              <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
-                <span class="icon-caption">試聴</span>
-              </a>{% else %} 
-              <span class="icon-disabled-caption">試聴</span>{% endif %}
-              <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
-                <span class="icon-caption">詳細</span>
-              </a>
+            <div class="icon-row">
               <span class="tempo-value">{{ '{:0.0f}'.format(track.tempo|float) }} BPM</span>
               <span class="camelot-info">{{ "{: >3}".format(track.camelot_key_signature) }}</span>
               <span class="track-popularity">{{ '{: >3}'.format(track.popularity) }}%</span>
+              {% if track.url %}
+                <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
+                  <span class="icon-caption">試聴</span>
+                </a>
+              {% else %}
+                <span class="icon-disabled-caption">試聴</span>
+              {% endif %}
+              <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
+                <span class="icon-caption">詳細</span>
+              </a>
             </div>
           </div>
         </div>{% endfor %} 
@@ -279,7 +282,7 @@
                 <span><strong>${tracks[index].name}</strong></span><br>
                 <span style="color: #7F7F7F;">${tracks[index].artist}</span><br><br>
                 <span style="color: #7F7F7F;">${formattedTempo} BPM</span><br>
-                <span style="color: #7F7F7F;">Camelot ${tracks[index].camelot_key_signature}</span><span style="color: ${camelotColor};">●</span><br>
+                <span style="color: #7F7F7F;">Camelot ${tracks[index].camelot_key_signature}</span><span style="color: ${camelotColor};">◉</span><br>
                 <span style="color: #7f7f7f;">人気度 ${tracks[index].popularity}%</span>
             `;
 
