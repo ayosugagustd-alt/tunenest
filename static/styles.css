@@ -343,6 +343,8 @@ footer {
     margin-bottom: 18px; /* アートワークからのマージン */
 }
 .sort-option {
+    text-align: center; /* キャプションを中央揃えに */
+    margin: 0; /* 上下の余白をなくす */
     font-size: 16px;
     display: flex;
     align-items: center;

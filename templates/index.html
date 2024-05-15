@@ -105,7 +105,7 @@
                 <i class="fas fa-sort-down"></i>
               </button>
             </div>
-            <p>BPM</p>
+            <p>BPM<br>SORT</p>
           </div>
           <div class="sort-option">
             <div>
@@ -116,7 +116,7 @@
                 <i class="fas fa-sort-down"></i>
               </button>
             </div>
-            <p>Camelot</p>
+            <p>Camelot<br>SORT</p>
           </div>
           <div class="sort-option">
             <div>
@@ -127,7 +127,7 @@
                 <i class="fas fa-sort-down"></i>
               </button>
             </div>
-            <p>人気度</p>
+            <p>人気度<br>SORT</p>
           </div>
           <div class="sort-option">
             <div>
@@ -135,7 +135,7 @@
                 <i class="fas fa-undo"></i>
               </button>
             </div>
-            <p>Reset</p>
+            <p>SORT<br>RESET</p>
           </div>
         </div>
         <div id="buttons">
@@ -150,7 +150,7 @@
             <i class="fas fa-step-forward"></i>
           </button>
           <button id="repeatModeButton" class="repeat-mode-button">
-            <i class="fas fa-sync"></i>
+            <i class="fas fa-sync"></i><span class="spotify-green">all</span>
           </button>
           <!-- ボリュームコントロール用のスライダー -->
           <div>
@@ -279,7 +279,7 @@
                 <span><strong>${tracks[index].name}</strong></span><br>
                 <span style="color: #7F7F7F;">${tracks[index].artist}</span><br><br>
                 <span style="color: #7F7F7F;">${formattedTempo} BPM</span><br>
-                <span style="color: ${camelotColor}">${tracks[index].camelot_key_signature}</span><br>
+                <span style="color: #7F7F7F;">Camelot ${tracks[index].camelot_key_signature}</span><span style="color: ${camelotColor};">●</span><br>
                 <span style="color: #7f7f7f;">人気度 ${tracks[index].popularity}%</span>
             `;
 
@@ -500,10 +500,13 @@
                 const repeatModeButton =
                              document.getElementById('repeatModeButton');
                 const icon = repeatModeButton.querySelector('i');
+                const text = repeatModeButton.querySelector('span');
                 if (repeatMode === 'all') {
                     icon.className = 'fas fa-sync'; // 全曲
+                    text.textContent = "all";
                 } else {
                     icon.className = 'fas fa-redo'; // 単曲
+                    text.textContent = "1";
                 }
             }
         });
