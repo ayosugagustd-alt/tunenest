@@ -127,7 +127,7 @@ a:hover {
 
 img {
     max-width: 100%;
-    max-height: 300px; /* 最大高さを設定 */
+    max-height: 520px; /* 最大高さを設定 */
     height: auto;
     padding-top: 5px;
 }
