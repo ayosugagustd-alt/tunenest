@@ -280,6 +280,7 @@ select {
 }
 #playing-artwork {
     margin-right: 4px; /* 右側の余白を調整 */
+    max-height: 300px; /* 画像の最大高さを調整 */
 }
 #searchBox {
     display: flex; /* Flexboxを有効化 */
