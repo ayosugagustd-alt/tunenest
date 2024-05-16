@@ -60,14 +60,23 @@
   </head>
   <body>
     <div class="container">
-      <h1>{{ playlist_name }}</h1>
-      <h4>{{ playlist_description|safe }}</h4>{% if exceeds_max_tracks %}
-      <h4>
-        <i class="fas fa-exclamation-triangle"></i>{{ playlist_name }}は501曲以上ありますが、最初の500曲のみ表示しています。
-      </h4>{% endif %} {% if playlist_url %} 
-      <h4>
-        <a href="{{ playlist_url }}" target="_blank" rel="noopener">{{ playlist_name }}</a>をSpotifyで再生
-      </h4>{% endif %} 
+      {% if playlist_url %}
+        <h1>
+          <a href="{{ playlist_url }}" target="_blank" rel="noopener noreferrer" title="このプレイリストをSpotifyで再生する">
+            {{ playlist_name }}
+          </a>
+        </h1>
+        {% if playlist_description %}
+          <h4>
+            {{ playlist_description }}
+          </h4>
+        {% endif %}
+      {% endif %}
+      {% if exceeds_max_tracks %}
+        <h4>
+          <i class="fas fa-exclamation-triangle"></i><strong>{{ playlist_name }}</strong>は501曲以上ありますが、最初の500曲のみ表示しています。
+        </h4>
+      {% endif %}
       <div id="playlist-controls" lang="ja">
         <select class="search-input" id="playlistDropdown">
           <option value="" disabled selected style="display:none;">Tracks、Artists、Playlists検索</option>
