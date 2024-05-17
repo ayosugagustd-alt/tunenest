@@ -65,13 +65,13 @@
         <h4>
           {{ playlist_description|safe }} － 
           {% if playlist_url %}
-            「{{ playlist_name }}」を<a href="{{ playlist_url }}" target="_blank" rel="noopener">Spotify</a>で再生。
+            「{{ playlist_name }}」を<a href="{{ playlist_url }}" target="_blank" rel="noopener">Spotifyで再生</a>
           {% endif %}
         </h4>
       {% else %}
         <h4>
           {% if playlist_url %}
-            {{ playlist_name }}を<a href="{{ playlist_url }}" target="_blank" rel="noopener">Spotify</a>で再生。
+            {{ playlist_name }}を<a href="{{ playlist_url }}" target="_blank" rel="noopener">Spotifyで再生</a>
           {% endif %}
         </h4>
       {% endif %}
@@ -298,14 +298,14 @@
                     <a href="/artist/${tracks[index].artist_id}" target="_blank" rel="noopener" title="アーティストの詳細を見る">${tracks[index].artist}</a>
                 </span><br><br>
                 <span style="color: #7F7F7F;">${formattedTempo} BPM</span><br>
-                <span style="color: #7F7F7F;">Camelot ${tracks[index].camelot_key_signature}</span><span style="color: ${camelotColor};">◉</span><br>
+                <span style="color: #7F7F7F;">Camelot ${tracks[index].camelot_key_signature}</span><span style="color: ${camelotColor};"> ◉</span><br>
                 <span style="color: #7f7f7f;">人気度 ${tracks[index].popularity}%</span>
             `;
 
             // Spotifyへのリンクを生成
             let spotifyLink = `https://open.spotify.com/track/${tracks[index].id}`;
             playingInfo += `<br><a href="${spotifyLink}" target="_blank" rel="noopener" style="margin-top: 1px; display: inline-block;">`;
-            playingInfo += '<span class="info-now-playing">再生</span></a>';
+            playingInfo += '<span class="info-now-playing">Spotifyで再生</span></a>';
 
             // 最後に全てのリンクと詳細をHTMLに反映
             document.getElementById('playing').innerHTML = playingInfo;
