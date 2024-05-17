@@ -535,7 +535,6 @@ def get_album_details(album_id):
         "name": album["name"],  # アルバム名
         "release_date": album["release_date"],  # リリース日
         "image": album["images"][0]["url"],  # ジャケット画像のURL
-        "genres": album["genres"],  # ジャンル（通常、アルバムにジャンルは含まれていない）
         "artists": [
             {"name": artist["name"], "id": artist["id"]} for artist in album["artists"]
         ],  # 参加アーティスト
