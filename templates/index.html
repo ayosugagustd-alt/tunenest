@@ -291,8 +291,12 @@
 
             let playingInfo = `
                 <span style="color: #7F7F7F;">#${index + 1}:</span><br>
-                <span><strong>${tracks[index].name}</strong></span><br>
-                <span style="color: #7F7F7F;">${tracks[index].artist}</span><br><br>
+                <span><strong>
+                    <a href="/song_details/${tracks[index].id}" target="_blank" rel="noopener" title="楽曲の詳細を見る">${tracks[index].name}</a>
+                </strong></span><br>
+                <span style="color: #7F7F7F;">
+                    <a href="/artist/${tracks[index].artist_id}" target="_blank" rel="noopener" title="アーティストの詳細を見る">${tracks[index].artist}</a>
+                </span><br><br>
                 <span style="color: #7F7F7F;">${formattedTempo} BPM</span><br>
                 <span style="color: #7F7F7F;">Camelot ${tracks[index].camelot_key_signature}</span><span style="color: ${camelotColor};">◉</span><br>
                 <span style="color: #7f7f7f;">人気度 ${tracks[index].popularity}%</span>
@@ -302,12 +306,6 @@
             let spotifyLink = `https://open.spotify.com/track/${tracks[index].id}`;
             playingInfo += `<br><a href="${spotifyLink}" target="_blank" rel="noopener" style="margin-top: 1px; display: inline-block;">`;
             playingInfo += '<span class="info-now-playing">再生</span></a>';
-        
-            // Infoへのリンクを生成
-            let infoLink = `/song_details/${tracks[index].id}`;
-
-            playingInfo += `<br><a href="${infoLink}" target="_blank" rel="noopener" style="margin-top: 1px; display: inline-block;">`;
-            playingInfo += '<span class="info-now-playing">詳細</span></a>';
 
             // 最後に全てのリンクと詳細をHTMLに反映
             document.getElementById('playing').innerHTML = playingInfo;

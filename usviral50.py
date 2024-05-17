@@ -169,6 +169,7 @@ def get_track_info(track, audio_features):
         )
         spotify_link = track["external_urls"]["spotify"]
         artist_name = track["artists"][0]["name"]
+        artist_id = track["artists"][0]["id"]  # アーティストIDを取得
         tempo = audio_features["tempo"] if audio_features else "不明"
 
         # キーと調を解析
@@ -208,6 +209,7 @@ def get_track_info(track, audio_features):
             "url": track["preview_url"],
             "name": track["name"],
             "artist": artist_name,
+            "artist_id": artist_id,  # アーティストIDを追加
             "image_url": image_url,
             "spotify_link": spotify_link,
             "tempo": tempo,
