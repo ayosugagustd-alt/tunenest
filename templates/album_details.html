@@ -64,7 +64,7 @@
         <h2>トラック一覧</h2>
         <ol>{% for track in album.tracks %} {% set minutes = (track.length / 1000 / 60)|int %} {% set seconds = ((track.length / 1000) % 60)|int %} 
           <li>
-            <a href="{{ url_for('song_details', song_id=track.id) }}">{{ track.name }}</a>({{ minutes }}:{{ "%02d"|format(seconds) }})
+            <a href="{{ url_for('song_details', song_id=track.id) }}">{{ track.name }}</a> ({{ minutes }}:{{ "%02d"|format(seconds) }})
           </li>{% endfor %} 
         </ol>
       </div>
