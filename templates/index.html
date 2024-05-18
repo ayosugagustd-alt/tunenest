@@ -60,7 +60,11 @@
   </head>
   <body>
     <div class="container">
-      <h1><a href="{{ playlist_url }}" target="_blank" rel="noopener" title="プレイリストをSpotifyで聴く">{{ playlist_name }}</a></h1>
+      {% if playlist_url %}
+        <h1><a href="{{ playlist_url }}" target="_blank" rel="noopener" title="プレイリストをSpotifyで聴く">{{ playlist_name }}</a></h1>
+      {% else %}
+        <h1>{{ playlist_name }}</h1>
+      {% endif %}
       {% if playlist_description %}
         <h4>{{ playlist_description|safe }}</h4>
       {% endif %}
