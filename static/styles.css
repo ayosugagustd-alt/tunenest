@@ -238,7 +238,7 @@ img {
 }
 
 footer p {
-    font-size: 18px;
+    font-size: 20px;
     color: #555;
 }
 
@@ -1127,11 +1127,11 @@ footer {
     }
 
     footer p {
-        font-size: 16px;
+        font-size: 14px;
     }
     .fab.fa-x-twitter {
         margin-right: 6px;
-        font-size: 16px;
+        font-size: 14px;
     }
 }
 
@@ -1263,7 +1263,7 @@ footer {
     }
     .fab.fa-x-twitter {
         margin-right: 6px;
-        font-size: 12px;
+        font-size: 14px;
     }
 }
 
