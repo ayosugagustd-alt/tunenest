@@ -58,7 +58,7 @@
         <h2>代表曲</h2>
         <ul>{% for track in top_tracks %} 
           <li>
-            <a href="{{ url_for('song_details', song_id=track['id']) }}" target="_blank" rel="noopener" title="楽曲の詳細を見る">{{ track['name'] }}</a>
+            <a href="{{ url_for('song_details', song_id=track['id']) }}" title="楽曲の詳細を見る">{{ track['name'] }}</a>
           </li>{% endfor %} 
         </ul>
       </div>
@@ -66,7 +66,7 @@
         <h2>最新アルバム</h2>{% if latest_album %}
         <ul>
           <li>
-            <a href="{{ url_for('album_details', artist_id=latest_album['artist_id'], album_id=latest_album['id']) }}" target="_blank" rel="noopener" title="アルバムの詳細を見る">{{ latest_album['name'] }}</a>
+            <a href="{{ url_for('album_details', artist_id=latest_album['artist_id'], album_id=latest_album['id']) }}" title="アルバムの詳細を見る">{{ latest_album['name'] }}</a>
 
           </li>
         </ul>{% else %} 
@@ -76,7 +76,7 @@
         <h2>関連アーティスト</h2>
         <ul>{% for artist in related_artists %} 
           <li>
-            <a href="{{ url_for('artist_details', artist_id=artist['id']) }}" target="_blank" rel="noopener" title="アーティストの詳細を見る">{{ artist['name'] }}</a>
+            <a href="{{ url_for('artist_details', artist_id=artist['id']) }}" title="アーティストの詳細を見る">{{ artist['name'] }}</a>
           </li>{% endfor %} 
         </ul>
       </div>

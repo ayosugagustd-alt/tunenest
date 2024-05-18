@@ -29,7 +29,7 @@
       <p>コンピレーション・アルバムの総数：{{ total_compilations }}枚</p>{% include 'pagination.html' %}
       <div>{% for compilation in compilations_with_songs %} 
         <h2>
-          <a href="{{ url_for('album_details', artist_id=compilation['artist_id'], album_id=compilation['compilation_id']) }}" target="_blank" rel="noopener" title="アルバムの詳細を見る">
+          <a href="{{ url_for('album_details', artist_id=compilation['artist_id'], album_id=compilation['compilation_id']) }}" title="アルバムの詳細を見る">
   {{ loop.index + (page - 1) * per_page }}. {{ compilation.name }}
           </a>
         </h2>

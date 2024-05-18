@@ -54,7 +54,7 @@
         <p>アーティスト： 
         <ul>{% for artist in album.artists %} 
           <li>
-            <a href="{{ url_for('artist_details', artist_id=artist.id) }}" target="_blank" rel="noopener" title="アーティストの詳細を見る">{{ artist.name }}</a>
+            <a href="{{ url_for('artist_details', artist_id=artist.id) }}" title="アーティストの詳細を見る">{{ artist.name }}</a>
           </li>{% endfor %} 
         </ul>
         <p>リリース日： {{ album.release_date }}
@@ -64,7 +64,7 @@
         <h2>トラック一覧</h2>
         <ol>{% for track in album.tracks %} {% set minutes = (track.length / 1000 / 60)|int %} {% set seconds = ((track.length / 1000) % 60)|int %} 
           <li>
-            <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener" title="楽曲の詳細情報を見る">{{ track.name }}</a> ({{ minutes }}:{{ "%02d"|format(seconds) }})
+            <a href="{{ url_for('song_details', song_id=track.id) }}" title="楽曲の詳細情報を見る">{{ track.name }}</a> ({{ minutes }}:{{ "%02d"|format(seconds) }})
           </li>{% endfor %} 
         </ol>
       </div>

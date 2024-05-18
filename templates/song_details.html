@@ -74,7 +74,7 @@
         <p>アーティスト名：</p>
         <ul>{% for artist in song.artists %}
           <li>
-            <a href="{{ url_for('artist_details', artist_id=artist.id) }}" target="_blank" rel="noopener" title="アーティストの詳細を見る">{{ artist.name }}</a>
+            <a href="{{ url_for('artist_details', artist_id=artist.id) }}" title="アーティストの詳細を見る">{{ artist.name }}</a>
           </li>{% endfor %}
         </ul>
         <p>アルバム名：{{ song.album_name }}</p>
@@ -88,7 +88,7 @@
       <!-- End of div -->
       <div class="visual-section">
         <h2>音楽特性 
-          <a href="/help_song_details" class="help-link" target="_blank" rel="noopener" title="音楽特性の説明を見る">
+          <a href="/help_song_details" class="help-link" title="音楽特性の説明を見る">
             <i class="fas fa-question-circle"></i>
           </a>
         </h2>
