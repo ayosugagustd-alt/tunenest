@@ -60,20 +60,9 @@
   </head>
   <body>
     <div class="container">
-      <h1>{{ playlist_name }}</h1>
+      <h1><a href="{{ playlist_url }}" target="_blank" rel="noopener">{{ playlist_name }}</a></h1>
       {% if playlist_description %}
-        <h4>
-          {{ playlist_description|safe }}
-          {% if playlist_url %}
-            「{{ playlist_name }}」を<a href="{{ playlist_url }}" target="_blank" rel="noopener">Spotifyで再生</a>
-          {% endif %}
-        </h4>
-      {% else %}
-        <h4>
-          {% if playlist_url %}
-            {{ playlist_name }}を<a href="{{ playlist_url }}" target="_blank" rel="noopener">Spotifyで再生</a>
-          {% endif %}
-        </h4>
+        <h4>{{ playlist_description|safe }}</h4>
       {% endif %}
       {% if exceeds_max_tracks %}
       <h4>
