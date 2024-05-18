@@ -74,7 +74,7 @@
         <p>アーティスト名：</p>
         <ul>{% for artist in song.artists %}
           <li>
-            <a href="{{ url_for('artist_details', artist_id=artist.id) }}">{{ artist.name }}</a>
+            <a href="{{ url_for('artist_details', artist_id=artist.id) }}" target="_blank" rel="noopener" title="アーティストの詳細を見る">{{ artist.name }}</a>
           </li>{% endfor %}
         </ul>
         <p>アルバム名：{{ song.album_name }}</p>

@@ -60,7 +60,7 @@
   </head>
   <body>
     <div class="container">
-      <h1><a href="{{ playlist_url }}" target="_blank" rel="noopener">{{ playlist_name }}</a></h1>
+      <h1><a href="{{ playlist_url }}" target="_blank" rel="noopener" title="プレイリストをSpotifyで聴く">{{ playlist_name }}</a></h1>
       {% if playlist_description %}
         <h4>{{ playlist_description|safe }}</h4>
       {% endif %}
@@ -165,12 +165,12 @@
           <div class="track-info">
             <div class="track-details">
               <div class="track-name">
-                <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
+                <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener" title="楽曲の詳細を見る">
                   {{ track.name }}
                 </a>
               </div>
               <div class="artist">
-                <a href="{{ url_for('artist_details', artist_id=track.artist_id) }}" target="_blank" rel="noopener">
+                <a href="{{ url_for('artist_details', artist_id=track.artist_id) }}" target="_blank" rel="noopener" title="アーティストの詳細を見る">
                   {{ track.artist }}
                 </a>
               </div>
@@ -186,7 +186,7 @@
               {% else %}
                 <span class="icon-disabled-caption">試聴</span>
               {% endif %}
-              <a href="https://open.spotify.com/track/{{ track.id }}" target="_blank" rel="noopener">
+              <a href="https://open.spotify.com/track/{{ track.id }}" target="_blank" rel="noopener" title="楽曲をSpotifyで聴く">
                 <span class="icon-caption">再生</span>
               </a>
             </div>
@@ -306,7 +306,7 @@
 
             // Spotifyへのリンクを生成
             let spotifyLink = `https://open.spotify.com/track/${tracks[index].id}`;
-            playingInfo += `<br><a href="${spotifyLink}" target="_blank" rel="noopener">再生</a>`;
+            playingInfo += `<br><a href="${spotifyLink}" target="_blank" rel="noopener" title="楽曲をSpotifyで聴く">再生</a>`;
 
             // 最後に全てのリンクと詳細をHTMLに反映
             document.getElementById('playing').innerHTML = playingInfo;
