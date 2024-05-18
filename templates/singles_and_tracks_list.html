@@ -35,7 +35,7 @@
         <p>リリース日: {{ single.release_date }}</p>
         <ol>{% for track in single.tracks %} 
           <li>
-            <a href="{{ url_for('song_details', song_id=track['track_id']) }}">{{ track['name'] }}</a>
+            <a href="{{ url_for('song_details', song_id=track['track_id']) }}" title="楽曲の詳細を見る">{{ track['name'] }}</a>
           </li>{% endfor %} 
         </ol>
         <!-- アルバム間の区切り線 -->

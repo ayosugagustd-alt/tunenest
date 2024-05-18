@@ -29,7 +29,9 @@
       <p>コンピレーション・アルバムの総数：{{ total_compilations }}枚</p>{% include 'pagination.html' %}
       <div>{% for compilation in compilations_with_songs %} 
         <h2>
-          <a href="{{ url_for('album_details', artist_id=compilation['artist_id'], album_id=compilation['compilation_id']) }}">{{ loop.index + (page - 1) * per_page }}. {{ compilation.name }}</a>
+          <a href="{{ url_for('album_details', artist_id=compilation['artist_id'], album_id=compilation['compilation_id']) }}" target="_blank" rel="noopener" title="アルバムの詳細を見る">
+  {{ loop.index + (page - 1) * per_page }}. {{ compilation.name }}
+          </a>
         </h2>
         <!-- カバー画像表示 -->{% if compilation.images %} 
         <img src="{{ compilation.images[0].url }}" alt="カバー画像" style="max-width: 200px;">{% else %} 
@@ -38,7 +40,7 @@
         <p>トラック数： {{ compilation['total_tracks'] }}</p>
         <ol>{% for track in compilation.tracks %} 
           <li>
-            <a href="{{ url_for('song_details', song_id=track['track_id']) }}">{{ track['name'] }}</a>
+            <a href="{{ url_for('song_details', song_id=track['track_id']) }}" title="楽曲の詳細を見る">{{ track['name'] }}</a>
           </li>{% endfor %} 
         </ol>
         <!-- アルバム間の区切り線 -->
