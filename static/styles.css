@@ -384,14 +384,13 @@ footer {
 
 .tempo-value {
     font-size: 20px;
-    width: 100px; /* 数値部分の幅を固定 */
+    width: 90px; /* 数値部分の幅を固定 */
     text-align: right; /* 右寄せにする */
     display: inline-block; /* inline-block属性を設定 */
-    margin-right: 10px;
 }
 
 .camelot-info {
-    width: 70px; /* 幅を指定して一定に保つ */
+    width: 64px; /* 幅を指定して一定に保つ */
     text-align: right; /* テキストを右揃えにする */
     display: inline-block; /* 要素をインラインブロックとして扱う */
 }
@@ -400,6 +399,7 @@ footer {
     width: 50px; /* 適宜調整してください */
     text-align: right; /* 右寄せにする */
     display: inline-block;
+    margin-right: 26px;
 }
 
 .progress-bar {
@@ -534,14 +534,15 @@ footer {
     .tempo-value {
         width: 60px; /* 数値部分の幅を固定 */
         text-align: right; /* 右寄せにする */
-        margin-right: 0px;
     }
     .camelot-info {
         width: 40px; /* 幅を指定して一定に保つ */
+        margin-right: 14px;
     }
 
     .track-popularity {
         width: 20px; /* 適宜調整してください */
+        margin-right: 14px;
     }
 
     #playing {
@@ -663,19 +664,21 @@ footer {
 
     .icon-caption, .icon-disabled-caption {
         font-size: 10px;
-        margin-right: 14px;
+        margin-right: 16px;
     }
     .tempo-value {
         width: 60px; /* 数値部分の幅を固定 */
         text-align: right; /* 右寄せにする */
-        margin-right: 0px;
+        margin-right: 10px;
     }
     .camelot-info {
-        width: 40px; /* 幅を指定して一定に保つ */
+        width: 30px; /* 幅を指定して一定に保つ */
+        margin-right: 16px;
     }
 
     .track-popularity {
-        width: 20px; /* 適宜調整してください */
+        width: 24px; /* 適宜調整してください */
+        margin-right: 14px;
     }
 
     #playing {
@@ -809,7 +812,8 @@ footer {
     }
 
     .track-popularity {
-        width: 38px; /* 適宜調整してください */
+        width: 35px; /* 適宜調整してください */
+        margin-right: 28px;
     }
 
     #playing {
@@ -943,7 +947,8 @@ footer {
     }
 
     .track-popularity {
-        width: 38px; /* 適宜調整してください */
+        width: 35px; /* 適宜調整してください */
+        margin-right: 28px;
     }
 
     #playing {
@@ -1068,14 +1073,15 @@ footer {
     .tempo-value {
         width: 90px; /* 数値部分の幅を固定 */
         text-align: right; /* 右寄せにする */
-        margin-right: 18px;
+        margin-right: 4px;
     }
     .camelot-info {
-        width: 60px; /* 幅を指定して一定に保つ */
+        width: 50px; /* 幅を指定して一定に保つ */
     }
 
     .track-popularity {
-        width: 80px; /* 適宜調整してください */
+        width: 35px; /* 適宜調整してください */
+        margin-right: 34px;
     }
 
     #playing {
@@ -1200,14 +1206,16 @@ footer {
     .tempo-value {
         width: 105px; /* 数値部分の幅を固定 */
         text-align: right; /* 右寄せにする */
-        margin-right: 24px;
+        margin-right: 4px;
     }
     .camelot-info {
-        width: 60px; /* 幅を指定して一定に保つ */
+        width: 50px; /* 幅を指定して一定に保つ */
+        margin-right: 34px;
     }
 
     .track-popularity {
-        width: 80px; /* 適宜調整してください */
+        width: 35px; /* 適宜調整してください */
+        margin-right: 34px;
     }
 
     #playing {
@@ -1327,19 +1335,21 @@ footer {
     }
 
     .icon-caption, .icon-disabled-caption {
-        margin-right: 64px;
+        margin-right: 44px;
     }
     .tempo-value {
         width: 110px; /* 数値部分の幅を固定 */
         text-align: right; /* 右寄せにする */
-        margin-right: 28px;
+        margin-right: 4px;
     }
     .camelot-info {
-        width: 60px; /* 幅を指定して一定に保つ */
+        width: 50px; /* 幅を指定して一定に保つ */
+        margin-right: 44px;
     }
 
     .track-popularity {
-        width: 80px; /* 適宜調整してください */
+        width: 35px; /* 適宜調整してください */
+        margin-right: 44px;
     }
 
     #playing {
@@ -1459,19 +1469,20 @@ media (min-width: 1025px) and (max-width: 1440px) {
     }
 
     .icon-caption, .icon-disabled-caption {
-        margin-right: 64px;
+        margin-right: 50px;
     }
     .tempo-value {
         width: 110px; /* 数値部分の幅を固定 */
         text-align: right; /* 右寄せにする */
-        margin-right: 28px;
     }
     .camelot-info {
-        width: 60px; /* 幅を指定して一定に保つ */
+        width: 40px; /* 幅を指定して一定に保つ */
+        margin-right: 50px;
     }
 
     .track-popularity {
-        width: 80px; /* 適宜調整してください */
+        width: 35px; /* 適宜調整してください */
+        margin-right: 50px;
     }
 
     #playing {
