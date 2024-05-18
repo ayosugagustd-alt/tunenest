@@ -477,6 +477,7 @@ def get_cached_artist_details(artist_id, sp):
         "popularity": artist["popularity"],
         "genres": artist["genres"],
         "followers": artist["followers"]["total"],
+        "external_urls": artist["external_urls"],
     }
 
 
@@ -502,6 +503,9 @@ def get_artist_details(artist_id):
         else None
     )
 
+    # アーティストのSpotifyページへのリンクを追加
+    spotify_url = artist_details.get("external_urls", {}).get("spotify")
+
     # 関連アーティストを取得
     related_artists = sp.artist_related_artists(artist_id)["artists"]
     related_artists_details = [
@@ -513,6 +517,7 @@ def get_artist_details(artist_id):
         top_tracks_details,
         latest_album_details,
         related_artists_details,
+        spotify_url,
     )
 
 
@@ -782,6 +787,7 @@ def artist_details(artist_id):
         top_tracks_details,
         latest_album_details,
         related_artists_details,
+        spotify_url,
     ) = get_artist_details(artist_id)
 
     # 取得した情報を使ってテンプレートをレンダリングして返す
@@ -791,6 +797,7 @@ def artist_details(artist_id):
         top_tracks=top_tracks_details,
         latest_album=latest_album_details,
         related_artists=related_artists_details,
+        spotify_url=spotify_url,
     )
 
 
