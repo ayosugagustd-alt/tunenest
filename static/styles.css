@@ -390,16 +390,17 @@ footer {
 }
 
 .camelot-info {
-    width: 64px; /* 幅を指定して一定に保つ */
+    width: 60px; /* 幅を指定して一定に保つ */
     text-align: right; /* テキストを右揃えにする */
     display: inline-block; /* 要素をインラインブロックとして扱う */
+    margin-right: 12px;
 }
 
 .track-popularity {
     width: 50px; /* 適宜調整してください */
     text-align: right; /* 右寄せにする */
     display: inline-block;
-    margin-right: 26px;
+    margin-right: 24px;
 }
 
 .progress-bar {
