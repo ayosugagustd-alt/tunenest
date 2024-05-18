@@ -168,14 +168,23 @@
           <div>
             <input type="range" id="volumeSlider" min="0" max="0.5" step="0.01" value="0.5">
           </div>
-        </div>{% for track in tracks %} 
+        </div>
+        {% for track in tracks %}
         <div class="custom-list-item">
           <div class="track-number">{{ loop.index }}</div>
           <img src="{{ track.image_url | default(url_for('static', filename='TuneNest.png')) }}" alt="Artwork" class="track-artwork">
           <div class="track-info">
             <div class="track-details">
-              <div class="track-name">{{ track.name }}</div>
-              <div class="artist">{{ track.artist }}</div>
+              <div class="track-name">
+                <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
+                  {{ track.name }}
+                </a>
+              </div>
+              <div class="artist">
+                <a href="{{ url_for('artist_details', artist_id=track.artist_id) }}" target="_blank" rel="noopener">
+                  {{ track.artist }}
+                </a>
+              </div>
             </div>
             <div class="icon-row">
               <span class="tempo-value">{{ '{:0.0f}'.format(track.tempo|float) }} BPM</span>
@@ -188,12 +197,13 @@
               {% else %}
                 <span class="icon-disabled-caption">試聴</span>
               {% endif %}
-              <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener">
-                <span class="icon-caption">詳細</span>
+              <a href="https://open.spotify.com/track/{{ track.id }}" target="_blank" rel="noopener">
+                <span class="icon-caption">再生</span>
               </a>
             </div>
           </div>
-        </div>{% endfor %} 
+        </div>
+        {% endfor %}
       </div>
       <footer>
         <p>&copy;2023 ヒロ. 
@@ -302,10 +312,14 @@
                 <span style="color: #7f7f7f;">人気度 ${tracks[index].popularity}%</span>
             `;
 
+            // 試聴リンクを生成
+            playingInfo += `<br><a href="javascript:void(0);" onclick="playSpecificTrack(${index})" style="margin-top: 1px; display: inline-block;">`;
+            playingInfo += '<span class="info-now-playing">試聴</span></a>';
+
             // Spotifyへのリンクを生成
             let spotifyLink = `https://open.spotify.com/track/${tracks[index].id}`;
             playingInfo += `<br><a href="${spotifyLink}" target="_blank" rel="noopener" style="margin-top: 1px; display: inline-block;">`;
-            playingInfo += '<span class="info-now-playing">Spotifyで再生</span></a>';
+            playingInfo += '<span class="info-now-playing">再生</span></a>';
 
             // 最後に全てのリンクと詳細をHTMLに反映
             document.getElementById('playing').innerHTML = playingInfo;
