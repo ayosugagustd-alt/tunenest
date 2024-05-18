@@ -264,15 +264,6 @@ select {
 	margin-left: 10px;
 }
 
-.info-now-playing {
-    font-size: 22px;
-    display: inline-block;
-}
-
-.info-now-playing:hover {
-    text-decoration: underline;
-}
-
 #playing-container {
     display: flex;
     align-items: center;
@@ -556,10 +547,6 @@ footer {
     #playing {
         font-size: 12px;
     }
-    .info-now-playing {
-        font-size: 12px;
-        display: inline-block;
-    }
 
     .icon-row {
         display: flex;
@@ -693,10 +680,6 @@ footer {
 
     #playing {
         font-size: 12px;
-    }
-    .info-now-playing {
-        font-size: 12px;
-        display: inline-block;
     }
 
     .icon-row {
@@ -832,10 +815,6 @@ footer {
     #playing {
         font-size: 14px;
     }
-    .info-now-playing {
-        font-size: 14px;
-        display: inline-block;
-    }
 
     .icon-row {
         display: flex;
@@ -970,10 +949,6 @@ footer {
     #playing {
         font-size: 14px;
     }
-    .info-now-playing {
-        font-size: 14px;
-        display: inline-block;
-    }
 
     .icon-row {
         display: flex;
@@ -1105,10 +1080,6 @@ footer {
 
     #playing {
         font-size: 18px;
-    }
-    .info-now-playing {
-        font-size: 18px;
-        display: inline-block;
     }
 
     .icon-row {
@@ -1242,10 +1213,6 @@ footer {
     #playing {
         font-size: 20px;
     }
-    .info-now-playing {
-        font-size: 20px;
-        display: inline-block;
-    }
 
     .icon-row {
         display: flex;
@@ -1378,10 +1345,6 @@ footer {
     #playing {
         font-size: 20px;
     }
-    .info-now-playing {
-        font-size: 20px;
-        display: inline-block;
-    }
 
     .icon-row {
         display: flex;
@@ -1513,10 +1476,6 @@ media (min-width: 1025px) and (max-width: 1440px) {
 
     #playing {
         font-size: 22px;
-    }
-    .info-now-playing {
-        font-size: 22px;
-        display: inline-block;
     }
 
     .icon-row {

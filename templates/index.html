@@ -313,13 +313,11 @@
             `;
 
             // 試聴リンクを生成
-            playingInfo += `<br><a href="javascript:void(0);" onclick="playSpecificTrack(${index})" style="margin-top: 1px; display: inline-block;">`;
-            playingInfo += '<span class="info-now-playing">試聴</span></a>';
+            playingInfo += `<br><a href="javascript:void(0);" onclick="playSpecificTrack(${index})">試聴</a>`;
 
             // Spotifyへのリンクを生成
             let spotifyLink = `https://open.spotify.com/track/${tracks[index].id}`;
-            playingInfo += `<br><a href="${spotifyLink}" target="_blank" rel="noopener" style="margin-top: 1px; display: inline-block;">`;
-            playingInfo += '<span class="info-now-playing">再生</span></a>';
+            playingInfo += `<br><a href="${spotifyLink}" target="_blank" rel="noopener">再生</a>`;
 
             // 最後に全てのリンクと詳細をHTMLに反映
             document.getElementById('playing').innerHTML = playingInfo;
