@@ -26,7 +26,6 @@ from functools import lru_cache
 # 存在しない場合はNoneを設定。
 SPOTIFY_CLIENT_ID = os.environ.get("SPOTIFY_CLIENT_ID", None)  # Spotify API
 SPOTIFY_CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET", None)
-YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)  # YouTube API
 
 
 app = Flask(__name__)
@@ -57,9 +56,6 @@ except json.JSONDecodeError:
 def check_api_keys():
     if not SPOTIFY_CLIENT_ID or not SPOTIFY_CLIENT_SECRET:
         raise ValueError("Spotifyの認証情報が設定されていません。環境変数で設定してください。")
-
-    if not YOUTUBE_API_KEY:
-        raise ValueError("YouTube APIのキーが設定されていません。環境変数で設定してください。")
 
 
 # Spotify API Clientを生成して返す。言語設定はしない。
