@@ -45,7 +45,9 @@ try:
     with open("config/playlists.json", "r", encoding="utf-8") as f:
         # playlistsはインデックスページのルーティング処理で参照する
         playlists = json.load(f)
-        default_playlist_id = next(iter(playlists.keys()))  # 最初のキーをデフォルトIDとして使用
+        default_playlist_id = next(
+            iter(playlists.keys())
+        )  # 最初のキーをデフォルトIDとして使用
 except FileNotFoundError:
     logging.warning("playlists.jsonが見つかりません。")
 except json.JSONDecodeError:
@@ -55,7 +57,9 @@ except json.JSONDecodeError:
 # APIキーをチェック
 def check_api_keys():
     if not SPOTIFY_CLIENT_ID or not SPOTIFY_CLIENT_SECRET:
-        raise ValueError("Spotifyの認証情報が設定されていません。環境変数で設定してください。")
+        raise ValueError(
+            "Spotifyの認証情報が設定されていません。環境変数で設定してください。"
+        )
 
 
 # Spotify API Clientを生成して返す。言語設定はしない。
@@ -65,7 +69,8 @@ def get_spotify_client():
         if not spotify_client:
             spotify_client = Spotify(
                 client_credentials_manager=SpotifyClientCredentials(
-                    client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET
+                    client_id=SPOTIFY_CLIENT_ID,
+                    client_secret=SPOTIFY_CLIENT_SECRET
                 ),
                 language="ja",  # 動的に言語設定
             )
@@ -81,7 +86,7 @@ def get_tracks_audio_features(track_ids):
 
     # トラックIDのリストを50曲ずつのバッチに分割し、各バッチごとにオーディオ特性を取得
     for i in range(0, len(track_ids), 50):
-        batch = track_ids[i : i + 50]
+        batch = track_ids[i:i + 50]
         features_list = sp.audio_features(batch)  # オーディオ特性を取得
         for feature in features_list:
             if feature:
@@ -188,7 +193,11 @@ def get_track_info(track, audio_features):
             if audio_features and "key" in audio_features
             else "N/A"
         )
-        mode = "Maj" if audio_features and audio_features.get("mode") == 1 else "min"
+        mode = (
+            "Maj"
+            if audio_features and audio_features.get("mode") == 1
+            else "min"
+        )
 
         # キーと調を組み合わせて文字列を作成
         key_signature = f"{key} {mode}"
@@ -267,19 +276,26 @@ def index():
                 )
                 all_tracks.extend(additional_results["tracks"]["items"])
                 track_ids.extend(
-                    [track["id"] for track in additional_results["tracks"]["items"]]
+                    [
+                        track["id"]
+                        for track in additional_results["tracks"]["items"]
+                    ]
                 )
 
             # 検索結果の説明メッセージを設定
             if total_results == 0:
                 playlist_description = "検索結果がありません。"
             elif total_results > 100:
-                playlist_description = f"検索結果は{total_results}曲ありますが、最初の100曲のみ表示しています。"
+                playlist_description = (
+                    f"検索結果は{total_results}曲ありますが、最初の100曲のみ表示しています。"
+                )
             else:
                 playlist_description = f"検索結果は{total_results}曲です。"
 
             # キーワード検索の結果を all_tracks として扱う
-            all_tracks = [{"track": track} for track in results["tracks"]["items"]]
+            all_tracks = [
+                {"track": track} for track in results["tracks"]["items"]
+            ]
             playlist_name = keyword
             collage_filename = url_for("static", filename="TuneNest.png")
             playlist_url = ""
@@ -299,23 +315,30 @@ def index():
                 )
 
             # プレイリストのURLを取得
-            playlist_url = playlist_details.get("external_urls", {}).get("spotify", "#")
+            playlist_url = playlist_details.get(
+                "external_urls", {}
+            ).get("spotify", "#")
 
             # 現実のプレイリスト名を取得
-            actual_playlist_name = playlist_details.get("name", "No playlist name")
+            actual_playlist_name = playlist_details.get("name",
+                                                        "No playlist name")
 
             # クエリパラメータか現実のプレイリスト名を取得
             # ドロップリストではプレイリスト名を渡していないので
             # 通常クエリパラメータを与えられることはありません
-            playlist_name = request.args.get("playlist_name", actual_playlist_name)
+            playlist_name = request.args.get("playlist_name",
+                                             actual_playlist_name)
 
             # クエリパラメータからカバー画像のURLを取得
             custom_artwork_img = request.args.get("artwork_img")
 
             # プレイリストのカバー画像URLを安全に取得
-            collage_filename = url_for("static", filename="TuneNest.png")  # デフォルト値
+            collage_filename = url_for(
+                "static", filename="TuneNest.png"
+            )  # デフォルト値
             if custom_artwork_img:
-                collage_filename = url_for("static", filename=custom_artwork_img)
+                collage_filename = url_for("static",
+                                           filename=custom_artwork_img)
             elif playlist_details.get("images") and playlist_details["images"]:
                 # プレイリストのimagesが存在し、空のリストでないことを確認
                 collage_filename = playlist_details["images"][0].get(
@@ -374,28 +397,29 @@ def index():
                 # トラックのpopularityスコアを取得
                 popularity = track.get("popularity", 0)  # 万が一popularityがない場合0を
                 if popularity == 0:
-                    # logging.warning(f"Track ID {track['id']} has popularity 0, marking for retry")
                     tracks_needing_retry.append(track["id"])
 
                 # オーディオ特性とpopularityを引数として渡す
                 track_info = get_track_info(track, track_features)
-                track_info["popularity"] = popularity  # popularity情報をtrack_infoに追加
+                track_info["popularity"] = (
+                    popularity  # popularity情報をtrack_infoに追加
+                )
                 if track is not None:  # trackがNoneでないことを確認
                     all_tracks_info.append(track_info)
 
         # バッチでトラック詳細情報を取得
         if tracks_needing_retry:
-            # logging.info(f"Retrying {len(tracks_needing_retry)} tracks for popularity update")
             batch_size = 50
             for i in range(0, len(tracks_needing_retry), batch_size):
-                batch_ids = tracks_needing_retry[i : i + batch_size]
+                batch_ids = tracks_needing_retry[i:i + batch_size]
                 try:
                     detailed_tracks = sp.tracks(batch_ids)["tracks"]
                     for detailed_track in detailed_tracks:
                         for track_info in all_tracks_info:
                             if track_info["id"] == detailed_track["id"]:
-                                track_info["popularity"] = detailed_track["popularity"]
-                                # logging.info(f"Updated Track ID {detailed_track['id']} has popularity: {detailed_track['popularity']}")
+                                track_info["popularity"] = (
+                                    detailed_track["popularity"]
+                                )
                 except Exception as retry_error:
                     logging.error(
                         f"Failed to update popularity for batch: {retry_error}"
@@ -429,7 +453,9 @@ def index():
                 reverse=reverse_sort,
             )
         elif sort_by == "popularity":
-            valid_tracks_info.sort(key=lambda x: x["popularity"], reverse=reverse_sort)
+            valid_tracks_info.sort(
+                key=lambda x: x["popularity"], reverse=reverse_sort
+            )
 
         # カテゴリごとにプレイリストを整理
         playlists_grouped = defaultdict(list)
@@ -438,7 +464,10 @@ def index():
                 category, temp_playlist_name = name.split(" : ", 1)
                 playlists_grouped[category].append((id, temp_playlist_name))
             except ValueError as e:
-                error = f"Error occurred with playlist ID: {id}, name: '{name}'. Error message: {str(e)}"
+                error = (
+                    f"Error occurred with playlist ID: {id}, name: '{name}'. "
+                    f"Error message: {str(e)}"
+                )
                 return render_template("error.html", error=error)
 
         # HTMLテンプレートをレンダリング
@@ -482,7 +511,9 @@ def get_artist_details(artist_id):
     sp = get_spotify_client()
 
     # キャッシュされたアーティストの基本情報を取得
-    artist_details = get_cached_artist_details(artist_id, sp)
+    artist_details = get_cached_artist_details(
+        artist_id, sp
+    )
 
     # アーティストのトップ曲を取得
     top_tracks = sp.artist_top_tracks(artist_id, country="JP")["tracks"]
@@ -494,9 +525,11 @@ def get_artist_details(artist_id):
     albums = sp.artist_albums(artist_id, album_type="album")["items"]
     latest_album = albums[0] if albums else None
     latest_album_details = (
-        {"name": latest_album["name"], "id": latest_album["id"], "artist_id": artist_id}
-        if latest_album
-        else None
+        {
+            "name": latest_album["name"],
+            "id": latest_album["id"],
+            "artist_id": artist_id
+        } if latest_album else None
     )
 
     # アーティストのSpotifyページへのリンクを追加
@@ -505,7 +538,10 @@ def get_artist_details(artist_id):
     # 関連アーティストを取得
     related_artists = sp.artist_related_artists(artist_id)["artists"]
     related_artists_details = [
-        {"name": artist["name"], "id": artist["id"]} for artist in related_artists
+        {
+            "name": artist["name"],
+            "id": artist["id"]
+        } for artist in related_artists
     ]
 
     return (
@@ -529,7 +565,11 @@ def get_album_details(album_id):
 
     # 収録曲リストを作成
     tracks = [
-        {"name": track["name"], "length": track["duration_ms"], "id": track["id"]}
+        {
+            "name": track["name"],
+            "length": track["duration_ms"],
+            "id": track["id"]
+        }
         for track in album["tracks"]["items"]
     ]
 
@@ -539,7 +579,10 @@ def get_album_details(album_id):
         "release_date": album["release_date"],  # リリース日
         "image": album["images"][0]["url"],  # ジャケット画像のURL
         "artists": [
-            {"name": artist["name"], "id": artist["id"]} for artist in album["artists"]
+            {
+                "name": artist["name"],
+                "id": artist["id"]
+            } for artist in album["artists"]
         ],  # 参加アーティスト
         "tracks": tracks,  # 収録曲リスト
         "popularity": album["popularity"],  # 人気度
@@ -645,7 +688,8 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
 def count_total_releases(artist_id, release_type):
     sp = get_spotify_client()
 
-    total_releases = sp.artist_albums(artist_id, album_type=release_type)["total"]
+    total_releases = sp.artist_albums(artist_id,
+                                      album_type=release_type)["total"]
     return total_releases
 
 
@@ -671,9 +715,11 @@ def get_artist_albums_with_songs(artist_id, page, per_page=10):
             "album_id": album["id"],  # アルバムID
             "artist_id": artist_id,  # アーティストID
             "total_tracks": album["total_tracks"],  # アルバムの総楽曲数
-            "images": album["images"]
-            if "images" in album and album["images"]
-            else None,  # カバー画像情報
+            "images": (
+                album["images"]
+                if "images" in album and album["images"]
+                else None
+            ),  # カバー画像情報
         }
 
         # 各アルバムに含まれる楽曲を取得
@@ -681,7 +727,9 @@ def get_artist_albums_with_songs(artist_id, page, per_page=10):
         for track in album_tracks:
             track_name = track["name"]
             track_id = track["id"]
-            album_info["tracks"].append({"name": track_name, "track_id": track_id})
+            album_info["tracks"].append(
+                {"name": track_name, "track_id": track_id}
+            )
 
         result.append(album_info)
 
@@ -711,9 +759,11 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
             "tracks": [],
             "single_id": single["id"],  # シングルIDの追加
             "artist_id": artist_id,  # アーティストIDの追加
-            "images": single["images"]
-            if "images" in single and single["images"]
-            else None,
+            "images": (
+                single["images"]
+                if "images" in single and single["images"]
+                else None
+            ),
         }
 
         # シングルに含まれる楽曲を取得
@@ -721,7 +771,8 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
         for track in single_tracks:
             track_name = track["name"]
             track_id = track["id"]
-            single_info["tracks"].append({"name": track_name, "track_id": track_id})
+            single_info["tracks"].append({"name": track_name,
+                                         "track_id": track_id})
 
         result.append(single_info)
 
@@ -756,13 +807,16 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
             "compilation_id": compilation["id"],  # コンピレーションID
             "artist_id": artist_id,  # アーティストID
             "total_tracks": compilation["total_tracks"],  # 総楽曲数
-            "images": compilation["images"]
-            if "images" in compilation and compilation["images"]
-            else None,
+            "images": (
+                compilation["images"]
+                if "images" in compilation and compilation["images"]
+                else None
+            ),
         }
 
         # 各コンピレーションアルバムに含まれる楽曲を取得
-        compilation_tracks = sp.album_tracks(compilation["id"], market="JP")["items"]
+        compilation_tracks = sp.album_tracks(compilation["id"],
+                                             market="JP")["items"]
         for track in compilation_tracks:
             track_name = track["name"]
             track_id = track["id"]
@@ -804,7 +858,9 @@ def album_details(artist_id, album_id):
         album = get_album_details(album_id)  # 既存の関数でSpotifyからアルバム情報を取得
 
         # アーティスト名を結合してからテンプレートに渡す準備
-        artist_names = ", ".join([artist["name"] for artist in album["artists"]])
+        artist_names = ", ".join(
+            [artist["name"] for artist in album["artists"]]
+        )
 
         return render_template(
             "album_details.html",
@@ -829,10 +885,13 @@ def cached_get_artist_albums_with_songs(artist_id, page, per_page=10):
 
 
 @app.route("/artist/<artist_id>/all_albums_and_songs", methods=["GET"])
-@app.route("/artist/<artist_id>/all_albums_and_songs/page/<int:page>", methods=["GET"])
+@app.route("/artist/<artist_id>/all_albums_and_songs/page/<int:page>",
+           methods=["GET"])
 def all_albums_and_songs_for_artist(artist_id, page=1):
     per_page = 10  # 1ページあたりのアルバム数
-    albums_with_songs = cached_get_artist_albums_with_songs(artist_id, page, per_page)
+    albums_with_songs = cached_get_artist_albums_with_songs(artist_id,
+                                                            page,
+                                                            per_page)
 
     # 総アルバム数を取得して、総ページ数を計算
     total_albums = cached_count_total_releases(artist_id, "album")
@@ -852,16 +911,21 @@ def all_albums_and_songs_for_artist(artist_id, page=1):
 
 # 全シングル表示ページのルート
 # アーティストIDとページ番号（オプション）を引数として受け取る
-@lru_cache(maxsize=32)  # キャッシュのサイズを32に設定します。必要に応じて調整してください。
+@lru_cache(
+    maxsize=32
+)  # キャッシュのサイズを32に設定します。必要に応じて調整してください。
 def cached_get_artist_singles_with_songs(artist_id, page, per_page):
     return get_artist_singles_with_songs(artist_id, page, per_page)
 
 
 @app.route("/artist/<artist_id>/all_singles_and_songs", methods=["GET"])
-@app.route("/artist/<artist_id>/all_singles_and_songs/page/<int:page>", methods=["GET"])
+@app.route("/artist/<artist_id>/all_singles_and_songs/page/<int:page>",
+           methods=["GET"])
 def all_singles_and_songs_for_artist(artist_id, page=1):
     per_page = 10  # 1ページあたりのシングル数
-    singles_with_songs = cached_get_artist_singles_with_songs(artist_id, page, per_page)
+    singles_with_songs = cached_get_artist_singles_with_songs(artist_id,
+                                                              page,
+                                                              per_page)
 
     # 総シングル数を取得し、総ページ数を計算
     total_singles = cached_count_total_releases(artist_id, "single")
@@ -888,7 +952,8 @@ def cached_get_artist_compilations_with_songs(artist_id, page, per_page=10):
 
 @app.route("/artist/<artist_id>/all_compilations_and_songs", methods=["GET"])
 @app.route(
-    "/artist/<artist_id>/all_compilations_and_songs/page/<int:page>", methods=["GET"]
+    "/artist/<artist_id>/all_compilations_and_songs/page/<int:page>",
+    methods=["GET"]
 )
 def all_compilations_and_songs_for_artist(artist_id, page=1):
     per_page = 10  # 1ページあたりのコンピレーション数
@@ -973,7 +1038,11 @@ def search_artist():
 
     # Spotify APIでキーワードでアーティストを検索
     results = sp.search(q=keyword, type="artist", limit=1, market="JP")
-    if not results or not results.get("artists") or not results["artists"].get("items"):
+    if (
+        not results
+        or not results.get("artists")
+        or not results["artists"].get("items")
+    ):
         return jsonify({"error": "No artists found"}), 404
 
     artist = results["artists"]["items"][0]
