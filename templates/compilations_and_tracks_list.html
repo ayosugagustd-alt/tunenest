@@ -35,7 +35,7 @@
         </h2>
         <!-- カバー画像表示 -->{% if compilation.images %} 
         <img src="{{ compilation.images[0].url }}" alt="カバー画像" style="max-width: 200px;">{% else %} 
-        <img src="{{ url_for('static', filename='TuneNest.png') }}" alt="デフォルト画像" style="max-width: 200px;">{% endif %} 
+        <img src="{{ url_for('static', filename='tunenest.jpg') }}" alt="デフォルト画像" style="max-width: 200px;">{% endif %} 
         <p>リリース日: {{ compilation.release_date }}</p>
         <p>トラック数： {{ compilation['total_tracks'] }}</p>
         <ol>{% for track in compilation.tracks %} 

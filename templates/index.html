@@ -19,7 +19,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ playlist_name }}">
     <meta name="twitter:description" content="{{ playlist_description or 'tunenestで様々なTracksを探索。' }}">
-    <meta name="twitter:image" content="{{ collage_filename or url_for('static', filename='TuneNest.png', _external=True) }}?ver=1">
+    <meta name="twitter:image" content="{{ collage_filename or url_for('static', filename='tunenest.jpg', _external=True) }}?ver=1">
 
     <title>{{ playlist_name or 'Explore Music' }} : Playlistsを試聴</title>
     <script type="application/ld+json">
@@ -43,7 +43,7 @@
                             "@type": "MusicGroup",
                             "name": "{{ track.artist }}"
                         },
-                        "image": "{{ track.image_url or url_for('static', filename='TuneNest.png') }}"
+                        "image": "{{ track.image_url or url_for('static', filename='tunenest.jpg') }}"
                     }
                 }
                 {% if not loop.last %},{% endif %}
@@ -166,7 +166,7 @@
         {% for track in tracks %}
         <div class="custom-list-item">
           <div class="track-number">{{ loop.index }}</div>
-          <img src="{{ track.image_url | default(url_for('static', filename='TuneNest.png')) }}" alt="Artwork" class="track-artwork">
+          <img src="{{ track.image_url | default(url_for('static', filename='tunenest.jpg')) }}" alt="Artwork" class="track-artwork">
           <div class="track-info">
             <div class="track-details">
               <div class="track-name">
@@ -262,7 +262,7 @@
         function play() {
             let artworkUrl = tracks[index].image_url;
             if (!artworkUrl) {
-                artworkUrl = "{{ url_for('static', filename='TuneNest.png') }}";
+                artworkUrl = "{{ url_for('static', filename='tunenest.jpg') }}";
             }
             // アートワークの更新
             document.getElementById('playing-artwork').src = artworkUrl;

@@ -31,7 +31,7 @@
         <h2>{{ loop.index + (page - 1) * per_page }}. {{ single.name }}</h2>
         <!-- カバー画像表示 -->{% if single.images %} 
         <img src="{{ single.images[0].url }}" alt="カバー画像" style="max-width: 200px;">{% else %} 
-        <img src="{{ url_for('static', filename='TuneNest.png') }}" alt="デフォルト画像" style="max-width: 200px;">{% endif %} 
+        <img src="{{ url_for('static', filename='tunenest.jpg') }}" alt="デフォルト画像" style="max-width: 200px;">{% endif %} 
         <p>リリース日: {{ single.release_date }}</p>
         <ol>{% for track in single.tracks %} 
           <li>
