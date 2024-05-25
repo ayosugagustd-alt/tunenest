@@ -17,3 +17,7 @@ Disallow: /
 # 一般的なクローラーに対する設定
 User-agent: *
 Disallow: /config/
+
+# Twitterからのアクセスは有効にする
+User-agent: Twitterbot
+Allow: /
