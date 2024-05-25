@@ -19,7 +19,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }}">
     <meta name="twitter:description" content="{{ song.name }}の人気度、音楽特性などを探索。">
-    <meta name="twitter:image" content="{{ song.album_artwork_url or url_for('static', filename='TuneNest.png') }}">
+    <meta name="twitter:image" content="{{ song.album_artwork_url or url_for('static', filename='TuneNest.png', _external=True) }}?ver=1">
     <title>{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }} - 人気度、その他 | TuneNest</title>
     <script type="application/ld+json">
     {

@@ -19,7 +19,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ album.name }} by {{ artist_names }}">
     <meta name="twitter:description" content="{{ album.name }}の詳細情報を確認。Tracks一覧、Release日などをチェックできます。">
-    <meta name="twitter:image" content="{{ album.image or url_for('static', filename='TuneNest.png') }}">
+    <meta name="twitter:image" content="{{ album.image or url_for('static', filename='TuneNest.png', _external=True) }}?ver=1">
     <title>{{ album.name }} by {{ artist_names }} - Albums詳細情報</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
