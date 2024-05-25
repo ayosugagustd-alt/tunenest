@@ -535,10 +535,20 @@
             params.set('order', sortOrder); // ソートパラメータを設定または更新
 
             // プレイリストIDがURLにない場合、ドロップダウンから取得して設定
+/*
             if (!params.has('playlist_id')) {
                 const playlistId = document.getElementById('playlistDropdown').value;
                 if (playlistId) {
                     params.set('playlist_id', playlistId);
+                }
+            }
+*/
+            if (!params.has('playlist_id')) {
+                const playlistId = document.getElementById('playlistDropdown').value;
+                if (playlistId && playlistId !== 'searchTrack' && playlistId !== 'searchArtist' && playlistId !== 'searchPlaylist') {
+                    params.set('playlist_id', playlistId);
+                } else {
+                    params.set('playlist_id', defaultPlaylistId); // デフォルトのプレイリストIDを設定
                 }
             }
 
