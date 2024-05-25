@@ -166,7 +166,7 @@ def get_track_info(track, audio_features):
         image_url = (
             track["album"]["images"][0]["url"]
             if track["album"]["images"]
-            else url_for("static", filename="tunenest.jpg")
+            else url_for("static", filename="tunenest.jpg", _external=True)
         )
         spotify_link = track["external_urls"]["spotify"]
         artist_name = track["artists"][0]["name"]
@@ -297,7 +297,7 @@ def index():
                 {"track": track} for track in results["tracks"]["items"]
             ]
             playlist_name = keyword
-            collage_filename = url_for("static", filename="tunenest.jpg")
+            collage_filename = url_for("static", filename="tunenest.jpg", _external=True)
             playlist_url = ""
             exceeds_max_tracks = False
         else:
@@ -334,11 +334,12 @@ def index():
 
             # プレイリストのカバー画像URLを安全に取得
             collage_filename = url_for(
-                "static", filename="tunenest.jpg"
+                "static", filename="tunenest.jpg", _external=True
             )  # デフォルト値
             if custom_artwork_img:
                 collage_filename = url_for("static",
-                                           filename=custom_artwork_img)
+                                           filename=custom_artwork_img,
+                                           _external=True)
             elif playlist_details.get("images") and playlist_details["images"]:
                 # プレイリストのimagesが存在し、空のリストでないことを確認
                 collage_filename = playlist_details["images"][0].get(
