@@ -19,7 +19,9 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ playlist_name }}">
     <meta name="twitter:description" content="{{ playlist_description or 'tunenestで様々なTracksを探索。' }}">
-    <meta name="twitter:image" content="{{ collage_filename or url_for('static', filename='tunenest.jpg', _external=True) }}?ver=1">
+<!-- <meta name="twitter:image" content="{{ collage_filename or url_for('static', filename='tunenest.jpg', _external=True) }}?ver=1"> -->
+    <meta name="twitter:image" content="{{ collage_filename if collage_filename.startswith('http') else url_for('static', filename='tunenest.jpg', _external=True) }}?ver=1">
+
 
     <title>{{ playlist_name or 'Explore Music' }} : Playlistsを試聴</title>
     <script type="application/ld+json">
