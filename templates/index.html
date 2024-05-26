@@ -121,7 +121,13 @@
                 <i class="fas fa-sort-down"></i>
               </button>
             </div>
-            <p>Camelot<br>SORT</p>
+            <p>
+              Camelot
+              <a href="#" onclick="openCamelotWheel()">
+                <i class="fas fa-question-circle"></i>
+              </a>
+              <br>SORT
+            </p>
           </div>
           <div class="sort-option">
             <div>
@@ -535,14 +541,6 @@
             params.set('order', sortOrder); // ソートパラメータを設定または更新
 
             // プレイリストIDがURLにない場合、ドロップダウンから取得して設定
-/*
-            if (!params.has('playlist_id')) {
-                const playlistId = document.getElementById('playlistDropdown').value;
-                if (playlistId) {
-                    params.set('playlist_id', playlistId);
-                }
-            }
-*/
             if (!params.has('playlist_id')) {
                 const playlistId = document.getElementById('playlistDropdown').value;
                 if (playlistId && playlistId !== 'searchTrack' && playlistId !== 'searchArtist' && playlistId !== 'searchPlaylist') {
@@ -585,6 +583,25 @@
                 listItem.classList.add('playing-item');
             }
         }
+
+        function openCamelotWheel() {
+            const img = document.createElement('img');
+            img.src = '/static/camelot_wheel.png';
+            img.alt = 'Camelot Wheel';
+            img.style = 'max-width: 90%; max-height: 90%;';
+
+            const modal = document.createElement('div');
+            modal.style = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: flex; justify-content: center; align-items: center;';
+            modal.appendChild(img);
+
+            document.body.appendChild(modal);
+
+            modal.onclick = function() {
+              document.body.removeChild(modal);
+            };
+        }
+
+</script>
 
     </script>
     </div>
