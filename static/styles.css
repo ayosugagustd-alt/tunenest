@@ -433,8 +433,6 @@ footer {
 }
 
 .fab.fa-x-twitter {
-    margin-right: 7px;
-    font-size: 18px;
     color: #000;
 }
 
@@ -594,10 +592,6 @@ footer {
     footer p {
         font-size: 12px;
     }
-    .fab.fa-x-twitter {
-        margin-right: 2px;
-        font-size: 12px;
-    }
     .sort-option {
         font-size: 12px;
     }
@@ -728,10 +722,6 @@ footer {
     }
 
     footer p {
-        font-size: 12px;
-    }
-    .fab.fa-x-twitter {
-        margin-right: 2px;
         font-size: 12px;
     }
     .sort-option {
@@ -865,10 +855,6 @@ footer {
     footer p {
         font-size: 14px;
     }
-    .fab.fa-x-twitter {
-        margin-right: 4px;
-        font-size: 14px;
-    }
     .sort-option {
         font-size: 14px;
     }
@@ -998,10 +984,6 @@ footer {
     }
 
     footer p {
-        font-size: 14px;
-    }
-    .fab.fa-x-twitter {
-        margin-right: 4px;
         font-size: 14px;
     }
     .sort-option {
@@ -1136,10 +1118,6 @@ footer {
     footer p {
         font-size: 14px;
     }
-    .fab.fa-x-twitter {
-        margin-right: 6px;
-        font-size: 14px;
-    }
 }
 
 @media (min-width: 851px) and (max-width: 960px) {
@@ -1268,10 +1246,6 @@ footer {
     }
 
     footer p {
-        font-size: 14px;
-    }
-    .fab.fa-x-twitter {
-        margin-right: 6px;
         font-size: 14px;
     }
 }
@@ -1404,10 +1378,6 @@ footer {
     footer p {
         font-size: 16px;
     }
-    .fab.fa-x-twitter {
-        margin-right: 6px;
-        font-size: 16px;
-    }
 }
 
 media (min-width: 1025px) and (max-width: 1440px) {
@@ -1535,10 +1505,6 @@ media (min-width: 1025px) and (max-width: 1440px) {
     }
 
     footer p {
-        font-size: 16px;
-    }
-    .fab.fa-x-twitter {
-        margin-right: 6px;
         font-size: 16px;
     }
 }
