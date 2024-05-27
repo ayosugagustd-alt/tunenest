@@ -297,7 +297,9 @@ def index():
                 {"track": track} for track in results["tracks"]["items"]
             ]
             playlist_name = keyword
-            collage_filename = url_for("static", filename="tunenest.jpg", _external=True)
+            collage_filename = url_for(
+                "static", filename="tunenest.jpg", _external=True
+            )
             playlist_url = ""
             exceeds_max_tracks = False
         else:
