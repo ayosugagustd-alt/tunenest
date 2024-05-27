@@ -63,7 +63,6 @@ def check_api_keys():
 
 
 # Spotify API Clientを生成して返す。言語設定はしない。
-'''
 def get_spotify_client():
     global spotify_client
     with client_lock:
@@ -76,39 +75,13 @@ def get_spotify_client():
                 language="ja",  # 動的に言語設定
             )
         return spotify_client
-'''
-# IPアドレスから国を判定する関数
-def get_country_from_ip(ip_address):
-    try:
-        response = requests.get(f"https://ipinfo.io/{ip_address}/json")
-        data = response.json()
-        return data.get("country")
-    except Exception as e:
-        print(f"Error getting country from IP: {e}")
-        return None
-
-def get_spotify_client(ip_address):
-    global spotify_client
-    with client_lock:
-        if not spotify_client:
-            country = get_country_from_ip(ip_address)
-            language = "ja" if country == "JP" else "en"
-            spotify_client = Spotify(
-                client_credentials_manager=SpotifyClientCredentials(
-                    client_id=SPOTIFY_CLIENT_ID,
-                    client_secret=SPOTIFY_CLIENT_SECRET
-                ),
-                language=language,  # 動的に言語設定
-            )
-        return spotify_client
-
 
 
 # トラックのIDリストからオーディオ特性をバッチで取得する関数
 # 引数: track_ids (Spotify APIから取得したトラックIDのリスト)
 # 戻り値: トラックIDをキーとし、各トラックのオーディオ特性データを含む辞書
 def get_tracks_audio_features(track_ids):
-    sp = get_spotify_client(request.remote_addr)  # Spotifyクライアントを取得
+    sp = get_spotify_client()  # Spotifyクライアントを取得
     features_dict = {}
 
     # トラックIDのリストを50曲ずつのバッチに分割し、各バッチごとにオーディオ特性を取得
@@ -280,7 +253,7 @@ def format_tempo(tempo):
 def index():
     try:
         # Spotifyクライアントを取得
-        sp = get_spotify_client(request.remote_addr)
+        sp = get_spotify_client()
 
         keyword = request.args.get("keyword")  # クエリからキーワードを受け取る
 
@@ -536,7 +509,7 @@ def get_cached_artist_details(artist_id, sp):
 
 def get_artist_details(artist_id):
     # Spotifyクライアントを取得
-    sp = get_spotify_client(request.remote_addr)
+    sp = get_spotify_client()
 
     # キャッシュされたアーティストの基本情報を取得
     artist_details = get_cached_artist_details(
@@ -586,7 +559,7 @@ def get_artist_details(artist_id):
 # 戻り値: アルバムの詳細情報を含む辞書
 def get_album_details(album_id):
     # Spotifyクライアントの取得
-    sp = get_spotify_client(request.remote_addr)
+    sp = get_spotify_client()
 
     # アルバムIDを使用してアルバム情報を取得
     album = sp.album(album_id, market="JP")
@@ -648,7 +621,7 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
     retries = 0
     while retries <= max_retries:
         try:
-            sp = get_spotify_client(request.remote_addr)  # Spotifyクライアントの取得
+            sp = get_spotify_client()  # Spotifyクライアントの取得
             song_details = get_cached_track(song_id, sp)  # 曲の基本情報を取得
 
             # 曲のオーディオ特性を取得
@@ -718,7 +691,7 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
 # 引数: artist_id (SpotifyのアーティストID), release_type (リリースの種類)
 # 戻り値: 総リリース数
 def count_total_releases(artist_id, release_type):
-    sp = get_spotify_client(request.remote_addr)
+    sp = get_spotify_client()
 
     total_releases = sp.artist_albums(artist_id,
                                       album_type=release_type)["total"]
@@ -729,7 +702,7 @@ def count_total_releases(artist_id, release_type):
 # 引数: artist_id (SpotifyのアーティストID), page (ページ番号), per_page (1ページあたりのアルバム数)
 # 戻り値: アーティストのアルバムと楽曲情報を含む辞書のリスト
 def get_artist_albums_with_songs(artist_id, page, per_page=10):
-    sp = get_spotify_client(request.remote_addr)
+    sp = get_spotify_client()
     offset = (page - 1) * per_page
     limit = per_page
 
@@ -773,7 +746,7 @@ def get_artist_albums_with_songs(artist_id, page, per_page=10):
 # 戻り値: シングル情報とその楽曲を含むリスト
 def get_artist_singles_with_songs(artist_id, page, per_page=10):
     # Spotifyクライアントの取得
-    sp = get_spotify_client(request.remote_addr)
+    sp = get_spotify_client()
     offset = (page - 1) * per_page
     limit = per_page
 
@@ -818,7 +791,7 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
 # 戻り値: コンピレーションアルバムとその楽曲情報を含むリスト
 def get_artist_compilations_with_songs(artist_id, page, per_page=10):
     # Spotifyクライアントを取得
-    sp = get_spotify_client(request.remote_addr)
+    sp = get_spotify_client()
 
     # ページングのためのオフセットとリミットを計算
     offset = (page - 1) * per_page
@@ -1042,7 +1015,7 @@ def search_playlist():
     if not keyword:
         return jsonify({"error": "No keyword provided"}), 400
 
-    sp = get_spotify_client(request.remote_addr)
+    sp = get_spotify_client()
 
     # Spotify APIでキーワードでプレイリストを検索
     results = sp.search(q=keyword, type="playlist", limit=1, market="JP")
@@ -1066,7 +1039,7 @@ def search_artist():
     if not keyword:
         return jsonify({"error": "No keyword provided"}), 400
 
-    sp = get_spotify_client(request.remote_addr)
+    sp = get_spotify_client()
 
     # Spotify APIでキーワードでアーティストを検索
     results = sp.search(q=keyword, type="artist", limit=1, market="JP")
