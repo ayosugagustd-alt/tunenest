@@ -13,14 +13,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no">
-    <meta name="description" content="Artistsの人気度、Genre、Followers数、代表曲、作品一覧を表示します">
+    <meta name="description" content="Artistの人気度、Genre、Followers数、代表曲、作品一覧を表示します">
     <meta name="author" content="hiro">
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ artist['name'] }}の基本情報">
     <meta name="twitter:description" content="{{ artist.name }}の人気度、Genre、Followers数、代表曲、作品一覧を表示します">
     <meta name="twitter:image" content="{{ artist['image_url'] or url_for('static', filename='tunenest.jpg', _external=True) }}?ver=1">
-    <title>{{ artist['name'] }} - Artists基本情報</title>
+    <title>{{ artist['name'] }} - Artist基本情報</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
@@ -46,11 +46,11 @@
             <i class="far fa-star"></i>
           </span>{% endfor %} 
         </span>
-        <p>ジャンル：{{ artist['genres'] | join(', ') }}</p>
-        <p>Spotifyフォロワー数：{{ artist['followers'] }}人</p>
+        <p>Genre：{{ artist['genres'] | join(', ') }}</p>
+        <p>Spotify Followers数：{{ artist['followers'] }}人</p>
         {% if spotify_url %}
         <p>
-          アーティスト情報を<a href="{{ spotify_url }}" target="_blank" rel="noopener">Spotifyで見る</a>
+          Artist情報を<a href="{{ spotify_url }}" target="_blank" rel="noopener">Spotifyで見る</a>
         </p>
         {% endif %}
       </div>
@@ -63,39 +63,39 @@
         </ul>
       </div>
       <div class="section-space">
-        <h2>最新アルバム</h2>{% if latest_album %}
+        <h2>最新Album</h2>{% if latest_album %}
         <ul>
           <li>
-            <a href="{{ url_for('album_details', artist_id=latest_album['artist_id'], album_id=latest_album['id']) }}" title="アルバムの詳細を見る">{{ latest_album['name'] }}</a>
+            <a href="{{ url_for('album_details', artist_id=latest_album['artist_id'], album_id=latest_album['id']) }}" title="Albumの詳細を見る">{{ latest_album['name'] }}</a>
 
           </li>
         </ul>{% else %} 
-        <p>最新アルバムに関する情報はありません。</p>{% endif %}
+        <p>最新Albumに関する情報はありません。</p>{% endif %}
       </div>
       <div class="section-space">
-        <h2>関連アーティスト</h2>
+        <h2>関連Artists</h2>
         <ul>{% for artist in related_artists %} 
           <li>
-            <a href="{{ url_for('artist_details', artist_id=artist['id']) }}" title="アーティストの詳細を見る">{{ artist['name'] }}</a>
+            <a href="{{ url_for('artist_details', artist_id=artist['id']) }}" title="Artistsの詳細を見る">{{ artist['name'] }}</a>
           </li>{% endfor %} 
         </ul>
       </div>
       <div class="section-space">
         <h2>
-          <a href="{{ url_for('all_albums_and_songs_for_artist', artist_id=artist.id) }}">アルバム一覧</a>
+          <a href="{{ url_for('all_albums_and_songs_for_artist', artist_id=artist.id) }}">Albums一覧</a>
         </h2>
         <h2>
-          <a href="{{ url_for('all_singles_and_songs_for_artist', artist_id=artist.id) }}">シングル一覧</a>
+          <a href="{{ url_for('all_singles_and_songs_for_artist', artist_id=artist.id) }}">Singles一覧</a>
         </h2>
         <h2>
-          <a href="{{ url_for('all_compilations_and_songs_for_artist', artist_id=artist.id) }}">コンピ・アルバム一覧</a>
+          <a href="{{ url_for('all_compilations_and_songs_for_artist', artist_id=artist.id) }}">Compilation Albums一覧</a>
         </h2>
       </div>
       <!-- Navigation Icon at the bottom -->
       <div class="home-icon">
-        <a href="/" aria-label="Home" title="ホームに戻る">
+        <a href="/" aria-label="Home" title="Homeに戻る">
           <i class="fas fa-home"></i>
-          <!-- FontAwesomeのホームアイコン -->
+          <!-- FontAwesomeのHomeアイコン -->
         </a>
       </div>
     </div>

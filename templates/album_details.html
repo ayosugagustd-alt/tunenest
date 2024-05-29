@@ -51,17 +51,17 @@
             <i class="far fa-star"></i>
           </span>{% endfor %} 
         </span>
-        <p>アーティスト： 
+        <p>Artist名：
         <ul>{% for artist in album.artists %} 
           <li>
             <a href="{{ url_for('artist_details', artist_id=artist.id) }}" title="アーティストの詳細を見る">{{ artist.name }}</a>
           </li>{% endfor %} 
         </ul>
-        <p>リリース日： {{ album.release_date }}
+        <p>Release日： {{ album.release_date }}
         </p>
       </div>
       <div class="section-space">
-        <h2>トラック一覧</h2>
+        <h2>Tracks一覧</h2>
         <ol>{% for track in album.tracks %} {% set minutes = (track.length / 1000 / 60)|int %} {% set seconds = ((track.length / 1000) % 60)|int %} 
           <li>
             <a href="{{ url_for('song_details', song_id=track.id) }}" title="楽曲の詳細情報を見る">{{ track.name }}</a> ({{ minutes }}:{{ "%02d"|format(seconds) }})
@@ -70,9 +70,9 @@
       </div>
       <!-- Navigation Icon at the bottom -->
       <div class="home-icon">
-        <a href="/" aria-label="Home" title="ホームに戻る">
+        <a href="/" aria-label="Home" title="Homeに戻る">
           <i class="fas fa-home"></i>
-          <!-- FontAwesomeのホームアイコン -->
+          <!-- FontAwesomeのHomeアイコン -->
         </a>
       </div>
     </div>

@@ -71,20 +71,20 @@
             <i class="far fa-star"></i>
           </span>{% endfor %} 
         </span>
-        <p>アーティスト名：</p>
+        <p>Artist名：</p>
         <ul>{% for artist in song.artists %}
           <li>
-            <a href="{{ url_for('artist_details', artist_id=artist.id) }}" title="アーティストの詳細を見る">{{ artist.name }}</a>
+            <a href="{{ url_for('artist_details', artist_id=artist.id) }}" title="Artistの詳細を見る">{{ artist.name }}</a>
           </li>{% endfor %}
         </ul>
         <p>収録作品：
             <a href="{{ url_for('album_details', artist_id=song.artists[0].id, album_id=song.album_id) }}" title="収録作品の詳細を見る">{{ song.album_name }}</a>
         </p>
-        <p>リリース日：{{ song.release_date }}</p>
-        <p>テンポ：{{ song.tempo|float|round(1) }} BPM</p>
-        <p>キー：{{ ["C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"][song.key] }}</p>
-        <p>調性：{{ "メジャー" if song.mode == 1 else "マイナー" }}</p>
-        <p>キャメロット：{{ song.camelot_key }}</p>
+        <p>Release日：{{ song.release_date }}</p>
+        <p>Tempo：{{ song.tempo|float|round(1) }} BPM</p>
+        <p>Key：{{ ["C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"][song.key] }}</p>
+        <p>調性：{{ "Major" if song.mode == 1 else "Minor" }}</p>
+        <p>Camelot：{{ song.camelot_key }}</p>
         <p>再生時間：{{ (song.duration // 60)|int }}:{{ "%02d"|format(song.duration % 60) }} ({{ song.duration|float|round(1) }}秒)</p>
       </div>
       <!-- End of div -->
@@ -94,14 +94,14 @@
             <i class="fas fa-question-circle"></i>
           </a>
         </h2>
-        <!-- code for visual properties -->{{ render_progress_bar("肯定感", song.valence, "progress-valence") }} {{ render_progress_bar("アコースティック度", song.acousticness, "progress-acousticness") }} {{ render_progress_bar("踊りやすさ", song.danceability, "progress-danceability") }} {{ render_progress_bar("エネルギー", song.energy, "progress-energy") }} {{ render_progress_bar("インストゥルメンタル度", song.instrumentalness, "progress-instrumentalness") }} {{ render_progress_bar("ラウドネス（-60 dB ～ 0 dB）", song.loudness_normalized, "progress-loudness", " dB", song.loudness_raw) }} {{ render_progress_bar("ライブ感", song.liveness, "progress-liveness", ) }} {{ render_progress_bar("スピーチ度", song.speechiness, "progress-speechiness") }} 
+        <!-- code for visual properties -->{{ render_progress_bar("肯定感", song.valence, "progress-valence") }} {{ render_progress_bar("Acoustic度", song.acousticness, "progress-acousticness") }} {{ render_progress_bar("踊りやすさ", song.danceability, "progress-danceability") }} {{ render_progress_bar("Energy", song.energy, "progress-energy") }} {{ render_progress_bar("Instrumental度", song.instrumentalness, "progress-instrumentalness") }} {{ render_progress_bar("Loudness（-60 dB ～ 0 dB）", song.loudness_normalized, "progress-loudness", " dB", song.loudness_raw) }} {{ render_progress_bar("Live感", song.liveness, "progress-liveness", ) }} {{ render_progress_bar("Speech度", song.speechiness, "progress-speechiness") }} 
       </div>
       <!-- End of .visual-section -->
       <!-- Navigation Icon at the bottom -->
       <div class="home-icon">
-        <a href="/" aria-label="Home" title="ホームに戻る">
+        <a href="/" aria-label="Home" title="Homeに戻る">
           <i class="fas fa-home"></i>
-          <!-- FontAwesomeのホームアイコン -->
+          <!-- FontAwesomeのHomeアイコン -->
         </a>
       </div>
     </div>

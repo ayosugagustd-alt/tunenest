@@ -15,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="description" content="SinglesとTracksの一覧を表示します">
     <meta name="author" content="hiro">
-    <title>シングル</title>
+    <title>Singles</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
@@ -25,14 +25,14 @@
   </head>
   <body>
     <div class="container">
-      <h1>シングル</h1>{% if total_singles >0 %}
-      <p>シングル総数： {{ total_singles }}枚</p>{% include 'pagination.html' %}
+      <h1>Singles</h1>{% if total_singles >0 %}
+      <p>総数： {{ total_singles }}枚</p>{% include 'pagination.html' %}
       <div>{% for single in singles_with_songs %} 
         <h2>{{ loop.index + (page - 1) * per_page }}. {{ single.name }}</h2>
         <!-- カバー画像表示 -->{% if single.images %} 
         <img src="{{ single.images[0].url }}" alt="カバー画像" style="max-width: 200px;">{% else %} 
         <img src="{{ url_for('static', filename='tunenest.jpg') }}" alt="デフォルト画像" style="max-width: 200px;">{% endif %} 
-        <p>リリース日: {{ single.release_date }}</p>
+        <p>Release日: {{ single.release_date }}</p>
         <ol>{% for track in single.tracks %} 
           <li>
             <a href="{{ url_for('song_details', song_id=track['track_id']) }}" title="楽曲の詳細を見る">{{ track['name'] }}</a>
@@ -42,12 +42,12 @@
         <hr class="album-divider">{% endfor %} 
       </div>{% else %} 
       <p>シングルに関する情報はありません。</p>
-      <a href="{{ url_for('artist_details', artist_id=artist_id) }}">アーティスト詳細へ戻る</a>{% endif %}
+      <a href="{{ url_for('artist_details', artist_id=artist_id) }}">Artist詳細へ戻る</a>{% endif %}
       <!-- Navigation Icon at the bottom -->
       <div class="home-icon">
-        <a href="/" aria-label="Home" title="ホームに戻る">
+        <a href="/" aria-label="Home" title="Homeに戻る">
           <i class="fas fa-home"></i>
-          <!-- FontAwesomeのホームアイコン -->
+          <!-- FontAwesomeのHomeアイコン -->
         </a>
       </div>
     </div>

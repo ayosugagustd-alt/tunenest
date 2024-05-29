@@ -4,5 +4,5 @@
   < total_pages %} 
   <a href="{{ url_for(request.endpoint, artist_id=artist_id, page=page+1) }}">次へ</a>{% endif %}
 </div>
-<!-- アーティスト詳細へ戻るリンクの追加 -->
-<a href="{{ url_for('artist_details', artist_id=artist_id) }}">アーティス詳細へ戻る</a>
+<!-- Artist詳細へ戻るリンクの追加 -->
+<a href="{{ url_for('artist_details', artist_id=artist_id) }}">Artist詳細へ戻る</a>

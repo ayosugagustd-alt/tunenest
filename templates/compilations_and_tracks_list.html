@@ -25,34 +25,34 @@
   </head>
   <body>
     <div class="container">
-      <h1>コンピ・アルバム</h1>{% if total_compilations >0 %}
-      <p>コンピレーション・アルバムの総数：{{ total_compilations }}枚</p>{% include 'pagination.html' %}
+      <h1>Compilation Albums</h1>{% if total_compilations >0 %}
+      <p>総数：{{ total_compilations }}枚</p>{% include 'pagination.html' %}
       <div>{% for compilation in compilations_with_songs %} 
         <h2>
-          <a href="{{ url_for('album_details', artist_id=compilation['artist_id'], album_id=compilation['compilation_id']) }}" title="アルバムの詳細を見る">
+          <a href="{{ url_for('album_details', artist_id=compilation['artist_id'], album_id=compilation['compilation_id']) }}" title="Albumの詳細を見る">
   {{ loop.index + (page - 1) * per_page }}. {{ compilation.name }}
           </a>
         </h2>
         <!-- カバー画像表示 -->{% if compilation.images %} 
         <img src="{{ compilation.images[0].url }}" alt="カバー画像" style="max-width: 200px;">{% else %} 
         <img src="{{ url_for('static', filename='tunenest.jpg') }}" alt="デフォルト画像" style="max-width: 200px;">{% endif %} 
-        <p>リリース日: {{ compilation.release_date }}</p>
-        <p>トラック数： {{ compilation['total_tracks'] }}</p>
+        <p>Release日: {{ compilation.release_date }}</p>
+        <p>Tracks数： {{ compilation['total_tracks'] }}</p>
         <ol>{% for track in compilation.tracks %} 
           <li>
             <a href="{{ url_for('song_details', song_id=track['track_id']) }}" title="楽曲の詳細を見る">{{ track['name'] }}</a>
           </li>{% endfor %} 
         </ol>
-        <!-- アルバム間の区切り線 -->
+        <!-- Album間の区切り線 -->
         <hr class="album-divider">{% endfor %} 
       </div>{% else %} 
-      <p>コンピレーション・アルバムに関する情報はありません。</p>
-      <a href="{{ url_for('artist_details', artist_id=artist_id) }}">アーティスト詳細へ戻る</a>{% endif %}
+      <p>Compilation Albumsに関する情報はありません。</p>
+      <a href="{{ url_for('artist_details', artist_id=artist_id) }}">Artist詳細へ戻る</a>{% endif %}
       <!-- Navigation Icon at the bottom -->
       <div class="home-icon">
-        <a href="/" aria-label="Home" title="ホームに戻る">
+        <a href="/" aria-label="Home" title="Homeに戻る">
           <i class="fas fa-home"></i>
-          <!-- FontAwesomeのホームアイコン -->
+          <!-- FontAwesomeのHomeアイコン -->
         </a>
       </div>
     </div>
