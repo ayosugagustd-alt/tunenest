@@ -75,10 +75,11 @@
       {% endif %} 
       <div id="playlist-controls" lang="ja">
         <select class="search-input" id="playlistDropdown">
-          <option value="" disabled selected style="display:none;">Tracks、Artists、Playlists検索</option>
+          <option value="" disabled selected style="display:none;">Tracks、Album, Artist、Playlist検索</option>
           <option value="searchTrack" class="special-option">&#x1F50D; Tracks検索</option>
-          <option value="searchArtist" class="special-option">&#x1F50D; Artists検索</option>
-          <option value="searchPlaylist" class="special-option">&#x1F50D; Playlists検索</option>
+          <option value="searchAlbum" class="special-option">&#x1F50D; Album検索</option>
+          <option value="searchArtist" class="special-option">&#x1F50D; Artist検索</option>
+          <option value="searchPlaylist" class="special-option">&#x1F50D; Playlist検索</option>
           <!-- カテゴリごとのグループ -->{% for category, items in playlists_grouped.items() %} 
           <optgroup label="&#x1F3B5;{{ category }}">{% for id, name in items %} 
             <option value="{{ id }}">&#x2022;{{ name }}</option>{% endfor %}
@@ -419,15 +420,19 @@
                 switch (selectedOption) {
                     case 'searchTrack':
                         searchBox.style.display = 'flex';
-                        keywordInput.placeholder = "Tracks名、Artists名を入力……";
+                        keywordInput.placeholder = "Track名、Artist名を入力……";
+                        break;
+                    case 'searchAlbum':
+                        searchBox.style.display = 'flex';
+                        keywordInput.placeholder = "Album名を入力……";
                         break;
                     case 'searchArtist':
                         searchBox.style.display = 'flex';
-                        keywordInput.placeholder = "Artists名を入力……";
+                        keywordInput.placeholder = "Artist名を入力……";
                         break;
                     case 'searchPlaylist':
                         searchBox.style.display = 'flex';
-                        keywordInput.placeholder = "Playlists名を入力……";
+                        keywordInput.placeholder = "Playlist名を入力……";
                         break;
                     default:
                         searchBox.style.display = 'none';
@@ -495,6 +500,30 @@
                         .catch(error => {
                             console.error('Error searching artist:', error);
                         });
+                } else if (playlistDropdown.value === 'searchAlbum') {
+                    apiEndpoint = `/search_album?keyword=${encodeURIComponent(keyword)}`;
+
+                    fetch(apiEndpoint)
+                        .then(response => {
+                            if (response.ok) {
+                                return response.json();
+                            }
+                            throw new Error('Search failed: ' + response.statusText);
+                        })
+                        .then(data => {
+                            if (data.album_id) {
+                                // デバイスタイプに基づいてリダイレクトまたは新しいタブを開く
+                                const albumUrl = `/artist/${data.artist_id}/albums/${data.album_id}`;
+                                if (isMobileDevice()) {
+                                    window.location.href = albumUrl; // モバイルの場合は同じタブで開く
+                                } else {
+                                    window.open(albumUrl, '_blank'); // PCの場合は新しいタブで開く
+                                }
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error searching album:', error);
+                        });
                 }
             }
 
@@ -545,7 +574,8 @@
             // プレイリストIDがURLにない場合、ドロップダウンから取得して設定
             if (!params.has('playlist_id')) {
                 const playlistId = document.getElementById('playlistDropdown').value;
-                if (playlistId && playlistId !== 'searchTrack' && playlistId !== 'searchArtist' && playlistId !== 'searchPlaylist') {
+                const searchOptions = ['searchTrack', 'searchAlbum', 'searchArtist', 'searchPlaylist'];
+                if (playlistId && !searchOptions.includes(playlistId)) {
                     params.set('playlist_id', playlistId);
                 } else {
                     params.set('playlist_id', defaultPlaylistId); // デフォルトのプレイリストIDを設定

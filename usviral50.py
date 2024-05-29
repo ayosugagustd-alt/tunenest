@@ -1059,6 +1059,34 @@ def search_artist():
     return jsonify({"artist_id": artist_id})
 
 
+# キーワードでアルバムを検索する新しいルート
+@app.route("/search_album", methods=["GET"])
+def search_album():
+    keyword = request.args.get("keyword")
+    if not keyword:
+        return jsonify({"error": "No keyword provided"}), 400
+
+    sp = get_spotify_client()
+
+    # Spotify APIでキーワードでアルバムを検索
+    results = sp.search(q=keyword, type="album", limit=1, market="JP")
+    if (
+        not results
+        or not results.get("albums")
+        or not results["albums"].get("items")
+    ):
+        return jsonify({"error": "No albums found"}), 404
+
+    album = results["albums"]["items"][0]
+    album_id = album["id"]
+    artist_id = album["artists"][0]["id"]  # 最初のアーティストのIDを取得
+
+
+    # 必要に応じて他の情報も含められますが、album_idとartist_idを返す
+    return jsonify({"album_id": album_id, "artist_id": artist_id})
+
+
+
 # メインのエントリーポイント
 # スクリプトが直接実行された場合に以下のコードが実行される
 if __name__ == "__main__":
