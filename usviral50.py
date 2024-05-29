@@ -1081,10 +1081,8 @@ def search_album():
     album_id = album["id"]
     artist_id = album["artists"][0]["id"]  # 最初のアーティストのIDを取得
 
-
     # 必要に応じて他の情報も含められますが、album_idとartist_idを返す
     return jsonify({"album_id": album_id, "artist_id": artist_id})
-
 
 
 # メインのエントリーポイント
