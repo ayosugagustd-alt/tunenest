@@ -1,76 +1,47 @@
 {
     "Pop": {
-        "37i9dQZEVXbKXQ4mDTEBXq": "トップ50",
-        "37i9dQZF1DXafb0IuPwJyF": "Tokyo Super Hits!",
-        "37i9dQZF1DXayDMsJG9ZBv": "Hot Hits Japan:洋楽&邦楽ヒッツ",
-        "37i9dQZF1DX9vYRBO9gjDe": "Spotify Japan 急上昇チャート",
-        "37i9dQZF1DXbR32Ldau7WM": "Big in Japan",
-        "37i9dQZF1DX6ntWKaOqGAp": "J-Rock ON!!",
-        "37i9dQZF1DX6UkADhBpEnE": "元気Booster",
         "37i9dQZF1DWYBDycFJuxRt": "New Music Wednesday",
-        "37i9dQZF1DX4o1oenSJRJd": "All Out 2000s",
-        "37i9dQZF1DX5Ejj0EkURtP": "All Out 2010s",
-        "37i9dQZF1DX4UtSsGT1Sbe": "All Out 80s",
-        "37i9dQZF1DWWMOmoXKqHTD": "Songs to Sing in the Car",
-        "37i9dQZF1DXcBWIGoYBM5M": "Today's Top Hits"
+        "37i9dQZF1DXcBWIGoYBM5M": "Today's Top Hits",
+        "37i9dQZF1DXayDMsJG9ZBv": "Hot Hits Japan",
+        "37i9dQZF1DWZvuOKNcLsjv": "Pop Rising Japan"
+    },
+    "Trends": {
+        "37i9dQZF1DX2L0iB23Enbq": "Viral Hits",
+        "37i9dQZF1DWX9u2doQ8Q2L": "Tokyo Rising",
+        "37i9dQZF1DWZZbpkxU5t9L": "Weekly Buzz Tokyo"
+    },
+    "HipHop": {
+        "37i9dQZF1DX0XUsuxWHRQd": "RapCaviar",
+        "37i9dQZF1DWY6tYEFs22tT": "Hip-Hop Central",
+        "37i9dQZF1DX0Eftsfm2dbT": "J-Hip Hopの「今」と「その先」"
+    },
+    "Rock": {
+        "37i9dQZF1DWXRqgorJj26U": "Rock Classics",
+        "37i9dQZF1DX6MUrG3NBYtM": "Alternative Hits",
+        "37i9dQZF1DXd6tJtr4qeot": "Punk Essentials",
+        "37i9dQZF1DX54Fkcz35jfT": "Loud Rock Japan"
+    },
+    "Chill": {
+        "37i9dQZF1DX4sWSpwq3LiO": "Peaceful Piano",
+        "37i9dQZF1DX4WYpdgoIcn6": "Chill Hits",
+        "37i9dQZF1DWWQRwui0ExPn": "lofi beats"
+    },
+    "Electronic": {
+        "37i9dQZF1DXaXB8fQg7xif": "Dance Party",
+        "6vDGVr652ztNWKZuHvsFvx": "Deep House 2024"
     },
     "Anime": {
         "37i9dQZF1DWT8aqnwgRt92": "Anime Now",
         "37i9dQZF1DX0hAXqBDwvwI": "Anime On Replay",
         "37i9dQZF1DX7GTqMQDhOum": "This Is スタジオジブリ"
     },
-    "Rock": {
-        "37i9dQZF1DX7uwh9GrVLfz": "Punk Japan",
-        "37i9dQZF1DX54Fkcz35jfT": "Loud Rock Japan",
-        "37i9dQZF1DWXRqgorJj26U": "Rock Classics"
-    },
-    "HipHop": {
-        "37i9dQZF1DX0Eftsfm2dbT": "+81 Connect:J-Hip Hopの「今」と「その先」",
-        "37i9dQZF1DX0XUsuxWHRQd": "RapCaviar"
-    },
-    "Trends": {
-        "37i9dQZF1DXdTxsEGukhp4": "Buzz Tracker #バズトラ",
-        "37i9dQZF1DX3diUVrKEuXr": "Buzz On TV",
-        "37i9dQZF1DWZvuOKNcLsjv": "Pop Rising Japan",
-        "37i9dQZF1DXdbRLJPSmnyq": "J-Pop Hits",
-        "37i9dQZF1DWZZbpkxU5t9L": "Weekly Buzz Tokyo",
-        "37i9dQZF1DX9YBuWaMN8SH": "MUSIC STATION"
-    },
-    "Charts": {
-        "37i9dQZEVXbKqiTGXuCOsB": "トップソング",
-        "37i9dQZEVXbINTEnbFeb8d": "バイラルトップ50",
-        "37i9dQZEVXbMDoHDwVN2tF": "Global Top 50"
-    },
-    "J-Tracks": {
-        "37i9dQZF1DXdurasRmJgpJ": "令和ポップス",
-        "37i9dQZF1DXdcuhTbpro3s": "100 MILLION+:1億超えヒット",
-        "37i9dQZF1DX9ww9tisjowN": "Gacha Pop"
-    },
-    "Festival": {
-        "37i9dQZF1DXebjPzM8sHrq": "CIRCLE '24",
-        "37i9dQZF1DWXdNeZPvs2jt": "SWEET LOVE SHOWER SPRING 2024"
-    },
-    "CityPop": {
-        "37i9dQZF1DX4CovPIZya4z": "Tokyo City Pop 記憶の記録LIBRARY",
-        "37i9dQZF1DXdY5tVYFPWb2": "City Pop:CityPopの今",
-        "37i9dQZF1DX8zwfXO8sDE6": "City Pop '70s",
-        "37i9dQZF1DWW28hvtiO3j9": "City Pop '80s",
-        "37i9dQZF1DXcCtECOOdtm1": "City Pop '90s",
-        "37i9dQZF1DX0cgcWoYFXZp": "City Pop '00s"
-    },
-    "渋谷系": {
-        "37i9dQZF1DXdYheMAEsHvB": "ぼくらが渋谷系を聴く理由"
+    "Workout": {
+        "37i9dQZF1DX76Wlfdnj7AP": "Beast Mode"
     },
     "Indie": {
         "37i9dQZF1DWUcJb0bNFBm0": "HAZE",
         "37i9dQZF1DX3UWlNiixH0j": "Edge!",
         "37i9dQZF1DWVV27DiNWxkR": "Sad Indie"
-    },
-    "Jazz": {
-        "37i9dQZF1DWWGewPG5S5oE": "Moder Jazz Japan",
-        "37i9dQZF1DWXHgXkgBOlTI": "Jazz Fusion Japan",
-        "37i9dQZF1DX5j8zvqWqinB": "Jazz Classics Japan",
-        "37i9dQZF1DX7y701eUPO5a": "Club Jazz Japan"
     },
     "Mood": {
         "37i9dQZF1DWTbkKlc06FmH": "都会の空と音楽と",
@@ -78,7 +49,7 @@
         "37i9dQZF1DXdxPR0maUKqu": "夕方ジェネレーション",
         "37i9dQZF1DX889DuwlJCDK": "青春と一瞬"
     },
-    "年代別": {
+    "Decades": {
         "37i9dQZF1DWYQelb54GZmT": "平成ポップヒストリー",
         "37i9dQZF1DX2QCBqV8Ylrq": "昭和ポップス",
         "37i9dQZF1DWSJ2HaYo0hDG": "My Generation '70s",
@@ -87,18 +58,21 @@
         "37i9dQZF1DX4OQAiraQRL0": "My Generation '00s",
         "37i9dQZF1DX0AAB8d81Iqz": "My Generation '10s"
     },
-    "Latin": {
-        "37i9dQZF1DX10zKzsJ2jva": "¡Viva Latino"
+    "CityPop": {
+        "37i9dQZF1DX4CovPIZya4z": "Tokyo City Pop",
+        "37i9dQZF1DXdY5tVYFPWb2": "CityPopの今",
+        "37i9dQZF1DX8zwfXO8sDE6": "City Pop '70s",
+        "37i9dQZF1DWW28hvtiO3j9": "City Pop '80s",
+        "37i9dQZF1DXcCtECOOdtm1": "City Pop '90s",
+        "37i9dQZF1DX0cgcWoYFXZp": "City Pop '00s"
     },
-    "Workout": {
-        "37i9dQZF1DX76Wlfdnj7AP": "Beast Mode"
+    "渋谷系": {
+        "37i9dQZF1DXdYheMAEsHvB": "ぼくらが渋谷系を聴く理由"
     },
-    "Chill": {
-        "37i9dQZF1DX4sWSpwq3LiO": "Peaceful Piano",
-        "0vvXsWCC9xrXsKd4FyS8kM": "Lofi Girl",
-        "1C7kzjKP2Ya0oFcxV5VcjK": "Majestic Casual"
-    },
-    "Electronic": {
-        "6vDGVr652ztNWKZuHvsFvx": "Deep House 2024"
+    "Jazz": {
+        "37i9dQZF1DWWGewPG5S5oE": "Moder Jazz Japan",
+        "37i9dQZF1DWXHgXkgBOlTI": "Jazz Fusion Japan",
+        "37i9dQZF1DX5j8zvqWqinB": "Jazz Classics Japan",
+        "37i9dQZF1DX7y701eUPO5a": "Club Jazz Japan"
     }
 }
