@@ -46,7 +46,7 @@ try:
         # playlistsはインデックスページのルーティング処理で参照する
         playlists = json.load(f)
         default_playlist_id = next(
-            iter(playlists.keys())
+            iter(playlists.get("Pop", {}).keys())
         )  # 最初のキーをデフォルトIDとして使用
 except FileNotFoundError:
     logging.warning("playlists.jsonが見つかりません。")
@@ -462,16 +462,10 @@ def index():
 
         # カテゴリごとにプレイリストを整理
         playlists_grouped = defaultdict(list)
-        for id, name in playlists.items():
-            try:
-                category, temp_playlist_name = name.split(" : ", 1)
-                playlists_grouped[category].append((id, temp_playlist_name))
-            except ValueError as e:
-                error = (
-                    f"Error occurred with playlist ID: {id}, name: '{name}'. "
-                    f"Error message: {str(e)}"
-                )
-                return render_template("error.html", error=error)
+        # for id, name in playlists.items():
+        for category, playlist_dict in playlists.items():
+            for id, name in playlist_dict.items():
+                playlists_grouped[category].append((id, name))
 
         # HTMLテンプレートをレンダリング
         return render_template(
