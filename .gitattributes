@@ -1,1 +1,19 @@
+# 一般的なテキストファイルの自動改行変換
 * text=auto
+
+# Pythonファイルを明示的にテキストとして扱う
+*.py text
+
+# HTML、CSSファイルを明示的にテキストとして扱う
+*.html text
+*.css text
+
+# 画像ファイルをバイナリとして扱う
+*.png binary
+*.jpg binary
+
+# JSONファイルを明示的にテキストとして扱う
+*.json text
+
+# マージ時の競合を防ぐための設定
+*.lock merge=union
