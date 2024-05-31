@@ -465,6 +465,14 @@ footer {
     background-color: white;
 }
 
+a i.fa-spotify {
+  color: #1DB954; /* Spotifyの色 */
+}
+
+a i.fa-wikipedia-w {
+  color: #000000; /* Wikipediaの色 */
+}
+
 
 @media (max-width: 375px) {
     body {

@@ -48,13 +48,15 @@
         </span>
         <p>Genre：{{ artist['genres'] | join(', ') }}</p>
         <p>Spotify Followers数：{{ artist['followers'] }}人</p>
-        {% if spotify_url %}
         <p>
-          <a href="{{ spotify_url }}" target="_blank" rel="noopener noreferrer" title="Spotifyで見る">Spotifyで見る</a>
-        </p>
-        {% endif %}
-        <p>
-          <a href="https://ja.wikipedia.org/wiki/Special:Search?search={{ artist['name'] }}" target="_blank" rel="noopener noreferrer" title="Wikipediaで見る">Wikipediaで見る</a>
+          {% if spotify_url %}
+            <a href="{{ spotify_url }}" target="_blank" rel="noopener noreferrer" title="Spotifyで見る">
+              <i class="fab fa-spotify"></i> で見る
+            </a> / 
+          {% endif %}
+          <a href="https://ja.wikipedia.org/wiki/Special:Search?search={{ artist['name'] }}" target="_blank" rel="noopener noreferrer" title="Wikipediaで見る">
+            <i class="fab fa-wikipedia-w"></i>で見る
+          </a>
         </p>
       </div>
       <div class="section-space">
