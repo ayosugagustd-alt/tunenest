@@ -36,7 +36,7 @@
     }
     </script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='f_f_event_43_s16_f_event_43_0nbg.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='f_f_event_43_s32_f_event_43_0nbg.png') }}">
@@ -86,6 +86,10 @@
         <p>調性：{{ "Major" if song.mode == 1 else "Minor" }}</p>
         <p>Camelot：{{ song.camelot_key }}</p>
         <p>再生時間：{{ (song.duration // 60)|int }}:{{ "%02d"|format(song.duration % 60) }} ({{ song.duration|float|round(1) }}秒)</p>
+        <div>
+            <a href="https://twitter.com/intent/tweet?text={{ song.name }} - {{ song.artists | map(attribute='name') | join(', ') }} {{ request.url }}" target="_blank" title="XでShare">
+                <i class="fab fa-x-twitter"></i></a>でShare
+        </div>
       </div>
       <!-- End of div -->
       <div class="visual-section">
