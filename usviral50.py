@@ -46,7 +46,7 @@ try:
         # playlistsはインデックスページのルーティング処理で参照する
         playlists = json.load(f)
         default_playlist_id = next(
-            iter(playlists.get("New", {}).keys())
+            iter(playlists.get("Viral", {}).keys())
         )  # 最初のキーをデフォルトIDとして使用
 except FileNotFoundError:
     logging.warning("playlists.jsonが見つかりません。")
