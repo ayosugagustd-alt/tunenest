@@ -50,9 +50,12 @@
         <p>Spotify Followers数：{{ artist['followers'] }}人</p>
         {% if spotify_url %}
         <p>
-          Artist情報を<a href="{{ spotify_url }}" target="_blank" rel="noopener">Spotifyで見る</a>
+          <a href="{{ spotify_url }}" target="_blank" rel="noopener noreferrer" title="Spotifyで見る">Spotifyで見る</a>
         </p>
         {% endif %}
+        <p>
+          <a href="https://ja.wikipedia.org/wiki/Special:Search?search={{ artist['name'] }}" target="_blank" rel="noopener noreferrer" title="Wikipediaで見る">Wikipediaで見る</a>
+        </p>
       </div>
       <div class="section-space">
         <h2>代表曲</h2>

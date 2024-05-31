@@ -87,8 +87,8 @@
         <p>Camelot：{{ song.camelot_key }}</p>
         <p>再生時間：{{ (song.duration // 60)|int }}:{{ "%02d"|format(song.duration % 60) }} ({{ song.duration|float|round(1) }}秒)</p>
         <div>
-            <a href="https://twitter.com/intent/tweet?text={{ song.name }} - {{ song.artists | map(attribute='name') | join(', ') }} {{ request.url }}" target="_blank" title="XでShare">
-                <i class="fab fa-x-twitter"></i></a>でShare
+            <a href="https://twitter.com/intent/tweet?text={{ song.name }} - {{ song.artists | map(attribute='name') | join(', ') }} {{ request.url }}" target="_blank" rel="noopener noreferrer" title="XでShare">
+                <i class="fab fa-x-twitter"></i>でShare</a>
         </div>
       </div>
       <!-- End of div -->
