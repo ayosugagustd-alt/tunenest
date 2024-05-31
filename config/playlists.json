@@ -1,12 +1,11 @@
 {
     "New": {
-        "37i9dQZF1DWYBDycFJuxRt": "New Music Wednesday",
-        "37i9dQZF1DX4JAvHpjipBk": "New Music Friday"
+        "37i9dQZF1DX4JAvHpjipBk": "New Music Friday",
+        "37i9dQZF1DWYBDycFJuxRt": "New Music Wednesday"
     },
     "Viral": {
         "37i9dQZEVXbINTEnbFeb8d": "Viral 50 Japan",
-        "37i9dQZEVXbLiRSasKsNU9": "Viral 50 Global",
-        "37i9dQZF1DX2L0iB23Enbq": "Viral Hits"
+        "37i9dQZEVXbLiRSasKsNU9": "Viral 50 Global"
     },
     "Buzz": {
         "37i9dQZF1DXdTxsEGukhp4": "Buzz Tracker",
@@ -15,11 +14,5 @@
     "Indie": {
         "37i9dQZF1DX3UWlNiixH0j": "Edge!",
         "37i9dQZF1DWVV27DiNWxkR": "Sad Indie"
-    },
-    "EDM": {
-        "37i9dQZF1DX4dyzvuaRJ0n": "mint"
-    },
-    "HipHop": {
-        "37i9dQZF1DWTggY0yqBxES": "Alternative Hip Hop"
     }
 }
