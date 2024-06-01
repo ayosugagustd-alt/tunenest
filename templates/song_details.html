@@ -86,6 +86,11 @@
         <p>調性：{{ "Major" if song.mode == 1 else "Minor" }}</p>
         <p>Camelot：{{ song.camelot_key }}</p>
         <p>再生時間：{{ (song.duration // 60)|int }}:{{ "%02d"|format(song.duration % 60) }} ({{ song.duration|float|round(1) }}秒)</p>
+        <p>歌詞：
+          <a href="{{ song.genius_lyrics_url }}" target="_blank" rel="noopener noreferrer" title="Geniusで歌詞を見る">
+            Geniusで歌詞を見る
+          </a>
+        </p>
         <div>
             <a href="https://twitter.com/intent/tweet?text={{ song.name }} - {{ song.artists | map(attribute='name') | join(', ') }} {{ request.url }}" target="_blank" rel="noopener noreferrer" title="XでShare">
                 <i class="fab fa-x-twitter"></i>でShare</a>
