@@ -1,18 +1,36 @@
 {
-    "Viral": {
-        "37i9dQZEVXbINTEnbFeb8d": "Viral 50 Japan",
-        "37i9dQZEVXbLiRSasKsNU9": "Viral 50 Global"
-    },
-    "New": {
+    "Japan": {
+        "37i9dQZF1DWT8aqnwgRt92": "Anime Now",
+        "37i9dQZF1DWX9u2doQ8Q2L": "Tokyo Rising",
+        "37i9dQZF1DXayDMsJG9ZBv": "Hot Hits Japan",
+        "37i9dQZF1DX9vYRBO9gjDe": "Spotify Japan 急上昇チャート",
+        "37i9dQZF1DX6ntWKaOqGAp": "J-Rock ON!!",
+        "37i9dQZF1DX8XStIuaEA9J": "Teen Culture",
         "37i9dQZF1DWYBDycFJuxRt": "New Music Wednesday",
-        "37i9dQZF1DXc57cuGAMEkA": "New Music Friday Japan"
+        "37i9dQZF1DXdY5tVYFPWb2": "City Pop:シティ・ポップの今",
+        "37i9dQZF1DX6UkADhBpEnE": "元気Booser",
+        "37i9dQZF1DX0Eftsfm2dbT": "+81 Connect: J-Hip Hopの「今」と「その先」"
     },
-    "Buzz": {
-        "37i9dQZF1DXdTxsEGukhp4": "Buzz Tracker",
-        "37i9dQZF1DWZZbpkxU5t9L": "Weekly Buzz Tokyo"
-    },
-    "Indie": {
-        "37i9dQZF1DX3UWlNiixH0j": "Edge!",
-        "37i9dQZF1DWVV27DiNWxkR": "Sad Indie"
+    "Global ": {
+        "37i9dQZF1DXcBWIGoYBM5M": "Today’s Top Hits",
+        "37i9dQZF1DX0XUsuxWHRQd": "RapCaviar",
+        "37i9dQZF1DX10zKzsJ2jva": "Viva Latino",
+        "37i9dQZF1DX4o1oenSJRJd": "All Out 2000s",
+        "37i9dQZF1DWXRqgorJj26U": "Rock Classics",
+        "37i9dQZF1DX5Ejj0EkURtP": "All Out 2010s",
+        "37i9dQZF1DX4UtSsGT1Sbe": "All Out 80s",
+        "37i9dQZF1DWWMOmoXKqHTD": "Songs to Sing in the Car",
+        "37i9dQZF1DWY7IeIP1cdjF": "Baila Reggaeton",
+        "37i9dQZF1DX76Wlfdnj7AP": "Beast Mode",
+        "37i9dQZF1DWZjqjZMudx9T": "MANSIÓN REGGAETÓN",
+        "37i9dQZF1DXaXB8fQg7xif": "Dance Party",
+        "37i9dQZF1DX4WYpdgoIcn6": "Chill Hits",
+        "37i9dQZF1DX186v583rmzp": "I Love My '90s Hip-Hop",
+        "37i9dQZF1DX0FOF1IUWK1W": "Top Brasil",
+        "37i9dQZF1DXbTxeAdrVG2l": "All Out 90s",
+        "37i9dQZF1DWWY64wDtewQt": "phonk",
+        "37i9dQZF1DX3rxVfibe1L0": "Mood Booster",
+        "37i9dQZF1DXdSjVZQzv2tl": "Esquenta Sertanejo",
+        "37i9dQZF1DWSqmBTGDYngZ": "Songs to Sing in the Shower"
     }
 }
