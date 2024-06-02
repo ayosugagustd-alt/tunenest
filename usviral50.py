@@ -650,11 +650,6 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
             loudness_raw = audio_features["loudness"]
             loudness_normalized = normalize_loudness(loudness_raw)
 
-            # Genius歌詞リンクを生成
-            track_title = song_details["name"]
-            artist_name = song_details["artists"][0]["name"]  # 最初のアーティストを使用
-            genius_lyrics_url = generate_genius_lyrics_url(track_title, artist_name)
-
             # 成功した場合、曲の詳細情報を返す
             return {
                 "acousticness": audio_features["acousticness"] * 100,
@@ -679,7 +674,6 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
                 "speechiness": audio_features["speechiness"] * 100,
                 "loudness_normalized": loudness_normalized,
                 "loudness_raw": loudness_raw,
-                "genius_lyrics_url": genius_lyrics_url, # Genius歌詞リンク
             }
         except Exception as e:  # タイムアウトやその他の例外をキャッチ
             logging.error(f"An error occurred: {e}. Retrying...")
@@ -834,11 +828,6 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
         result.append(compilation_info)
 
     return result
-
-def generate_genius_lyrics_url(track_title, artist_name):
-    base_url = "https://genius.com/search"
-    query = f"{track_title} {artist_name}"
-    return f"{base_url}?q={query}"
 
 
 # アーティスト詳細ページ
