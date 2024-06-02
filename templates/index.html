@@ -76,10 +76,10 @@
       <div id="playlist-controls" lang="ja">
         <select class="search-input" id="playlistDropdown">
           <option value="" disabled selected style="display:none;">Keywordで検索またはPlaylistを選択</option>
-          <option value="searchPlaylist" class="special-option">&#x1F50D; Playlist検索</option>
           <option value="searchTrack" class="special-option">&#x1F50D; Track検索</option>
           <option value="searchAlbum" class="special-option">&#x1F50D; Album検索</option>
           <option value="searchArtist" class="special-option">&#x1F50D; Artist検索</option>
+          <option value="searchPlaylist" class="special-option">&#x1F50D; Playlist検索</option>
           <!-- カテゴリごとのグループ -->{% for category, items in playlists_grouped.items() %} 
           <optgroup label="&#x1F3B5;{{ category }}">{% for id, name in items %} 
             <option value="{{ id }}">&#x2022;{{ name }}</option>{% endfor %}
