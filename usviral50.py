@@ -307,6 +307,7 @@ def index():
             )
             playlist_url = ""
             exceeds_max_tracks = False
+            playlist_followers = None
         else:
             # プレイリストの詳細情報を取得
             playlist_details = sp.playlist(playlist_id, market="JP")

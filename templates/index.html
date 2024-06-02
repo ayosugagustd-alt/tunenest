@@ -65,13 +65,15 @@
       {% else %}
         <h1>{{ playlist_name }}</h1>
       {% endif %}
-      {% if playlist_description %}
-        <h4>followers数：{{ playlist_followers|number_format }}人
+      <h4>
+        {% if playlist_followers %}
+          followers数：{{ playlist_followers|number_format }}人
+        {% endif %}
+        {% if playlist_description %}
           <br>
             {{ playlist_description|safe }}
-          </br>
-        </h4>
-      {% endif %}
+        {% endif %}
+      </h4>
       {% if exceeds_max_tracks %}
       <h4>
         <i class="fas fa-exclamation-triangle"></i>{{ playlist_name }}は501曲以上ありますが、最初の500曲のみ表示しています。
