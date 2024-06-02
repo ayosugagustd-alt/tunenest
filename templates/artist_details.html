@@ -47,7 +47,7 @@
           </span>{% endfor %} 
         </span>
         <p>Genre：{{ artist['genres'] | join(', ') }}</p>
-        <p>Spotify Followers数：{{ artist['followers'] }}人</p>
+        <p>Spotify Followers数：{{ artist['followers']|number_format }}人</p>
         <p>
           {% if spotify_url %}
             <a href="{{ spotify_url }}" target="_blank" rel="noopener noreferrer" title="Spotifyで見る">
