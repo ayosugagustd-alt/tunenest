@@ -66,7 +66,11 @@
         <h1>{{ playlist_name }}</h1>
       {% endif %}
       {% if playlist_description %}
-        <h4>{{ playlist_description|safe }}</h4>
+        <h4>followers数：{{ playlist_followers|number_format }}人
+          <br>
+            {{ playlist_description|safe }}
+          </br>
+        </h4>
       {% endif %}
       {% if exceeds_max_tracks %}
       <h4>

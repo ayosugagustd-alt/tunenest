@@ -30,6 +30,11 @@ SPOTIFY_CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET", None)
 
 app = Flask(__name__)
 
+# カスタムフィルターを追加
+@app.template_filter('number_format')
+def number_format(value):
+    return "{:,}".format(value)
+
 # グローバル変数とロックを初期化
 spotify_client = None
 client_lock = Lock()
@@ -306,6 +311,9 @@ def index():
             # プレイリストの詳細情報を取得
             playlist_details = sp.playlist(playlist_id, market="JP")
 
+            # プレイリストのフォロワー数を取得
+            playlist_followers = playlist_details["followers"]["total"]
+
             # クエリパラメータからプレイリスト説明を取得
             custom_description = request.args.get("description")
             if custom_description:
@@ -478,6 +486,7 @@ def index():
             playlist_url=playlist_url,
             exceeds_max_tracks=exceeds_max_tracks,
             default_playlist_id=default_playlist_id,
+            playlist_followers=playlist_followers,
         )
     except Exception as e:
         # エラーページを表示
