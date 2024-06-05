@@ -41,6 +41,7 @@ client_lock = Lock()
 
 # playlists変数の初期化
 playlists = None
+playlists_grouped = defaultdict(list)  # カテゴリごとにプレイリストを整理する辞書の初期化
 
 # default_playlist_id変数の初期化
 default_playlist_id = None
@@ -53,6 +54,11 @@ try:
         default_playlist_id = next(
             iter(playlists.get("Indie", {}).keys())
         )  # 最初のキーをデフォルトIDとして使用
+
+        # カテゴリごとにプレイリストを整理
+        for category, playlist_dict in playlists.items():
+            for id, name in playlist_dict.items():
+                playlists_grouped[category].append((id, name))
 except FileNotFoundError:
     logging.warning("playlists.jsonが見つかりません。")
 except json.JSONDecodeError:
@@ -468,13 +474,6 @@ def index():
             valid_tracks_info.sort(
                 key=lambda x: x["popularity"], reverse=reverse_sort
             )
-
-        # カテゴリごとにプレイリストを整理
-        playlists_grouped = defaultdict(list)
-        # for id, name in playlists.items():
-        for category, playlist_dict in playlists.items():
-            for id, name in playlist_dict.items():
-                playlists_grouped[category].append((id, name))
 
         # HTMLテンプレートをレンダリング
         return render_template(
