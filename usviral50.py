@@ -308,10 +308,10 @@ def index():
                     playlist_description = "検索結果がありません。"
                 elif total_results > 100:
                     playlist_description = (
-                        f"検索結果は{total_results}曲ありますが、最初の100曲のみ表示しています。"
+                        f"収録曲は{total_results}曲ありますが、最初の100曲のみ表示しています。"
                     )
                 else:
-                    playlist_description = f"検索結果は{total_results}曲です。"
+                    playlist_description = f"収録曲は{total_results}曲です。"
 
                 playlist_name = album["name"]
                 collage_filename = album["images"][0]["url"] if album["images"] else url_for(
