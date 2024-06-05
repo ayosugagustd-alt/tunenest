@@ -507,29 +507,7 @@
                             console.error('Error searching artist:', error);
                         });
                 } else if (playlistDropdown.value === 'searchAlbum') {
-                    apiEndpoint = `/search_album?keyword=${encodeURIComponent(keyword)}`;
-
-                    fetch(apiEndpoint)
-                        .then(response => {
-                            if (response.ok) {
-                                return response.json();
-                            }
-                            throw new Error('Search failed: ' + response.statusText);
-                        })
-                        .then(data => {
-                            if (data.album_id) {
-                                // デバイスタイプに基づいてリダイレクトまたは新しいタブを開く
-                                const albumUrl = `/artist/${data.artist_id}/albums/${data.album_id}`;
-                                if (isMobileDevice()) {
-                                    window.location.href = albumUrl; // モバイルの場合は同じタブで開く
-                                } else {
-                                    window.open(albumUrl, '_blank'); // PCの場合は新しいタブで開く
-                                }
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error searching album:', error);
-                        });
+                    window.location.href = `/?keyword=${encodeURIComponent(keyword)}&search_type=album`;
                 }
             }
 

@@ -179,6 +179,7 @@ def get_track_info(track, audio_features):
             if track["album"]["images"]
             else url_for("static", filename="tunenest.jpg", _external=True)
         )
+
         spotify_link = track["external_urls"]["spotify"]
         artist_name = track["artists"][0]["name"]
         artist_id = track["artists"][0]["id"]  # アーティストIDを取得
@@ -267,53 +268,101 @@ def index():
         sp = get_spotify_client()
 
         keyword = request.args.get("keyword")  # クエリからキーワードを受け取る
+        search_type = request.args.get("search_type", "track")  # クエリから検索タイプを受け取る
 
         # デフォルトIDかクエリパラメータIDを設定
         playlist_id = request.args.get("playlist_id", default_playlist_id)
 
         if keyword:
-            # キーワードに基づいて楽曲を検索し、まず最初の50件を取得
-            results = sp.search(q=keyword, type="track", limit=50, market="JP")
-            track_ids = [track["id"] for track in results["tracks"]["items"]]
-            total_results = results["tracks"]["total"]  # 検索結果の総件数
+            if search_type == "album":
+                # アルバム検索処理
+                results = sp.search(q=keyword, type="album", limit=1, market="JP")
+                if not results["albums"]["items"]:
+                    return render_template("index.html", error="検索結果がありません。")
 
-            # 最初の50件を結果リストに格納
-            all_tracks = results["tracks"]["items"]
+                album = results["albums"]["items"][0]
+                album_id = album["id"]
 
-            # 検索結果が50件を超える場合、次の50件を追加で取得
-            if total_results > 50:
-                additional_results = sp.search(
-                    q=keyword, type="track", limit=50, offset=50, market="JP"
-                )
-                all_tracks.extend(additional_results["tracks"]["items"])
-                track_ids.extend(
-                    [
-                        track["id"]
-                        for track in additional_results["tracks"]["items"]
-                    ]
-                )
+                # アルバムの楽曲を取得
+                album_tracks = sp.album_tracks(album_id, market="JP")
+                all_tracks = album_tracks["items"]
 
-            # 検索結果の説明メッセージを設定
-            if total_results == 0:
-                playlist_description = "検索結果がありません。"
-            elif total_results > 100:
-                playlist_description = (
-                    f"検索結果は{total_results}曲ありますが、最初の100曲のみ表示しています。"
-                )
+                # アルバムのアートワークを各楽曲のアートワークとして設定
+                for track in all_tracks:
+                    track["album"] = album  # アルバム情報を各トラックに追加
+
+                total_results = album_tracks["total"]
+
+
+                # 検索結果が50件を超える場合、次の50件を追加で取得
+                while len(all_tracks) < total_results:
+                    additional_results = sp.album_tracks(
+                        album_id, offset=len(all_tracks), market="JP"
+                    )
+                    all_tracks.extend(additional_results["items"])
+
+                track_ids = [track["id"] for track in all_tracks]
+
+                # 検索結果の説明メッセージを設定
+                if total_results == 0:
+                    playlist_description = "検索結果がありません。"
+                elif total_results > 100:
+                    playlist_description = (
+                        f"検索結果は{total_results}曲ありますが、最初の100曲のみ表示しています。"
+                    )
+                else:
+                    playlist_description = f"検索結果は{total_results}曲です。"
+
+                playlist_name = album["name"]
+                collage_filename = album["images"][0]["url"] if album["images"] else url_for(
+                    "static", filename="tunenest.jpg", _external=True)
+                playlist_url = album["external_urls"]["spotify"]
+                exceeds_max_tracks = False
+                playlist_followers = None
+
             else:
-                playlist_description = f"検索結果は{total_results}曲です。"
+                # キーワードに基づいて楽曲を検索し、まず最初の50件を取得
+                results = sp.search(q=keyword, type="track", limit=50, market="JP")
+                track_ids = [track["id"] for track in results["tracks"]["items"]]
+                total_results = results["tracks"]["total"]  # 検索結果の総件数
 
-            # キーワード検索の結果を all_tracks として扱う
-            all_tracks = [
-                {"track": track} for track in results["tracks"]["items"]
-            ]
-            playlist_name = keyword
-            collage_filename = url_for(
-                "static", filename="tunenest.jpg", _external=True
-            )
-            playlist_url = ""
-            exceeds_max_tracks = False
-            playlist_followers = None
+                # 最初の50件を結果リストに格納
+                all_tracks = results["tracks"]["items"]
+
+                # 検索結果が50件を超える場合、次の50件を追加で取得
+                if total_results > 50:
+                    additional_results = sp.search(
+                        q=keyword, type="track", limit=50, offset=50, market="JP"
+                    )
+                    all_tracks.extend(additional_results["tracks"]["items"])
+                    track_ids.extend(
+                        [
+                            track["id"]
+                            for track in additional_results["tracks"]["items"]
+                        ]
+                    )
+
+                # 検索結果の説明メッセージを設定
+                if total_results == 0:
+                    playlist_description = "検索結果がありません。"
+                elif total_results > 100:
+                    playlist_description = (
+                        f"検索結果は{total_results}曲ありますが、最初の100曲のみ表示しています。"
+                    )
+                else:
+                    playlist_description = f"検索結果は{total_results}曲です。"
+
+                # キーワード検索の結果を all_tracks として扱う
+                all_tracks = [
+                    {"track": track} for track in results["tracks"]["items"]
+                ]
+                playlist_name = keyword
+                collage_filename = url_for(
+                    "static", filename="tunenest.jpg", _external=True
+                )
+                playlist_url = ""
+                exceeds_max_tracks = False
+                playlist_followers = None
         else:
             # プレイリストの詳細情報を取得
             playlist_details = sp.playlist(playlist_id, market="JP")
@@ -408,7 +457,7 @@ def index():
         tracks_needing_retry = []
 
         for item in all_tracks:
-            track = item.get("track")  # itemから"track"キーの値を安全に取得
+            track = item.get("track", item) # トラック検索とアルバム検索の両方に対応
             if track and track["id"] in audio_features_dict:
                 # 対応するオーディオ特性を取得
                 track_features = audio_features_dict[track["id"]]
