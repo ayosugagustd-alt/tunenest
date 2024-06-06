@@ -52,7 +52,7 @@ try:
         # playlistsはインデックスページのルーティング処理で参照する
         playlists = json.load(f)
         default_playlist_id = next(
-            iter(playlists.get("Indie", {}).keys())
+            iter(playlists.get("J-Pop & More", {}).keys())
         )  # 最初のキーをデフォルトIDとして使用
 
         # カテゴリごとにプレイリストを整理
