@@ -98,7 +98,7 @@
             <i class="fas fa-question-circle"></i>
           </a>
         </h2>
-        <!-- code for visual properties -->{{ render_progress_bar("肯定感", song.valence, "progress-valence") }} {{ render_progress_bar("Acoustic度", song.acousticness, "progress-acousticness") }} {{ render_progress_bar("踊りやすさ", song.danceability, "progress-danceability") }} {{ render_progress_bar("Energy", song.energy, "progress-energy") }} {{ render_progress_bar("Instrumental度", song.instrumentalness, "progress-instrumentalness") }} {{ render_progress_bar("Loudness（-60 dB ～ 0 dB）", song.loudness_normalized, "progress-loudness", " dB", song.loudness_raw) }} {{ render_progress_bar("Live感", song.liveness, "progress-liveness", ) }} {{ render_progress_bar("Speech度", song.speechiness, "progress-speechiness") }} 
+        <!-- code for visual properties -->{{ render_progress_bar("Positive度", song.valence, "progress-valence") }} {{ render_progress_bar("Acoustic度", song.acousticness, "progress-acousticness") }} {{ render_progress_bar("Danceable度", song.danceability, "progress-danceability") }} {{ render_progress_bar("Energy", song.energy, "progress-energy") }} {{ render_progress_bar("Instrumental度", song.instrumentalness, "progress-instrumentalness") }} {{ render_progress_bar("Loudness（-60 dB ～ 0 dB）", song.loudness_normalized, "progress-loudness", " dB", song.loudness_raw) }} {{ render_progress_bar("Live感", song.liveness, "progress-liveness", ) }} {{ render_progress_bar("Speech度", song.speechiness, "progress-speechiness") }} 
       </div>
       <!-- End of .visual-section -->
       <!-- Navigation Icon at the bottom -->
