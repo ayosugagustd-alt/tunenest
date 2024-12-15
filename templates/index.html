@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
   <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ELP4DSW3BL"></script>
@@ -13,20 +13,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no">
-    <meta name="description" content="{{ playlist_description or 'tunenest: 試聴、Tracks詳細、Albums詳細、Artistsなどを探索' }}">
+    <meta name="description" content="{{ playlist_description or 'tunenest: Explore tracks, albums, and artists in detail.' }}">
     <meta name="author" content="hiro">
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{ playlist_name }}">
-    <meta name="twitter:description" content="{{ playlist_description or 'tunenestで様々なTracksを探索。' }}">
+    <meta name="twitter:description" content="{{ playlist_description or 'Explore various tracks on tunenest.' }}">
     <meta name="twitter:image" content="{{ collage_filename or url_for('static', filename='tunenest.jpg', _external=True) }}?ver=1">
-    <title>{{ playlist_name or 'Explore Music' }} : Playlistsを試聴</title>
+    <title>{{ playlist_name or 'Explore Music' }}: Listen to Playlists</title>
     <script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "MusicPlaylist",
         "name": "{{ playlist_name or 'Explore Music' }}",
-        "description": "{{ playlist_description or 'tunenestで様々なTracksを探索。' }}",
+        "description": "{{ playlist_description or 'Explore various tracks on tunenest.' }}",
         "numTracks": "{{ tracks|length }}",
         "track": {
             "@type": "ItemList",
@@ -61,13 +61,13 @@
   <body>
     <div class="container">
       {% if playlist_url %}
-        <h1><a href="{{ playlist_url }}" target="_blank" rel="noopener" title="プレイリストをSpotifyで聴く">{{ playlist_name }}</a></h1>
+        <h1><a href="{{ playlist_url }}" target="_blank" rel="noopener" title="Listen to the playlist on Spotify">{{ playlist_name }}</a></h1>
       {% else %}
         <h1>{{ playlist_name }}</h1>
       {% endif %}
       <h4>
         {% if playlist_followers %}
-          Playlist Followers数：{{ playlist_followers|number_format }}人
+          Playlist Followers: {{ playlist_followers|number_format }}
         {% endif %}
         {% if playlist_description %}
           <br>
@@ -76,23 +76,23 @@
       </h4>
       {% if exceeds_max_tracks %}
       <h4>
-        <i class="fas fa-exclamation-triangle"></i>{{ playlist_name }}は501曲以上ありますが、最初の500曲のみ表示しています。
+        <i class="fas fa-exclamation-triangle"></i>{{ playlist_name }} has more than 501 tracks, but only the first 500 are displayed.
       </h4>
       {% endif %} 
-      <div id="playlist-controls" lang="ja">
+      <div id="playlist-controls" lang="en">
         <select class="search-input" id="playlistDropdown">
-          <option value="" disabled selected style="display:none;">Keywordで検索またはPlaylistを選択</option>
-          <option value="searchTrack" class="special-option">&#x1F50D; Track検索</option>
-          <option value="searchAlbum" class="special-option">&#x1F50D; Album検索</option>
-          <option value="searchArtist" class="special-option">&#x1F50D; Artist検索</option>
-          <option value="searchPlaylist" class="special-option">&#x1F50D; Playlist検索</option>
-          <!-- カテゴリごとのグループ -->{% for category, items in playlists_grouped.items() %} 
+          <option value="" disabled selected style="display:none;">Search by keyword or select a playlist</option>
+          <option value="searchTrack" class="special-option">&#x1F50D; Track Search</option>
+          <option value="searchAlbum" class="special-option">&#x1F50D; Album Search</option>
+          <option value="searchArtist" class="special-option">&#x1F50D; Artist Search</option>
+          <option value="searchPlaylist" class="special-option">&#x1F50D; Playlist Search</option>
+          <!-- Grouped categories -->{% for category, items in playlists_grouped.items() %} 
           <optgroup label="&#x1F3B5;{{ category }}">{% for id, name in items %} 
             <option value="{{ id }}">&#x2022;{{ name }}</option>{% endfor %}
           </optgroup>{% endfor %} 
         </select>
         <div id="searchBox" style="display:none;">
-          <input type="text" class="search-input" id="keyword" tabindex="0" placeholder="Tracks名、Artists名…" autocomplete="off">
+          <input type="text" class="search-input" id="keyword" tabindex="0" placeholder="Track name, artist name…" autocomplete="off">
           <button id="searchButton">
             <i class="fas fa-search"></i>
           </button>
@@ -144,7 +144,7 @@
                 <i class="fas fa-sort-down"></i>
               </button>
             </div>
-            <p>人気度<br>SORT</p>
+            <p>Pop.<br>SORT</p>
           </div>
           <div class="sort-option">
             <div>
@@ -169,7 +169,7 @@
           <button id="repeatModeButton" class="repeat-mode-button">
             <i class="fas fa-sync"></i><span class="spotify-green">all</span>
           </button>
-          <!-- ボリュームコントロール用のスライダー -->
+          <!-- Volume control slider -->
           <div>
             <input type="range" id="volumeSlider" min="0" max="0.5" step="0.01" value="0.5">
           </div>
@@ -181,12 +181,12 @@
           <div class="track-info">
             <div class="track-details">
               <div class="track-name">
-                <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener" title="楽曲の詳細を見る">
+                <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener" title="View track details">
                   {{ track.name }}
                 </a>
               </div>
               <div class="artist">
-                <a href="{{ url_for('artist_details', artist_id=track.artist_id) }}" target="_blank" rel="noopener" title="アーティストの詳細を見る">
+                <a href="{{ url_for('artist_details', artist_id=track.artist_id) }}" target="_blank" rel="noopener" title="View artist details">
                   {{ track.artist }}
                 </a>
               </div>
@@ -197,13 +197,13 @@
               <span class="track-popularity">{{ '{: >3}'.format(track.popularity) }}%</span>
               {% if track.url %}
                 <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
-                  <span class="icon-caption">試聴</span>
+                  <span class="icon-caption">Preview</span>
                 </a>
               {% else %}
-                <span class="icon-disabled-caption">試聴</span>
+                <span class="icon-disabled-caption">Preview</span>
               {% endif %}
-              <a href="https://open.spotify.com/track/{{ track.id }}" target="_blank" rel="noopener" title="楽曲をSpotifyで聴く">
-                <span class="icon-caption">再生</span>
+              <a href="https://open.spotify.com/track/{{ track.id }}" target="_blank" rel="noopener" title="Listen on Spotify">
+                <span class="icon-caption">Full</span>
               </a>
             </div>
           </div>
@@ -211,13 +211,14 @@
         {% endfor %}
       </div>
       <footer>
-        <p>&copy;2023 ヒロ 
-          <a href="https://twitter.com/jmusic_hiro" target="_blank" rel="noopener" title="ヒロのX">
+        <p>&copy;2023 Hiro 
+          <a href="https://twitter.com/jmusic_hiro" target="_blank" rel="noopener" title="Hiro's Twitter">
             <i class="fab fa-x-twitter"></i>
           </a>
-          <a href="{{ url_for('static', filename='privacy-policy.html') }}" target="_blank" rel="noopener">利用規約とPrivacy Policy</a>
+          <a href="{{ url_for('static', filename='privacy-policy.html') }}" target="_blank" rel="noopener">Terms of Use and Privacy Policy</a>
         </p>
       </footer>
+
       <script>
         let repeatMode = 'all'; // 'all' または 'single' を格納
 

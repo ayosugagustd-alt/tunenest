@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
   <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ELP4DSW3BL"></script>
@@ -13,7 +13,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no">
-    <meta name="description" content="SinglesとTracksの一覧を表示します">
+    <meta name="description" content="Displays a list of singles and their tracks">
     <meta name="author" content="hiro">
     <title>Singles</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
@@ -25,29 +25,42 @@
   </head>
   <body>
     <div class="container">
-      <h1>Singles</h1>{% if total_singles >0 %}
-      <p>総数： {{ total_singles }}枚</p>{% include 'pagination.html' %}
-      <div>{% for single in singles_with_songs %} 
-        <h2>{{ loop.index + (page - 1) * per_page }}. {{ single.name }}</h2>
-        <!-- カバー画像表示 -->{% if single.images %} 
-        <img src="{{ single.images[0].url }}" alt="カバー画像" style="max-width: 200px;">{% else %} 
-        <img src="{{ url_for('static', filename='tunenest.jpg') }}" alt="デフォルト画像" style="max-width: 200px;">{% endif %} 
-        <p>Release日: {{ single.release_date }}</p>
-        <ol>{% for track in single.tracks %} 
+      <h1>Singles</h1>
+      {% if total_singles > 0 %}
+      <p>Total: {{ total_singles }} singles</p>
+      {% include 'pagination.html' %}
+      <div>
+        {% for single in singles_with_songs %}
+        <h2>{{ loop.index + (page - 1) * per_page }}. <span class="notranslate">{{ single.name }}</span></h2>
+        <!-- Display cover image -->
+        {% if single.images %}
+        <img src="{{ single.images[0].url }}" alt="Cover image" style="max-width: 200px;">
+        {% else %}
+        <img src="{{ url_for('static', filename='tunenest.jpg') }}" alt="Default image" style="max-width: 200px;">
+        {% endif %}
+        <p>Release Date: <span class="notranslate">{{ single.release_date }}</span></p>
+        <ol>
+          {% for track in single.tracks %}
           <li>
-            <a href="{{ url_for('song_details', song_id=track['track_id']) }}" title="楽曲の詳細を見る">{{ track['name'] }}</a>
-          </li>{% endfor %} 
+            <a href="{{ url_for('song_details', song_id=track['track_id']) }}" title="View track details">
+              <span class="notranslate">{{ track['name'] }}</span>
+            </a>
+          </li>
+          {% endfor %}
         </ol>
-        <!-- アルバム間の区切り線 -->
-        <hr class="album-divider">{% endfor %} 
-      </div>{% else %} 
-      <p>シングルに関する情報はありません。</p>
-      <a href="{{ url_for('artist_details', artist_id=artist_id) }}">Artist詳細へ戻る</a>{% endif %}
+        <!-- Separator between singles -->
+        <hr class="album-divider">
+        {% endfor %}
+      </div>
+      {% else %}
+      <p>No information available for singles.</p>
+      <a href="{{ url_for('artist_details', artist_id=artist_id) }}">Back to Artist Details</a>
+      {% endif %}
       <!-- Navigation Icon at the bottom -->
       <div class="home-icon">
-        <a href="/" aria-label="Home" title="Homeに戻る">
+        <a href="/" aria-label="Home" title="Return to Home">
           <i class="fas fa-home"></i>
-          <!-- FontAwesomeのHomeアイコン -->
+          <!-- FontAwesome Home Icon -->
         </a>
       </div>
     </div>

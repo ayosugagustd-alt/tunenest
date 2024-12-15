@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
   <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ELP4DSW3BL"></script>
@@ -13,14 +13,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no">
-    <meta name="description" content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }} - Tempo、Key、再生時間、音楽特性などを表示します">
+    <meta name="description" content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }} - Tempo, Key, Duration, and Music Features">
     <meta name="author" content="hiro">
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }}">
-    <meta name="twitter:description" content="{{ song.name }}の人気度、音楽特性などを探索。">
+    <meta name="twitter:description" content="Explore {{ song.name }}'s popularity and music features.">
     <meta name="twitter:image" content="{{ song.album_artwork_url or url_for('static', filename='tunenest.jpg', _external=True) }}?ver=1">
-    <title>{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }} - 人気度、その他 | tunenest</title>
+    <title>{{ song.name }} by {{ song.artists | map(attribute='name') | join(', ') }} - Popularity and More | tunenest</title>
     <script type="application/ld+json">
     {
         "@context": "http://schema.org",
@@ -43,23 +43,23 @@
     <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename='f_f_event_43_s64_f_event_43_0nbg.png') }}">
   </head>
   <body>
-    <div class="container">{% macro render_progress_bar(property, value, bar_class="", unit="%", original_value=None) %} 
+    <div class="container">
+      {% macro render_progress_bar(property, value, bar_class="", unit="%", original_value=None) %} 
       <p>{{ property }}: {{ (original_value if original_value is not none else value)|float|round(1) }}{{ unit }}</p>
       <div class="progress-bar">
         <div class="progress {{ bar_class }}" style="width:{{ value }}%"></div>
-      </div>{% endmacro %} 
+      </div>
+      {% endmacro %}
       <div class="section-space">
-        <h1>{{ song.name }}</h1>
+        <h1><span class="notranslate">{{ song.name }}</span></h1>
         <div class="album-artwork">
-          <img alt="アルバムアートワーク" src="{{ song.album_artwork_url or url_for('static', filename='tunenest.jpg') }}" loading="lazy">
+          <img alt="Album Artwork" src="{{ song.album_artwork_url or url_for('static', filename='tunenest.jpg') }}" loading="lazy">
         </div>
         <iframe class="spotify-player" title="Spotify player" allow="encrypted-media" allowtransparency="true" frameborder="0" height="80" src="https://open.spotify.com/embed/track/{{ song_id }}" width="300"></iframe>
       </div>
-      <!-- End of .section-space -->
       <div class="section-space">
-        <h2>基本情報</h2>
-        <!-- code for song properties -->
-        <p>Spotify人気度：{{ song.popularity }}%</p>
+        <h2>Basic Information</h2>
+        <p>Spotify Popularity: {{ song.popularity }}%</p>
         <span>{% for _ in range(0, song.popularity // 10) %} 
           <span class="star">
             <i class="fas fa-star"></i>
@@ -71,41 +71,44 @@
             <i class="far fa-star"></i>
           </span>{% endfor %} 
         </span>
-        <p>Artist名：</p>
+        <p>Artists:</p>
         <ul>{% for artist in song.artists %}
           <li>
-            <a href="{{ url_for('artist_details', artist_id=artist.id) }}" title="Artistの詳細を見る">{{ artist.name }}</a>
+            <a href="{{ url_for('artist_details', artist_id=artist.id) }}" title="View Artist Details">{{ artist.name }}</a>
           </li>{% endfor %}
         </ul>
-        <p>収録作品：
-            <a href="{{ url_for('album_details', artist_id=song.artists[0].id, album_id=song.album_id) }}" title="収録作品の詳細を見る">{{ song.album_name }}</a>
+        <p>Album:
+            <a href="{{ url_for('album_details', artist_id=song.artists[0].id, album_id=song.album_id) }}" title="View Album Details">{{ song.album_name }}</a>
         </p>
-        <p>Release日：{{ song.release_date }}</p>
-        <p>Tempo：{{ song.tempo|float|round(1) }} BPM</p>
-        <p>Key：{{ ["C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"][song.key] }}</p>
-        <p>調性：{{ "Major" if song.mode == 1 else "Minor" }}</p>
-        <p>Camelot：{{ song.camelot_key }}</p>
-        <p>再生時間：{{ (song.duration // 60)|int }}:{{ "%02d"|format(song.duration % 60) }} ({{ song.duration|float|round(1) }}秒)</p>
+        <p>Release Date: {{ song.release_date }}</p>
+        <p>Tempo: {{ song.tempo|float|round(1) }} BPM</p>
+        <p>Key: {{ ["C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"][song.key] }}</p>
+        <p>Mode: {{ "Major" if song.mode == 1 else "Minor" }}</p>
+        <p>Camelot: {{ song.camelot_key }}</p>
+        <p>Duration: {{ (song.duration // 60)|int }}:{{ "%02d"|format(song.duration % 60) }} ({{ song.duration|float|round(1) }} seconds)</p>
         <div>
-            <a href="https://twitter.com/intent/tweet?text={{ song.name }} - {{ song.artists | map(attribute='name') | join(', ') }} {{ request.url }}" target="_blank" rel="noopener noreferrer" title="XでShare">
-                <i class="fab fa-x-twitter"></i>でShare</a>
+            <a href="https://twitter.com/intent/tweet?text={{ song.name }} - {{ song.artists | map(attribute='name') | join(', ') }} {{ request.url }}" target="_blank" rel="noopener noreferrer" title="Share on X">
+                <i class="fab fa-x-twitter"></i>Share</a>
         </div>
       </div>
-      <!-- End of div -->
       <div class="visual-section">
-        <h2>音楽特性 
-          <a href="/help_song_details" class="help-link" title="音楽特性の説明を見る">
+        <h2>Music Features 
+          <a href="/help_song_details" class="help-link" title="View Music Feature Details">
             <i class="fas fa-question-circle"></i>
           </a>
         </h2>
-        <!-- code for visual properties -->{{ render_progress_bar("Positive度", song.valence, "progress-valence") }} {{ render_progress_bar("Acoustic度", song.acousticness, "progress-acousticness") }} {{ render_progress_bar("Danceable度", song.danceability, "progress-danceability") }} {{ render_progress_bar("Energy", song.energy, "progress-energy") }} {{ render_progress_bar("Instrumental度", song.instrumentalness, "progress-instrumentalness") }} {{ render_progress_bar("Loudness（-60 dB ～ 0 dB）", song.loudness_normalized, "progress-loudness", " dB", song.loudness_raw) }} {{ render_progress_bar("Live感", song.liveness, "progress-liveness", ) }} {{ render_progress_bar("Speech度", song.speechiness, "progress-speechiness") }} 
+        {{ render_progress_bar("Valence", song.valence, "progress-valence") }}
+        {{ render_progress_bar("Acousticness", song.acousticness, "progress-acousticness") }}
+        {{ render_progress_bar("Danceability", song.danceability, "progress-danceability") }}
+        {{ render_progress_bar("Energy", song.energy, "progress-energy") }}
+        {{ render_progress_bar("Instrumentalness", song.instrumentalness, "progress-instrumentalness") }}
+        {{ render_progress_bar("Loudness (-60 dB to 0 dB)", song.loudness_normalized, "progress-loudness", " dB", song.loudness_raw) }}
+        {{ render_progress_bar("Liveness", song.liveness, "progress-liveness") }}
+        {{ render_progress_bar("Speechiness", song.speechiness, "progress-speechiness") }}
       </div>
-      <!-- End of .visual-section -->
-      <!-- Navigation Icon at the bottom -->
       <div class="home-icon">
-        <a href="/" aria-label="Home" title="Homeに戻る">
+        <a href="/" aria-label="Home" title="Return to Home">
           <i class="fas fa-home"></i>
-          <!-- FontAwesomeのHomeアイコン -->
         </a>
       </div>
     </div>

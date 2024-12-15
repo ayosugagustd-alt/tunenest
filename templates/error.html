@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
   <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ELP4DSW3BL"></script>
@@ -12,6 +12,7 @@
     </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate"> <!-- Prevent translation -->
     <meta name="author" content="hiro">
     <title>Error</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
@@ -21,9 +22,9 @@
   </head>
   <body>
     <div class="container">
-      <h2>Errorが発生しました</h2>
-      <p>{{ error }}</p>
-      <a href="{{ url_for('index') }}">Back</a>
+      <h2>An Error Occurred</h2>
+      <p class="notranslate">{{ error }}</p>
+      <a href="{{ url_for('index') }}" title="Go back to the homepage">Back</a>
     </div>
   </body>
 </html>

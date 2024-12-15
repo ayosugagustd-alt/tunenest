@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
   <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ELP4DSW3BL"></script>
@@ -13,7 +13,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no">
-    <meta name="description" content="Compilation AlbumsとTracksの一覧を表示します">
+    <meta name="google" content="notranslate"> <!-- Prevent translation -->
+    <meta name="description" content="Displays a list of Compilation Albums and Tracks.">
     <meta name="author" content="hiro">
     <title>Compilation Albums</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
@@ -25,34 +26,47 @@
   </head>
   <body>
     <div class="container">
-      <h1>Compilation Albums</h1>{% if total_compilations >0 %}
-      <p>総数：{{ total_compilations }}枚</p>{% include 'pagination.html' %}
-      <div>{% for compilation in compilations_with_songs %} 
+      <h1>Compilation Albums</h1>
+      {% if total_compilations > 0 %}
+      <p>Total: <span class="notranslate">{{ total_compilations }}</span> albums</p>
+      {% include 'pagination.html' %}
+      <div>
+        {% for compilation in compilations_with_songs %}
         <h2>
-          <a href="{{ url_for('album_details', artist_id=compilation['artist_id'], album_id=compilation['compilation_id']) }}" title="Albumの詳細を見る">
-  {{ loop.index + (page - 1) * per_page }}. {{ compilation.name }}
+          <a href="{{ url_for('album_details', artist_id=compilation['artist_id'], album_id=compilation['compilation_id']) }}" title="View album details">
+            {{ loop.index + (page - 1) * per_page }}. <span class="notranslate">{{ compilation.name }}</span>
           </a>
         </h2>
-        <!-- カバー画像表示 -->{% if compilation.images %} 
-        <img src="{{ compilation.images[0].url }}" alt="カバー画像" style="max-width: 200px;">{% else %} 
-        <img src="{{ url_for('static', filename='tunenest.jpg') }}" alt="デフォルト画像" style="max-width: 200px;">{% endif %} 
-        <p>Release日: {{ compilation.release_date }}</p>
-        <p>Tracks数： {{ compilation['total_tracks'] }}</p>
-        <ol>{% for track in compilation.tracks %} 
+        <!-- Display cover image -->
+        {% if compilation.images %}
+        <img src="{{ compilation.images[0].url }}" alt="Cover Image" style="max-width: 200px;">
+        {% else %}
+        <img src="{{ url_for('static', filename='tunenest.jpg') }}" alt="Default Image" style="max-width: 200px;">
+        {% endif %}
+        <p>Release Date: <span class="notranslate">{{ compilation.release_date }}</span></p>
+        <p>Total Tracks: <span class="notranslate">{{ compilation['total_tracks'] }}</span></p>
+        <ol>
+          {% for track in compilation.tracks %}
           <li>
-            <a href="{{ url_for('song_details', song_id=track['track_id']) }}" title="楽曲の詳細を見る">{{ track['name'] }}</a>
-          </li>{% endfor %} 
+            <a href="{{ url_for('song_details', song_id=track['track_id']) }}" title="View track details">
+              <span class="notranslate">{{ track['name'] }}</span>
+            </a>
+          </li>
+          {% endfor %}
         </ol>
-        <!-- Album間の区切り線 -->
-        <hr class="album-divider">{% endfor %} 
-      </div>{% else %} 
-      <p>Compilation Albumsに関する情報はありません。</p>
-      <a href="{{ url_for('artist_details', artist_id=artist_id) }}">Artist詳細へ戻る</a>{% endif %}
+        <!-- Separator between albums -->
+        <hr class="album-divider">
+        {% endfor %}
+      </div>
+      {% else %}
+      <p>No information available for Compilation Albums.</p>
+      <a href="{{ url_for('artist_details', artist_id=artist_id) }}">Back to Artist Details</a>
+      {% endif %}
       <!-- Navigation Icon at the bottom -->
       <div class="home-icon">
-        <a href="/" aria-label="Home" title="Homeに戻る">
+        <a href="/" aria-label="Home" title="Return to Home">
           <i class="fas fa-home"></i>
-          <!-- FontAwesomeのHomeアイコン -->
+          <!-- FontAwesome Home Icon -->
         </a>
       </div>
     </div>

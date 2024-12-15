@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
   <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ELP4DSW3BL"></script>
@@ -13,14 +13,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no">
-    <meta name="description" content="Albums名、Release日、Tracks数、Tracks一覧を表示します">
+    <meta name="google" content="notranslate"> <!-- Prevent translation -->
+    <meta name="description" content="Displays album name, release date, track count, and track list.">
     <meta name="author" content="hiro">
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{ album.name }} by {{ artist_names }}">
-    <meta name="twitter:description" content="{{ album.name }}の詳細情報を確認。Tracks一覧、Release日などをチェックできます。">
+    <meta name="twitter:description" content="Check out the details of {{ album.name }}. View the track list, release date, and more.">
     <meta name="twitter:image" content="{{ album.image or url_for('static', filename='tunenest.jpg', _external=True) }}?ver=1">
-    <title>{{ album.name }} by {{ artist_names }} - Albums詳細情報</title>
+    <title>{{ album.name }} by {{ artist_names }} - Album Details</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
@@ -31,14 +32,14 @@
   <body>
     <div class="container">
       <div class="section-space">
-        <h1>{{ album.name }}</h1>
+        <h1><span class="notranslate">{{ album.name }}</span></h1>
         <div class="album-artwork">
-          <img alt="アルバムのアートワーク" src="{{ album.image or url_for('static', filename='tunenest.jpg') }}" loading="lazy">
+          <img alt="Album Artwork" src="{{ album.image or url_for('static', filename='tunenest.jpg') }}" loading="lazy">
         </div>
       </div>
       <div class="section-space">
-        <h2>基本情報</h2>
-        <p>Spotify人気度：{{ album.popularity }}%
+        <h2>Basic Information</h2>
+        <p>Spotify Popularity: <span class="notranslate">{{ album.popularity }}</span>%
         </p>
         <span>{% for _ in range(0, album.popularity // 10) %} 
           <span class="star">
@@ -51,28 +52,32 @@
             <i class="far fa-star"></i>
           </span>{% endfor %} 
         </span>
-        <p>Artist名：
+        <p>Artists:
         <ul>{% for artist in album.artists %} 
           <li>
-            <a href="{{ url_for('artist_details', artist_id=artist.id) }}" title="アーティストの詳細を見る">{{ artist.name }}</a>
+            <a href="{{ url_for('artist_details', artist_id=artist.id) }}" title="View artist details">
+              <span class="notranslate">{{ artist.name }}</span>
+            </a>
           </li>{% endfor %} 
         </ul>
-        <p>Release日： {{ album.release_date }}
+        <p>Release Date: <span class="notranslate">{{ album.release_date }}</span>
         </p>
       </div>
       <div class="section-space">
-        <h2>Tracks一覧</h2>
+        <h2>Track List</h2>
         <ol>{% for track in album.tracks %} {% set minutes = (track.length / 1000 / 60)|int %} {% set seconds = ((track.length / 1000) % 60)|int %} 
           <li>
-            <a href="{{ url_for('song_details', song_id=track.id) }}" title="楽曲の詳細情報を見る">{{ track.name }}</a> ({{ minutes }}:{{ "%02d"|format(seconds) }})
+            <a href="{{ url_for('song_details', song_id=track.id) }}" title="View track details">
+              <span class="notranslate">{{ track.name }}</span>
+            </a> ({{ minutes }}:{{ "%02d"|format(seconds) }})
           </li>{% endfor %} 
         </ol>
       </div>
       <!-- Navigation Icon at the bottom -->
       <div class="home-icon">
-        <a href="/" aria-label="Home" title="Homeに戻る">
+        <a href="/" aria-label="Home" title="Return to Home">
           <i class="fas fa-home"></i>
-          <!-- FontAwesomeのHomeアイコン -->
+          <!-- FontAwesome Home Icon -->
         </a>
       </div>
     </div>

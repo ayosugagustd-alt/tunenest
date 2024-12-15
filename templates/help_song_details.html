@@ -1,67 +1,59 @@
 <!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ELP4DSW3BL"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-ELP4DSW3BL');
-    </script>
-    <meta charset="utf-8">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no">
-    <meta name="description" content="音楽特性について説明します">
+    <meta name="description" content="Explanation of music features">
     <meta name="author" content="hiro">
-    <title>音楽特性の説明</title>
+    <title>Music Feature Explanation</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='f_f_event_43_s16_f_event_43_0nbg.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='f_f_event_43_s32_f_event_43_0nbg.png') }}">
     <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename='f_f_event_43_s64_f_event_43_0nbg.png') }}">
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <section>
-        <h2>音楽特性とは</h2>
-        <ul>
-          <li>
-            <strong>Positive度 (valence)</strong>
-            <p>曲が伝える肯定的な感情を0から100までの尺度で表します。valenceが高い曲はより肯定的な感情（例：幸せ、明るい、高揚）を感じさせ、valenceが低い曲はより否定的な感情（例：悲しい、沈んでいる、怒っている）を感じさせます。</p>
-          </li>
-          <li>
-            <strong>Acoustic度 (acousticness)</strong>
-            <p>曲がアコースティックであるかどうかの確信度を0から100までで表します。100は、曲がアコースティックであるという高い確信度を表します。</p>
-          </li>
-          <li>
-            <strong>Danceable度 (danceability)</strong>
-            <p>曲がダンスに適しているかを、テンポ、リズムの安定性、ビートの強さ、全体的な規則性などの音楽的要素の組み合わせに基づいて評価します。0が最も踊りにくく、100が最も踊りやすいとされます。</p>
-          </li>
-          <li>
-            <strong>Energy度 (energy)</strong>
-            <p>曲の強度と活動性を0から100までの尺度で表します。一般的に、エネルギッシュな曲は速く、大きな音、騒々しいと感じられます。例えば、デスメタルは高いエネルギーを持ち、バッハの前奏曲は尺度上で低いスコアとなります。この属性に寄与する知覚的特徴には、ダイナミックレンジ、知覚される音量、音色、発音速度、一般的なエントロピーなどがあります。</p>
-          </li>
-          <li>
-            <strong>Instrumental度 (instrumentalness)</strong>
-            <p>曲にボーカルが含まれていない確率を予測します。「オー」と「アー」のような音は、この文脈では楽器として扱われます。ラップやスポークンワードのトラックは明らかに「ボーカル」です。インストゥルメンタル度の値が100に近いほど、曲にボーカルが含まれていない可能性が高くなります。50以上の値は、楽器のトラックを表す意図であり、値が100に近づくにつれて確信度が高くなります。</p>
-          </li>
-          <li>
-            <strong>Loudness (loudness)</strong>
-            <p>トラック全体のラウドネス（音量）をデシベル（dB）で表したもの。ラウドネスの値はトラック全体で平均され、トラックの相対的な音量を比較するのに役立ちます。ラウドネスは、音の物理的な強度（振幅）の主要な心理的相関を持つ特性です。値は通常 -60 dBから0 dBの範囲です。</p>
-          </li>
-          <li>
-            <strong>Live感 (liveness)</strong>
-            <p>録音中に観客がいるかどうかを検出します。ライヴネスの値が高いほど、そのトラックがライブで演奏された可能性が高いことを示します。0.8以上の値は、トラックがライブである可能性が高いことを示します。</p>
-          </li>
-          <li>
-            <strong>Speech度 (speechiness)</strong>
-            <p>スピーチネスは、トラック内の音声の有無を検出します。録音がより音声のみに近づくほど（例：トークショー、オーディオブック、詩）、属性値は1.0に近づきます。0.66を超える値は、おそらく完全に音声で構成されているトラックを示します。0.33から0.66の範囲の値は、セクションごとに分かれたり、レイヤーとして重ねられたりする音楽と音声が混在するトラックを示します（ラップ音楽など）。0.33未満の値は、主に音楽や音声以外のトラックを表している可能性が高いです。</p>
-          </li>
-        </ul>
-      </section>
+        <section>
+            <h2>Music Features / 音楽特性</h2>
+            <ul>
+                <li>
+                    <strong>Valence / Positive度</strong>
+                    <p>Valence is a measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g., happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g., sad, depressed, angry).<br>
+                    曲が伝える背対的な感情を0から100までの尺度で表します。Valenceが高い曲はより背対的な感情を感じさせ、低い曲はより否定的な感情を感じさせます。</p>
+                </li>
+                <li>
+                    <strong>Acousticness / Acoustic度</strong>
+                    <p>Acousticness describes how acoustic a track is. A value of 1.0 represents high confidence that the track is acoustic.<br>曲がアコースティックであるかどうかを0から100までで表します。高い値はアコースティックである確信度が高いことを示します。</p>
+                </li>
+                <li>
+                    <strong>Danceability / Danceable度</strong>
+                    <p>Danceability describes how suitable a track is for dancing based on tempo, rhythm stability, and beat strength. A value of 0.0 is least danceable and 1.0 is most danceable.<br>テンポやリズムなどに基づいて、曲がダンスに適している度合を0から100の値で表します。</p>
+                </li>
+                <li>
+                    <strong>Energy / Energy度</strong>
+                    <p>Energy is a measure from 0.0 to 1.0 representing the intensity and activity of a track. Energetic tracks feel fast, loud, and noisy.<br>曲の強度と活動性を0から100で表します。高い値の曲は早く、大きく、さらにノイズィーであることが多いです。</p>
+                </li>
+                <li>
+                    <strong>Instrumentalness / Instrumental度</strong>
+                    <p>Instrumentalness predicts whether a track contains no vocals. Higher values indicate higher likelihood of being instrumental.<br>曲にボーカルが含まれていない確率を表します。値が高いほどボーカルが含まれない可能性が高いです。</p>
+                </li>
+                <li>
+                    <strong>Loudness / Loudness度</strong>
+                    <p>Loudness is measured in decibels (dB) and represents the overall loudness of a track.<br>曲の全体のラウドネスをdBで表したものです。</p>
+                </li>
+                <li>
+                    <strong>Liveness / Live感</strong>
+                    <p>Liveness detects the presence of an audience in the recording. Values above 0.8 indicate a high probability of being live.<br>録音中に観客が居るかどうかを検出します。値が0.8以上の場合、ライブである可能性が高いことを示します。</p>
+                </li>
+                <li>
+                    <strong>Speechiness / Speech度</strong>
+                    <p>Speechiness detects the presence of spoken words in a track. Values above 0.66 likely represent tracks made entirely of spoken words.<br>スピーチなどの言葉が含まれているかを検出します。値が0.66以上の場合、そのトラックはすべて言葉で構成されている可能性が高いです。</p>
+                </li>
+            </ul>
+        </section>
     </div>
-  </body>
+</body>
 </html>
