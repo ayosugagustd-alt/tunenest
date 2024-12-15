@@ -422,25 +422,25 @@
             // リピートモードボタンのクリックイベントリスナー
             repeatModeButton.addEventListener('click', toggleRepeatMode);
 
-            // ドロップダウンの選択が変わったときの処理
+            // Dropdown selection change handler
             playlistDropdown.addEventListener('change', function() {
                 const selectedOption = playlistDropdown.value;
                 switch (selectedOption) {
                     case 'searchTrack':
                         searchBox.style.display = 'flex';
-                        keywordInput.placeholder = "Track名、Artist名を入力…";
+                        keywordInput.placeholder = "Enter track name or artist name...";
                         break;
                     case 'searchAlbum':
                         searchBox.style.display = 'flex';
-                        keywordInput.placeholder = "Album名、Artist名を入力…";
+                        keywordInput.placeholder = "Enter album name or artist name...";
                         break;
                     case 'searchArtist':
                         searchBox.style.display = 'flex';
-                        keywordInput.placeholder = "Artist名を入力…";
+                        keywordInput.placeholder = "Enter artist name...";
                         break;
                     case 'searchPlaylist':
                         searchBox.style.display = 'flex';
-                        keywordInput.placeholder = "Playlist名を入力…";
+                        keywordInput.placeholder = "Enter playlist name...";
                         break;
                     default:
                         searchBox.style.display = 'none';
