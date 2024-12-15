@@ -577,7 +577,7 @@ def get_artist_details(artist_id):
     ]
 
     # アーティストのアルバムを取得し、最新のアルバムを特定
-    albums = sp.artist_albums(artist_id, album_type="album")["items"]
+    albums = sp.artist_albums(artist_id, include_groups="album")["items"]
     latest_album = albums[0] if albums else None
     latest_album_details = (
         {
@@ -748,7 +748,7 @@ def count_total_releases(artist_id, release_type):
     sp = get_spotify_client()
 
     total_releases = sp.artist_albums(artist_id,
-                                      album_type=release_type)["total"]
+                                      include_groups=release_type)["total"]
     return total_releases
 
 
@@ -762,7 +762,7 @@ def get_artist_albums_with_songs(artist_id, page, per_page=10):
 
     # アーティストのアルバムをページ単位で取得
     albums = sp.artist_albums(
-        artist_id, album_type="album", offset=offset, limit=limit
+        artist_id, include_groups="album", offset=offset, limit=limit
     )["items"]
     result = []
 
@@ -806,7 +806,7 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
 
     # アーティストのシングルをページ単位で取得
     singles = sp.artist_albums(
-        artist_id, album_type="single", offset=offset, limit=limit
+        artist_id, include_groups="single", offset=offset, limit=limit
     )["items"]
     result = []
 
@@ -853,7 +853,7 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
 
     # アーティストのコンピレーションアルバムをページ単位で取得
     compilations = sp.artist_albums(
-        artist_id, album_type="compilation", offset=offset, limit=limit
+        artist_id, include_groups="compilation", offset=offset, limit=limit
     )["items"]
     result = []
 
