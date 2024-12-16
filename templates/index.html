@@ -317,15 +317,15 @@
                 <span style="background-color: ${camelotColor}; color: #000; padding: 2px 5px; border-radius: 3px;">
                     ${tracks[index].camelot_key_signature}
                 </span><br>
-                <span>人気度 ${tracks[index].popularity}%</span>
+                <span>Popularity ${tracks[index].popularity}%</span>
             `;
 
             // 試聴リンクを生成
-            playingInfo += `<br><a href="javascript:void(0);" onclick="playSpecificTrack(${index})">試聴</a>`;
+            playingInfo += `<br><a href="javascript:void(0);" onclick="playSpecificTrack(${index})">Preview</a>`;
 
             // Spotifyへのリンクを生成
             let spotifyLink = `https://open.spotify.com/track/${tracks[index].id}`;
-            playingInfo += `<br><a href="${spotifyLink}" target="_blank" rel="noopener" title="楽曲をSpotifyで聴く">再生</a>`;
+            playingInfo += `<br><a href="${spotifyLink}" target="_blank" rel="noopener" title="楽曲をSpotifyで聴く">Full</a>`;
 
             // 最後に全てのリンクと詳細をHTMLに反映
             document.getElementById('playing').innerHTML = playingInfo;
