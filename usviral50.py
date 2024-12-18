@@ -50,11 +50,19 @@ default_playlist_id = None
 # JSONファイルを読み込む
 try:
     with open("config/playlists.json", "r", encoding="utf-8") as f:
-        playlists = json.load(f)["track IDs"]  # トラックID辞書を取得
+        # JSON全体をロード
+        playlists_data = json.load(f)
 
-    # 初期化
-    playlists_grouped = {"Track IDs": [(id, name) for id, name in playlists.items()]}
-    default_playlist_id = next(iter(playlists.keys()))  # 最初のIDをデフォルトに設定
+    # カテゴリごとにプレイリストを整理
+    playlists_grouped = {
+        category: [(id, name) for id, name in playlists.items()]
+        for category, playlists in playlists_data.items()
+    }
+
+    # 最初のカテゴリの最初のプレイリストIDをデフォルトに設定
+    first_category = next(iter(playlists_grouped.keys()))
+    default_playlist_id = playlists_grouped[first_category][0][0]
+
 except FileNotFoundError:
     print("playlists.jsonが見つかりません。")
 except json.JSONDecodeError:
