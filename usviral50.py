@@ -46,23 +46,19 @@ playlists_grouped = defaultdict(list)  # カテゴリごとにプレイリスト
 # default_playlist_id変数の初期化
 default_playlist_id = None
 
-try:
-    # プレイリストIDと名前の辞書を開く
-    with open("config/playlists.json", "r", encoding="utf-8") as f:
-        # playlistsはインデックスページのルーティング処理で参照する
-        playlists = json.load(f)
-        default_playlist_id = next(
-            iter(playlists.get("Chart", {}).keys())
-        )  # 最初のキーをデフォルトIDとして使用
 
-        # カテゴリごとにプレイリストを整理
-        for category, playlist_dict in playlists.items():
-            for id, name in playlist_dict.items():
-                playlists_grouped[category].append((id, name))
+# JSONファイルを読み込む
+try:
+    with open("config/playlists.json", "r", encoding="utf-8") as f:
+        playlists = json.load(f)["track IDs"]  # トラックID辞書を取得
+
+    # 初期化
+    playlists_grouped = {"Track IDs": [(id, name) for id, name in playlists.items()]}
+    default_playlist_id = next(iter(playlists.keys()))  # 最初のIDをデフォルトに設定
 except FileNotFoundError:
-    logging.warning("playlists.jsonが見つかりません。")
+    print("playlists.jsonが見つかりません。")
 except json.JSONDecodeError:
-    logging.warning("playlists.jsonの形式が不正です。")
+    print("playlists.jsonの形式が不正です。")
 
 
 # APIキーをチェック
