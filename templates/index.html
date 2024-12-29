@@ -82,13 +82,13 @@
       {% endif %} 
       <div id="playlist-controls" lang="en">
         <select class="search-input" id="playlistDropdown">
-          <option value="" disabled selected style="display:none;">Search by keyword or select a playlist</option>
-          <option value="searchTrack" class="special-option">&#x1F50D; Track Search</option>
-          <option value="searchArtist" class="special-option">&#x1F50D; Artist Search</option>
+          <option value="" disabled selected style="display:none;">Select a playlist or search by keyword</option>
           <!-- Grouped categories -->{% for category, items in playlists_grouped.items() %} 
           <optgroup label="&#x1F3B5;{{ category }}">{% for id, name in items %} 
             <option value="{{ id }}">&#x2022;{{ name }}</option>{% endfor %}
           </optgroup>{% endfor %} 
+          <option value="searchTrack" class="special-option">&#x1F50D; Track Search</option>
+          <option value="searchArtist" class="special-option">&#x1F50D; Artist Search</option>
         </select>
         <div id="searchBox" style="display:none;">
           <input type="text" class="search-input" id="keyword" tabindex="0" placeholder="Track name, artist name…" autocomplete="off">
