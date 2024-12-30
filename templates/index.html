@@ -87,6 +87,7 @@
           <optgroup label="&#x1F3B5;{{ category }}">{% for id, name in items %} 
             <option value="{{ id }}">&#x2022;{{ name }}</option>{% endfor %}
           </optgroup>{% endfor %} 
+          <option value="searchPlaylist" class="special-option">&#x1F50D; Playlist Search by ID</option>
           <option value="searchTrack" class="special-option">&#x1F50D; Track Search</option>
           <option value="searchArtist" class="special-option">&#x1F50D; Artist Search</option>
         </select>
@@ -424,21 +425,17 @@
             playlistDropdown.addEventListener('change', function() {
                 const selectedOption = playlistDropdown.value;
                 switch (selectedOption) {
+                    case 'searchPlaylist':
+                        searchBox.style.display = 'flex';
+                        keywordInput.placeholder = "Enter playlist ID...";
+                        break;
                     case 'searchTrack':
                         searchBox.style.display = 'flex';
                         keywordInput.placeholder = "Enter track name or artist name...";
                         break;
-                    case 'searchAlbum':
-                        searchBox.style.display = 'flex';
-                        keywordInput.placeholder = "Enter album name or artist name...";
-                        break;
                     case 'searchArtist':
                         searchBox.style.display = 'flex';
                         keywordInput.placeholder = "Enter artist name...";
-                        break;
-                    case 'searchPlaylist':
-                        searchBox.style.display = 'flex';
-                        keywordInput.placeholder = "Enter playlist name...";
                         break;
                     default:
                         searchBox.style.display = 'none';
@@ -451,7 +448,7 @@
             function performSearch() {
                 const keyword = keywordInput.value;
                 if (!keyword) {
-                    alert("Keywordを入力してください。");
+                    alert("Please enter a keyword.");
                     return; // キーワードが空の場合は処理を中断
                 }
 
@@ -465,23 +462,7 @@
                 if (playlistDropdown.value === 'searchTrack') {
                     window.location.href = `/?keyword=${encodeURIComponent(keyword)}`;
                 } else if (playlistDropdown.value === 'searchPlaylist') {
-                    apiEndpoint = `/search_playlist?keyword=${encodeURIComponent(keyword)}`;
-
-                    fetch(apiEndpoint)
-                        .then(response => {
-                            if (response.ok) {
-                                return response.json();
-                            }
-                            throw new Error('Search failed: ' + response.statusText);
-                        })
-                        .then(data => {
-                            if (data.playlist_id) {
-                                window.location.href = `/?playlist_id=${data.playlist_id}`;
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error searching playlist:', error);
-                        });
+                    window.location.href = `/?playlist_id=${encodeURIComponent(keyword)}`;
                 } else if (playlistDropdown.value === 'searchArtist') {
                     apiEndpoint = `/search_artist?keyword=${encodeURIComponent(keyword)}`;
 
@@ -506,8 +487,6 @@
                         .catch(error => {
                             console.error('Error searching artist:', error);
                         });
-                } else if (playlistDropdown.value === 'searchAlbum') {
-                    window.location.href = `/?keyword=${encodeURIComponent(keyword)}&search_type=album`;
                 }
             }
 
@@ -558,7 +537,7 @@
             // プレイリストIDがURLにない場合、ドロップダウンから取得して設定
             if (!params.has('playlist_id')) {
                 const playlistId = document.getElementById('playlistDropdown').value;
-                const searchOptions = ['searchTrack', 'searchAlbum', 'searchArtist', 'searchPlaylist'];
+                const searchOptions = ['searchTrack', 'searchArtist', 'searchPlaylist'];
                 if (playlistId && !searchOptions.includes(playlistId)) {
                     params.set('playlist_id', playlistId);
                 } else {
