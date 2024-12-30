@@ -542,7 +542,18 @@ def index():
         )
     except Exception as e:
         # エラーページを表示
-        return render_template("error.html", error=str(e))
+        error_str = str(e)
+        if "Unsupported URL / URI" in error_str:
+            user_message = (
+                "Invalid or private playlist ID."
+                "Please confirm your playlist ID or make it public."
+            )
+        else:
+            user_message = (
+                "An unknown error occurred.<br>"
+                "Please go back and try again."
+            )
+        return render_template("error.html", error=user_message)
 
 
 # アーティストの詳細情報とトップ曲、最新のアルバムを取得
