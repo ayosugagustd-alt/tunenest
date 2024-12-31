@@ -473,6 +473,48 @@ a i.fa-wikipedia-w {
   color: #000000; /* Wikipediaの色 */
 }
 
+/* ツールチップのスタイル */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 5px;
+  color: #555;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: #fff;
+  color: #333;
+  text-align: left;
+  border-radius: 5px;
+  padding: 10px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* アイコンの上に表示 */
+  left: 50%;
+  margin-left: -100px; /* 中央揃え */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* ツールチップの矢印 */
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* ツールチップの下 */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
 
 @media (max-width: 375px) {
     body {
