@@ -252,6 +252,8 @@ def static_from_root():
 
 def camelot_to_sort_key(camelot_key):
     # Camelot Keyを数値に変換する
+    if camelot_key == "N/A":
+        return float('inf')  # N/Aを最後に配置
     key_number, scale = int(camelot_key[:-1]), camelot_key[-1]
     # Aは偶数、Bは奇数として処理
     scale_number = 0 if scale == "A" else 1
