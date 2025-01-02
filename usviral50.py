@@ -474,7 +474,7 @@ def index():
                 track_info["popularity"] = (
                     popularity  # popularity情報をtrack_infoに追加
                 )
-                if track is not None:  # trackがNoneでないことを確認
+                if track_info is not None:  # track_infoがNoneでないことを確認
                     all_tracks_info.append(track_info)
 
         # バッチでトラック詳細情報を取得
