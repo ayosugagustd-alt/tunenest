@@ -30,10 +30,12 @@ SPOTIFY_CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET", None)
 
 app = Flask(__name__)
 
+
 # カスタムフィルターを追加
-@app.template_filter('number_format')
+@app.template_filter("number_format")
 def number_format(value):
     return "{:,}".format(value)
+
 
 # グローバル変数とロックを初期化
 spotify_client = None
@@ -41,7 +43,9 @@ client_lock = Lock()
 
 # playlists変数の初期化
 playlists = None
-playlists_grouped = defaultdict(list)  # カテゴリごとにプレイリストを整理する辞書の初期化
+playlists_grouped = defaultdict(
+    list
+)  # カテゴリごとにプレイリストを整理する辞書の初期化
 
 # default_playlist_id変数の初期化
 default_playlist_id = None
@@ -84,9 +88,8 @@ def get_spotify_client():
         if not spotify_client:
             spotify_client = Spotify(
                 client_credentials_manager=SpotifyClientCredentials(
-                    client_id=SPOTIFY_CLIENT_ID,
-                    client_secret=SPOTIFY_CLIENT_SECRET
-                )
+                    client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET
+                ), language = "ja",
             )
         return spotify_client
 
@@ -208,11 +211,7 @@ def get_track_info(track, audio_features):
             if audio_features and "key" in audio_features
             else "N/A"
         )
-        mode = (
-            "Maj"
-            if audio_features and audio_features.get("mode") == 1
-            else "min"
-        )
+        mode = "Maj" if audio_features and audio_features.get("mode") == 1 else "min"
 
         # キーと調を組み合わせて文字列を作成
         key_signature = f"{key} {mode}"
@@ -253,7 +252,7 @@ def static_from_root():
 def camelot_to_sort_key(camelot_key):
     # Camelot Keyを数値に変換する
     if camelot_key == "N/A":
-        return float('inf')  # N/Aを最後に配置
+        return float("inf")  # N/Aを最後に配置
     key_number, scale = int(camelot_key[:-1]), camelot_key[-1]
     # Aは偶数、Bは奇数として処理
     scale_number = 0 if scale == "A" else 1
@@ -273,7 +272,9 @@ def index():
         sp = get_spotify_client()
 
         keyword = request.args.get("keyword")  # クエリからキーワードを受け取る
-        search_type = request.args.get("search_type", "track")  # クエリから検索タイプを受け取る
+        search_type = request.args.get(
+            "search_type", "track"
+        )  # クエリから検索タイプを受け取る
 
         # デフォルトIDかクエリパラメータIDを設定
         playlist_id = request.args.get("playlist_id", default_playlist_id)
@@ -298,7 +299,6 @@ def index():
 
                 total_results = album_tracks["total"]
 
-
                 # 検索結果が50件を超える場合、次の50件を追加で取得
                 while len(all_tracks) < total_results:
                     additional_results = sp.album_tracks(
@@ -312,15 +312,16 @@ def index():
                 if total_results == 0:
                     playlist_description = "検索結果がありません。"
                 elif total_results > 100:
-                    playlist_description = (
-                        f"収録曲数は{total_results}曲ありますが、最初の100曲のみ表示しています。"
-                    )
+                    playlist_description = f"収録曲数は{total_results}曲ありますが、最初の100曲のみ表示しています。"
                 else:
                     playlist_description = f"収録曲数は{total_results}曲です。"
 
                 playlist_name = album["name"]
-                collage_filename = album["images"][0]["url"] if album["images"] else url_for(
-                    "static", filename="tunenest.jpg", _external=True)
+                collage_filename = (
+                    album["images"][0]["url"]
+                    if album["images"]
+                    else url_for("static", filename="tunenest.jpg", _external=True)
+                )
                 playlist_url = album["external_urls"]["spotify"]
                 exceeds_max_tracks = False
                 playlist_followers = None
@@ -341,26 +342,19 @@ def index():
                     )
                     all_tracks.extend(additional_results["tracks"]["items"])
                     track_ids.extend(
-                        [
-                            track["id"]
-                            for track in additional_results["tracks"]["items"]
-                        ]
+                        [track["id"] for track in additional_results["tracks"]["items"]]
                     )
 
                 # 検索結果の説明メッセージを設定
                 if total_results == 0:
                     playlist_description = "検索結果がありません。"
                 elif total_results > 100:
-                    playlist_description = (
-                        f"検索結果は{total_results}曲ありますが、最初の100曲のみ表示しています。"
-                    )
+                    playlist_description = f"検索結果は{total_results}曲ありますが、最初の100曲のみ表示しています。"
                 else:
                     playlist_description = f"検索結果は{total_results}曲です。"
 
                 # キーワード検索の結果を all_tracks として扱う
-                all_tracks = [
-                    {"track": track} for track in results["tracks"]["items"]
-                ]
+                all_tracks = [{"track": track} for track in results["tracks"]["items"]]
                 playlist_name = keyword
                 collage_filename = url_for(
                     "static", filename="tunenest.jpg", _external=True
@@ -386,19 +380,15 @@ def index():
                 )
 
             # プレイリストのURLを取得
-            playlist_url = playlist_details.get(
-                "external_urls", {}
-            ).get("spotify", "#")
+            playlist_url = playlist_details.get("external_urls", {}).get("spotify", "#")
 
             # 現実のプレイリスト名を取得
-            actual_playlist_name = playlist_details.get("name",
-                                                        "No playlist name")
+            actual_playlist_name = playlist_details.get("name", "No playlist name")
 
             # クエリパラメータか現実のプレイリスト名を取得
             # ドロップリストではプレイリスト名を渡していないので
             # 通常クエリパラメータを与えられることはありません
-            playlist_name = request.args.get("playlist_name",
-                                             actual_playlist_name)
+            playlist_name = request.args.get("playlist_name", actual_playlist_name)
 
             # クエリパラメータからカバー画像のURLを取得
             custom_artwork_img = request.args.get("artwork_img")
@@ -408,9 +398,9 @@ def index():
                 "static", filename="tunenest.jpg", _external=True
             )  # デフォルト値
             if custom_artwork_img:
-                collage_filename = url_for("static",
-                                           filename=custom_artwork_img,
-                                           _external=True)
+                collage_filename = url_for(
+                    "static", filename=custom_artwork_img, _external=True
+                )
             elif playlist_details.get("images") and playlist_details["images"]:
                 # プレイリストのimagesが存在し、空のリストでないことを確認
                 collage_filename = playlist_details["images"][0].get(
@@ -462,7 +452,7 @@ def index():
         tracks_needing_retry = []
 
         for item in all_tracks:
-            track = item.get("track", item) # トラック検索とアルバム検索の両方に対応
+            track = item.get("track", item)  # トラック検索とアルバム検索の両方に対応
             if track and track["id"] in audio_features_dict:
                 # 対応するオーディオ特性を取得
                 track_features = audio_features_dict[track["id"]]
@@ -489,9 +479,7 @@ def index():
                     for detailed_track in detailed_tracks:
                         for track_info in all_tracks_info:
                             if track_info["id"] == detailed_track["id"]:
-                                track_info["popularity"] = (
-                                    detailed_track["popularity"]
-                                )
+                                track_info["popularity"] = detailed_track["popularity"]
                 except Exception as retry_error:
                     logging.error(
                         f"Failed to update popularity for batch: {retry_error}"
@@ -525,9 +513,7 @@ def index():
                 reverse=reverse_sort,
             )
         elif sort_by == "popularity":
-            valid_tracks_info.sort(
-                key=lambda x: x["popularity"], reverse=reverse_sort
-            )
+            valid_tracks_info.sort(key=lambda x: x["popularity"], reverse=reverse_sort)
 
         # HTMLテンプレートをレンダリング
         return render_template(
@@ -552,8 +538,7 @@ def index():
             )
         else:
             user_message = (
-                "An unknown error occurred.<br>"
-                "Please go back and try again."
+                "An unknown error occurred.<br>" "Please go back and try again."
             )
         return render_template("error.html", error=user_message)
 
@@ -582,9 +567,7 @@ def get_artist_details(artist_id):
     sp = get_spotify_client()
 
     # キャッシュされたアーティストの基本情報を取得
-    artist_details = get_cached_artist_details(
-        artist_id, sp
-    )
+    artist_details = get_cached_artist_details(artist_id, sp)
 
     # アーティストのトップ曲を取得
     top_tracks = sp.artist_top_tracks(artist_id, country="US")["tracks"]
@@ -596,11 +579,9 @@ def get_artist_details(artist_id):
     albums = sp.artist_albums(artist_id, include_groups="album")["items"]
     latest_album = albums[0] if albums else None
     latest_album_details = (
-        {
-            "name": latest_album["name"],
-            "id": latest_album["id"],
-            "artist_id": artist_id
-        } if latest_album else None
+        {"name": latest_album["name"], "id": latest_album["id"], "artist_id": artist_id}
+        if latest_album
+        else None
     )
 
     # アーティストのSpotifyページへのリンクを追加
@@ -609,10 +590,7 @@ def get_artist_details(artist_id):
     # 関連アーティストを取得
     related_artists = sp.artist_related_artists(artist_id)["artists"]
     related_artists_details = [
-        {
-            "name": artist["name"],
-            "id": artist["id"]
-        } for artist in related_artists
+        {"name": artist["name"], "id": artist["id"]} for artist in related_artists
     ]
 
     return (
@@ -636,11 +614,7 @@ def get_album_details(album_id):
 
     # 収録曲リストを作成
     tracks = [
-        {
-            "name": track["name"],
-            "length": track["duration_ms"],
-            "id": track["id"]
-        }
+        {"name": track["name"], "length": track["duration_ms"], "id": track["id"]}
         for track in album["tracks"]["items"]
     ]
 
@@ -650,10 +624,7 @@ def get_album_details(album_id):
         "release_date": album["release_date"],  # リリース日
         "image": album["images"][0]["url"],  # ジャケット画像のURL
         "artists": [
-            {
-                "name": artist["name"],
-                "id": artist["id"]
-            } for artist in album["artists"]
+            {"name": artist["name"], "id": artist["id"]} for artist in album["artists"]
         ],  # 参加アーティスト
         "tracks": tracks,  # 収録曲リスト
         "popularity": album["popularity"],  # 人気度
@@ -763,8 +734,7 @@ def get_song_details_with_retry(song_id, max_retries=3, delay=5):
 def count_total_releases(artist_id, release_type):
     sp = get_spotify_client()
 
-    total_releases = sp.artist_albums(artist_id,
-                                      include_groups=release_type)["total"]
+    total_releases = sp.artist_albums(artist_id, include_groups=release_type)["total"]
     return total_releases
 
 
@@ -791,9 +761,7 @@ def get_artist_albums_with_songs(artist_id, page, per_page=10):
             "artist_id": artist_id,  # アーティストID
             "total_tracks": album["total_tracks"],  # アルバムの総楽曲数
             "images": (
-                album["images"]
-                if "images" in album and album["images"]
-                else None
+                album["images"] if "images" in album and album["images"] else None
             ),  # カバー画像情報
         }
 
@@ -802,9 +770,7 @@ def get_artist_albums_with_songs(artist_id, page, per_page=10):
         for track in album_tracks:
             track_name = track["name"]
             track_id = track["id"]
-            album_info["tracks"].append(
-                {"name": track_name, "track_id": track_id}
-            )
+            album_info["tracks"].append({"name": track_name, "track_id": track_id})
 
         result.append(album_info)
 
@@ -835,9 +801,7 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
             "single_id": single["id"],  # シングルIDの追加
             "artist_id": artist_id,  # アーティストIDの追加
             "images": (
-                single["images"]
-                if "images" in single and single["images"]
-                else None
+                single["images"] if "images" in single and single["images"] else None
             ),
         }
 
@@ -846,8 +810,7 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
         for track in single_tracks:
             track_name = track["name"]
             track_id = track["id"]
-            single_info["tracks"].append({"name": track_name,
-                                         "track_id": track_id})
+            single_info["tracks"].append({"name": track_name, "track_id": track_id})
 
         result.append(single_info)
 
@@ -890,8 +853,7 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
         }
 
         # 各コンピレーションアルバムに含まれる楽曲を取得
-        compilation_tracks = sp.album_tracks(compilation["id"],
-                                             market="US")["items"]
+        compilation_tracks = sp.album_tracks(compilation["id"], market="US")["items"]
         for track in compilation_tracks:
             track_name = track["name"]
             track_id = track["id"]
@@ -933,9 +895,7 @@ def album_details(artist_id, album_id):
         album = get_album_details(album_id)  # 既存の関数でSpotifyからアルバム情報を取得
 
         # アーティスト名を結合してからテンプレートに渡す準備
-        artist_names = ", ".join(
-            [artist["name"] for artist in album["artists"]]
-        )
+        artist_names = ", ".join([artist["name"] for artist in album["artists"]])
 
         return render_template(
             "album_details.html",
@@ -960,13 +920,10 @@ def cached_get_artist_albums_with_songs(artist_id, page, per_page=10):
 
 
 @app.route("/artist/<artist_id>/all_albums_and_songs", methods=["GET"])
-@app.route("/artist/<artist_id>/all_albums_and_songs/page/<int:page>",
-           methods=["GET"])
+@app.route("/artist/<artist_id>/all_albums_and_songs/page/<int:page>", methods=["GET"])
 def all_albums_and_songs_for_artist(artist_id, page=1):
     per_page = 10  # 1ページあたりのアルバム数
-    albums_with_songs = cached_get_artist_albums_with_songs(artist_id,
-                                                            page,
-                                                            per_page)
+    albums_with_songs = cached_get_artist_albums_with_songs(artist_id, page, per_page)
 
     # 総アルバム数を取得して、総ページ数を計算
     total_albums = cached_count_total_releases(artist_id, "album")
@@ -994,13 +951,10 @@ def cached_get_artist_singles_with_songs(artist_id, page, per_page):
 
 
 @app.route("/artist/<artist_id>/all_singles_and_songs", methods=["GET"])
-@app.route("/artist/<artist_id>/all_singles_and_songs/page/<int:page>",
-           methods=["GET"])
+@app.route("/artist/<artist_id>/all_singles_and_songs/page/<int:page>", methods=["GET"])
 def all_singles_and_songs_for_artist(artist_id, page=1):
     per_page = 10  # 1ページあたりのシングル数
-    singles_with_songs = cached_get_artist_singles_with_songs(artist_id,
-                                                              page,
-                                                              per_page)
+    singles_with_songs = cached_get_artist_singles_with_songs(artist_id, page, per_page)
 
     # 総シングル数を取得し、総ページ数を計算
     total_singles = cached_count_total_releases(artist_id, "single")
@@ -1027,8 +981,7 @@ def cached_get_artist_compilations_with_songs(artist_id, page, per_page=10):
 
 @app.route("/artist/<artist_id>/all_compilations_and_songs", methods=["GET"])
 @app.route(
-    "/artist/<artist_id>/all_compilations_and_songs/page/<int:page>",
-    methods=["GET"]
+    "/artist/<artist_id>/all_compilations_and_songs/page/<int:page>", methods=["GET"]
 )
 def all_compilations_and_songs_for_artist(artist_id, page=1):
     per_page = 10  # 1ページあたりのコンピレーション数
@@ -1113,11 +1066,7 @@ def search_artist():
 
     # Spotify APIでキーワードでアーティストを検索
     results = sp.search(q=keyword, type="artist", limit=1, market="US")
-    if (
-        not results
-        or not results.get("artists")
-        or not results["artists"].get("items")
-    ):
+    if not results or not results.get("artists") or not results["artists"].get("items"):
         return jsonify({"error": "No artists found"}), 404
 
     artist = results["artists"]["items"][0]
@@ -1138,11 +1087,7 @@ def search_album():
 
     # Spotify APIでキーワードでアルバムを検索
     results = sp.search(q=keyword, type="album", limit=1, market="US")
-    if (
-        not results
-        or not results.get("albums")
-        or not results["albums"].get("items")
-    ):
+    if not results or not results.get("albums") or not results["albums"].get("items"):
         return jsonify({"error": "No albums found"}), 404
 
     album = results["albums"]["items"][0]
