@@ -28,7 +28,7 @@
     <div class="container">
       <h1>Singles</h1>
       {% if total_singles > 0 %}
-      <p>Total: {{ total_singles }} singles</p>
+      <p>総数: {{ total_singles }}枚</p>
       {% include 'pagination.html' %}
       <div>
         {% for single in singles_with_songs %}
@@ -39,7 +39,7 @@
         {% else %}
         <img src="{{ url_for('static', filename='tunenest.jpg') }}" alt="Default image" style="max-width: 200px;">
         {% endif %}
-        <p>Release Date: <span class="notranslate">{{ single.release_date }}</span></p>
+        <p>リリース日: <span class="notranslate">{{ single.release_date }}</span></p>
         <ol>
           {% for track in single.tracks %}
           <li>

@@ -28,7 +28,7 @@
     <div class="container">
       <h1>コンピレーション</h1>
       {% if total_compilations > 0 %}
-      <p>Total: <span class="notranslate">{{ total_compilations }}</span> albums</p>
+      <p>総数: <span class="notranslate">{{ total_compilations }}</span>枚</p>
       {% include 'pagination.html' %}
       <div>
         {% for compilation in compilations_with_songs %}
@@ -43,8 +43,8 @@
         {% else %}
         <img src="{{ url_for('static', filename='tunenest.jpg') }}" alt="Default Image" style="max-width: 200px;">
         {% endif %}
-        <p>Release Date: <span class="notranslate">{{ compilation.release_date }}</span></p>
-        <p>Total Tracks: <span class="notranslate">{{ compilation['total_tracks'] }}</span></p>
+        <p>リリース日: <span class="notranslate">{{ compilation.release_date }}</span></p>
+        <p>収録曲数: <span class="notranslate">{{ compilation['total_tracks'] }}</span></p>
         <ol>
           {% for track in compilation.tracks %}
           <li>

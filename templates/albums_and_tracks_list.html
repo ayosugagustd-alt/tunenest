@@ -28,7 +28,7 @@
     <div class="container">
       <h1>アルバム</h1>
       {% if total_albums > 0 %}
-      <p>Total: <span class="notranslate">{{ total_albums }}</span> albums</p>
+      <p>総数: <span class="notranslate">{{ total_albums }}</span>枚</p>
       {% include 'pagination.html' %}
       <div>
         {% for album in albums_with_songs %}
@@ -43,8 +43,8 @@
         {% else %}
         <img src="{{ url_for('static', filename='tunenest.jpg') }}" alt="Default Image" style="max-width: 200px;">
         {% endif %}
-        <p>Release Date: <span class="notranslate">{{ album['release_date'] }}</span></p>
-        <p>Tracks: <span class="notranslate">{{ album['total_tracks'] }}</span></p>
+        <p>リリース日: <span class="notranslate">{{ album['release_date'] }}</span></p>
+        <p>収録曲数: <span class="notranslate">{{ album['total_tracks'] }}</span></p>
         <ol>
           {% for track in album.tracks %}
           <li>
