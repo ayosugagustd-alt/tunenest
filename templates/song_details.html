@@ -75,11 +75,11 @@
         <p>アーティスト:</p>
         <ul>{% for artist in song.artists %}
           <li>
-            <a href="{{ url_for('artist_details', artist_id=artist.id) }}" title="View Artist Details">{{ artist.name }}</a>
+            <a href="{{ url_for('artist_details', artist_id=artist.id) }}" title="アーティストの詳細を見る">{{ artist.name }}</a>
           </li>{% endfor %}
         </ul>
         <p>アルバム:
-            <a href="{{ url_for('album_details', artist_id=song.artists[0].id, album_id=song.album_id) }}" title="View Album Details">{{ song.album_name }}</a>
+            <a href="{{ url_for('album_details', artist_id=song.artists[0].id, album_id=song.album_id) }}" title="アルバムの詳細を見る">{{ song.album_name }}</a>
         </p>
         <p>リリース日: {{ song.release_date }}</p>
         <p>テンポ: {{ song.tempo|float|round(1) }} BPM</p>
@@ -94,7 +94,7 @@
       </div>
       <div class="visual-section">
         <h2>音楽の特徴
-          <a href="/help_song_details" class="help-link" title="View Music Feature Details">
+          <a href="/help_song_details" class="help-link" title="音楽の特徴を見る">
             <i class="fas fa-question-circle"></i>
           </a>
         </h2>

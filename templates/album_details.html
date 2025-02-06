@@ -21,7 +21,7 @@
     <meta name="twitter:title" content="{{ album.name }} by {{ artist_names }}">
     <meta name="twitter:description" content="Check out the details of {{ album.name }}. View the track list, release date, and more.">
     <meta name="twitter:image" content="{{ album.image or url_for('static', filename='tunenest.jpg', _external=True) }}?ver=1">
-    <title>{{ album.name }} by {{ artist_names }} - Album Details</title>
+    <title>{{ album.name }} by {{ artist_names }} - アルバムの詳細</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
@@ -38,7 +38,7 @@
         </div>
       </div>
       <div class="section-space">
-        <h2>Basic Information</h2>
+        <h2>基本情報</h2>
         <p>人気度: <span class="notranslate">{{ album.popularity }}</span>%
         </p>
         <span>{% for _ in range(0, album.popularity // 10) %} 
@@ -64,7 +64,7 @@
         </p>
       </div>
       <div class="section-space">
-        <h2>Track List</h2>
+        <h2>収録曲</h2>
         <ol>{% for track in album.tracks %} {% set minutes = (track.length / 1000 / 60)|int %} {% set seconds = ((track.length / 1000) % 60)|int %} 
           <li>
             <a href="{{ url_for('song_details', song_id=track.id) }}" title="View track details">
