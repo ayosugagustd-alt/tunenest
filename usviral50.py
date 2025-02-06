@@ -282,7 +282,7 @@ def index():
         if keyword:
             if search_type == "album":
                 # アルバム検索処理
-                results = sp.search(q=keyword, type="album", limit=1, market="US")
+                results = sp.search(q=keyword, type="album", limit=1, market="JP")
                 if not results["albums"]["items"]:
                     return render_template("index.html", error="検索結果がありません。")
 
@@ -290,7 +290,7 @@ def index():
                 album_id = album["id"]
 
                 # アルバムの楽曲を取得
-                album_tracks = sp.album_tracks(album_id, market="US")
+                album_tracks = sp.album_tracks(album_id, market="JP")
                 all_tracks = album_tracks["items"]
 
                 # アルバムのアートワークを各楽曲のアートワークとして設定
@@ -302,7 +302,7 @@ def index():
                 # 検索結果が50件を超える場合、次の50件を追加で取得
                 while len(all_tracks) < total_results:
                     additional_results = sp.album_tracks(
-                        album_id, offset=len(all_tracks), market="US"
+                        album_id, offset=len(all_tracks), market="JP"
                     )
                     all_tracks.extend(additional_results["items"])
 
@@ -328,7 +328,7 @@ def index():
 
             else:
                 # キーワードに基づいて楽曲を検索し、まず最初の50件を取得
-                results = sp.search(q=keyword, type="track", limit=50, market="US")
+                results = sp.search(q=keyword, type="track", limit=50, market="JP")
                 track_ids = [track["id"] for track in results["tracks"]["items"]]
                 total_results = results["tracks"]["total"]  # 検索結果の総件数
 
@@ -338,7 +338,7 @@ def index():
                 # 検索結果が50件を超える場合、次の50件を追加で取得
                 if total_results > 50:
                     additional_results = sp.search(
-                        q=keyword, type="track", limit=50, offset=50, market="US"
+                        q=keyword, type="track", limit=50, offset=50, market="JP"
                     )
                     all_tracks.extend(additional_results["tracks"]["items"])
                     track_ids.extend(
@@ -364,7 +364,7 @@ def index():
                 playlist_followers = None
         else:
             # プレイリストの詳細情報を取得
-            playlist_details = sp.playlist(playlist_id, market="US")
+            playlist_details = sp.playlist(playlist_id, market="JP")
 
             # プレイリストのフォロワー数を取得
             playlist_followers = playlist_details["followers"]["total"]
@@ -418,7 +418,7 @@ def index():
 
             while True:
                 results = sp.playlist_tracks(
-                    playlist_id, offset=offset, limit=limit, market="US"
+                    playlist_id, offset=offset, limit=limit, market="JP"
                 )
                 if results is None or results["items"] is None:
                     raise ValueError("Spotify APIが正常な値を返しませんでした。")
@@ -570,7 +570,7 @@ def get_artist_details(artist_id):
     artist_details = get_cached_artist_details(artist_id, sp)
 
     # アーティストのトップ曲を取得
-    top_tracks = sp.artist_top_tracks(artist_id, country="US")["tracks"]
+    top_tracks = sp.artist_top_tracks(artist_id, country="JP")["tracks"]
     top_tracks_details = [
         {"name": track["name"], "id": track["id"]} for track in top_tracks
     ]
@@ -610,7 +610,7 @@ def get_album_details(album_id):
     sp = get_spotify_client()
 
     # アルバムIDを使用してアルバム情報を取得
-    album = sp.album(album_id, market="US")
+    album = sp.album(album_id, market="JP")
 
     # 収録曲リストを作成
     tracks = [
@@ -766,7 +766,7 @@ def get_artist_albums_with_songs(artist_id, page, per_page=10):
         }
 
         # 各アルバムに含まれる楽曲を取得
-        album_tracks = sp.album_tracks(album["id"], market="US")["items"]
+        album_tracks = sp.album_tracks(album["id"], market="JP")["items"]
         for track in album_tracks:
             track_name = track["name"]
             track_id = track["id"]
@@ -806,7 +806,7 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
         }
 
         # シングルに含まれる楽曲を取得
-        single_tracks = sp.album_tracks(single["id"], market="US")["items"]
+        single_tracks = sp.album_tracks(single["id"], market="JP")["items"]
         for track in single_tracks:
             track_name = track["name"]
             track_id = track["id"]
@@ -853,7 +853,7 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
         }
 
         # 各コンピレーションアルバムに含まれる楽曲を取得
-        compilation_tracks = sp.album_tracks(compilation["id"], market="US")["items"]
+        compilation_tracks = sp.album_tracks(compilation["id"], market="JP")["items"]
         for track in compilation_tracks:
             track_name = track["name"]
             track_id = track["id"]
@@ -1041,7 +1041,7 @@ def search_playlist():
     sp = get_spotify_client()
 
     # Spotify APIでキーワードでプレイリストを検索
-    results = sp.search(q=keyword, type="playlist", limit=1, market="US")
+    results = sp.search(q=keyword, type="playlist", limit=1, market="JP")
     if (
         not results
         or not results.get("playlists")
@@ -1065,7 +1065,7 @@ def search_artist():
     sp = get_spotify_client()
 
     # Spotify APIでキーワードでアーティストを検索
-    results = sp.search(q=keyword, type="artist", limit=1, market="US")
+    results = sp.search(q=keyword, type="artist", limit=1, market="JP")
     if not results or not results.get("artists") or not results["artists"].get("items"):
         return jsonify({"error": "No artists found"}), 404
 
@@ -1086,7 +1086,7 @@ def search_album():
     sp = get_spotify_client()
 
     # Spotify APIでキーワードでアルバムを検索
-    results = sp.search(q=keyword, type="album", limit=1, market="US")
+    results = sp.search(q=keyword, type="album", limit=1, market="JP")
     if not results or not results.get("albums") or not results["albums"].get("items"):
         return jsonify({"error": "No albums found"}), 404
 
