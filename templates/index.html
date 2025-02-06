@@ -82,7 +82,7 @@
       {% endif %} 
       <div id="playlist-controls" lang="en">
         <select class="search-input" id="playlistDropdown">
-          <option value="" disabled selected style="display:none;">Select a Playlist or Search by Keyword</option>
+          <option value="" disabled selected style="display:none;">プレイリストを選ぶか、他の方法で検索🔍️</option>
           <!-- Grouped categories -->{% for category, items in playlists_grouped.items() %} 
           <optgroup label="&#x1F3B5;{{ category }}">{% for id, name in items %} 
             <option value="{{ id }}">&#x2022;{{ name }}</option>{% endfor %}
