@@ -52,7 +52,7 @@
             <i class="far fa-star"></i>
           </span>{% endfor %} 
         </span>
-        <p>Artists:
+        <p>アーティスト:
         <ul>{% for artist in album.artists %} 
           <li>
             <a href="{{ url_for('artist_details', artist_id=artist.id) }}" title="View artist details">
@@ -60,7 +60,7 @@
             </a>
           </li>{% endfor %} 
         </ul>
-        <p>Release Date: <span class="notranslate">{{ album.release_date }}</span>
+        <p>リリース日: <span class="notranslate">{{ album.release_date }}</span>
         </p>
       </div>
       <div class="section-space">
