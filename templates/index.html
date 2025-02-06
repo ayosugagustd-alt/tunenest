@@ -21,7 +21,7 @@
     <meta name="twitter:title" content="{{ playlist_name }}">
     <meta name="twitter:description" content="{{ playlist_description or 'Explore various tracks on tunenest.' }}">
     <meta name="twitter:image" content="{{ collage_filename or url_for('static', filename='tunenest.jpg', _external=True) }}?ver=1">
-    <title>{{ playlist_name or 'Explore Music' }}: Listen to Playlists</title>
+    <title>{{ playlist_name or 'Explore Music' }}</title>
     <script type="application/ld+json">
     {
         "@context": "http://schema.org",
@@ -62,7 +62,7 @@
   <body>
     <div class="container">
       {% if playlist_url %}
-        <h1><a href="{{ playlist_url }}" target="_blank" rel="noopener" title="Listen to the playlist on Spotify">{{ playlist_name }}</a></h1>
+        <h1><a href="{{ playlist_url }}" target="_blank" rel="noopener" title="プレイリストをSpotifyで聴く">{{ playlist_name }}</a></h1>
       {% else %}
         <h1>{{ playlist_name }}</h1>
       {% endif %}
@@ -117,7 +117,7 @@
                 <i class="fas fa-sort-down"></i>
               </button>
             </div>
-            <p>BPM</p>
+            <p>テンポ</p>
           </div>
           <div class="sort-option">
             <div>
@@ -162,7 +162,7 @@
                 <i class="fas fa-undo"></i>
               </button>
             </div>
-            <p>Reset</p>
+            <p>リセット</p>
           </div>
         </div>
         <div id="buttons">
@@ -207,13 +207,13 @@
               <span class="track-popularity">{{ '{: >3}'.format(track.popularity) }}%</span>
               {% if track.url %}
                 <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
-                  <span class="icon-caption">Preview</span>
+                  <span class="icon-caption">試聴</span>
                 </a>
               {% else %}
-                <span class="icon-disabled-caption">Preview</span>
+                <span class="icon-disabled-caption">試聴</span>
               {% endif %}
               <a href="https://open.spotify.com/track/{{ track.id }}" target="_blank" rel="noopener" title="Listen on Spotify">
-                <span class="icon-caption">Full</span>
+                <span class="icon-caption">フル再生</span>
               </a>
             </div>
           </div>
@@ -332,11 +332,11 @@
             `;
 
             // 試聴リンクを生成
-            playingInfo += `<br><a href="javascript:void(0);" onclick="playSpecificTrack(${index})">Preview</a>`;
+            playingInfo += `<br><a href="javascript:void(0);" onclick="playSpecificTrack(${index})">試聴</a>`;
 
             // Spotifyへのリンクを生成
             let spotifyLink = `https://open.spotify.com/track/${tracks[index].id}`;
-            playingInfo += `<br><a href="${spotifyLink}" target="_blank" rel="noopener" title="楽曲をSpotifyで聴く">Full</a>`;
+            playingInfo += `<br><a href="${spotifyLink}" target="_blank" rel="noopener" title="楽曲をSpotifyで聴く">フル再生</a>`;
 
             // 最後に全てのリンクと詳細をHTMLに反映
             document.getElementById('playing').innerHTML = playingInfo;

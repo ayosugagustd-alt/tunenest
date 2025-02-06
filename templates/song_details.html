@@ -85,7 +85,7 @@
         <p>テンポ: {{ song.tempo|float|round(1) }} BPM</p>
         <p>キー: {{ ["C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"][song.key] }}</p>
         <p>モード: {{ "Major" if song.mode == 1 else "Minor" }}</p>
-        <p>Camelotキー: {{ song.camelot_key }}</p>
+        <p>Camelot: {{ song.camelot_key }}</p>
         <p>曲の長さ: {{ (song.duration // 60)|int }}:{{ "%02d"|format(song.duration % 60) }} ({{ song.duration|float|round(1) }} 秒)</p>
         <div>
             <a href="https://twitter.com/intent/tweet?text={{ song.name }} - {{ song.artists | map(attribute='name') | join(', ') }} {{ request.url }}" target="_blank" rel="noopener noreferrer" title="Xでシェア">
