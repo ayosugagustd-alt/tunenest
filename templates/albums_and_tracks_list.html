@@ -28,7 +28,7 @@
     <div class="container">
       <h1>アルバム</h1>
       {% if total_albums > 0 %}
-      <p>総数: <span class="notranslate">{{ total_albums }}</span>枚</p>
+      <p>総数: <span class="notranslate">{{ total_albums }}</span></p>
       {% include 'pagination.html' %}
       <div>
         {% for album in albums_with_songs %}
@@ -60,7 +60,7 @@
       </div>
       {% else %}
       <p>No album information available.</p>
-      <a href="{{ url_for('artist_details', artist_id=artist_id) }}">Back to Artist Details</a>
+      <a href="{{ url_for('artist_details', artist_id=artist_id) }}">アーティストの詳細へ戻る</a>
       {% endif %}
       <!-- Navigation Icon at the bottom -->
       <div class="home-icon">
