@@ -103,7 +103,7 @@
         {{ render_progress_bar("ダンサブル度", song.danceability, "progress-danceability") }}
         {{ render_progress_bar("エナジー度", song.energy, "progress-energy") }}
         {{ render_progress_bar("インスト度", song.instrumentalness, "progress-instrumentalness") }}
-        {{ render_progress_bar("ラウドネス (音量レベル) (-60 dB to 0 dB)", song.loudness_normalized, "progress-loudness", " dB", song.loudness_raw) }}
+        {{ render_progress_bar("音量レベル(-60 dB to 0 dB)", song.loudness_normalized, "progress-loudness", " dB", song.loudness_raw) }}
         {{ render_progress_bar("ライブ感", song.liveness, "progress-liveness") }}
         {{ render_progress_bar("スピーチ度", song.speechiness, "progress-speechiness") }}
       </div>

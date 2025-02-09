@@ -191,12 +191,12 @@
           <div class="track-info">
             <div class="track-details">
               <div class="track-name">
-                <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener" title="View track details">
+                <a href="{{ url_for('song_details', song_id=track.id) }}" target="_blank" rel="noopener" title="曲の詳細を見る">
                   {{ track.name }}
                 </a>
               </div>
               <div class="artist">
-                <a href="{{ url_for('artist_details', artist_id=track.artist_id) }}" target="_blank" rel="noopener" title="View artist details">
+                <a href="{{ url_for('artist_details', artist_id=track.artist_id) }}" target="_blank" rel="noopener" title="アーティストの詳細を見る">
                   {{ track.artist }}
                 </a>
               </div>
