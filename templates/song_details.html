@@ -60,18 +60,18 @@
       </div>
       <div class="section-space">
         <h2>基本情報</h2>
-        <p>人気度: {{ song.popularity }}%</p>
-        <span>{% for _ in range(0, song.popularity // 10) %} 
-          <span class="star">
-            <i class="fas fa-star"></i>
-          </span>{% endfor %} {% if song.popularity % 10 >= 5 %} 
-          <span class="half-star">
-            <i class="fas fa-star-half-alt"></i>
-          </span>{% endif %} {% for _ in range(0, 10 - (song.popularity // 10) - (song.popularity % 10 >= 5)) %} 
-          <span class="empty-star">
-            <i class="far fa-star"></i>
-          </span>{% endfor %} 
-        </span>
+        <!-- <p>人気度: {{ song.popularity }}%</p> -->
+<!--        <span>{% for _ in range(0, song.popularity // 10) %}  -->
+<!--          <span class="star"> -->
+<!--            <i class="fas fa-star"></i> -->
+<!--          </span>{% endfor %} {% if song.popularity % 10 >= 5 %}  -->
+<!--          <span class="half-star"> -->
+<!--            <i class="fas fa-star-half-alt"></i> -->
+<!--          </span>{% endif %} {% for _ in range(0, 10 - (song.popularity // 10) - (song.popularity % 10 >= 5)) %}  -->
+<!--          <span class="empty-star"> -->
+<!--            <i class="far fa-star"></i> -->
+<!--          </span>{% endfor %}  -->
+<!--        </span> -->
         <p>アーティスト:</p>
         <ul>{% for artist in song.artists %}
           <li>

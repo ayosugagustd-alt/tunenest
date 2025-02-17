@@ -80,7 +80,7 @@
         <i class="fas fa-exclamation-triangle"></i>{{ playlist_name }} has more than 501 tracks, but only the first 500 are displayed.
       </h4>
       {% endif %} 
-      <div id="playlist-controls" lang="en">
+      <div id="playlist-controls" lang="ja">
         <select class="search-input" id="playlistDropdown">
           <option value="" disabled selected style="display:none;">🔽ここをクリックするとメニューが表示されます</option>
           <!-- Grouped categories -->{% for category, items in playlists_grouped.items() %} 
@@ -147,14 +147,14 @@
                 <i class="fas fa-sort-down"></i>
               </button>
             </div>
-            <p>人気度
-              <span class="tooltip">
-                <i class="fas fa-info-circle"></i>
-                  <span class="tooltiptext">
-                    Spotifyの人気度は0から100の範囲で、100が最も人気の高い値です。
-                  </span>
-              </span>
-            </p>
+<!--            <p>人気度 -->
+<!--              <span class="tooltip"> -->
+<!--                <i class="fas fa-info-circle"></i> -->
+<!--                  <span class="tooltiptext"> -->
+<!--                    Spotifyの人気度は0から100の範囲で、100が最も人気の高い値です。 -->
+<!--                  </span> -->
+<!--              </span> -->
+<!--            </p> -->
           </div>
           <div class="sort-option">
             <div>
@@ -204,7 +204,7 @@
             <div class="icon-row">
               <span class="tempo-value">{{ '{:0.0f}'.format(track.tempo|float) }} BPM</span>
               <span class="camelot-info">{{ "{: >3}".format(track.camelot_key_signature) }}</span>
-              <span class="track-popularity">{{ '{: >3}'.format(track.popularity) }}%</span>
+              <!-- <span class="track-popularity">{{ '{: >3}'.format(track.popularity) }}%</span> -->
               {% if track.url %}
                 <a href="javascript:void(0);" onclick="playSpecificTrack({{ loop.index0 }})">
                   <span class="icon-caption">試聴</span>
@@ -213,7 +213,7 @@
                 <span class="icon-disabled-caption">試聴</span>
               {% endif %}
               <a href="https://open.spotify.com/track/{{ track.id }}" target="_blank" rel="noopener" title="Spotifyで聴く">
-                <span class="icon-caption">フル再生</span>
+                <span class="icon-caption">フル</span>
               </a>
             </div>
           </div>
@@ -327,8 +327,8 @@
                 <span>Camelot</span>
                 <span style="background-color: ${camelotColor}; color: #000; padding: 2px 5px; border-radius: 3px;">
                     ${tracks[index].camelot_key_signature}
-                </span><br>
-                <span>人気度 ${tracks[index].popularity}%</span>
+                </span><!-- <br> -->
+                <!-- <span>人気度 ${tracks[index].popularity}%</span> -->
             `;
 
             // 試聴リンクを生成
@@ -336,7 +336,7 @@
 
             // Spotifyへのリンクを生成
             let spotifyLink = `https://open.spotify.com/track/${tracks[index].id}`;
-            playingInfo += `<br><a href="${spotifyLink}" target="_blank" rel="noopener" title="楽曲をSpotifyで聴く">フル再生</a>`;
+            playingInfo += `<br><a href="${spotifyLink}" target="_blank" rel="noopener" title="楽曲をSpotifyで聴く">フル</a>`;
 
             // 最後に全てのリンクと詳細をHTMLに反映
             document.getElementById('playing').innerHTML = playingInfo;

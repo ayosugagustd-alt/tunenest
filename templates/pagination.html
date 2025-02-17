@@ -1,10 +1,10 @@
 <div>
   {% if page > 1 %}
-    <a href="{{ url_for(request.endpoint, artist_id=artist_id, page=page-1) }}">Previous</a>
+    <a href="{{ url_for(request.endpoint, artist_id=artist_id, page=page-1) }}">前のページ</a>
   {% endif %}
   <span>{{ page }} / {{ total_pages }}</span>
   {% if page < total_pages %}
-    <a href="{{ url_for(request.endpoint, artist_id=artist_id, page=page+1) }}">Next</a>
+    <a href="{{ url_for(request.endpoint, artist_id=artist_id, page=page+1) }}">次のページ</a>
   {% endif %}
 </div>
 <!-- Back to Artist Details Link -->
