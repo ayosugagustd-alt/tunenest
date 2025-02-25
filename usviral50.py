@@ -1,20 +1,10 @@
 # 標準ライブラリ
 import json  # JSON形式データのエンコード/デコード
 import logging  # ロギング機能
-import locale  # ロケール
 import os  # OSレベルの機能を扱う
 import time  # 時間に関する機能
 from collections import defaultdict  # デフォルト値を持つ辞書
 
-# ロケールを強制的に日本語に設定
-os.environ["LANG"] = "ja_JP.UTF-8"
-try:
-    if os.name == "nt":  # Windows の場合
-        locale.setlocale(locale.LC_ALL, "Japanese_Japan.932")
-    else:  # Linux / Mac の場合
-        locale.setlocale(locale.LC_ALL, "ja_JP.UTF-8")
-except locale.Error:
-    print("Warning: 指定されたロケールがこのシステムでは利用できません。")
 
 # Flask関連ライブラリ
 from flask import Flask  # Flask本体
@@ -101,7 +91,6 @@ def get_spotify_client():
                     client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET
                 ), language = "ja",
             )
-            spotify_client._session.headers.update({"Accept-Language": "ja"})
         return spotify_client
 
 
@@ -572,8 +561,61 @@ def get_cached_artist_details(artist_id, sp):
         "external_urls": artist["external_urls"],
     }
 
-
 def get_artist_details(artist_id):
+    # Spotifyクライアントを取得
+    sp = get_spotify_client()
+
+    # キャッシュされたアーティストの基本情報を取得
+    artist_details = get_cached_artist_details(artist_id, sp)
+
+    # アーティストのトップ曲を取得
+    top_tracks = sp.artist_top_tracks(artist_id, country="JP")["tracks"]
+    top_tracks_details = [
+        {"name": track["name"], "id": track["id"]} for track in top_tracks
+    ]
+
+    # アーティストのアルバムを取得し、最新のアルバムを特定
+    albums = sp.artist_albums(artist_id, include_groups="album")["items"]
+    latest_album = albums[0] if albums else None
+
+    # 日本語タイトルを取得するために、最新のアルバムの情報を market="JP" で再取得
+    if latest_album:
+        album_id = latest_album["id"]
+        try:
+            japanese_album = sp.album(album_id, market="JP")
+            latest_album_details = {
+                "name": japanese_album["name"],  # 日本語名が取得できる可能性
+                "id": japanese_album["id"],
+                "artist_id": artist_id,
+            }
+        except Exception as e:
+            print(f"アルバム {album_id} の日本版取得に失敗: {e}")
+            latest_album_details = {
+                "name": latest_album["name"],  # フォールバックで元の名前
+                "id": latest_album["id"],
+                "artist_id": artist_id,
+            }
+    else:
+        latest_album_details = None
+
+    # アーティストのSpotifyページへのリンクを追加
+    spotify_url = artist_details.get("external_urls", {}).get("spotify")
+
+    # 関連アーティストを取得
+    related_artists = sp.artist_related_artists(artist_id)["artists"]
+    related_artists_details = [
+        {"name": artist["name"], "id": artist["id"]} for artist in related_artists
+    ]
+
+    return (
+        artist_details,
+        top_tracks_details,
+        latest_album_details,
+        related_artists_details,
+        spotify_url,
+    )
+
+def get_artist_details_old(artist_id):
     # Spotifyクライアントを取得
     sp = get_spotify_client()
 
