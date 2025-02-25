@@ -37,6 +37,7 @@
     }
     </script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='f_f_event_43_s16_f_event_43_0nbg.png') }}">
@@ -103,7 +104,7 @@
         {{ render_progress_bar("ダンサブル度", song.danceability, "progress-danceability") }}
         {{ render_progress_bar("エナジー度", song.energy, "progress-energy") }}
         {{ render_progress_bar("インスト度", song.instrumentalness, "progress-instrumentalness") }}
-        {{ render_progress_bar("音量レベル(-60 dB to 0 dB)", song.loudness_normalized, "progress-loudness", " dB", song.loudness_raw) }}
+        {{ render_progress_bar("音量レベル", song.loudness_normalized, "progress-loudness", " dB", song.loudness_raw) }}
         {{ render_progress_bar("ライブ感", song.liveness, "progress-liveness") }}
         {{ render_progress_bar("スピーチ度", song.speechiness, "progress-speechiness") }}
       </div>

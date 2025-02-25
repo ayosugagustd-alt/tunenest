@@ -1,6 +1,4 @@
 /* ベースのインポートとルート変数 */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-
 :root {
     --star-color: #FF9900;
     --empty-star-color: #767676;
@@ -19,12 +17,18 @@ body {
     background-color: #f5f5f5; /* 背景色を薄い灰色に設定 */
     margin: 0; /* デフォルトのマージンをリセット */
     color: #000000;
+/*
     font-family: 'Roboto', sans-serif;
+*/
+    font-family: 'Space Grotesk', sans-serif;
 }
 
 /* ヘッダーとタイトル */
 h1, h2, h3, h4 {
+/*
     font-family: 'Roboto', sans-serif;
+*/
+    font-family: 'Space Grotesk', sans-serif;
     font-weight: 700; /* 一貫して太字を使用 */
 }
 
@@ -224,7 +228,10 @@ img {
 }
 
 .icon-caption, .camelot-info, .icon-disabled-caption, .track-popularity {
+/*
     font-family: 'Roboto', sans-serif;
+*/
+    font-family: 'Space Grotesk', sans-serif;
     font-weight: 400;  /* Regular for readability */
     margin-right: 20px;
     font-size: 20px;
