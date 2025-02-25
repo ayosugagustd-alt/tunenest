@@ -571,8 +571,17 @@ def get_artist_details(artist_id):
 
     # アーティストのトップ曲を取得
     top_tracks = sp.artist_top_tracks(artist_id, country="JP")["tracks"]
+#    top_tracks_details = [
+#        {"name": track["name"], "id": track["id"]} for track in top_tracks
+#    ]
+    # ここで一括取得！
+    track_ids = [track["id"] for track in top_tracks]
+    track_details_response = sp.tracks(track_ids, market="JP")["tracks"]
+
+    # APIレスポンスを最適化しつつ、日本語を優先
     top_tracks_details = [
-        {"name": track["name"], "id": track["id"]} for track in top_tracks
+        {"name": track["name"], "id": track["id"]}
+        for track in track_details_response
     ]
 
     # アーティストのアルバムを取得し、最新のアルバムを特定
