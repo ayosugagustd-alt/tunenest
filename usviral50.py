@@ -101,6 +101,7 @@ def get_spotify_client():
                     client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET
                 ), language = "ja",
             )
+            spotify_client._session.headers.update({"Accept-Language": "ja"})
         return spotify_client
 
 
