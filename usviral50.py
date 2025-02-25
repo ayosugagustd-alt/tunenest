@@ -571,9 +571,15 @@ def get_artist_details(artist_id):
 
     # アーティストのトップ曲を取得
     top_tracks = sp.artist_top_tracks(artist_id, country="JP")["tracks"]
-    top_tracks_details = [
-        {"name": track["name"], "id": track["id"]} for track in top_tracks
-    ]
+#    top_tracks_details = [
+#        {"name": track["name"], "id": track["id"]} for track in top_tracks
+#    ]
+
+    # 各トップ曲の詳細を個別に取得し、日本語タイトルがあるか確認
+    top_tracks_details = []
+    for track in top_tracks:
+        track_details = sp.track(track["id"], market="JP")  # ← ここでmarketを指定！
+        top_tracks_details.append({"name": track_details["name"], "id": track["id"]})
 
     # アーティストのアルバムを取得し、最新のアルバムを特定
     albums = sp.artist_albums(artist_id, include_groups="album")["items"]
