@@ -1,10 +1,20 @@
 # 標準ライブラリ
 import json  # JSON形式データのエンコード/デコード
 import logging  # ロギング機能
+import locale  # ロケール
 import os  # OSレベルの機能を扱う
 import time  # 時間に関する機能
 from collections import defaultdict  # デフォルト値を持つ辞書
 
+# ロケールを強制的に日本語に設定
+os.environ["LANG"] = "ja_JP.UTF-8"
+try:
+    if os.name == "nt":  # Windows の場合
+        locale.setlocale(locale.LC_ALL, "Japanese_Japan.932")
+    else:  # Linux / Mac の場合
+        locale.setlocale(locale.LC_ALL, "ja_JP.UTF-8")
+except locale.Error:
+    print("Warning: 指定されたロケールがこのシステムでは利用できません。")
 
 # Flask関連ライブラリ
 from flask import Flask  # Flask本体
