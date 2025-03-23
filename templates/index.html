@@ -17,9 +17,9 @@
     <meta name="google" content="notranslate"> <!-- Prevent translation -->
     <meta name="author" content="hiro">
     <!-- Twitter Card data -->
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ playlist_name }}">
-    <meta name="twitter:description" content="{{ playlist_description or 'Explore various tracks on tunenest.' }}">
+    <meta name="twitter:description" content="{{ playlist_description or '長岡亮介WORKS‼️' }}">
     <meta name="twitter:image" content="{{ collage_filename or url_for('static', filename='tunenest.jpg', _external=True) }}?ver=1">
     <title>{{ playlist_name or 'Explore Music' }}</title>
     <script type="application/ld+json">
@@ -27,7 +27,7 @@
         "@context": "http://schema.org",
         "@type": "MusicPlaylist",
         "name": "{{ playlist_name or 'Explore Music' }}",
-        "description": "{{ playlist_description or 'Explore various tracks on tunenest.' }}",
+        "description": "{{ playlist_description or '長岡亮介WORKS‼️' }}",
         "numTracks": "{{ tracks|length }}",
         "track": {
             "@type": "ItemList",
