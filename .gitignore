@@ -1,18 +1,10 @@
-#仮想環境
+venv_clean/
 myenv/
-
-# コンパイル済みのPythonファイル
 __pycache__/
 *.pyc
 *.pyo
-
-# キャッシュファイル
 .cache
-
-# 一時ファイルや設定ファイル
 *.swp
 *.un~
 *.flake8
-
-# バックアップファイル
 *.back
