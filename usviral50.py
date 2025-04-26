@@ -571,48 +571,46 @@ def get_artist_details(artist_id):
     artist_details = get_cached_artist_details(artist_id, sp)
 
     # アーティストのトップ曲を取得
+    # === Spotipy版（現在は非使用、将来バージョンアップ時に再検討） ===
+    # 理由：spotipy.artist_albums()がmarket未対応、日本語表記が取得できない
     # top_tracks = sp.artist_top_tracks(artist_id, country="JP")["tracks"]
-    # top_tracks_details = [
-        # {"name": track["name"], "id": track["id"]} for track in top_tracks
-    # ]
-    # 1. アクセストークンを取得
-    access_token = sp.auth_manager.get_access_token(as_dict=False)
 
-    # 2. headersをセット
+    # === 現在使用しているrequests版 ===
+    access_token = sp.auth_manager.get_access_token(as_dict=False)
     headers = {
         "Authorization": f"Bearer {access_token}"
     }
-
-    # 3. APIを叩く
     params = {
         "market": "JP"  # ← countryではなくmarket！
     }
     url = f"https://api.spotify.com/v1/artists/{artist_id}/top-tracks"
     response = requests.get(url, headers=headers, params=params)
-
-    # 4. レスポンスをパース
     top_tracks = response.json()["tracks"]
+    # === 現在使用しているrequests版 ===
+
     top_tracks_details = [
         {"name": track["name"], "id": track["id"]} for track in top_tracks
     ]
 
     # アーティストのアルバムを取得し、最新のアルバムを特定
+    # === Spotipy版（現在は非使用、将来バージョンアップ時に再検討） ===
+    # 理由：spotipy.artist_albums()がmarket未対応、日本語表記が取得できない
     # albums = sp.artist_albums(artist_id, include_groups="album")["items"]
+
+    # === 現在使用しているrequests版 ===
     access_token = sp.auth_manager.get_access_token(as_dict=False)
     headers = {
         "Authorization": f"Bearer {access_token}"  # spotipyから取り出せる
     }
-
     params = {
         "include_groups": "album",
         "market": "JP",
         "limit": 20
     }
-
     url = f"https://api.spotify.com/v1/artists/{artist_id}/albums"
     response = requests.get(url, headers=headers, params=params)
-
     albums = response.json()["items"]
+    # === 現在使用しているrequests版 ===
 
     latest_album = albums[0] if albums else None
     latest_album_details = (
@@ -784,26 +782,28 @@ def get_artist_albums_with_songs(artist_id, page, per_page=10):
     limit = per_page
 
     # アーティストのアルバムをページ単位で取得
+    # === Spotipy版（現在は非使用、将来バージョンアップ時に再検討） ===
+    # 理由：spotipy.artist_albums()がmarket未対応、日本語表記が取得できない
     #albums = sp.artist_albums(
     #    artist_id, include_groups="album", offset=offset, limit=limit
     #)["items"]
-    # アクセストークンを取得
+
+    # === 現在使用しているrequests版 ===
     access_token = sp.auth_manager.get_access_token(as_dict=False)
     headers = {
         "Authorization": f"Bearer {access_token}"
     }
-
-    # ここから直接叩く！
     params = {
         "include_groups": "album",
         "market": "JP",
         "limit": limit,
         "offset": offset
     }
-
     url = f"https://api.spotify.com/v1/artists/{artist_id}/albums"
     response = requests.get(url, headers=headers, params=params)
     albums = response.json()["items"]
+    # === 現在使用しているrequests版 ===
+
     result = []
 
     for album in albums:
@@ -841,9 +841,13 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
     limit = per_page
 
     # アーティストのシングルをページ単位で取得
+    # === Spotipy版（現在は非使用、将来バージョンアップ時に再検討） ===
+    # 理由：spotipy.artist_albums()がmarket未対応、日本語表記が取得できない
     #singles = sp.artist_albums(
     #    artist_id, include_groups="single", offset=offset, limit=limit
     #)["items"]
+
+    # === 現在使用しているrequests版 ===
     access_token = sp.auth_manager.get_access_token(as_dict=False)
     headers = {
         "Authorization": f"Bearer {access_token}"
@@ -857,6 +861,7 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
     }
     response = requests.get(url, headers=headers, params=params)
     singles = response.json()["items"]
+    # === 現在使用しているrequests版 ===
 
     result = []
 
@@ -899,9 +904,13 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
     limit = per_page
 
     # アーティストのコンピレーションアルバムをページ単位で取得
+    # === Spotipy版（現在は非使用、将来バージョンアップ時に再検討） ===
+    # 理由：spotipy.artist_albums()がmarket未対応、日本語表記が取得できない
     #compilations = sp.artist_albums(
     #    artist_id, include_groups="compilation", offset=offset, limit=limit
     #)["items"]
+
+    # === 現在使用しているrequests版 ===
     access_token = sp.auth_manager.get_access_token(as_dict=False)
     headers = {
         "Authorization": f"Bearer {access_token}"
@@ -915,6 +924,7 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
     }
     response = requests.get(url, headers=headers, params=params)
     compilations = response.json()["items"]
+    # === 現在使用しているrequests版 ===
 
     result = []
 
