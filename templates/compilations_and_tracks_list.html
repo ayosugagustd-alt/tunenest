@@ -58,6 +58,7 @@
         <!-- Separator between albums -->
         <hr class="album-divider">
         {% endfor %}
+      {% include 'pagination.html' %}
       </div>
       {% else %}
       <p>コンピレーションアルバムの情報はありません。</p>
