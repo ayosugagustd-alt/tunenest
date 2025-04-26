@@ -647,7 +647,30 @@ def get_album_details(album_id):
     sp = get_spotify_client()
 
     # アルバムIDを使用してアルバム情報を取得
-    album = sp.album(album_id, market="JP")
+    # album = sp.album(album_id, market="JP")
+
+    # 1. アクセストークンを取得
+    access_token = sp.auth_manager.get_access_token(as_dict=False)
+
+    # 2. headersをセット
+    headers = {
+        "Authorization": f"Bearer {access_token}"
+    }
+
+    # 3. パラメータ設定
+    params = {
+        "market": "JP"
+    }
+
+    # 4. APIエンドポイントURL
+    url = f"https://api.spotify.com/v1/albums/{album_id}"
+
+    # 5. リクエスト送信
+    response = requests.get(url, headers=headers, params=params)
+
+    # 6. JSONとしてパース
+    album = response.json()
+
 
     # 収録曲リストを作成
     tracks = [
