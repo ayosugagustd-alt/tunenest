@@ -841,9 +841,19 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
     limit = per_page
 
     # アーティストのシングルをページ単位で取得
-    singles = sp.artist_albums(
-        artist_id, include_groups="single", offset=offset, limit=limit
-    )["items"]
+    #singles = sp.artist_albums(
+    #    artist_id, include_groups="single", offset=offset, limit=limit
+    #)["items"]
+    url = f"https://api.spotify.com/v1/artists/{artist_id}/albums"
+    params = {
+        "include_groups": "single",
+        "market": "JP",
+        "limit": limit,
+        "offset": offset
+    }
+    response = requests.get(url, headers=headers, params=params)
+    singles = response.json()["items"]
+
     result = []
 
     # シングル情報を取得
@@ -885,9 +895,19 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
     limit = per_page
 
     # アーティストのコンピレーションアルバムをページ単位で取得
-    compilations = sp.artist_albums(
-        artist_id, include_groups="compilation", offset=offset, limit=limit
-    )["items"]
+    #compilations = sp.artist_albums(
+    #    artist_id, include_groups="compilation", offset=offset, limit=limit
+    #)["items"]
+    url = f"https://api.spotify.com/v1/artists/{artist_id}/albums"
+    params = {
+        "include_groups": "compilation",
+        "market": "JP",
+        "limit": limit,
+        "offset": offset
+    }
+    response = requests.get(url, headers=headers, params=params)
+    compilations = response.json()["items"]
+
     result = []
 
     # 各コンピレーションアルバムの詳細情報を取得
