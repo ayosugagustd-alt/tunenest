@@ -844,6 +844,10 @@ def get_artist_singles_with_songs(artist_id, page, per_page=10):
     #singles = sp.artist_albums(
     #    artist_id, include_groups="single", offset=offset, limit=limit
     #)["items"]
+    access_token = sp.auth_manager.get_access_token(as_dict=False)
+    headers = {
+        "Authorization": f"Bearer {access_token}"
+    }
     url = f"https://api.spotify.com/v1/artists/{artist_id}/albums"
     params = {
         "include_groups": "single",
@@ -898,6 +902,10 @@ def get_artist_compilations_with_songs(artist_id, page, per_page=10):
     #compilations = sp.artist_albums(
     #    artist_id, include_groups="compilation", offset=offset, limit=limit
     #)["items"]
+    access_token = sp.auth_manager.get_access_token(as_dict=False)
+    headers = {
+        "Authorization": f"Bearer {access_token}"
+    }
     url = f"https://api.spotify.com/v1/artists/{artist_id}/albums"
     params = {
         "include_groups": "compilation",
