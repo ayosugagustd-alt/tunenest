@@ -784,9 +784,26 @@ def get_artist_albums_with_songs(artist_id, page, per_page=10):
     limit = per_page
 
     # アーティストのアルバムをページ単位で取得
-    albums = sp.artist_albums(
-        artist_id, include_groups="album", offset=offset, limit=limit
-    )["items"]
+    #albums = sp.artist_albums(
+    #    artist_id, include_groups="album", offset=offset, limit=limit
+    #)["items"]
+    # アクセストークンを取得
+    access_token = sp.auth_manager.get_access_token(as_dict=False)
+    headers = {
+        "Authorization": f"Bearer {access_token}"
+    }
+
+    # ここから直接叩く！
+    params = {
+        "include_groups": "album",
+        "market": "JP",
+        "limit": limit,
+        "offset": offset
+    }
+
+    url = f"https://api.spotify.com/v1/artists/{artist_id}/albums"
+    response = requests.get(url, headers=headers, params=params)
+    albums = response.json()["items"]
     result = []
 
     for album in albums:
