@@ -571,7 +571,27 @@ def get_artist_details(artist_id):
     artist_details = get_cached_artist_details(artist_id, sp)
 
     # アーティストのトップ曲を取得
-    top_tracks = sp.artist_top_tracks(artist_id, country="JP")["tracks"]
+    # top_tracks = sp.artist_top_tracks(artist_id, country="JP")["tracks"]
+    # top_tracks_details = [
+        # {"name": track["name"], "id": track["id"]} for track in top_tracks
+    # ]
+    # 1. アクセストークンを取得
+    access_token = sp.auth_manager.get_access_token(as_dict=False)
+
+    # 2. headersをセット
+    headers = {
+        "Authorization": f"Bearer {access_token}"
+    }
+
+    # 3. APIを叩く
+    params = {
+        "market": "JP"  # ← countryではなくmarket！
+    }
+    url = f"https://api.spotify.com/v1/artists/{artist_id}/top-tracks"
+    response = requests.get(url, headers=headers, params=params)
+
+    # 4. レスポンスをパース
+    top_tracks = response.json()["tracks"]
     top_tracks_details = [
         {"name": track["name"], "id": track["id"]} for track in top_tracks
     ]
