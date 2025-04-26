@@ -3,6 +3,7 @@ import json  # JSON形式データのエンコード/デコード
 import logging  # ロギング機能
 import os  # OSレベルの機能を扱う
 import time  # 時間に関する機能
+import requests
 from collections import defaultdict  # デフォルト値を持つ辞書
 
 
@@ -576,7 +577,23 @@ def get_artist_details(artist_id):
     ]
 
     # アーティストのアルバムを取得し、最新のアルバムを特定
-    albums = sp.artist_albums(artist_id, include_groups="album")["items"]
+    # albums = sp.artist_albums(artist_id, include_groups="album")["items"]
+    access_token = sp.auth_manager.get_access_token(as_dict=False)
+    headers = {
+        "Authorization": f"Bearer {access_token}"  # spotipyから取り出せる
+    }
+
+    params = {
+        "include_groups": "album",
+        "market": "JP",
+        "limit": 20
+    }
+
+    url = f"https://api.spotify.com/v1/artists/{artist_id}/albums"
+    response = requests.get(url, headers=headers, params=params)
+
+    albums = response.json()["items"]
+
     latest_album = albums[0] if albums else None
     latest_album_details = (
         {"name": latest_album["name"], "id": latest_album["id"], "artist_id": artist_id}
