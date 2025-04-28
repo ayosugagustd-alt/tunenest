@@ -86,7 +86,7 @@
           <option value="" disabled selected style="display:none;">🔽メニューを開く</option>
           <!-- Grouped categories -->{% for category, items in playlists_grouped.items() %} 
           <optgroup label="{{ category }}">{% for id, name in items %}
-            <option value="{{ id }}">&#x2022;{{ name }}</option>{% endfor %}
+            <option value="{{ id }}">{{ name }}</option>{% endfor %}
           </optgroup>{% endfor %} 
           <!-- <option value="searchTrack" class="special-option">&#x1F50D; 曲を検索</option> -->
           <!-- <option value="searchArtist" class="special-option">&#x1F50D; アーティストを検索</option> -->
