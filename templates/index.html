@@ -83,9 +83,9 @@
       {% endif %} 
       <div id="playlist-controls" lang="ja">
         <select class="search-input" id="playlistDropdown">
-          <option value="" disabled selected style="display:none;">🔽ここをクリックするとメニューが表示されます</option>
+          <option value="" disabled selected style="display:none;">🔽メニューを開く</option>
           <!-- Grouped categories -->{% for category, items in playlists_grouped.items() %} 
-          <optgroup label="&#x2022;{{ category }}">{% for id, name in items %}
+          <optgroup label="{{ category }}">{% for id, name in items %}
             <option value="{{ id }}">&#x2022;{{ name }}</option>{% endfor %}
           </optgroup>{% endfor %} 
           <!-- <option value="searchTrack" class="special-option">&#x1F50D; 曲を検索</option> -->
