@@ -83,13 +83,13 @@
       <div id="playlist-controls" lang="ja">
         <select class="search-input" id="playlistDropdown">
           <option value="" disabled selected style="display:none;">🔽メニューを開く</option>
+          <option value="searchTrack" class="special-option">&#x1F50D; 曲を検索</option>
+          <option value="searchArtist" class="special-option">&#x1F50D; アーティストを検索</option>
+          <!-- <option value="searchPlaylist" class="special-option">&#x1F50D; プレイリストを検索</option> -->
           <!-- Grouped categories -->{% for category, items in playlists_grouped.items() %} 
           <optgroup label="{{ category }}">{% for id, name in items %}
             <option value="{{ id }}">{{ name }}</option>{% endfor %}
           </optgroup>{% endfor %} 
-          <!-- <option value="searchTrack" class="special-option">&#x1F50D; 曲を検索</option> -->
-          <!-- <option value="searchArtist" class="special-option">&#x1F50D; アーティストを検索</option> -->
-          <!-- <option value="searchPlaylist" class="special-option">&#x1F50D; プレイリストを検索</option> -->
         </select>
         <div id="searchBox" style="display:none;">
           <input type="text" class="search-input" id="keyword" tabindex="0" placeholder="Track name, artist name…" autocomplete="off">
