@@ -32,17 +32,6 @@ Heroku上で以下の環境変数を設定します：
 SPOTIFY_CLIENT_ID = your_client_id
 SPOTIFY_CLIENT_SECRET = your_client_secret
 
-# ディレクトリ構成（抜粋）
-
-.
-├── usviral50.py
-├── templates/
-├── static/
-├── config/
-│ └── playlists.json
-├── requirements.txt
-└── Procfile
-
 ## 作者について
 
 viでWebアプリを自作。プログラミングは単なる趣味。
