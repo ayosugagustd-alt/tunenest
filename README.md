@@ -45,5 +45,4 @@ SPOTIFY_CLIENT_SECRET = your_client_secret
 
 ## 作者について
 
-元SE。現在は福祉の現場に従事しながら、viでWebアプリを自作。  
-趣味としてプログラミングを継続中。
+viでWebアプリを自作。プログラミングは単なる趣味。
